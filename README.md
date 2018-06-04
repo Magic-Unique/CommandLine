@@ -6,25 +6,16 @@ A command line arguments parser of Objective-C
 
 ## Features
 
-[x] Support subcommands
-
-[x] Support Queries
-
-* key-value (require)
-
-* key-value (optional)
-
-* key-value (optional & default-if-nil)
-
-[x] Support Flags
-
-[x] Auto create colorful help infomation (just like cocoapods.)
-
-[x] Auto print help infomation if arguments is invalid
-
-[x] Version command
-
-[x] Verbose
+1. Support subcommands
+2. Support Queries
+	* key-value (require)
+	* key-value (optional)
+	* key-value (optional & default-if-nil)
+3. Support Flags
+4. Auto create colorful help infomation (just like cocoapods.)
+5. Auto print help infomation if arguments is invalid
+6. Version command
+7. Verbose
 
 ## Installation
 
@@ -268,7 +259,7 @@ $ tool -v
 ### Print colorful text
 
 ```objc
-[CCText print:CCStyleBord|CCStyleItalic format:@"A text with %@ and %@", @"bord", @"italic"];
+CCPrintf(CCStyleBord|CCStyleItalic, @"A text with %@ and %@", @"bord", @"italic");
 ```
 
 ## LICENCE
