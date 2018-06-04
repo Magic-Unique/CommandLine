@@ -7,16 +7,23 @@ A command line arguments parser of Objective-C
 ## Features
 
 [x] Support subcommands
+
 [x] Support Queries
 
-​	[x] key-value (require)
-	[x] key-value (optional)
-	[x] key-value (optional & default-if-nil)
+* key-value (require)
+
+* key-value (optional)
+
+* key-value (optional & default-if-nil)
 
 [x] Support Flags
+
 [x] Auto create colorful help infomation (just like cocoapods.)
+
 [x] Auto print help infomation if arguments is invalid
+
 [x] Version command
+
 [x] Verbose
 
 ## Installation
