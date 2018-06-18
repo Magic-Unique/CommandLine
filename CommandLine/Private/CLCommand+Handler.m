@@ -20,7 +20,7 @@
 - (CLResponse *)_handleRequest:(CLRequest *)request {
     NSAssert((self.task || self.subcommands.count), @"The command `%@` should contains a task or a subcommand", [request.commands componentsJoinedByString:@" "]);
     
-    if ([CLCommand sharedCommand] == self && [request.flags containsObject:@"version"]) {
+    if (CLCommand.main == self && [request.flags containsObject:@"version"]) {
         [CLCommand printVersion];
         return [CLResponse succeed:@{@"mode":@"version"}];
     }

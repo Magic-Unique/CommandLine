@@ -30,13 +30,6 @@ typedef CLResponse *(^CLCommandTask)(CLCommand *command, CLRequest *request);
 @interface CLCommand : CLExplain
 
 /**
- Set the tool's explain. 设置此命令行的描述
-
- @param explain NSString
- */
-+ (void)setExplain:(NSString *)explain;
-
-/**
  Set the tool's version. 设置此命令行的版本
 
  @param version NSString
@@ -49,13 +42,6 @@ typedef CLResponse *(^CLCommandTask)(CLCommand *command, CLRequest *request);
  @return NSString
  */
 + (NSString *)version;
-
-/**
- Set the task without any subcommand. 设置无子命令的时候要执行的任务
-
- @param defaultTask Default task.
- */
-+ (void)setDefaultTask:(CLCommandTask)defaultTask;
 
 /**
  Handle a request. You need defined all commands before calling the method. 处理请求。执行之前请定义完毕所有命令。
@@ -71,7 +57,7 @@ typedef CLResponse *(^CLCommandTask)(CLCommand *command, CLRequest *request);
 
 @property (nonatomic, readonly) NSString *command;
 
-@property (nonatomic, readonly) NSString *explain;
+@property (nonatomic, strong) NSString *explain;
 
 @property (nonatomic, readonly) NSDictionary<NSString *, CLCommand *> *subcommands;
 
@@ -79,23 +65,18 @@ typedef CLResponse *(^CLCommandTask)(CLCommand *command, CLRequest *request);
 
 @property (nonatomic, readonly) NSDictionary<NSString *, CLFlag *> *flags;
 
-@property (nonatomic, readonly) NSArray *ioPaths;
+@property (nonatomic, readonly) NSArray<CLIOPath *> *ioPaths;
 
 @property (nonatomic, weak, readonly) CLCommand *supercommand;
+@property (nonatomic, readonly) NSArray<NSString *> *commandPath;
+@property (nonatomic, readonly) NSArray<CLCommand *> *commandNodes;
 
 @property (nonatomic, readonly) CLCommandTask task;
 
-+ (instancetype)sharedCommand;
+- (instancetype)defineSubcommand:(NSString *)command;
+- (void)onHandlerRequest:(CLCommandTask)onHandler;
 
-+ (instancetype)defineCommand:(NSString *)command
-                      explain:(NSString *)explain
-                     onCreate:(CLCommandDefining)onCreate
-                    onRequest:(CLCommandTask)onRequest;
-
-- (instancetype)defineSubcommand:(NSString *)command
-                         explain:(NSString *)explain
-                        onCreate:(CLCommandDefining)onCreate
-                       onRequest:(CLCommandTask)onRequest;
++ (instancetype)main;
 
 @property (nonatomic, readonly) CLQuery *(^setQuery)(NSString *key);
 

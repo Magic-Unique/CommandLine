@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		6D35EB9520AB2CB80041FCDF /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D35EB9420AB2CB80041FCDF /* main.m */; };
-		6DAEC7DF20C3E38C00D3DB38 /* CLCommand+Print.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DAEC7C220C3E38C00D3DB38 /* CLCommand+Print.m */; };
 		6DAEC7E020C3E38C00D3DB38 /* CLCommand+Request.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DAEC7C420C3E38C00D3DB38 /* CLCommand+Request.m */; };
 		6DAEC7E120C3E38C00D3DB38 /* CLConst.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DAEC7C620C3E38C00D3DB38 /* CLConst.m */; };
 		6DAEC7E220C3E38C00D3DB38 /* CLResponse+Private.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DAEC7C920C3E38C00D3DB38 /* CLResponse+Private.m */; };
@@ -22,6 +21,8 @@
 		6DAEC7EB20C3E38C00D3DB38 /* CLRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DAEC7DC20C3E38C00D3DB38 /* CLRequest.m */; };
 		6DAEC7EC20C3E38C00D3DB38 /* CLResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DAEC7DE20C3E38C00D3DB38 /* CLResponse.m */; };
 		6DAEC7EF20C4393800D3DB38 /* CLTerminal.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DAEC7EE20C4393800D3DB38 /* CLTerminal.m */; };
+		7EED53C420CAEBD0007CDEA7 /* CLCommand+Print.m in Sources */ = {isa = PBXBuildFile; fileRef = 7EED53C320CAEBCF007CDEA7 /* CLCommand+Print.m */; };
+		7EED53C720CAEBFE007CDEA7 /* CLCommand+Handler.m in Sources */ = {isa = PBXBuildFile; fileRef = 7EED53C520CAEBFE007CDEA7 /* CLCommand+Handler.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -40,13 +41,10 @@
 		6D35EB9120AB2CB80041FCDF /* CommandLineDemo */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = CommandLineDemo; sourceTree = BUILT_PRODUCTS_DIR; };
 		6D35EB9420AB2CB80041FCDF /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		6DAEC7BF20C3E38C00D3DB38 /* CommandLine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommandLine.h; sourceTree = "<group>"; };
-		6DAEC7C120C3E38C00D3DB38 /* CLCommand+Print.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CLCommand+Print.h"; sourceTree = "<group>"; };
-		6DAEC7C220C3E38C00D3DB38 /* CLCommand+Print.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CLCommand+Print.m"; sourceTree = "<group>"; };
 		6DAEC7C320C3E38C00D3DB38 /* CLCommand+Request.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CLCommand+Request.h"; sourceTree = "<group>"; };
 		6DAEC7C420C3E38C00D3DB38 /* CLCommand+Request.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CLCommand+Request.m"; sourceTree = "<group>"; };
 		6DAEC7C520C3E38C00D3DB38 /* CLConst.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLConst.h; sourceTree = "<group>"; };
 		6DAEC7C620C3E38C00D3DB38 /* CLConst.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CLConst.m; sourceTree = "<group>"; };
-		6DAEC7C720C3E38C00D3DB38 /* CLPrivate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLPrivate.h; sourceTree = "<group>"; };
 		6DAEC7C820C3E38C00D3DB38 /* CLResponse+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CLResponse+Private.h"; sourceTree = "<group>"; };
 		6DAEC7C920C3E38C00D3DB38 /* CLResponse+Private.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CLResponse+Private.m"; sourceTree = "<group>"; };
 		6DAEC7CA20C3E38C00D3DB38 /* NSString+CommandLine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+CommandLine.h"; sourceTree = "<group>"; };
@@ -69,6 +67,10 @@
 		6DAEC7DE20C3E38C00D3DB38 /* CLResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CLResponse.m; sourceTree = "<group>"; };
 		6DAEC7ED20C4393800D3DB38 /* CLTerminal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CLTerminal.h; sourceTree = "<group>"; };
 		6DAEC7EE20C4393800D3DB38 /* CLTerminal.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CLTerminal.m; sourceTree = "<group>"; };
+		7EED53C220CAEBCF007CDEA7 /* CLCommand+Print.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CLCommand+Print.h"; sourceTree = "<group>"; };
+		7EED53C320CAEBCF007CDEA7 /* CLCommand+Print.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CLCommand+Print.m"; sourceTree = "<group>"; };
+		7EED53C520CAEBFE007CDEA7 /* CLCommand+Handler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CLCommand+Handler.m"; sourceTree = "<group>"; };
+		7EED53C620CAEBFE007CDEA7 /* CLCommand+Handler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CLCommand+Handler.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -121,13 +123,12 @@
 		6DAEC7C020C3E38C00D3DB38 /* Private */ = {
 			isa = PBXGroup;
 			children = (
-				6DAEC7C120C3E38C00D3DB38 /* CLCommand+Print.h */,
-				6DAEC7C220C3E38C00D3DB38 /* CLCommand+Print.m */,
+				7EED53C620CAEBFE007CDEA7 /* CLCommand+Handler.h */,
+				7EED53C520CAEBFE007CDEA7 /* CLCommand+Handler.m */,
 				6DAEC7C320C3E38C00D3DB38 /* CLCommand+Request.h */,
 				6DAEC7C420C3E38C00D3DB38 /* CLCommand+Request.m */,
 				6DAEC7C520C3E38C00D3DB38 /* CLConst.h */,
 				6DAEC7C620C3E38C00D3DB38 /* CLConst.m */,
-				6DAEC7C720C3E38C00D3DB38 /* CLPrivate.h */,
 				6DAEC7C820C3E38C00D3DB38 /* CLResponse+Private.h */,
 				6DAEC7C920C3E38C00D3DB38 /* CLResponse+Private.m */,
 				6DAEC7CA20C3E38C00D3DB38 /* NSString+CommandLine.h */,
@@ -143,6 +144,8 @@
 				6DAEC7CE20C3E38C00D3DB38 /* CCText.m */,
 				6DAEC7D120C3E38C00D3DB38 /* CLCommand.h */,
 				6DAEC7D220C3E38C00D3DB38 /* CLCommand.m */,
+				7EED53C220CAEBCF007CDEA7 /* CLCommand+Print.h */,
+				7EED53C320CAEBCF007CDEA7 /* CLCommand+Print.m */,
 				6DAEC7D320C3E38C00D3DB38 /* CLExplain.h */,
 				6DAEC7D420C3E38C00D3DB38 /* CLExplain.m */,
 				6DAEC7D520C3E38C00D3DB38 /* CLFlag.h */,
@@ -219,11 +222,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				6DAEC7E420C3E38C00D3DB38 /* CCText.m in Sources */,
-				6DAEC7DF20C3E38C00D3DB38 /* CLCommand+Print.m in Sources */,
 				6DAEC7EF20C4393800D3DB38 /* CLTerminal.m in Sources */,
 				6DAEC7EA20C3E38C00D3DB38 /* CLQuery.m in Sources */,
 				6DAEC7E820C3E38C00D3DB38 /* CLFlag.m in Sources */,
 				6DAEC7E020C3E38C00D3DB38 /* CLCommand+Request.m in Sources */,
+				7EED53C720CAEBFE007CDEA7 /* CLCommand+Handler.m in Sources */,
+				7EED53C420CAEBD0007CDEA7 /* CLCommand+Print.m in Sources */,
 				6DAEC7E620C3E38C00D3DB38 /* CLCommand.m in Sources */,
 				6DAEC7E120C3E38C00D3DB38 /* CLConst.m in Sources */,
 				6DAEC7E720C3E38C00D3DB38 /* CLExplain.m in Sources */,

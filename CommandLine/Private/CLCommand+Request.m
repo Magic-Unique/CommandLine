@@ -120,11 +120,11 @@
     }
     
     if (arguments.count == 1) {
-        CLCommand *sharedCommand = [self sharedCommand];
+        CLCommand *sharedCommand = CLCommand.main;
         return [CLRequest requestWithCommands:@[sharedCommand.command] queries:nil flags:nil paths:nil];
     }
     
-    CLCommand *command = [CLCommand sharedCommand];
+    CLCommand *command = [CLCommand main];
     
     NSMutableArray *_arguments = [arguments mutableCopy];
     NSMutableArray *_commands = [NSMutableArray array]; [_commands addObject:command.command];

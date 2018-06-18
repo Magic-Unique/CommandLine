@@ -36,6 +36,18 @@
 
 - (NSInteger)integerValueForQuery:(NSString *)query;
 
+- (BOOL)flag:(NSString *)flag;
+
 - (void)verbose:(NSString *)format, ...;
+
+- (void)print:(NSString *)format, ...;
+
+- (void)error:(NSString *)format, ...;
+
+- (void)warning:(NSString *)format, ...;
+
+- (void)success:(NSString *)format, ...;
+
+- (void)info:(NSString *)format, ...;
 
 @end

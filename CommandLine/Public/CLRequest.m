@@ -9,6 +9,7 @@
 #import "CLRequest.h"
 #import "CLCommand+Request.h"
 #import "CLIOPath.h"
+#import "CCText.h"
 
 @implementation CLRequest
 
@@ -17,12 +18,14 @@
 }
 
 + (instancetype)requestWithProcessProcess:(NSProcessInfo *)processInfo {
-    return [self requestWithArguments:processInfo.arguments];
+    NSMutableArray *arguments = [processInfo.arguments mutableCopy];
+    [arguments removeObjectAtIndex:0];
+    return [self requestWithArguments:arguments];
 }
 
 + (instancetype)requestWithArgc:(int)argc argv:(const char *[])argv {
     NSMutableArray *array = [NSMutableArray arrayWithCapacity:argc];
-    for (NSUInteger i = 0; i < argc; i++) {
+    for (NSUInteger i = 1; i < argc; i++) {
         NSString *item = [NSString stringWithUTF8String:argv[i]];
         [array addObject:item];
     }
@@ -30,6 +33,11 @@
 }
 
 + (instancetype)requestWithArguments:(NSArray *)arguments {
+    arguments = ({
+        NSMutableArray *arg = [NSMutableArray arrayWithArray:arguments];
+        [arg insertObject:NSProcessInfo.processInfo.arguments.firstObject.lastPathComponent atIndex:0];
+        [arg copy];
+    });
     return [CLCommand requestWithArguments:arguments];
 }
 
@@ -58,7 +66,7 @@
 
 + (instancetype)requestWithCommands:(NSArray *)commands queries:(NSDictionary *)queries flags:(id)flags paths:(NSArray *)paths {
     NSMutableArray *_cmds = [commands mutableCopy];
-    CLCommand *command = [CLCommand sharedCommand];
+    CLCommand *command = [CLCommand main];
     while (_cmds.count > 1) {
         command = command.subcommands[_cmds[1]];
         [_cmds removeObjectAtIndex:1];
@@ -86,14 +94,63 @@
     return [value integerValue];
 }
 
+- (BOOL)flag:(NSString *)flag {
+    return [self.flags containsObject:flag];
+}
+
 - (void)verbose:(NSString *)format, ... {
     va_list args;
     va_start(args, format);
     NSString *str = [[NSString alloc] initWithFormat:format arguments:args];
+    str = [str stringByAppendingString:@"\n"];
     va_end(args);
-    if ([self.flags containsObject:[CLFlag verbose].key]) {
+    if ([self flag:[CLFlag verbose].key]) {
         printf("%s", str.UTF8String);
     }
+}
+
+- (void)print:(NSString *)format, ... {
+    va_list args;
+    va_start(args, format);
+    NSString *str = [[NSString alloc] initWithFormat:format arguments:args];
+    va_end(args);
+    printf("%s", str.UTF8String);
+}
+
+- (void)error:(NSString *)format, ... {
+    va_list args;
+    va_start(args, format);
+    NSString *str = [[NSString alloc] initWithFormat:format arguments:args];
+    str = [str stringByAppendingString:@"\n"];
+    va_end(args);
+    CCPrintf(CCStyleForegroundColorDarkRed, str);
+}
+
+- (void)warning:(NSString *)format, ... {
+    va_list args;
+    va_start(args, format);
+    NSString *str = [[NSString alloc] initWithFormat:format arguments:args];
+    str = [str stringByAppendingString:@"\n"];
+    va_end(args);
+    CCPrintf(CCStyleForegroundColorYellow, str);
+}
+
+- (void)success:(NSString *)format, ... {
+    va_list args;
+    va_start(args, format);
+    NSString *str = [[NSString alloc] initWithFormat:format arguments:args];
+    str = [str stringByAppendingString:@"\n"];
+    va_end(args);
+    CCPrintf(CCStyleForegroundColorGreen, str);
+}
+
+- (void)info:(NSString *)format, ... {
+    va_list args;
+    va_start(args, format);
+    NSString *str = [[NSString alloc] initWithFormat:format arguments:args];
+    str = [str stringByAppendingString:@"\n"];
+    va_end(args);
+    CCPrintf(CCStyleLight, str);
 }
 
 @end

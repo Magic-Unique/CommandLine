@@ -1,8 +1,12 @@
 # CommandLine
 
-> 0.0.1
+> 0.0.2
 
 A command line arguments parser of Objective-C
+
+## Demo
+
+See [Magic-Unique/MobileProvisionTool](https://github.com/Magic-Unique/MobileProvisionTool)
 
 ## Features
 
@@ -12,10 +16,12 @@ A command line arguments parser of Objective-C
 	* key-value (optional)
 	* key-value (optional & default-if-nil)
 3. Support Flags
+4. Support Abbr and multi-abbrs parsing
 4. Auto create colorful help infomation (just like cocoapods.)
-5. Auto print help infomation if arguments is invalid
+5. Auto print helping infomation if arguments is invalid
 6. Version command
-7. Verbose
+7. Output with verbose/success/warning/error/info
+8. Custom colorful text
 
 ## Installation
 
@@ -54,23 +60,19 @@ binary|command|subcommand|subsubcommand...
 you can execute the code before parse.
 
 ```objc
-CLCommand * spec = [CLCommand defineCommand:@"spec"
-                                    explain:@"Spec commands"
-                                   onCreate:^(CLCommand *command) {
-                                   //	Add extends query/flags to `command`
-                                   } onRequest:^CLResponse *(CLCommand *command, CLRequest *request) {
-                                   //	The block will be called if user did not type `create` or any subcommand.
-                                   //	You can replace the block with `nil` if you do not want to do anything. If you do it, you must to define one or more subcommands, and user must type in a subcommand to execute one of subcommands.
-                                   }];
-CLCommand *create = [spec defineSubcommand:@"create"
-								   explain:@"Create a pod spec"
-                                  onCreate:nil
-                                 onRequest:^CLResponse *(CLCommand *command, CLRequest *request) {
-	// do something to create a cocoapods spec.
+CLCommand *pod = [CLCommand main];
+CLCommand *spec = [pod defineSubcommand:@"spec"];
+spec.explain = @"Spec commands"
+{
+	CLCommand *create = [spec defineSubcommand:@"create"];
+    create.explain = @"Create a pod spec";
+	[create onHandlerRequest:^CLResponse *(CLCommand *command, CLRequest *request) {
+		// do something to create a cocoapods spec.
                                      
-	// return an error or an userInfo for succeed.
-	return [CLResponse succeed:nil];
-}];
+		// return an error or an userInfo for succeed.
+        return [CLResponse succeed:nil];
+    }];
+}
 ```
 ### Queries
 
@@ -91,12 +93,21 @@ It's meaning:
 you can execute the code before parse.
 
 ```objective-c
-CLCommand *codesign = [CLCommand sharedCommand]; // get main command (without any command or subcommands)
-codesign.setQuery(@"entitlement").setAbbr('e').optional().setExplain("Entitlement.plist file path."); // define a optional query
-codesign.setQuery(@"cert").setAbbr('c').require().setExplain("Cert name"); // define a require query
-[CLCommand setDefaultTask:^CLResponse *(CLCommand *command, CLRequest *request) {
+CLCommand *codesign = [CLCommand main]; // get main command (without any command or subcommands)
+codesign.setQuery(@"entitlement")
+    .setAbbr('e')
+    .optional()
+    .setExplain("Entitlement.plist file path."); // define a optional query
+codesign.setQuery(@"cert")
+    .setAbbr('c')
+    .require()
+    .setExplain("Cert name"); // define a require query
+[codesign onHandlerRequest:^CLResponse *(CLCommand *command, CLRequest *request) {
     NSString *cert = request.queries[@"cert"]; // get value with key.
     NSString *entitlement = request.queries[@"entitlement"]; // nonable
+	//	to code sign
+    
+    return [CLResposne succeed:nil];
 }];
 ```
 
@@ -119,9 +130,11 @@ It's meaning:
 you can execute the code before parse.
 
 ```objective-c
-CLCommand *ls = [CLCommand sharedCommand]; // get main command (without any command or subcommands)
-ls.setFlag(@"all").setAbbr('a').setExplain(@"Print all contents."); // define a optional query
-[CLCommand setDefaultTask:^CLResponse *(CLCommand *command, CLRequest *request) {
+CLCommand *ls = [CLCommand main]; // get main command (without any command or subcommands)
+ls.setFlag(@"all")
+    .setAbbr('a')
+    .setExplain(@"Print all contents."); // define a optional query
+[ls onHandlerRequest:^CLResponse *(CLCommand *command, CLRequest *request) {
     BOOL all = [request.flags containsObject:@"all"];
     
     // list and print
@@ -144,6 +157,38 @@ ls.setFlag(@"all").setAbbr('a').setExplain(@"Print all contents."); // define a 
 }];
 ```
 
+### Abbr & Multi-abbrs
+
+For example:
+
+```shell
+# Multi-abbrs for flags:
+
+$ rm -rf /path/to/directory
+
+# is meaning:
+
+$ rm -r -f /path/to/directory
+$ rm --recursive --force /path/to/directory
+
+# 'r' is recursive(flag)'s abbr, 'f' is force(flag)'s abbr.
+```
+
+```shell
+# Multi-abbrs for flags and a query
+
+$ codesign -fs 'iPhone Developer: XXXX (XXXX)' /path/to/Application.app
+
+# is meaning:
+
+$ codesign -f -s 'iPhone Developer: XXXX (XXXX)' /path/to/Application.app
+
+# 'f' is replacing-exist-sign(flag)'s abbr
+# 's' is signature(query)'s abbr 
+```
+
+**CommandLine is supporting parse multi-abbrs!**
+
 ### IOPaths
 
 IOPaths is a type of value without any key. It's usually used in input, output path. Such as:
@@ -157,15 +202,19 @@ $ zip /to/.zip /source/folder	# output & input
 you can execute the code before parse.
 
 ```objc
-CLCommand *zip = [CLCommand sharedCommand]; // get main command (without any command or subcommands)
+CLCommand *zip = [CLCommand main]; // get main command (without any command or subcommands)
 
 /*
 	User must type in an output path and one or more input path(s)
 */
-zip.addRequirePath(@"output").setExplain(@"output key");
-zip.addRequirePath(@"input1").setExplain(@"Input path");
-zip.addOptionalPath(@"input2").setExplain(@"Input path");
-[CLCommand setDefaultTask:^CLResponse *(CLCommand *command, CLRequest *request) {
+zip.addRequirePath(@"output")
+    .setExplain(@"output key");
+zip.addRequirePath(@"input1")
+    .setExplain(@"Input path");
+zip.addOptionalPath(@"input2")
+    .setExplain(@"Input path");
+
+[zip onHandlerRequest:^CLResponse *(CLCommand *command, CLRequest *request) {
     NSArray *paths = request.paths; // paths.count >= 2
     NSString *output = paths.firstObject;
     NSArray *inputs = ({
@@ -214,7 +263,7 @@ if (response.error) {
 
 
 
-### Helping Infomation
+### Helping Infomations
 
 When should the tool print helping infomation ?
 
@@ -225,8 +274,11 @@ When should the tool print helping infomation ?
 
 **Colorfull helping infomation ?** Yes ! Just like *CocoaPods*.
 
-### Verbose
+![CocoaPods Helping Infomations](Resources/help.png)
 
+### Special output
+
+#### 1. Verbose
 Print more infomations mode.
 
 It will be triggered by flag `--verbose`. 
@@ -236,6 +288,51 @@ You can use in task:
 ```objective-c
 [request verbose:@"Making temp directory: %@", tempDirectory];
 //	it will be print if the request contains `verbose` flag.
+//	auto append a '\n' in end.
+```
+#### 2. Success
+
+Print **green** text.
+
+You can use in task:
+
+```objc
+[request success:@"Done! There are %lu devices in the mobileprovision", devices.count];// devices is instance of NSArray
+//	print the text render with green color
+//	auto append a '\n' in end.
+```
+
+#### 3. Warning
+
+Pring **yellow** text.
+
+```objc
+[request warning:@"The directory is not exist, it will be ignore."];
+//	print the text render with yellow color
+//	auto append a '\n' in end.
+```
+
+#### 4. Error 
+Print **red** text.
+
+You can use in task:
+
+```objc
+[request error:@"Error: %@", error];// error is instance of NSError
+//	print the text render with red color
+//	auto append a '\n' in end.
+```
+
+#### 5. More Info
+
+Print **light** text.
+
+You can use in task:
+
+```objc
+[request info:@"XXXXXX"];
+//	print the text with light font.
+//	auto append a '\n' in end.
 ```
 
 ### Version
@@ -259,7 +356,9 @@ $ tool -v
 ### Print colorful text
 
 ```objc
+#import "CCText.h"
 CCPrintf(CCStyleBord|CCStyleItalic, @"A text with %@ and %@", @"bord", @"italic");
+// see move CCStyle in CCText.h
 ```
 
 ## LICENCE

@@ -8,6 +8,10 @@
 
 #import "CCText.h"
 
+#if DEBUG == 1
+#include <sys/sysctl.h>
+#endif
+
 NSUInteger CCStyleCodeWithStyle(CCStyle style) {
     switch (style) {
         case CCStyleNone: return 0;
@@ -42,6 +46,26 @@ NSUInteger CCStyleCodeWithStyle(CCStyle style) {
     }
 }
 
+static int CCIsDebuggingInXcode()
+{
+#if DEBUG == 1
+    size_t size = sizeof(struct kinfo_proc);
+    struct kinfo_proc info;
+    int ret, name[4];
+    memset(&info, 0, sizeof(struct kinfo_proc));
+    name[0] = CTL_KERN;
+    name[1] = KERN_PROC;
+    name[2] = KERN_PROC_PID;
+    name[3] = getpid();
+    if ((ret = (sysctl(name, 4, &info, &size, NULL, 0)))) {
+        return ret; /* sysctl() failed for some reason */
+    }
+    return (info.kp_proc.p_flag & P_TRACED) ? 1 : 0;
+#else
+    return 0;
+#endif
+}
+
 NSString *CCStyleStringWithStyle(CCStyle style) {
 #ifdef CCTEXT_COLORFUL_OFF
     return @"";
@@ -71,7 +95,7 @@ void CCPrintf(CCStyle style, NSString *format, ...) {
     NSString *str = [[NSString alloc] initWithFormat:format arguments:args];
     va_end(args);
     
-    if (style == CCStyleNone) {
+    if (style == CCStyleNone || CCIsDebuggingInXcode()) {
         printf("%s", str.UTF8String);
     } else {
         printf("%s", CCStyleStringWithStyle(style).UTF8String);

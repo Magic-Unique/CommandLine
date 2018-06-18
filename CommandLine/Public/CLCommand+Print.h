@@ -10,8 +10,6 @@
 
 @interface CLCommand (Print)
 
-@property (nonatomic, strong, readonly) NSArray *commandNodes;
-
 - (void)printHelpInfo;
 
 + (void)printVersion;

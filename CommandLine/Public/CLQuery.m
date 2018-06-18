@@ -39,7 +39,7 @@
     if (self.abbr) {
         prefix = [NSString stringWithFormat:@"-%c|", self.abbr];
     }
-    return [NSString stringWithFormat:@"%@--%@ <%@>", prefix, self.key, self.example?:self.key];
+    return [NSString stringWithFormat:@"%@--%@ <%@>", prefix, self.key, self.example?self.example:self.key];
 }
 
 - (NSString *)subtitle {

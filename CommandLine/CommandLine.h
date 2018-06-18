@@ -10,9 +10,12 @@
 #define CommandLine_h
 
 #import "CLCommand.h"
+#import "CLCommand+Print.h"
 #import "CLRequest.h"
 #import "CLResponse.h"
 
 #import "CCText.h"
+
+#define CLCommandHandleAndReturn() return (int)[CLCommand handleRequest:[CLRequest request]].error.code;
 
 #endif /* CommandLine_h */

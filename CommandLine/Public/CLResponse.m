@@ -16,7 +16,7 @@
 
 + (instancetype)error:(NSError *)error {
     CLResponse *response = [CLResponse new];
-    response->_error = error;
+    response->_error = error ?: [NSError errorWithDomain:@"com.commandline.error.default" code:1 userInfo:nil];
     return response;
 }
 

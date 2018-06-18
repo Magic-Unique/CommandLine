@@ -13,26 +13,6 @@
 
 @implementation CLCommand (Print)
 
-- (NSArray *)commandNodes {
-    CLCommand *command = self;
-    NSMutableArray *nodes = [NSMutableArray arrayWithObject:command];
-    while (command.supercommand) {
-        command = command.supercommand;
-        [nodes insertObject:command atIndex:0];
-    }
-    return [nodes copy];
-}
-
-- (NSArray *)commandPath {
-    CLCommand *command = self;
-    NSMutableArray *path = [NSMutableArray arrayWithObject:command.command];
-    while (command.supercommand) {
-        command = command.supercommand;
-        [path insertObject:command.command atIndex:0];
-    }
-    return [path copy];
-}
-
 + (void)printVersion {
     CCPrintf(0, @"%@\n", [self version]);
 }
@@ -141,9 +121,24 @@
             printf("\n");
         }
         
-        [self.flags enumerateKeysAndObjectsUsingBlock:^(NSString *key, CLFlag *obj, BOOL *stop) {
+        [[self.flags.allValues sortedArrayUsingComparator:^NSComparisonResult(CLFlag *obj1, CLFlag *obj2) {
+            BOOL default1 = ((obj1 == [CLFlag help] || obj1 == [CLFlag verbose]));
+            BOOL default2 = ((obj2 == [CLFlag help] || obj2 == [CLFlag verbose]));
+            if (default1 != default2) {
+                if (default1) {
+                    return NSOrderedDescending;
+                } else {
+                    return NSOrderedAscending;
+                }
+            } else {
+                return [obj1.key compare:obj2.key];
+            }
+        }] enumerateObjectsUsingBlock:^(CLFlag * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             NSString *title = obj.title;
             
+            if (obj == [CLFlag help] && self.flags.count > 2) {
+                CCPrintf(0, @"\n");
+            }
             CCPrintf(0, @"    ");
             CCPrintf(CCStyleForegroundColorBlue, title);
             CCPrintf(0, [NSString cl_stringWithSpace:maxKey + 3 - strlen(title.UTF8String)]);

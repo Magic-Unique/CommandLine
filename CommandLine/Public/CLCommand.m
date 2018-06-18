@@ -10,7 +10,8 @@
 #import "CLResponse+Private.h"
 #import "CLCommand+Handler.h"
 
-#define SharedCommand ((CLCommand *)[self sharedCommand])
+#define SharedCommand ((CLCommand *)[self main])
+#define CLDefaultExplain(cmd) [NSString stringWithFormat:@"Call %@.explain = @\"Value you want.\" to change this line", cmd]
 
 static NSString *CLCommandVersion = nil;
 
@@ -33,13 +34,14 @@ static NSString *CLCommandVersion = nil;
 
 @implementation CLCommand
 
-+ (instancetype)sharedCommand {
++ (instancetype)main {
     static CLCommand *_sharedInstance = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         _sharedInstance = [[self alloc] init];
         _sharedInstance->_command = [NSProcessInfo processInfo].arguments.firstObject.lastPathComponent;
         NSAssert(_sharedInstance.command, @"command is nil");
+        _sharedInstance.explain = CLDefaultExplain(@"[CLCommand main]");
     });
     return _sharedInstance;
 }
@@ -55,11 +57,27 @@ static NSString *CLCommandVersion = nil;
     return self;
 }
 
-+ (instancetype)defineCommand:(NSString *)command explain:(NSString *)explain onCreate:(CLCommandDefining)onCreate onRequest:(CLCommandTask)onRequest {
-    return [[self sharedCommand] defineSubcommand:command explain:explain onCreate:onCreate onRequest:onRequest];
+- (NSArray<CLCommand *> *)commandNodes {
+    CLCommand *command = self;
+    NSMutableArray *nodes = [NSMutableArray arrayWithObject:command];
+    while (command.supercommand) {
+        command = command.supercommand;
+        [nodes insertObject:command atIndex:0];
+    }
+    return [nodes copy];
 }
 
-- (instancetype)defineSubcommand:(NSString *)command explain:(NSString *)explain onCreate:(CLCommandDefining)onCreate onRequest:(CLCommandTask)onRequest {
+- (NSArray<NSString *> *)commandPath {
+    CLCommand *command = self;
+    NSMutableArray *path = [NSMutableArray arrayWithObject:command.command];
+    while (command.supercommand) {
+        command = command.supercommand;
+        [path insertObject:command.command atIndex:0];
+    }
+    return [path copy];
+}
+
+- (instancetype)defineSubcommand:(NSString *)command {
     CLCommand *subdefine = [self mSubcommands][command];
     if (!subdefine) {
         subdefine = [[[self class] alloc] init];
@@ -67,18 +85,12 @@ static NSString *CLCommandVersion = nil;
         subdefine->_supercommand = self;
         [self mSubcommands][command] = subdefine;
     }
-    subdefine->_explain = explain;
-    !onCreate?:onCreate(subdefine);
-    subdefine->_task = [onRequest copy];
+    subdefine->_explain = CLDefaultExplain(command);
     return subdefine;
 }
 
-+ (void)setDefaultTask:(CLCommandTask)defaultTask {
-    ((CLCommand *)[self sharedCommand])->_task = [defaultTask copy];
-}
-
-+ (void)setExplain:(NSString *)explain {
-    ((CLCommand *)[self sharedCommand])->_explain = [explain copy];
+- (void)onHandlerRequest:(CLCommandTask)onHandler {
+    _task = [onHandler copy];
 }
 
 + (void)setVersion:(NSString *)version {

@@ -36,6 +36,10 @@
 }
 
 + (NSString *)abslutePath:(NSString *)relativePath {
+    if (relativePath.length == 0) {
+        return nil;
+    }
+    
     if ([relativePath hasPrefix:@"~"]) {
         relativePath = [relativePath stringByReplacingCharactersInRange:NSMakeRange(0, 1) withString:[self homeDirectory]];
     }
