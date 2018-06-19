@@ -1,6 +1,6 @@
 # CommandLine
 
-> 0.0.2
+> 0.0.3
 
 A command line arguments parser of Objective-C
 
