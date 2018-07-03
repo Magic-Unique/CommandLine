@@ -14,6 +14,8 @@
 
 @property (nonatomic, assign, readonly) BOOL isRequire;
 
+@property (nonatomic, strong, readonly) NSString *example;
+
 @property (nonatomic, strong, readonly) NSString *explain;
 
 - (instancetype)initWithKey:(NSString *)key require:(BOOL)require;
@@ -29,5 +31,7 @@
 @interface CLIOPath (Definer)
 
 @property (nonatomic, readonly) CLIOPath *(^setExplain)(NSString *);
+
+@property (nonatomic, readonly) CLIOPath *(^setExample)(NSString *example);
 
 @end

@@ -2,7 +2,7 @@
 //  CLCommand+Handler.m
 //  CommandLine
 //
-//  Created by 吴双 on 2018/6/4.
+//  Created by 冷秋 on 2018/6/4.
 //
 
 #import "CLCommand+Handler.h"
@@ -48,7 +48,11 @@
         return [CLResponse responseWithMissingPathsCount:_missingPaths];
     }
     
-    return self.task(self, request);
+    CLResponse *response = self.task(self, request);
+    if (!response) {
+        response = [CLResponse succeed:nil];
+    }
+    return response;
 }
 
 - (NSArray *)_missingQueriesInRequest:(CLRequest *)request {

@@ -9,9 +9,10 @@
 #import "CLCommand.h"
 #import "CLResponse+Private.h"
 #import "CLCommand+Handler.h"
+#import <objc/runtime.h>
 
-#define SharedCommand ((CLCommand *)[self main])
-#define CLDefaultExplain(cmd) [NSString stringWithFormat:@"Call %@.explain = @\"Value you want.\" to change this line", cmd]
+#define SharedCommand           ((CLCommand *)[self main])
+#define CLDefaultExplain(cmd)   [NSString stringWithFormat:@"Call %@.explain = @\"Value you want.\" to change this line", cmd]
 
 static NSString *CLCommandVersion = nil;
 
@@ -44,6 +45,21 @@ static NSString *CLCommandVersion = nil;
         _sharedInstance.explain = CLDefaultExplain(@"[CLCommand main]");
     });
     return _sharedInstance;
+}
+
++ (void)defineCommandsForClass:(NSString *)cls metaSelectorPrefix:(NSString *)prefix {
+    unsigned count = 0;
+    Method *methodList = class_copyMethodList(objc_getMetaClass(cls.UTF8String), &count);
+    for (unsigned i = 0; i < count; i++) {
+        Method method = methodList[i];
+        SEL sel = method_getName(method);
+        NSString *name = NSStringFromSelector(sel);
+        if ([name hasPrefix:prefix]) {
+            [CLCommand performSelector:sel];
+        } else {
+            NSLog(@"Ignore %@", name);
+        }
+    }
 }
 
 - (instancetype)init {

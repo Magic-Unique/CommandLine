@@ -2,11 +2,12 @@
 //  CLTerminal.m
 //  CommandLineDemo
 //
-//  Created by 吴双 on 2018/6/3.
+//  Created by 冷秋 on 2018/6/3.
 //  Copyright © 2018年 unique. All rights reserved.
 //
 
 #import "CLTerminal.h"
+#import "CLIOPath.h"
 
 int CLSystem(NSString *format, ...) {
     va_list args;
@@ -14,6 +15,81 @@ int CLSystem(NSString *format, ...) {
     NSString *str = [[NSString alloc] initWithFormat:format arguments:args];
     va_end(args);
     return system(str.UTF8String);
+}
+
+void CLPrintf(NSString *format, ...) {
+    va_list args;
+    va_start(args, format);
+    NSString *str = [[NSString alloc] initWithFormat:format arguments:args];
+    va_end(args);
+    printf("%s", str.UTF8String);
+}
+
+NSString *CLLaunch(NSString *launchPath, ...) {
+    NSTask *task = [[NSTask alloc] init];
+    task.launchPath = [CLIOPath abslutePath:launchPath];
+    
+    NSMutableArray *arguments = [NSMutableArray array];
+    va_list v;
+    va_start(v, launchPath);
+    NSString *item = nil;
+    while ((item = va_arg(v, NSString *))) {
+        if ([item isKindOfClass:[NSString class]] == NO) {
+            assert(0);// CLLaunch only reqires NSString object.
+        }
+        [arguments addObject:item];
+    }
+    va_end(v);
+    if (arguments.count) {
+        task.arguments = arguments;
+    }
+    task.standardOutput = [NSPipe pipe];
+    task.standardError = task.standardOutput;
+    [task launch];
+    [task waitUntilExit];
+    NSPipe *pipe = task.standardOutput;
+    NSData *data = pipe.fileHandleForReading.availableData;
+    NSString *string = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    if (task.terminationStatus == EXIT_SUCCESS) {
+        return string ?: @"";
+    } else {
+        return nil;
+    }
+}
+
+NSString *CLLaunchAt(NSString *directory, NSString *launchPath, ...) {
+    NSTask *task = [[NSTask alloc] init];
+    if (directory) {
+        task.currentDirectoryPath = [CLIOPath abslutePath:directory];
+    }
+    task.launchPath = [CLIOPath abslutePath:launchPath];
+    
+    NSMutableArray *arguments = [NSMutableArray array];
+    va_list v;
+    va_start(v, launchPath);
+    NSString *item = nil;
+    while ((item = va_arg(v, NSString *))) {
+        if ([item isKindOfClass:[NSString class]] == NO) {
+            assert(0);// CLLaunch only reqires NSString object.
+        }
+        [arguments addObject:item];
+    }
+    va_end(v);
+    if (arguments.count) {
+        task.arguments = arguments;
+    }
+    task.standardOutput = [NSPipe pipe];
+    task.standardError = task.standardOutput;
+    [task launch];
+    [task waitUntilExit];
+    NSPipe *pipe = task.standardOutput;
+    NSData *data = pipe.fileHandleForReading.availableData;
+    NSString *string = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    if (task.terminationStatus == EXIT_SUCCESS) {
+        return string ?: @"";
+    } else {
+        return nil;
+    }
 }
 
 NSString *CLCurrentDirectory(void) {

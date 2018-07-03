@@ -1,6 +1,6 @@
 # CommandLine
 
-> 0.0.3
+> 0.0.4
 
 A command line arguments parser of Objective-C
 
@@ -351,6 +351,13 @@ $ tool --version
 
 $ tool -v
 1.0.0
+```
+
+### Terminal
+
+```objc
+NSString *fileList = CLLaunch(@"ls", @"-a");
+CLLaunchAt(@"~", @"zip", @"-qry", @"output.zip", @".");
 ```
 
 ### Print colorful text

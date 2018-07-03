@@ -23,8 +23,12 @@
     _explain = explain;
 }
 
+- (void)setExample:(NSString *)example {
+    _example = example;
+}
+
 - (NSString *)title {
-    return [NSString stringWithFormat:@"<%@>", self.key];
+    return self.isRequire ? [NSString stringWithFormat:@"<%@>", self.example?:self.key] : [NSString stringWithFormat:@"[%@]", self.example?:self.key];
 }
 
 - (NSString *)subtitle {
@@ -36,8 +40,12 @@
 }
 
 + (NSString *)abslutePath:(NSString *)relativePath {
-    if (relativePath.length == 0) {
+    if (relativePath == nil) {
         return nil;
+    }
+    
+    if (relativePath == 0) {
+        relativePath = @".";
     }
     
     if ([relativePath hasPrefix:@"~"]) {
@@ -91,6 +99,13 @@
 - (CLIOPath *(^)(NSString *))setExplain {
     return ^CLIOPath *(NSString *explain) {
         self.explain = explain;
+        return self;
+    };
+}
+
+- (CLIOPath *(^)(NSString *))setExample {
+    return ^CLIOPath *(NSString *example) {
+        self.example = example;
         return self;
     };
 }

@@ -47,6 +47,8 @@
     };
     NSMutableArray *optionalQueryKeys = [NSMutableArray array];
     NSMutableArray *requireQueryKeys = [NSMutableArray array];
+    NSMutableArray *optionalIOPaths = [NSMutableArray array];
+    NSMutableArray *requireIOPaths = [NSMutableArray array];
     if (self.subcommands.count + self.queries.count + self.flags.count) {
         [self.subcommands enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull key, CLCommand * _Nonnull obj, BOOL * _Nonnull stop) {
             CLCompareMaxLength(obj.title);
@@ -61,6 +63,14 @@
         }];
         [self.flags enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull key, CLFlag * _Nonnull obj, BOOL * _Nonnull stop) {
             CLCompareMaxLength(obj.title);
+        }];
+        [self.ioPaths enumerateObjectsUsingBlock:^(CLIOPath * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            CLCompareMaxLength(obj.title);
+            if (obj.isRequire) {
+                [requireIOPaths addObject:obj];
+            } else {
+                [optionalIOPaths addObject:obj];
+            }
         }];
     }
     
@@ -84,24 +94,39 @@
         printf("\n");
     }
     
-    if (requireQueryKeys.count) {
+    if (requireQueryKeys.count + requireIOPaths.count) {
         CCPrintf(CCStyleUnderline, @"%@:\n", CLHelpRequires);
         printf("\n");
-        [[requireQueryKeys sortedArrayUsingComparator:^NSComparisonResult(NSString *obj1, NSString *obj2) {
-            return [obj1 compare:obj2];
-        }] enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            CLQuery *query = self.queries[obj];
-            NSString *title = query.title;
-            CCPrintf(0, @"    ");
-            CCPrintf(CCStyleForegroundColorGreen, title);
-            CCPrintf(0, [NSString cl_stringWithSpace:maxKey + 3 - strlen(title.UTF8String)]);
-            CCPrintf(0, query.subtitle);
-            printf("\n");
-        }];
+        
+        if (requireQueryKeys.count) {
+            [[requireQueryKeys sortedArrayUsingComparator:^NSComparisonResult(NSString *obj1, NSString *obj2) {
+                return [obj1 compare:obj2];
+            }] enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                CLQuery *query = self.queries[obj];
+                NSString *title = query.title;
+                CCPrintf(0, @"    ");
+                CCPrintf(CCStyleForegroundColorGreen, title);
+                CCPrintf(0, [NSString cl_stringWithSpace:maxKey + 3 - strlen(title.UTF8String)]);
+                CCPrintf(0, query.subtitle);
+                printf("\n");
+            }];
+        }
+        
+        if (requireIOPaths.count) {
+            [requireIOPaths enumerateObjectsUsingBlock:^(CLIOPath *obj, NSUInteger idx, BOOL *stop) {
+                NSString *title = obj.title;
+                CCPrintf(0, @"    ");
+                CCPrintf(CCStyleForegroundColorGreen, title);
+                CCPrintf(0, [NSString cl_stringWithSpace:maxKey + 3 - strlen(title.UTF8String)]);
+                CCPrintf(0, obj.subtitle);
+                printf("\n");
+            }];
+        }
+        
         printf("\n");
     }
     
-    if (self.flags.count + optionalQueryKeys.count) {
+    if (self.flags.count + optionalQueryKeys.count + optionalIOPaths.count) {
         CCPrintf(CCStyleUnderline, @"%@:\n", CLHelpOptions);
         printf("\n");
         [[optionalQueryKeys sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
@@ -139,6 +164,15 @@
             if (obj == [CLFlag help] && self.flags.count > 2) {
                 CCPrintf(0, @"\n");
             }
+            CCPrintf(0, @"    ");
+            CCPrintf(CCStyleForegroundColorBlue, title);
+            CCPrintf(0, [NSString cl_stringWithSpace:maxKey + 3 - strlen(title.UTF8String)]);
+            CCPrintf(0, obj.subtitle);
+            printf("\n");
+        }];
+        
+        [optionalIOPaths enumerateObjectsUsingBlock:^(CLIOPath *obj, NSUInteger idx, BOOL *stop) {
+            NSString *title = obj.title;
             CCPrintf(0, @"    ");
             CCPrintf(CCStyleForegroundColorBlue, title);
             CCPrintf(0, [NSString cl_stringWithSpace:maxKey + 3 - strlen(title.UTF8String)]);

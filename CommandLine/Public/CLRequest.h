@@ -38,6 +38,8 @@
 
 - (BOOL)flag:(NSString *)flag;
 
+- (NSString *)pathForIndex:(NSUInteger)index;
+
 - (void)verbose:(NSString *)format, ...;
 
 - (void)print:(NSString *)format, ...;

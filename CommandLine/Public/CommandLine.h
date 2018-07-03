@@ -16,6 +16,8 @@
 
 #import "CCText.h"
 
-#define CLCommandHandleAndReturn() return (int)[CLCommand handleRequest:[CLRequest request]].error.code;
+#import "CLTerminal.h"
+
+#define CLCommandMain() return (int)[CLCommand handleRequest:[CLRequest request]].error.code;
 
 #endif /* CommandLine_h */

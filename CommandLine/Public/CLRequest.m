@@ -98,6 +98,13 @@
     return [self.flags containsObject:flag];
 }
 
+- (NSString *)pathForIndex:(NSUInteger)index {
+    if (index >= self.paths.count) {
+        return nil;
+    }
+    return [CLIOPath abslutePath:self.paths[index]];
+}
+
 - (void)verbose:(NSString *)format, ... {
     va_list args;
     va_start(args, format);
