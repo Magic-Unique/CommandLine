@@ -56,8 +56,6 @@ static NSString *CLCommandVersion = nil;
         NSString *name = NSStringFromSelector(sel);
         if ([name hasPrefix:prefix]) {
             [CLCommand performSelector:sel];
-        } else {
-            NSLog(@"Ignore %@", name);
         }
     }
 }

@@ -8,6 +8,7 @@
 
 #import "CLCommand+Print.h"
 #import "NSString+CommandLine.h"
+#import "NSArray+CommandLine.h"
 #import "CCText.h"
 #import "CLConst.h"
 
@@ -77,9 +78,9 @@
     if (self.subcommands.count) {
         CCPrintf(CCStyleUnderline, @"%@:\n", CLHelpCommands);
         printf("\n");
-        [[self.subcommands.allKeys sortedArrayUsingComparator:^NSComparisonResult(NSString *obj1, NSString *obj2) {
+        [self.subcommands.allKeys cl_sort:^NSComparisonResult(NSString *  _Nonnull obj1, NSString *  _Nonnull obj2) {
             return [obj1 compare:obj2];
-        }] enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        } enumerate:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             CLCommand *command = self.subcommands[obj];
             NSString *title = command.title;
             
@@ -99,9 +100,9 @@
         printf("\n");
         
         if (requireQueryKeys.count) {
-            [[requireQueryKeys sortedArrayUsingComparator:^NSComparisonResult(NSString *obj1, NSString *obj2) {
+            [requireQueryKeys cl_sort:^NSComparisonResult(NSString *obj1, NSString *obj2) {
                 return [obj1 compare:obj2];
-            }] enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            } enumerate:^(NSString *obj, NSUInteger idx, BOOL *stop) {
                 CLQuery *query = self.queries[obj];
                 NSString *title = query.title;
                 CCPrintf(0, @"    ");
@@ -129,9 +130,9 @@
     if (self.flags.count + optionalQueryKeys.count + optionalIOPaths.count) {
         CCPrintf(CCStyleUnderline, @"%@:\n", CLHelpOptions);
         printf("\n");
-        [[optionalQueryKeys sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+        [optionalQueryKeys cl_sort:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
             return [obj1 compare:obj2];
-        }] enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        } enumerate:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             CLQuery *query = self.queries[obj];
             NSString *title = query.title;
             
@@ -146,7 +147,7 @@
             printf("\n");
         }
         
-        [[self.flags.allValues sortedArrayUsingComparator:^NSComparisonResult(CLFlag *obj1, CLFlag *obj2) {
+        [self.flags.allValues cl_sort:^NSComparisonResult(CLFlag *obj1, CLFlag *obj2) {
             BOOL default1 = ((obj1 == [CLFlag help] || obj1 == [CLFlag verbose]));
             BOOL default2 = ((obj2 == [CLFlag help] || obj2 == [CLFlag verbose]));
             if (default1 != default2) {
@@ -158,7 +159,7 @@
             } else {
                 return [obj1.key compare:obj2.key];
             }
-        }] enumerateObjectsUsingBlock:^(CLFlag * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        } enumerate:^(CLFlag *obj, NSUInteger idx, BOOL *stop) {
             NSString *title = obj.title;
             
             if (obj == [CLFlag help] && self.flags.count > 2) {

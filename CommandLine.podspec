@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "CommandLine"
-  s.version      = "0.0.4"
+  s.version      = "0.0.5"
   s.summary      = "A command line arguments parser of Objective-C"
 
   # This description is used to generate tags and improve search results.
@@ -26,8 +26,8 @@ Pod::Spec.new do |s|
   #   * Finally, don't worry about the indent, CocoaPods strips it!
   s.description  = <<-DESC
   If you want to build a command line tool and require some arguments when running it.
-  You can link it, and dont warry about the arguments-parsing. CommandLine can complete it
-  for you.
+  You can link CommandLine, and dont warry about the arguments-parsing. CommandLine
+  can complete it for you.
                    DESC
 
   s.homepage     = "https://github.com/Magic-Unique/CommandLine"
