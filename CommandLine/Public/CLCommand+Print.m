@@ -43,7 +43,7 @@
     __block NSUInteger maxKey = 0;
     void (^CLCompareMaxLength)(NSString *string) = ^(NSString *string) {
         if (strlen(string.UTF8String) > maxKey) {
-            maxKey = string.length;
+            maxKey = strlen(string.UTF8String);
         }
     };
     NSMutableArray *optionalQueryKeys = [NSMutableArray array];
