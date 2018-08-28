@@ -12,9 +12,11 @@ FOUNDATION_EXTERN int CLSystem(NSString *format, ...);
 
 FOUNDATION_EXTERN void CLPrintf(NSString *format, ...);
 
-FOUNDATION_EXTERN NSString *CLLaunchAt(NSString *directory, NSString *launchPath, ...) NS_REQUIRES_NIL_TERMINATION;
+FOUNDATION_EXTERN NSString *CLLaunchAt(NSString *directory, NSArray *arguments);
+FOUNDATION_EXTERN NSString *CLLaunchAtEx(NSString *directory, NSString *launchPath, ...) NS_REQUIRES_NIL_TERMINATION;
 
-FOUNDATION_EXTERN NSString *CLLaunch(NSString *launchPath, ...) NS_REQUIRES_NIL_TERMINATION;
+FOUNDATION_EXTERN NSString *CLLaunch(NSArray *arguments);
+FOUNDATION_EXTERN NSString *CLLaunchEx(NSString *launchPath, ...) NS_REQUIRES_NIL_TERMINATION;
 
 FOUNDATION_EXTERN NSString *CLCurrentDirectory(void);
 
