@@ -1,0 +1,16 @@
+PODS:
+  - CommandLine (0.0.6)
+
+DEPENDENCIES:
+  - CommandLine (from `..`)
+
+EXTERNAL SOURCES:
+  CommandLine:
+    :path: ".."
+
+SPEC CHECKSUMS:
+  CommandLine: be158d793ff5c5ff2b055e220b96efe3c2e43bb0
+
+PODFILE CHECKSUM: 2c9ee7aafc5189408c1a7aebf6d85b1ee5e34b7b
+
+COCOAPODS: 1.5.3

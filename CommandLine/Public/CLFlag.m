@@ -7,7 +7,7 @@
 //
 
 #import "CLFlag.h"
-#import "CLConst.h"
+#import "CLLanguage+Private.h"
 
 @implementation CLFlag
 
@@ -44,7 +44,7 @@
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         _help = [[self alloc] initWithKey:@"help"];
-        _help.setAbbr('h').setExplain(CLHelpExplain);
+        _help.setAbbr('h').setExplain(CLCurrentLanguage.helpExplain);//CLHelpExplain
     });
     return _help;
 }
@@ -54,7 +54,7 @@
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         _verbose = [[self alloc] initWithKey:@"verbose"];
-        _verbose.setAbbr('V').setExplain(CLVerboseExplain);
+        _verbose.setAbbr('V').setExplain(CLCurrentLanguage.verboseExplain);
     });
     return _verbose;
 }
@@ -64,7 +64,7 @@
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         _version = [[self alloc] initWithKey:@"version"];
-        _version.setAbbr('v').setExplain(CLVersionExplain);
+        _version.setAbbr('v').setExplain(CLCurrentLanguage.versionExplain);
     });
     return _version;
 }

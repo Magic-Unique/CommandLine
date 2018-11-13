@@ -52,9 +52,6 @@ typedef CLResponse *(^CLCommandTask)(CLCommand *command, CLRequest *request);
 + (CLResponse *)handleRequest:(CLRequest *)request;
 
 
-
-
-
 @property (nonatomic, readonly) NSString *command;
 
 @property (nonatomic, strong) NSString *explain;

@@ -7,10 +7,10 @@
 //
 
 #import "CLCommand+Print.h"
+#import "CLLanguage+Private.h"
 #import "NSString+CommandLine.h"
 #import "NSArray+CommandLine.h"
 #import "CCText.h"
-#import "CLConst.h"
 
 @implementation CLCommand (Print)
 
@@ -19,16 +19,16 @@
 }
 
 - (void)printHelpInfo {
-    CCPrintf(CCStyleUnderline, @"%@:\n", CLHelpUsage);
+    CCPrintf(CCStyleUnderline, @"%@:\n", CLCurrentLanguage.helpUsage);
     printf("\n");
     {
         NSString *commands = [[self commandPath] componentsJoinedByString:@" "];
         if (self.subcommands.count && self.task) {
-            CCPrintf(0, @"    $ %@ [%@]\n", commands, CLHelpCommand);
+            CCPrintf(0, @"    $ %@ [%@]\n", commands, CLCurrentLanguage.helpCommand);
         } else if (self.subcommands.count == 0 && self.task) {
             CCPrintf(0, @"    $ %@\n", commands);
         } else if (self.subcommands.count && self.task == nil) {
-            CCPrintf(0, @"    $ %@ <%@>\n", commands, CLHelpCommand);
+            CCPrintf(0, @"    $ %@ <%@>\n", commands, CLCurrentLanguage.helpCommand);
         } else {
             NSAssert(NO, @"The command `%@` should contains a task or a subcommand", self.command);
         }
@@ -76,7 +76,7 @@
     }
     
     if (self.subcommands.count) {
-        CCPrintf(CCStyleUnderline, @"%@:\n", CLHelpCommands);
+        CCPrintf(CCStyleUnderline, @"%@:\n", CLCurrentLanguage.helpCommands);
         printf("\n");
         [self.subcommands.allKeys cl_sort:^NSComparisonResult(NSString *  _Nonnull obj1, NSString *  _Nonnull obj2) {
             return [obj1 compare:obj2];
@@ -96,7 +96,7 @@
     }
     
     if (requireQueryKeys.count + requireIOPaths.count) {
-        CCPrintf(CCStyleUnderline, @"%@:\n", CLHelpRequires);
+        CCPrintf(CCStyleUnderline, @"%@:\n", CLCurrentLanguage.helpRequires);
         printf("\n");
         
         if (requireQueryKeys.count) {
@@ -128,7 +128,7 @@
     }
     
     if (self.flags.count + optionalQueryKeys.count + optionalIOPaths.count) {
-        CCPrintf(CCStyleUnderline, @"%@:\n", CLHelpOptions);
+        CCPrintf(CCStyleUnderline, @"%@:\n", CLCurrentLanguage.helpOptions);
         printf("\n");
         [optionalQueryKeys cl_sort:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
             return [obj1 compare:obj2];

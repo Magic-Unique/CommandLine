@@ -7,10 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "CommandLine.h"
+#import <CommandLine/CommandLine.h>
 #import <objc/runtime.h>
 #include <stdio.h>
 #include <stdlib.h>
+#import <CommandLine/CLLanguage.h>
 
 int main(int argc, const char * argv[]) {
     @autoreleasepool {
