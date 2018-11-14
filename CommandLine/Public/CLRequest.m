@@ -42,11 +42,6 @@
 }
 
 - (instancetype)initWithCommand:(CLCommand *)command Commands:(NSArray *)commands queries:(NSDictionary *)queries flags:(id)flags paths:(NSArray *)paths {
-//    NSLog(@"Command: %@", command.command);
-//    NSLog(@"Commands: %@", commands);
-//    NSLog(@"queries: %@", queries);
-//    NSLog(@"flags: %@", flags);
-//    NSLog(@"paths: %@", paths);
     self = [super init];
     if (self) {
         _command = command;
@@ -81,16 +76,40 @@
     }
 }
 
++ (instancetype)illegallyrequestWithCommands:(NSArray *)commands {
+    NSMutableArray *_cmds = [commands mutableCopy];
+    CLCommand *command = [CLCommand main];
+    while (_cmds.count > 1) {
+        command = command.subcommands[_cmds[1]];
+        [_cmds removeObjectAtIndex:1];
+        if (command == nil) {
+            break;
+        }
+    }
+    if (command) {
+        CLRequest *returnValue = [[self alloc] initWithCommand:command Commands:commands queries:nil flags:nil paths:nil];
+        returnValue->_illegally = YES;
+        return returnValue;
+    } else {
+        return nil;
+    }
+}
+
 - (NSString *)stringForQuery:(NSString *)query {
-    return self.queries[query];
+    id value = self.queries[query];
+    if ([value isKindOfClass:[NSArray class]]) {
+        return [(NSArray *)value firstObject];
+    } else {
+        return value;
+    }
 }
 
 - (NSString *)pathForQuery:(NSString *)query {
-    return [CLIOPath abslutePath:self.queries[query]];
+    return [CLIOPath abslutePath:[self stringForQuery:query]];
 }
 
 - (NSInteger)integerValueForQuery:(NSString *)query {
-    NSString *value = self.queries[query];
+    NSString *value = [self stringForQuery:query];
     return [value integerValue];
 }
 

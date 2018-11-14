@@ -23,3 +23,12 @@
 - (void)cl_appendNewLine:(NSUInteger)count;
 
 @end
+
+FOUNDATION_EXTERN BOOL CLArgumentIsKey(NSString *argument);
+FOUNDATION_EXTERN BOOL CLArgumentIsAbbr(NSString *argument);
+FOUNDATION_EXTERN BOOL CLArgumentIsKeyOrAbbr(NSString *argument);
+FOUNDATION_EXTERN NSString *CLGetKeyFromArgument(NSString *argument);
+FOUNDATION_EXTERN char CLGetAbbrFromArgument(NSString *argument);
+
+FOUNDATION_EXTERN NSString *const CLRegularNumber;  ///< ^(\-|\+)?\d+(\.\d+)?$
+FOUNDATION_EXTERN NSString *const CLRegularPath;

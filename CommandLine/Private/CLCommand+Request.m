@@ -7,28 +7,9 @@
 //
 
 #import "CLCommand+Request.h"
+#import "NSString+CommandLine.h"
 
 @implementation CLCommand (Request)
-
-+ (BOOL)isKey:(NSString *)string {
-    return [string hasPrefix:@"--"] && string.length > 2;
-}
-
-+ (BOOL)isAbbr:(NSString *)string {
-    return [string hasPrefix:@"--"] == NO && [string hasPrefix:@"-"] && string.length > 1;
-}
-
-+ (BOOL)isKeyOrAbbr:(NSString *)string {
-    return [self isKey:string] || [self isAbbr:string];
-}
-
-+ (NSString *)getKey:(NSString *)string {
-    return [string substringFromIndex:2];
-}
-
-+  (char)getAbbr:(NSString *)string {
-    return [string characterAtIndex:1];
-}
 
 + (NSArray *)getAbbrs:(NSString *)string {
     NSString *value = [string substringFromIndex:1];
@@ -72,7 +53,7 @@
 
 - (CLExplain *)_explainWithKey:(NSString *)key next:(NSString *)next {
     __block CLExplain *explain = nil;
-    if (next && [CLCommand isKeyOrAbbr:next] == NO) {
+    if (next && CLArgumentIsKeyOrAbbr(next) == NO) {
         [self _enumerateQueriesUsingBlock:^(CLQuery *query, BOOL *stop) {
             if ([query.key isEqualToString:key]) {
                 explain = query;
@@ -94,7 +75,7 @@
 
 - (CLExplain *)_explainWithAbbr:(char)abbr next:(NSString *)next {
     __block CLExplain *explain = nil;
-    if (next && [CLCommand isKeyOrAbbr:next] == NO) {
+    if (next && CLArgumentIsKeyOrAbbr(next) == NO) {
         [self _enumerateQueriesUsingBlock:^(CLQuery *query, BOOL *stop) {
             if (query.abbr == abbr) {
                 explain = query;
@@ -131,6 +112,7 @@
     NSMutableDictionary *_queries = [NSMutableDictionary dictionary];
     NSMutableSet *_flags = [NSMutableSet set];
     NSMutableArray *_paths = [NSMutableArray array];
+    NSError *parseError = nil;
     
     BOOL confirmedCommand = NO;
     
@@ -138,7 +120,7 @@
         NSString *current = _arguments[i];
         NSString *next = i + 1 < _arguments.count ? _arguments[i + 1] : nil;
         
-        if ([CLCommand isAbbr:current] && current.length > 2) {
+        if (CLArgumentIsAbbr(current) && current.length > 2) {
             current = [current substringFromIndex:1];
             NSMutableArray *subarray = [NSMutableArray arrayWithCapacity:current.length];
             for (NSUInteger j = 0; j < current.length; j++) {
@@ -149,7 +131,7 @@
             continue;
         }
         
-        if ([CLCommand isKeyOrAbbr:current] == NO) {
+        if (CLArgumentIsKeyOrAbbr(current) == NO) {
             CLCommand *subcmd = command.subcommands[current];
             if (confirmedCommand == NO && subcmd) {
                 [_commands addObject:current];
@@ -164,24 +146,43 @@
             CLExplain *explain = nil;
             NSString *_flag = nil;
             
-            if ([CLCommand isAbbr:current]) {
+            if (CLArgumentIsAbbr(current)) {
                 //  abbr/abbrs/abbr(s)+query
-                explain = [command _explainWithAbbr:[CLCommand getAbbr:current] next:next];
-                _flag = [NSString stringWithFormat:@"%c", [CLCommand getAbbr:current]];
+                explain = [command _explainWithAbbr:CLGetAbbrFromArgument(current) next:next];
+                _flag = [NSString stringWithFormat:@"%c", CLGetAbbrFromArgument(current)];
             } else {
                 //  query/flags
-                explain = [command _explainWithKey:[CLCommand getKey:current] next:next];
-                _flag = [CLCommand getKey:current];
+                explain = [command _explainWithKey:CLGetKeyFromArgument(current) next:next];
+                _flag = CLGetKeyFromArgument(current);
             }
             
             if ([explain isMemberOfClass:[CLQuery class]]) {
                 CLQuery *query = (CLQuery *)explain;
-                _queries[query.key] = next;
-                i++;
+                if ([query predicateForString:next]) {
+                    if (query.isMultiable) {
+                        NSMutableArray *array = ({
+                            NSMutableArray *array = _queries[query.key];
+                            if (!array) {
+                                array = [NSMutableArray array];
+                                _queries[query.key] = array;
+                            }
+                            array;
+                        });
+                        [array addObject:next];
+                    } else {
+                        _queries[query.key] = next;
+                    }
+                    i++;
+                } else {
+                    parseError = [NSError errorWithDomain:@""
+                                                     code:__LINE__
+                                                 userInfo:@{}];
+                }
             } else if ([explain isMemberOfClass:[CLFlag class]]) {
                 CLFlag *flag = (CLFlag *)explain;
                 [_flags addObject:flag.key];
             } else {
+                // no define
                 [_flags addObject:_flag];
             }
         }
@@ -189,9 +190,17 @@
     
     [command.queries enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull key, CLQuery * _Nonnull obj, BOOL * _Nonnull stop) {
         if (obj.isOptional && obj.defaultValue && _queries[obj.key] == nil) {
-            _queries[obj.key] = obj.defaultValue;
+            if (obj.isMultiable && ![obj.defaultValue isKindOfClass:[NSArray class]]) {
+                _queries[obj.key] = @[obj.defaultValue];
+            } else {
+                _queries[obj.key] = obj.defaultValue;
+            }
         }
     }];
+    
+    if (parseError) {
+        return [CLRequest illegallyrequestWithCommands:_commands];
+    }
     
     NSArray *commands = _commands.count ? [_commands copy] : nil;
     NSDictionary *queries = _queries.count ? [_queries copy]: nil;

@@ -15,6 +15,7 @@
 
 int main(int argc, const char * argv[]) {
     @autoreleasepool {
+        [[CLLanguage ChineseLanguage] apply];
         CLCommand *cache = [CLCommand.main defineSubcommand:@"cache"];
         cache.explain = @"Manipulate the CocoaPods cache";
         [cache onHandlerRequest:^CLResponse *(CLCommand *command, CLRequest *request) {
@@ -33,8 +34,7 @@ int main(int argc, const char * argv[]) {
 
         CLCommand *print = [CLCommand.main defineSubcommand:@"print"];
         print.explain = @"Print file informations";
-        print.setFlag(@"en").setExplain(@"Print with English");
-        print.addRequirePath(@"input").setExample(@"/path/to/file").setExplain(@"Input file path");
+        print.setQuery(@"array").setAbbr('a').asNumber().multify().require();
         [print onHandlerRequest:^CLResponse *(CLCommand *command, CLRequest *request) {
             return nil;
         }];

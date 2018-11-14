@@ -43,3 +43,26 @@
 }
 
 @end
+
+BOOL CLArgumentIsKey(NSString *argument) {
+    return [argument hasPrefix:@"--"] && argument.length > 2;
+}
+
+BOOL CLArgumentIsAbbr(NSString *argument) {
+    return [argument hasPrefix:@"--"] == NO && [argument hasPrefix:@"-"] && argument.length > 1;
+}
+
+BOOL CLArgumentIsKeyOrAbbr(NSString *argument) {
+    return CLArgumentIsKey(argument) || CLArgumentIsAbbr(argument);
+}
+
+NSString *CLGetKeyFromArgument(NSString *argument) {
+    return [argument substringFromIndex:2];
+}
+
+char CLGetAbbrFromArgument(NSString *argument) {
+    return [argument characterAtIndex:1];
+}
+
+NSString *const CLRegularNumber = @"^(\\-|\\+)?\\d+(\\.\\d+)?$";
+NSString *const CLRegularPath = nil;

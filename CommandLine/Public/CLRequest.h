@@ -22,6 +22,8 @@
 
 @property (nonatomic, strong, readonly) CLCommand *command;
 
+@property (nonatomic, assign, readonly) BOOL illegally;
+
 + (instancetype)request;
 
 + (instancetype)requestWithArgc:(int)argc argv:(const char *[])argv;
@@ -29,6 +31,8 @@
 + (instancetype)requestWithArguments:(NSArray *)arguments;
 
 + (instancetype)requestWithCommands:(NSArray *)commands queries:(NSDictionary *)queries flags:(id)flags paths:(NSArray *)paths;
+
++ (instancetype)illegallyrequestWithCommands:(NSArray *)commands;
 
 - (NSString *)stringForQuery:(NSString *)query;
 

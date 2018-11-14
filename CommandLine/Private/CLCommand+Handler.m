@@ -34,6 +34,11 @@
         return [CLResponse responseWithHelpCommands:request.commands];
     }
     
+    if (request.illegally) {
+        [self printHelpInfo];
+        return [CLResponse responseWithHelpCommands:request.commands];
+    }
+    
     NSArray *_missingQueries = [self _missingQueriesInRequest:request];
     if (_missingQueries.count) {
         // illegal
