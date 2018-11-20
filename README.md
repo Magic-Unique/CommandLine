@@ -15,6 +15,7 @@ See [Magic-Unique/MobileProvisionTool](https://github.com/Magic-Unique/MobilePro
 	* key-value (require)
 	* key-value (optional)
 	* key-value (optional & default-if-nil)
+	* key-values (as array, for multi-queries)
 3. Support Flags
 4. Support Abbr and multi-abbrs parsing
 4. Auto create colorful help infomation (just like cocoapods.)
@@ -107,7 +108,32 @@ codesign.setQuery(@"cert")
     NSString *entitlement = request.queries[@"entitlement"]; // nonable
 	//	to code sign
     
-    return [CLResposne succeed:nil];
+    return [CLResponse succeed:nil];
+}];
+```
+
+If you want to get a array value like:
+
+```shell
+$ demo --input /path/to/input1 --input /path/to/input2
+```
+
+It's meaning:
+
+| Binary | Query Key | Query Value |
+| --- | --- | --- |
+| demo | input | path array |
+
+you can execute the code before parse.
+
+```objc
+
+CLCommand *demo = [CLCommand main];
+demo.setQuery(@"input").mutiable().require();
+[demo onHandlerRequest: ^CLResponse *(CLCommand *command, CLRequest *request) {
+	NSArray *inputs = request.queries[@"input"];
+	
+	return [CLResponse succeed:nil];
 }];
 ```
 
