@@ -57,6 +57,9 @@
     if (!response) {
         response = [CLResponse succeed:nil];
     }
+    if (response.needHelp) {
+        [self printHelpInfo];
+    }
     return response;
 }
 

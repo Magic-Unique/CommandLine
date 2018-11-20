@@ -31,3 +31,13 @@
 }
 
 @end
+
+@implementation CLResponse (Help)
+
++ (instancetype)helpingResponse {
+    CLResponse *response = [self error:nil];
+    response->_needHelp = YES;
+    return response;
+}
+
+@end
