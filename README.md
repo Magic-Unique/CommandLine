@@ -382,8 +382,9 @@ $ tool -v
 ### Terminal
 
 ```objc
-NSString *fileList = CLLaunch(@"ls", @"-a");
-CLLaunchAt(@"~", @"zip", @"-qry", @"output.zip", @".");
+NSString *fileList = CLLaunch(nil, @"ls", @"-a", nil);
+CLLaunch(@"~", @"zip", @"-qry", @"output.zip", @".", nil);
+CLLaunch(nil, @[@"ls", @"-a"], nil);
 ```
 
 ### Print colorful text

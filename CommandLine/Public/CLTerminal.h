@@ -8,16 +8,48 @@
 
 #import <Foundation/Foundation.h>
 
+
+/**
+ Call system
+
+ @param format NSString
+ @param ... arguments
+ @return int
+ */
 FOUNDATION_EXTERN int CLSystem(NSString *format, ...);
 
+
+/**
+ Print
+
+ @param format NSString
+ @param ... arguments
+ */
 FOUNDATION_EXTERN void CLPrintf(NSString *format, ...);
 
-FOUNDATION_EXTERN NSString *CLLaunchAt(NSString *directory, NSArray *arguments);
-FOUNDATION_EXTERN NSString *CLLaunchAtEx(NSString *directory, NSString *launchPath, ...) NS_REQUIRES_NIL_TERMINATION;
 
-FOUNDATION_EXTERN NSString *CLLaunch(NSArray *arguments);
-FOUNDATION_EXTERN NSString *CLLaunchEx(NSString *launchPath, ...) NS_REQUIRES_NIL_TERMINATION;
+/**
+ launch a command
 
+ @param launchDirectory Current work directory, Pass in nil to use default value.
+ @param ... NSStrings or NSArray
+ @return NSString. Return nil if exit with FAILURE code.
+ */
+FOUNDATION_EXTERN NSString *CLLaunch(NSString *launchDirectory, ...) NS_REQUIRES_NIL_TERMINATION;
+
+
+/**
+ Get current directory
+
+ @return NSString
+ */
 FOUNDATION_EXTERN NSString *CLCurrentDirectory(void);
 
+
+/**
+ Change current directory
+
+ @param directory The new directory
+ @return int
+ */
 FOUNDATION_EXTERN int CLChangeCurrentDirectory(NSString *directory);
