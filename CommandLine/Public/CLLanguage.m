@@ -20,6 +20,9 @@ ConstLanguageKey(CLHelpOptionsLanguageKey);
 
 ConstLanguageKey(CLHelpCommandLanguageKey);
 
+ConstLanguageKey(CLParseErrorIllegalValueLanguageKey);
+ConstLanguageKey(CLParseErrorUnknowQueryLanguageKey);
+
 @interface CLLanguage ()
 
 @property (nonatomic, strong, readonly) NSMutableDictionary *strings;
@@ -48,6 +51,9 @@ static CLLanguage *_current_language_ = nil;
              CLHelpOptionsLanguageKey: @"Options",
              
              CLHelpCommandLanguageKey: @"COMMAND",
+             
+             CLParseErrorIllegalValueLanguageKey: @"Error: argument key `%@` does not support value `%@`",
+             CLParseErrorUnknowQueryLanguageKey: @"Error: illegal key `%@`",
              };
 }
 
@@ -63,6 +69,9 @@ static CLLanguage *_current_language_ = nil;
         strings[CLHelpOptionsLanguageKey] = @"可选参数";
         
         strings[CLHelpCommandLanguageKey] = @"命令";
+        
+        strings[CLParseErrorIllegalValueLanguageKey] = @"错误：参数 `%@` 不能为 `%@`";
+        strings[CLParseErrorUnknowQueryLanguageKey] = @"错误：无效关键字 `%@`";
     }];
 }
 

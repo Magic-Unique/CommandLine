@@ -12,6 +12,8 @@
 
 - (void)printHelpInfo;
 
+- (void)printErrorInfo:(CLRequest *)request;
+
 + (void)printVersion;
 
 @end

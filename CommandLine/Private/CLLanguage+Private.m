@@ -41,6 +41,14 @@
     return self[CLHelpCommandLanguageKey];
 }
 
+- (NSString *)errorIllegalValue {
+    return self[CLParseErrorIllegalValueLanguageKey];
+}
+
+- (NSString *)errorUnknowQuery {
+    return self[CLParseErrorUnknowQueryLanguageKey];
+}
+
 + (NSString *)objectForKeyedSubscript:(NSString *)key {
     return [[CLLanguage current] objectForKeyedSubscript:key];
 }

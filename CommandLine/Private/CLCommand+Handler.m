@@ -34,8 +34,8 @@
         return [CLResponse responseWithHelpCommands:request.commands];
     }
     
-    if (request.illegally) {
-        [self printHelpInfo];
+    if (request.illegalError) {
+        [self printErrorInfo:request];
         return [CLResponse responseWithHelpCommands:request.commands];
     }
     

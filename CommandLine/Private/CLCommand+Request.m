@@ -8,6 +8,7 @@
 
 #import "CLCommand+Request.h"
 #import "NSString+CommandLine.h"
+#import "NSError+CommandLine.h"
 
 @implementation CLCommand (Request)
 
@@ -174,16 +175,20 @@
                     }
                     i++;
                 } else {
-                    parseError = [NSError errorWithDomain:@""
-                                                     code:__LINE__
-                                                 userInfo:@{}];
+                    parseError = [NSError cl_illegalValueForQuery:query.key value:next];
+                    break;
                 }
             } else if ([explain isMemberOfClass:[CLFlag class]]) {
                 CLFlag *flag = (CLFlag *)explain;
                 [_flags addObject:flag.key];
             } else {
                 // no define
-                [_flags addObject:_flag];
+                if (command.allowInvalidKeys) {
+                    [_flags addObject:_flag];
+                } else {
+                    parseError = [NSError cl_unknowQuery:_flag];
+                    break;
+                }
             }
         }
     }
@@ -199,7 +204,7 @@
     }];
     
     if (parseError) {
-        return [CLRequest illegallyrequestWithCommands:_commands];
+        return [CLRequest illegallyRequestWithCommands:_commands error:parseError];
     }
     
     NSArray *commands = _commands.count ? [_commands copy] : nil;

@@ -29,6 +29,13 @@ FOUNDATION_EXTERN CLLanguageKey const CLHelpOptionsLanguageKey;
 /** `COMMAND` placeholder for sub command in helping infomation */
 FOUNDATION_EXTERN CLLanguageKey const CLHelpCommandLanguageKey;
 
+/** Print if user input an illegal value */
+FOUNDATION_EXTERN CLLanguageKey const CLParseErrorIllegalValueLanguageKey;
+
+/** Print if user input an illegal value */
+FOUNDATION_EXTERN CLLanguageKey const CLParseErrorUnknowQueryLanguageKey;
+
+
 
 #define CLCurrentLanguage (CLLanguage.current)
 

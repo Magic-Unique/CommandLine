@@ -23,6 +23,8 @@
 		777A0CEC1044DDD2A695749EA955130A /* CLTerminal.h in Headers */ = {isa = PBXBuildFile; fileRef = 11C78A33BEC35EFEF56FC42DA5A3F3CB /* CLTerminal.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		7E17418721AE645B0028895E /* CLExplain+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 7E17418521AE645B0028895E /* CLExplain+Private.h */; };
 		7E17418821AE645B0028895E /* CLExplain+Private.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E17418621AE645B0028895E /* CLExplain+Private.m */; };
+		7E17418B21AE6BB30028895E /* NSError+CommandLine.h in Headers */ = {isa = PBXBuildFile; fileRef = 7E17418921AE6BB30028895E /* NSError+CommandLine.h */; };
+		7E17418C21AE6BB30028895E /* NSError+CommandLine.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E17418A21AE6BB30028895E /* NSError+CommandLine.m */; };
 		830E999396EAEE486A0931A42DD6AD66 /* CLFlag.h in Headers */ = {isa = PBXBuildFile; fileRef = 6BEB184D6646F55E47EF83790905622A /* CLFlag.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		8D57975736CA9444E56BD5D16E21C36C /* CLCommand+Handler.m in Sources */ = {isa = PBXBuildFile; fileRef = F9A00DA47F9DC02016330B4AE4030052 /* CLCommand+Handler.m */; };
 		8E22A1D7168C5B116BF5E8F289B45B24 /* CLCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C74A591D05AE619404C927C22581180 /* CLCommand.m */; };
@@ -88,6 +90,8 @@
 		7728A288941E305451994C7B3C624C97 /* CLCommand+Request.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "CLCommand+Request.h"; sourceTree = "<group>"; };
 		7E17418521AE645B0028895E /* CLExplain+Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CLExplain+Private.h"; sourceTree = "<group>"; };
 		7E17418621AE645B0028895E /* CLExplain+Private.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "CLExplain+Private.m"; sourceTree = "<group>"; };
+		7E17418921AE6BB30028895E /* NSError+CommandLine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSError+CommandLine.h"; sourceTree = "<group>"; };
+		7E17418A21AE6BB30028895E /* NSError+CommandLine.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSError+CommandLine.m"; sourceTree = "<group>"; };
 		819372B0F6957F0A49CC805D856AC979 /* CommandLine.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; path = CommandLine.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		891888684C5D4C46331A01E1DB4B2321 /* CLResponse.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = CLResponse.m; sourceTree = "<group>"; };
 		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
@@ -205,6 +209,8 @@
 				B8C06DCE6A7EC68FB73544C68E6AFEDC /* NSArray+CommandLine.m */,
 				449613354EE3FF1D4297B4EF65DD547E /* NSString+CommandLine.h */,
 				A3BE9F9417CA2896B68DF1C07EBB89AD /* NSString+CommandLine.m */,
+				7E17418921AE6BB30028895E /* NSError+CommandLine.h */,
+				7E17418A21AE6BB30028895E /* NSError+CommandLine.m */,
 			);
 			name = Private;
 			path = CommandLine/Private;
@@ -283,6 +289,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7E17418B21AE6BB30028895E /* NSError+CommandLine.h in Headers */,
 				68FF8C4D20F42565A55DF0649EA855B9 /* CCText.h in Headers */,
 				7E17418721AE645B0028895E /* CLExplain+Private.h in Headers */,
 				B74033D4D1D3D4C30E1B3FE9F30A1563 /* CLCommand+Handler.h in Headers */,
@@ -387,6 +394,7 @@
 				E0FB4EB830F01E98D10779C76A8C4FDD /* CLCommand+Print.m in Sources */,
 				DA89BCD3A4E987C236922A57FC89E8E5 /* CLCommand+Request.m in Sources */,
 				8E22A1D7168C5B116BF5E8F289B45B24 /* CLCommand.m in Sources */,
+				7E17418C21AE6BB30028895E /* NSError+CommandLine.m in Sources */,
 				B70DF788CAFFF8FC77A2E3E455BC9CA7 /* CLExplain.m in Sources */,
 				E472262E7C785C01D82D8EC1F041DA43 /* CLFlag.m in Sources */,
 				087D7642D595B92BAE94B37BD57270A1 /* CLIOPath.m in Sources */,

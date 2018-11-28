@@ -11,11 +11,21 @@
 #import "NSString+CommandLine.h"
 #import "NSArray+CommandLine.h"
 #import "CCText.h"
+#import "NSError+CommandLine.h"
 
 @implementation CLCommand (Print)
 
 + (void)printVersion {
     CCPrintf(0, @"%@\n", [self version]);
+}
+
+- (void)printErrorInfo:(CLRequest *)request {
+    if (request.illegalError) {
+        CCPrintf(0, request.illegalError.userInfo[CLParseErrorReasonKey]);
+        CCPrintf(0, @"\n");
+    } else {
+        [self printHelpInfo];
+    }
 }
 
 - (void)printHelpInfo {

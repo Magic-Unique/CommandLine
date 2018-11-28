@@ -68,6 +68,9 @@ typedef CLResponse *(^CLCommandTask)(CLCommand *command, CLRequest *request);
 @property (nonatomic, readonly) NSArray<NSString *> *commandPath;
 @property (nonatomic, readonly) NSArray<CLCommand *> *commandNodes;
 
+/** ignore invalid key, default is NO, will inherit subcommands */
+@property (nonatomic, assign) BOOL allowInvalidKeys;
+
 @property (nonatomic, readonly) CLCommandTask task;
 
 - (instancetype)defineSubcommand:(NSString *)command;

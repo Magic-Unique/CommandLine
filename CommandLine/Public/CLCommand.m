@@ -104,32 +104,38 @@ static NSString *CLCommandVersion = nil;
     self = [self initWithName:name];
     if (self) {
         _supercommand = supercommand;
-        
-        for (CLQuery *superQuery in [supercommand.mQueries.allValues copy]) {
-            if (superQuery.isInheritable) {
-                self.mQueries[superQuery.key] = superQuery;
-            }
-        }
-        
-        for (CLFlag *superFlag in [supercommand.mFlags.allValues copy]) {
-            if (superFlag.isInheritable) {
-                self.mFlags[superFlag.key] = superFlag;
-            }
-        }
-        
-        for (CLIOPath *superPath in [supercommand.mRequirePath copy]) {
-            if (superPath.isInheritable) {
-                [self.mRequirePath addObject:superPath];
-            }
-        }
-        
-        for (CLIOPath *superPath in [supercommand.mOptionalPath copy]) {
-            if (superPath.isInheritable) {
-                [self.mOptionalPath addObject:superPath];
-            }
-        }
+        _allowInvalidKeys = supercommand.allowInvalidKeys;
+        [self _inheritFromSupercommand];
     }
     return self;
+}
+
+- (void)_inheritFromSupercommand {
+    CLCommand *supercommand = _supercommand;
+    
+    for (CLQuery *superQuery in [supercommand.mQueries.allValues copy]) {
+        if (superQuery.isInheritable) {
+            self.mQueries[superQuery.key] = superQuery;
+        }
+    }
+    
+    for (CLFlag *superFlag in [supercommand.mFlags.allValues copy]) {
+        if (superFlag.isInheritable) {
+            self.mFlags[superFlag.key] = superFlag;
+        }
+    }
+    
+    for (CLIOPath *superPath in [supercommand.mRequirePath copy]) {
+        if (superPath.isInheritable) {
+            [self.mRequirePath addObject:superPath];
+        }
+    }
+    
+    for (CLIOPath *superPath in [supercommand.mOptionalPath copy]) {
+        if (superPath.isInheritable) {
+            [self.mOptionalPath addObject:superPath];
+        }
+    }
 }
 
 - (void)onHandlerRequest:(CLCommandTask)onHandler {

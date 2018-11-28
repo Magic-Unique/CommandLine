@@ -22,7 +22,7 @@
 
 @property (nonatomic, strong, readonly) CLCommand *command;
 
-@property (nonatomic, assign, readonly) BOOL illegally;
+@property (nonatomic, strong, readonly) NSError *illegalError;
 
 + (instancetype)request;
 
@@ -32,7 +32,7 @@
 
 + (instancetype)requestWithCommands:(NSArray *)commands queries:(NSDictionary *)queries flags:(id)flags paths:(NSArray *)paths;
 
-+ (instancetype)illegallyrequestWithCommands:(NSArray *)commands;
++ (instancetype)illegallyRequestWithCommands:(NSArray *)commands error:(NSError *)error;
 
 - (NSString *)stringForQuery:(NSString *)query;
 

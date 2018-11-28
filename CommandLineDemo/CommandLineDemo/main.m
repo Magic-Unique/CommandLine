@@ -16,6 +16,7 @@
 int main(int argc, const char * argv[]) {
     @autoreleasepool {
         [[CLLanguage ChineseLanguage] apply];
+        CLCommand.main.allowInvalidKeys = YES;
         CLCommand *cache = [CLCommand.main defineSubcommand:@"cache"];
         cache.explain = @"Manipulate the CocoaPods cache";
         [cache onHandlerRequest:^CLResponse *(CLCommand *command, CLRequest *request) {

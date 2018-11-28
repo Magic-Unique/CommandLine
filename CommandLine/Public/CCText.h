@@ -71,3 +71,5 @@ typedef NS_OPTIONS(NSUInteger, CCStyle) {
  @param ... format arguments
  */
 FOUNDATION_EXTERN void CCPrintf(CCStyle style, NSString *format, ...);
+
+FOUNDATION_EXTERN NSString *CCText(CCStyle style, NSString *format, ...);

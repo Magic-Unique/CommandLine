@@ -76,7 +76,7 @@
     }
 }
 
-+ (instancetype)illegallyrequestWithCommands:(NSArray *)commands {
++ (instancetype)illegallyRequestWithCommands:(NSArray *)commands error:(NSError *)error {
     NSMutableArray *_cmds = [commands mutableCopy];
     CLCommand *command = [CLCommand main];
     while (_cmds.count > 1) {
@@ -88,7 +88,7 @@
     }
     if (command) {
         CLRequest *returnValue = [[self alloc] initWithCommand:command Commands:commands queries:nil flags:nil paths:nil];
-        returnValue->_illegally = YES;
+        returnValue->_illegalError = error;
         return returnValue;
     } else {
         return nil;

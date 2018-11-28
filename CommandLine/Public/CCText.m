@@ -104,3 +104,20 @@ void CCPrintf(CCStyle style, NSString *format, ...) {
     }
 }
 
+NSString *CCText(CCStyle style, NSString *format, ...) {
+    va_list args;
+    va_start(args, format);
+    NSString *str = [[NSString alloc] initWithFormat:format arguments:args];
+    va_end(args);
+    
+    if (style == CCStyleNone || CCIsDebuggingInXcode()) {
+        return str;
+    } else {
+        NSMutableString *output = [NSMutableString string];
+        [output appendString:CCStyleStringWithStyle(style)];
+        [output appendString:str];
+        [output appendString:CCStyleStringWithStyle(CCStyleNone)];
+        return [output copy];
+    }
+}
+

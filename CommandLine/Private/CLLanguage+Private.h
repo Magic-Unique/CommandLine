@@ -25,6 +25,10 @@
 
 @property (readonly) NSString *helpCommand;
 
+@property (readonly) NSString *errorIllegalValue;
+
+@property (readonly) NSString *errorUnknowQuery;
+
 + (NSString *)objectForKeyedSubscript:(NSString *)key;
 
 @end
