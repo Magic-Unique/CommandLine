@@ -28,6 +28,8 @@
 
 @property (nonatomic, readonly) CLFlag *(^setExplain)(NSString *explain);
 
+@property (nonatomic, readonly) CLFlag *(^inheritify)(void);
+
 - (instancetype)initWithKey:(NSString *)key;
 
 @end

@@ -14,4 +14,16 @@
 
 @property (nonatomic, strong, readonly) NSString *subtitle;
 
+@property (nonatomic, assign, readonly) BOOL isInheritable;
+
 @end
+
+
+
+
+@interface CLExplain (Definer)
+
+@property (nonatomic, readonly) CLExplain *(^inheritify)(void);
+
+@end
+

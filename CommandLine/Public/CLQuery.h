@@ -49,6 +49,8 @@
 @property (nonatomic, readonly) CLQuery *(^multify)(void);
 @property (nonatomic, readonly) CLQuery *(^predicate)(NSString *regular);
 
+@property (nonatomic, readonly) CLQuery *(^inheritify)(void);
+
 - (instancetype)initWithKey:(NSString *)key;
 
 @end

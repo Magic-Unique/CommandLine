@@ -9,6 +9,7 @@
 #import "CLCommand.h"
 #import "CLResponse+Private.h"
 #import "CLCommand+Handler.h"
+#import "CLExplain+Private.h"
 #import <objc/runtime.h>
 
 #define SharedCommand           ((CLCommand *)[self main])
@@ -16,7 +17,7 @@
 
 static NSString *CLCommandVersion = nil;
 
-@interface CLCommand ()
+@interface CLCommand () <CLExplainDelegate>
 {
     NSMutableDictionary<NSString *, CLCommand *> *_mSubcommands;
     NSMutableDictionary<NSString *, CLQuery *> *_mQueries;
@@ -39,9 +40,10 @@ static NSString *CLCommandVersion = nil;
     static CLCommand *_sharedInstance = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        _sharedInstance = [[self alloc] init];
-        _sharedInstance->_command = [NSProcessInfo processInfo].arguments.firstObject.lastPathComponent;
+        _sharedInstance = [[self alloc] initWithName:[NSProcessInfo processInfo].arguments.firstObject.lastPathComponent];
         NSAssert(_sharedInstance.command, @"command is nil");
+        _sharedInstance.mFlags[[CLFlag help].key] = [CLFlag help];
+        _sharedInstance.mFlags[[CLFlag verbose].key] = [CLFlag verbose];
         _sharedInstance.explain = CLDefaultExplain(@"[CLCommand main]");
     });
     return _sharedInstance;
@@ -60,13 +62,10 @@ static NSString *CLCommandVersion = nil;
     }
 }
 
-- (instancetype)init {
+- (instancetype)initWithName:(NSString *)name {
     self = [super init];
     if (self) {
-        CLFlag *help = [CLFlag help];
-        CLFlag *verbose = [CLFlag verbose];
-        self.mFlags[help.key] = help;
-        self.mFlags[verbose.key] = verbose;
+        _command = [name copy];
     }
     return self;
 }
@@ -94,17 +93,65 @@ static NSString *CLCommandVersion = nil;
 - (instancetype)defineSubcommand:(NSString *)command {
     CLCommand *subdefine = [self mSubcommands][command];
     if (!subdefine) {
-        subdefine = [[[self class] alloc] init];
-        subdefine->_command = command;
-        subdefine->_supercommand = self;
+        subdefine = [[[self class] alloc] initWithName:command supercommand:self];
         [self mSubcommands][command] = subdefine;
     }
     subdefine->_explain = CLDefaultExplain(command);
     return subdefine;
 }
 
+- (instancetype)initWithName:(NSString *)name supercommand:(CLCommand *)supercommand {
+    self = [self initWithName:name];
+    if (self) {
+        _supercommand = supercommand;
+        
+        for (CLQuery *superQuery in [supercommand.mQueries.allValues copy]) {
+            if (superQuery.isInheritable) {
+                self.mQueries[superQuery.key] = superQuery;
+            }
+        }
+        
+        for (CLFlag *superFlag in [supercommand.mFlags.allValues copy]) {
+            if (superFlag.isInheritable) {
+                self.mFlags[superFlag.key] = superFlag;
+            }
+        }
+        
+        for (CLIOPath *superPath in [supercommand.mRequirePath copy]) {
+            if (superPath.isInheritable) {
+                [self.mRequirePath addObject:superPath];
+            }
+        }
+        
+        for (CLIOPath *superPath in [supercommand.mOptionalPath copy]) {
+            if (superPath.isInheritable) {
+                [self.mOptionalPath addObject:superPath];
+            }
+        }
+    }
+    return self;
+}
+
 - (void)onHandlerRequest:(CLCommandTask)onHandler {
     _task = [onHandler copy];
+}
+
+- (void)explainDidInheritify:(CLExplain *)explain {
+    for (CLCommand *subcommand in [self.mSubcommands copy]) {
+        if ([explain isKindOfClass:[CLQuery class]]) {
+            CLQuery *query = (CLQuery *)explain;
+            subcommand.mQueries[query.key] = query;
+        }
+        else if ([explain isKindOfClass:[CLFlag class]]) {
+            CLFlag *flag = (CLFlag *)explain;
+            subcommand.mFlags[flag.key] = flag;
+        }
+        else if ([explain isKindOfClass:[CLIOPath class]]) {
+            CLIOPath *path = (CLIOPath *)explain;
+            NSMutableArray *paths = path.isRequire ? subcommand.mRequirePath : subcommand.mOptionalPath;
+            [paths addObject:path];
+        }
+    }
 }
 
 + (void)setVersion:(NSString *)version {
@@ -146,6 +193,7 @@ static NSString *CLCommandVersion = nil;
 - (CLQuery *(^)(NSString *))setQuery {
     return ^CLQuery *(NSString *key) {
         CLQuery *query = [[CLQuery alloc] initWithKey:key];
+        query.delegate = self;
         self.mQueries[key] = query;
         return query;
     };
@@ -154,6 +202,7 @@ static NSString *CLCommandVersion = nil;
 - (CLFlag *(^)(NSString *))setFlag {
     return ^CLFlag *(NSString *key) {
         CLFlag *flag = [[CLFlag alloc] initWithKey:key];
+        flag.delegate = self;
         self.mFlags[key] = flag;
         return flag;
     };
@@ -162,6 +211,7 @@ static NSString *CLCommandVersion = nil;
 - (CLIOPath *(^)(NSString *))addRequirePath {
     return ^(NSString *key) {
         CLIOPath *path = [[CLIOPath alloc] initWithKey:key require:YES];
+        path.delegate = self;
         [self.mRequirePath addObject:path];
         return path;
     };
@@ -170,6 +220,7 @@ static NSString *CLCommandVersion = nil;
 - (CLIOPath *(^)(NSString *))addOptionalPath {
     return ^(NSString *key) {
         CLIOPath *path = [[CLIOPath alloc] initWithKey:key require:NO];
+        path.delegate = self;
         [self.mOptionalPath addObject:path];
         return path;
     };

@@ -34,4 +34,6 @@
 
 @property (nonatomic, readonly) CLIOPath *(^setExample)(NSString *example);
 
+@property (nonatomic, readonly) CLIOPath *(^inheritify)(void);
+
 @end

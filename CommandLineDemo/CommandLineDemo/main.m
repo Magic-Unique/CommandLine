@@ -33,7 +33,7 @@ int main(int argc, const char * argv[]) {
         }];
 
         CLCommand *print = [CLCommand.main defineSubcommand:@"print"];
-        print.explain = @"Print file informations";
+        print.explain = @"打印文件详细信息";
         print.setQuery(@"array").setAbbr('a').asNumber().multify().require();
         [print onHandlerRequest:^CLResponse *(CLCommand *command, CLRequest *request) {
             return nil;

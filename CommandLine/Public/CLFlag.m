@@ -44,7 +44,9 @@
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         _help = [[self alloc] initWithKey:@"help"];
-        _help.setAbbr('h').setExplain(CLCurrentLanguage.helpExplain);//CLHelpExplain
+        _help.setAbbr('h')
+        .inheritify()
+        .setExplain(CLCurrentLanguage.helpExplain);//CLHelpExplain
     });
     return _help;
 }
@@ -54,7 +56,9 @@
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         _verbose = [[self alloc] initWithKey:@"verbose"];
-        _verbose.setAbbr('V').setExplain(CLCurrentLanguage.verboseExplain);
+        _verbose.setAbbr('V')
+        .inheritify()
+        .setExplain(CLCurrentLanguage.verboseExplain);
     });
     return _verbose;
 }
@@ -64,7 +68,8 @@
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         _version = [[self alloc] initWithKey:@"version"];
-        _version.setAbbr('v').setExplain(CLCurrentLanguage.versionExplain);
+        _version.setAbbr('v')
+        .setExplain(CLCurrentLanguage.versionExplain);
     });
     return _version;
 }
@@ -94,4 +99,5 @@
         return self;
     };
 }
+
 @end
