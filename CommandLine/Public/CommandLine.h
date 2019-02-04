@@ -14,6 +14,8 @@
 #import "CLRequest.h"
 #import "CLResponse.h"
 
+#import "CLLanguage.h"
+
 #import "CCText.h"
 
 #import "CLTerminal.h"
