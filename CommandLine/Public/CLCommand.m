@@ -51,21 +51,21 @@ static NSString *CLCommandVersion = nil;
 }
 
 + (void)defineCommandsForClass:(NSString *)className metaSelectorPrefix:(NSString *)prefix {
-    Class cls = objc_getMetaClass(className.UTF8String);
-    if (!cls) {
-        return;
-    }
-    unsigned count = 0;
-    Method *methodList = class_copyMethodList(cls, &count);
-    for (unsigned i = 0; i < count; i++) {
-        Method method = methodList[i];
-        SEL sel = method_getName(method);
-        NSString *name = NSStringFromSelector(sel);
-        if ([name hasPrefix:prefix]) {
+    Class metaCls = objc_getMetaClass(className.UTF8String);
+    Class cls = objc_getClass(className.UTF8String);
+    if (metaCls && cls) {
+        unsigned count = 0;
+        Method *methodList = class_copyMethodList(metaCls, &count);
+        for (unsigned i = 0; i < count; i++) {
+            Method method = methodList[i];
+            SEL sel = method_getName(method);
+            NSString *name = NSStringFromSelector(sel);
+            if ([name hasPrefix:prefix]) {
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-            [cls performSelector:sel];
+                [cls performSelector:sel];
 #pragma clang diagnostic pop
+            }
         }
     }
 }
