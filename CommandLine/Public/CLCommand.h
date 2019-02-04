@@ -78,7 +78,7 @@ typedef CLResponse *(^CLCommandTask)(CLCommand *command, CLRequest *request);
 
 + (instancetype)main;
 
-+ (void)defineCommandsForClass:(NSString *)cls metaSelectorPrefix:(NSString *)prefix;
++ (void)defineCommandsForClass:(NSString *)className metaSelectorPrefix:(NSString *)prefix;
 
 @property (nonatomic, readonly) CLQuery *(^setQuery)(NSString *key);
 

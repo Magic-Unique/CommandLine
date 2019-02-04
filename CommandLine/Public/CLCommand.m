@@ -40,7 +40,8 @@ static NSString *CLCommandVersion = nil;
     static CLCommand *_sharedInstance = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        _sharedInstance = [[self alloc] initWithName:[NSProcessInfo processInfo].arguments.firstObject.lastPathComponent];
+        NSString *executableName = [NSProcessInfo processInfo].arguments.firstObject.lastPathComponent;
+        _sharedInstance = [[self alloc] initWithName:executableName];
         NSAssert(_sharedInstance.command, @"command is nil");
         _sharedInstance.mFlags[[CLFlag help].key] = [CLFlag help];
         _sharedInstance.mFlags[[CLFlag verbose].key] = [CLFlag verbose];
@@ -49,15 +50,22 @@ static NSString *CLCommandVersion = nil;
     return _sharedInstance;
 }
 
-+ (void)defineCommandsForClass:(NSString *)cls metaSelectorPrefix:(NSString *)prefix {
++ (void)defineCommandsForClass:(NSString *)className metaSelectorPrefix:(NSString *)prefix {
+    Class cls = objc_getMetaClass(className.UTF8String);
+    if (!cls) {
+        return;
+    }
     unsigned count = 0;
-    Method *methodList = class_copyMethodList(objc_getMetaClass(cls.UTF8String), &count);
+    Method *methodList = class_copyMethodList(cls, &count);
     for (unsigned i = 0; i < count; i++) {
         Method method = methodList[i];
         SEL sel = method_getName(method);
         NSString *name = NSStringFromSelector(sel);
         if ([name hasPrefix:prefix]) {
-            [CLCommand performSelector:sel];
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+            [cls performSelector:sel];
+#pragma clang diagnostic pop
         }
     }
 }
@@ -96,13 +104,13 @@ static NSString *CLCommandVersion = nil;
         subdefine = [[[self class] alloc] initWithName:command supercommand:self];
         [self mSubcommands][command] = subdefine;
     }
-    subdefine->_explain = CLDefaultExplain(command);
     return subdefine;
 }
 
 - (instancetype)initWithName:(NSString *)name supercommand:(CLCommand *)supercommand {
     self = [self initWithName:name];
     if (self) {
+        _explain = CLDefaultExplain(name);
         _supercommand = supercommand;
         _allowInvalidKeys = supercommand.allowInvalidKeys;
         [self _inheritFromSupercommand];
