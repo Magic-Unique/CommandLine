@@ -37,6 +37,7 @@ static CLLanguage *_current_language_ = nil;
     if (_current_language_ == nil) {
         NSString *LANG = [NSProcessInfo processInfo].environment[@"LANG"];
         if ([LANG containsString:@"zh-CN"]) {
+        if ([LANG containsString:@"zh_CN"]) {
             _current_language_ = [self ChineseLanguage];
         } else {
             _current_language_ = [self EnglishLanguage];
