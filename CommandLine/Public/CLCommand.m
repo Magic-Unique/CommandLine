@@ -63,7 +63,7 @@ static NSString *CLCommandVersion = nil;
             if ([name hasPrefix:prefix]) {
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-                [cls performSelector:sel];
+                [cls performSelector:sel withObject:[CLCommand main]];
 #pragma clang diagnostic pop
             }
         }

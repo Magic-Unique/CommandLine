@@ -48,12 +48,13 @@ NSString *CLLaunch(NSString *launchDirectory, ...) {
     [arguments removeObjectAtIndex:0];
     
     NSTask *task = [[NSTask alloc] init];
+    task.environment = [NSProcessInfo processInfo].environment;
     
     if (launchDirectory) {
         task.currentDirectoryPath = launchDirectory;
     }
     
-    task.launchPath = [CLIOPath abslutePath:launchPath];
+    task.launchPath = launchPath;
     
     if (arguments.count) {
         task.arguments = arguments;

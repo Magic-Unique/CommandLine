@@ -89,3 +89,8 @@ typedef CLResponse *(^CLCommandTask)(CLCommand *command, CLRequest *request);
 @property (nonatomic, readonly) CLIOPath *(^addOptionalPath)(NSString *key);
 
 @end
+
+#define CLDefineCommand(super, name, explain)
+
+#define CLDefSubcmd(cmd, subcmd)    CLCommand *subcmd = [cmd defineSubcommand: @#subcmd ]
+#define CLSubcmd(subcmd)            CLDefSubcmd([CLCommand main], subcmd)

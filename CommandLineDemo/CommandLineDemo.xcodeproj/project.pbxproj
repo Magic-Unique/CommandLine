@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		6D35EB9520AB2CB80041FCDF /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D35EB9420AB2CB80041FCDF /* main.m */; };
+		7E86CDBD2207E9BA00392901 /* CLCommand+Demo.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E86CDBC2207E9BA00392901 /* CLCommand+Demo.m */; };
 		873C3751D2B04A53D0DC4A3B /* libPods-CommandLineDemo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EF049D923897519329AC34BE /* libPods-CommandLineDemo.a */; };
 /* End PBXBuildFile section */
 
@@ -26,6 +27,8 @@
 /* Begin PBXFileReference section */
 		6D35EB9120AB2CB80041FCDF /* CommandLineDemo */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = CommandLineDemo; sourceTree = BUILT_PRODUCTS_DIR; };
 		6D35EB9420AB2CB80041FCDF /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		7E86CDBB2207E9BA00392901 /* CLCommand+Demo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CLCommand+Demo.h"; sourceTree = "<group>"; };
+		7E86CDBC2207E9BA00392901 /* CLCommand+Demo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "CLCommand+Demo.m"; sourceTree = "<group>"; };
 		96C5FE76C915CD83CCFC3DF3 /* Pods-CommandLineDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CommandLineDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-CommandLineDemo/Pods-CommandLineDemo.release.xcconfig"; sourceTree = "<group>"; };
 		B6C4FEEA3E340995EBC27F4B /* Pods-CommandLineDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CommandLineDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CommandLineDemo/Pods-CommandLineDemo.debug.xcconfig"; sourceTree = "<group>"; };
 		EF049D923897519329AC34BE /* libPods-CommandLineDemo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CommandLineDemo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -74,6 +77,8 @@
 			isa = PBXGroup;
 			children = (
 				6D35EB9420AB2CB80041FCDF /* main.m */,
+				7E86CDBB2207E9BA00392901 /* CLCommand+Demo.h */,
+				7E86CDBC2207E9BA00392901 /* CLCommand+Demo.m */,
 			);
 			path = CommandLineDemo;
 			sourceTree = "<group>";
@@ -166,6 +171,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6D35EB9520AB2CB80041FCDF /* main.m in Sources */,
+				7E86CDBD2207E9BA00392901 /* CLCommand+Demo.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
