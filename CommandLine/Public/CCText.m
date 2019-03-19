@@ -7,70 +7,85 @@
 //
 
 #import "CCText.h"
-
-#if DEBUG == 1
-#include <sys/sysctl.h>
-#endif
+#import "CLTerminal.h"
 
 NSUInteger CCStyleCodeWithStyle(CCStyle style) {
     switch (style) {
-        case CCStyleNone: return 0;
+#define CaseStyle(code, style) case style: return code;
+            CaseStyle(0, CCStyleNone);
             
-        case CCStyleBold: return 1;
-        case CCStyleLight: return 2;
-        case CCStyleItalic: return 3;
-        case CCStyleUnderline: return 4;
-        case CCStyleFlash: return 5;
-        case CCStyleReversal: return 7;
-        case CCStyleClear: return 8;
+            CaseStyle(1, CCStyleBold);
+            CaseStyle(2, CCStyleLight);
+            CaseStyle(3, CCStyleItalic);
+            CaseStyle(4, CCStyleUnderline);
+            CaseStyle(5, CCStyleFlash);
+            CaseStyle(7, CCStyleReversal);
+            CaseStyle(8, CCStyleClear);
             
-        case CCStyleForegroundColorBlack: return 30;
-        case CCStyleForegroundColorDarkRed: return 31;
-        case CCStyleForegroundColorGreen: return 32;
-        case CCStyleForegroundColorYellow: return 33;
-        case CCStyleForegroundColorBlue: return 34;
-        case CCStyleForegroundColorPurple: return 35;
-        case CCStyleForegroundColorDarkGreen: return 36;
-        case CCStyleForegroundColorWhite: return 37;
+            CaseStyle(30, CCStyleForegroundColorBlack);
+            CaseStyle(31, CCStyleForegroundColorDarkRed);
+            CaseStyle(32, CCStyleForegroundColorGreen);
+            CaseStyle(33, CCStyleForegroundColorYellow);
+            CaseStyle(34, CCStyleForegroundColorBlue);
+            CaseStyle(35, CCStyleForegroundColorPurple);
+            CaseStyle(36, CCStyleForegroundColorDarkGreen);
+            CaseStyle(37, CCStyleForegroundColorWhite);
             
-        case CCStyleBackgroundColorBlack: return 40;
-        case CCStyleBackgroundColorRed: return 41;
-        case CCStyleBackgroundColorGreen: return 42;
-        case CCStyleBackgroundColorYellow: return 43;
-        case CCStyleBackgroundColorBlue: return 44;
-        case CCStyleBackgroundColorPurple: return 45;
-        case CCStyleBackgroundColorDarkGreen: return 46;
-        case CCStyleBackgroundColorWhite: return 47;
+            CaseStyle(40, CCStyleBackgroundColorBlack);
+            CaseStyle(41, CCStyleBackgroundColorRed);
+            CaseStyle(42, CCStyleBackgroundColorGreen);
+            CaseStyle(43, CCStyleBackgroundColorYellow);
+            CaseStyle(44, CCStyleBackgroundColorBlue);
+            CaseStyle(45, CCStyleBackgroundColorPurple);
+            CaseStyle(46, CCStyleBackgroundColorDarkGreen);
+            CaseStyle(47, CCStyleBackgroundColorWhite);
+#undef CaseStyle
             
         default: return 0;
     }
 }
 
-static int CCIsDebuggingInXcode()
-{
-#if DEBUG == 1
-    size_t size = sizeof(struct kinfo_proc);
-    struct kinfo_proc info;
-    int ret, name[4];
-    memset(&info, 0, sizeof(struct kinfo_proc));
-    name[0] = CTL_KERN;
-    name[1] = KERN_PROC;
-    name[2] = KERN_PROC_PID;
-    name[3] = getpid();
-    if ((ret = (sysctl(name, 4, &info, &size, NULL, 0)))) {
-        return ret; /* sysctl() failed for some reason */
+NSUInteger CCStyleWithStyleCode(NSUInteger code) {
+    switch (code) {
+#define CaseStyle(code, style) case code: return style;
+            CaseStyle(0, CCStyleNone);
+            
+            CaseStyle(1, CCStyleBold);
+            CaseStyle(2, CCStyleLight);
+            CaseStyle(3, CCStyleItalic);
+            CaseStyle(4, CCStyleUnderline);
+            CaseStyle(5, CCStyleFlash);
+            CaseStyle(7, CCStyleReversal);
+            CaseStyle(8, CCStyleClear);
+            
+            CaseStyle(30, CCStyleForegroundColorBlack);
+            CaseStyle(31, CCStyleForegroundColorDarkRed);
+            CaseStyle(32, CCStyleForegroundColorGreen);
+            CaseStyle(33, CCStyleForegroundColorYellow);
+            CaseStyle(34, CCStyleForegroundColorBlue);
+            CaseStyle(35, CCStyleForegroundColorPurple);
+            CaseStyle(36, CCStyleForegroundColorDarkGreen);
+            CaseStyle(37, CCStyleForegroundColorWhite);
+            
+            CaseStyle(40, CCStyleBackgroundColorBlack);
+            CaseStyle(41, CCStyleBackgroundColorRed);
+            CaseStyle(42, CCStyleBackgroundColorGreen);
+            CaseStyle(43, CCStyleBackgroundColorYellow);
+            CaseStyle(44, CCStyleBackgroundColorBlue);
+            CaseStyle(45, CCStyleBackgroundColorPurple);
+            CaseStyle(46, CCStyleBackgroundColorDarkGreen);
+            CaseStyle(47, CCStyleBackgroundColorWhite);
+#undef CaseStyle
+            
+        default: return 0;
     }
-    return (info.kp_proc.p_flag & P_TRACED) ? 1 : 0;
-#else
-    return 0;
-#endif
 }
 
 NSString *CCStyleStringWithStyle(CCStyle style) {
-#ifdef CCTEXT_COLORFUL_OFF
-    return @"";
-#else
-    if (style) {
+    if (CLProcessIsAttached()) {
+        return @"";
+    }
+    if (style != CCStyleNone) {
         NSMutableArray *codes = [NSMutableArray array];
         for (NSUInteger i = 0; i < 32; i++) {
             CCStyle item = 1 << i;
@@ -86,7 +101,6 @@ NSString *CCStyleStringWithStyle(CCStyle style) {
         }
     }
     return @"\033[0m";
-#endif
 }
 
 void CCPrintf(CCStyle style, NSString *format, ...) {
@@ -95,7 +109,7 @@ void CCPrintf(CCStyle style, NSString *format, ...) {
     NSString *str = [[NSString alloc] initWithFormat:format arguments:args];
     va_end(args);
     
-    if (style == CCStyleNone || CCIsDebuggingInXcode()) {
+    if (style == CCStyleNone || CLProcessIsAttached()) {
         printf("%s", str.UTF8String);
     } else {
         printf("%s", CCStyleStringWithStyle(style).UTF8String);
@@ -110,7 +124,7 @@ NSString *CCText(CCStyle style, NSString *format, ...) {
     NSString *str = [[NSString alloc] initWithFormat:format arguments:args];
     va_end(args);
     
-    if (style == CCStyleNone || CCIsDebuggingInXcode()) {
+    if (style == CCStyleNone || CLProcessIsAttached()) {
         return str;
     } else {
         NSMutableString *output = [NSMutableString string];

@@ -8,6 +8,13 @@
 
 #import <Foundation/Foundation.h>
 
+/**
+ Is debug in Xcode
+ 
+ @return BOOL
+ */
+FOUNDATION_EXTERN BOOL CLProcessIsAttached(void);
+
 
 /**
  Call system

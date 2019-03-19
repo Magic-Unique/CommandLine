@@ -66,10 +66,27 @@ typedef NS_OPTIONS(NSUInteger, CCStyle) {
 /**
  Print a colorful text to stdout.
 
- @param style CCStyleOption
+ @param style CCStyle
  @param format format
  @param ... format arguments
  */
 FOUNDATION_EXTERN void CCPrintf(CCStyle style, NSString *format, ...);
 
+/**
+ Format a colorful text
+
+ @param style CCStyle
+ @param format format
+ @param ... format arguments
+ @return NSString
+ */
 FOUNDATION_EXTERN NSString *CCText(CCStyle style, NSString *format, ...);
+
+
+/**
+ Get style string
+
+ @param style CCStyle
+ @return NSString
+ */
+FOUNDATION_EXTERN NSString *CCStyleStringWithStyle(CCStyle style);

@@ -8,6 +8,22 @@
 
 #import "CLTerminal.h"
 #import "CLIOPath.h"
+#include <sys/sysctl.h>
+
+BOOL CLProcessIsAttached(void) {
+    size_t size = sizeof(struct kinfo_proc);
+    struct kinfo_proc info;
+    int ret, name[4];
+    memset(&info, 0, sizeof(struct kinfo_proc));
+    name[0] = CTL_KERN;
+    name[1] = KERN_PROC;
+    name[2] = KERN_PROC_PID;
+    name[3] = getpid();
+    if ((ret = (sysctl(name, 4, &info, &size, NULL, 0)))) {
+        return ret; /* sysctl() failed for some reason */
+    }
+    return (info.kp_proc.p_flag & P_TRACED) ? YES : NO;
+}
 
 int CLSystem(NSString *format, ...) {
     va_list args;
