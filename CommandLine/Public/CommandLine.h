@@ -22,4 +22,8 @@
 
 #define CLCommandMain() return (int)[CLCommand handleRequest:[CLRequest request]].error.code;
 
+#define CLMainExplain [CLCommand main].explain
+
+#define CLMakeSubcommand(cls, pre) [CLCommand defineCommandsForClass:((cls *)0x0, @#cls) metaSelectorPrefix:@#pre];
+
 #endif /* CommandLine_h */

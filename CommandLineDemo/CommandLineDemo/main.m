@@ -15,9 +15,8 @@
 
 int main(int argc, const char * argv[]) {
     @autoreleasepool {
-        [[CLLanguage ChineseLanguage] apply];
-        [CLCommand main].explain = @"My explain for main command.";
-        [CLCommand defineCommandsForClass:@"CLCommand" metaSelectorPrefix:@"__init_"];
+        CLMainExplain = @"My explain for main command.";
+        CLMakeSubcommand(CLCommand, __init_);
         CLCommandMain();
     }
     return 0;
