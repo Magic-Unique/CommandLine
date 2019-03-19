@@ -16,7 +16,7 @@ NSUInteger CCStyleCodeWithStyle(CCStyle style) {
     switch (style) {
         case CCStyleNone: return 0;
             
-        case CCStyleBord: return 1;
+        case CCStyleBold: return 1;
         case CCStyleLight: return 2;
         case CCStyleItalic: return 3;
         case CCStyleUnderline: return 4;

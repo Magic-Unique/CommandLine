@@ -13,7 +13,7 @@ typedef NS_OPTIONS(NSUInteger, CCStyle) {
     CCStyleNone = 0,
     
     ///< 粗体
-    CCStyleBord = 1 << 0,
+    CCStyleBold = 1 << 0,
     ///< 细体
     CCStyleLight = 1 << 1,
     ///< 斜体
