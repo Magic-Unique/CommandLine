@@ -7,7 +7,7 @@
 //
 
 #import "CLCommand+Demo.h"
-#import <CommandLine/MUHookMetaMacro.h>
+#import "MUHookMetaMacro.h"
 
 
 #define MUHSTR(str)                     [NSString stringWithUTF8String:str]
