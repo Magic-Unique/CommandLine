@@ -11,6 +11,7 @@ See [Magic-Unique/MobileProvisionTool](https://github.com/Magic-Unique/MobilePro
 ## Features
 
 1. Support subcommands
+2. Support forwarding subcommand
 2. Support Queries
 	* key-value (require)
 	* key-value (optional)
@@ -75,6 +76,39 @@ spec.explain = @"Spec commands"
     }];
 }
 ```
+### Forwarding Subcommand
+
+If you want to define default command like:
+
+```shell
+$ pod repo
+
+# equals to
+
+$ pod repo list
+```
+
+It's meaning:
+
+binary|command|forwarding subcommand|
+------|-------|---------------------|
+ pod  |  repo |        list         | 
+
+You can execute the code before parse.
+
+```objc
+CLCommand *pod = [CLCommand main];
+CLCommand *repo = [pod defineSubcommand:@"repo"];
+repo.explain = @"Repo operator"
+{
+	CLCommand * list = [spec defineForwardingSubcommand:@"list"];
+    list = @"List all local repo";
+	[create onHandlerRequest:^CLResponse *(CLCommand *command, CLRequest *request) {
+		// do something to list out local repo
+    }];
+}
+```
+
 ### Queries
 
 If you want to define the command like:
