@@ -65,6 +65,15 @@
     [print onHandlerRequest:^CLResponse *(CLCommand *command, CLRequest *request) {
         return nil;
     }];
+    
+    CLCommand *repo = [CLCommand.main defineSubcommand:@"repo"];
+    CLCommand *list = [repo defineForwardingSubcommand:@"list"];
+    list.setQuery(@"query").setAbbr('q').optional().setExplain(@"query");
+    list.setFlag(@"flag").setAbbr('f').setExplain(@"Flag");
+    [list onHandlerRequest:^CLResponse *(CLCommand *command, CLRequest *request) {
+        NSLog(@"on handler list command [--query=%@]", request.queries[@"query"]);
+        return nil;
+    }];
 }
 
 @end

@@ -18,6 +18,11 @@
     return [string copy];
 }
 
+- (BOOL)cl_matches:(NSString *)regularExpression {
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", regularExpression];
+    return [predicate evaluateWithObject:self];
+}
+
 @end
 
 @implementation NSMutableString (CommandLine)

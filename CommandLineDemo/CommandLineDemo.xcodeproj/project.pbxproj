@@ -104,6 +104,7 @@
 				6D35EB8D20AB2CB80041FCDF /* Sources */,
 				6D35EB8E20AB2CB80041FCDF /* Frameworks */,
 				6D35EB8F20AB2CB80041FCDF /* CopyFiles */,
+				7E2E72D722571A6D0043317F /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -147,6 +148,23 @@
 /* End PBXProject section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		7E2E72D722571A6D0043317F /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nrm /usr/local/bin/cmd\ncp \"${BUILT_PRODUCTS_DIR}/${FULL_PRODUCT_NAME}\" /usr/local/bin/cmd\n";
+		};
 		E94493548AAE7F5302D7614D /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;

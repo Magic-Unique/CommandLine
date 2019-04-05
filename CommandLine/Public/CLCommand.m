@@ -31,6 +31,7 @@ static NSString *CLCommandVersion = nil;
 @property (nonatomic, strong, readonly) NSMutableDictionary *mFlags;
 @property (nonatomic, strong, readonly) NSMutableArray *mRequirePath;
 @property (nonatomic, strong, readonly) NSMutableArray *mOptionalPath;
+@property (nonatomic, assign, readonly) BOOL isForwardingTarget;
 
 @end
 
@@ -103,6 +104,20 @@ static NSString *CLCommandVersion = nil;
     if (!subdefine) {
         subdefine = [[[self class] alloc] initWithName:command supercommand:self];
         [self mSubcommands][command] = subdefine;
+    }
+    return subdefine;
+}
+
+- (instancetype)defineForwardingSubcommand:(NSString *)command {
+    if (_forwardingSubcommand) {
+        if (![_forwardingSubcommand.command isEqualToString:command]) {
+            NSAssert(NO, @"The command `%@` already contains default subcommand `%@`", self.command, self.forwardingSubcommand.command);
+        }
+    }
+    CLCommand *subdefine = [self defineSubcommand:command];
+    if (!_forwardingSubcommand) {
+        subdefine->_isForwardingTarget = YES;
+        _forwardingSubcommand = subdefine;
     }
     return subdefine;
 }
@@ -328,7 +343,11 @@ static NSString *CLCommandVersion = nil;
 }
 
 - (NSString *)title {
-    return [NSString stringWithFormat:@"+ %@", self.command];
+    if (self.isForwardingTarget) {
+        return [NSString stringWithFormat:@"> %@", self.command];
+    } else {
+        return [NSString stringWithFormat:@"+ %@", self.command];
+    }
 }
 
 - (NSString *)subtitle {

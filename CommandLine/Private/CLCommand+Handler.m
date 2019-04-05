@@ -27,6 +27,12 @@
     if ([request.flags containsObject:@"help"]) {
         [self printHelpInfo];
         return [CLResponse responseWithHelpCommands:request.commands];
+    } else {
+        NSLog(@"No help");
+    }
+    
+    if (self.forwardingSubcommand) {
+        return [self.forwardingSubcommand _handleRequest:request];
     }
     
     if (self.task == nil) {

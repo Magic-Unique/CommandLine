@@ -106,21 +106,42 @@
         return [CLRequest requestWithCommands:@[sharedCommand.command] queries:nil flags:nil paths:nil];
     }
     
-    CLCommand *command = [CLCommand main];
+    CLCommand *inputCommand = nil;
+    CLCommand *handlCommand = nil;
     
     NSMutableArray *_arguments = [arguments mutableCopy];
-    NSMutableArray *_commands = [NSMutableArray array]; [_commands addObject:command.command];
+    NSMutableArray *_commands = [NSMutableArray array]; [_commands addObject:[CLCommand main].command];
     NSMutableDictionary *_queries = [NSMutableDictionary dictionary];
     NSMutableSet *_flags = [NSMutableSet set];
     NSMutableArray *_paths = [NSMutableArray array];
     NSError *parseError = nil;
     
-    BOOL confirmedCommand = NO;
-    
-    for (NSUInteger i = 1; i < _arguments.count; i++) {
-        NSString *current = _arguments[i];
-        NSString *next = i + 1 < _arguments.count ? _arguments[i + 1] : nil;
+    // parse command level
+    do {
+        CLCommand *command = [CLCommand main];
+        for (NSUInteger i = 1; i < _arguments.count; i++) {
+            NSString *current = _arguments[i];
+            if (![current cl_matches:@"^[a-zA-z][a-zA-z0-9\\-]*$"]) {
+                break;
+            }
+            CLCommand *subcommand = command.subcommands[current];
+            if (!subcommand) {
+                break;
+            }
+            
+            command = subcommand;
+            [_commands addObject:subcommand.command];
+        }
         
+        inputCommand = command;
+        handlCommand = command.forwardingSubcommand ?: command;
+        
+        [_arguments removeObjectsInRange:NSMakeRange(0, _commands.count)];
+    } while (0);
+    
+    // unfold mult-abbrs
+    for (NSUInteger i = 0; i < _arguments.count; i++) {
+        NSString *current = _arguments[i];
         if (CLArgumentIsAbbr(current) && current.length > 2) {
             current = [current substringFromIndex:1];
             NSMutableArray *subarray = [NSMutableArray arrayWithCapacity:current.length];
@@ -128,72 +149,66 @@
                 [subarray addObject:[@"-" stringByAppendingString:[current substringWithRange:NSMakeRange(j, 1)]]];
             }
             [_arguments replaceObjectsInRange:NSMakeRange(i, 1) withObjectsFromArray:subarray];
-            i--;
-            continue;
+            i = i + subarray.count - 1;
         }
+    }
+    
+    //  parse queries, flags, iopaths
+    for (NSUInteger i = 0; i < _arguments.count; i++) {
+        NSString *current = _arguments[i];
+        NSString *next = (i + 1) < _arguments.count ? _arguments[i + 1] : nil;
         
-        if (CLArgumentIsKeyOrAbbr(current) == NO) {
-            CLCommand *subcmd = command.subcommands[current];
-            if (confirmedCommand == NO && subcmd) {
-                [_commands addObject:current];
-                command = subcmd;
-            } else {
-                confirmedCommand = YES;
-                [_paths addObject:current];
-            }
+        if (!CLArgumentIsKeyOrAbbr(current)) {
+            [_paths addObject:current];
         } else {
-            confirmedCommand = YES;
-            
             CLExplain *explain = nil;
             NSString *_flag = nil;
             
             if (CLArgumentIsAbbr(current)) {
                 //  abbr/abbrs/abbr(s)+query
-                explain = [command _explainWithAbbr:CLGetAbbrFromArgument(current) next:next];
+                explain = [handlCommand _explainWithAbbr:CLGetAbbrFromArgument(current) next:next];
                 _flag = [NSString stringWithFormat:@"%c", CLGetAbbrFromArgument(current)];
             } else {
                 //  query/flags
-                explain = [command _explainWithKey:CLGetKeyFromArgument(current) next:next];
+                explain = [handlCommand _explainWithKey:CLGetKeyFromArgument(current) next:next];
                 _flag = CLGetKeyFromArgument(current);
             }
             
             if ([explain isMemberOfClass:[CLQuery class]]) {
                 CLQuery *query = (CLQuery *)explain;
-                if ([query predicateForString:next]) {
-                    if (query.isMultiable) {
-                        NSMutableArray *array = ({
-                            NSMutableArray *array = _queries[query.key];
-                            if (!array) {
-                                array = [NSMutableArray array];
-                                _queries[query.key] = array;
-                            }
-                            array;
-                        });
-                        [array addObject:next];
-                    } else {
-                        _queries[query.key] = next;
-                    }
-                    i++;
-                } else {
+                if (![query predicateForString:next]) {
                     parseError = [NSError cl_illegalValueForQuery:query.key value:next];
                     break;
                 }
+                if (query.isMultiable) {
+                    NSMutableArray *array = ({
+                        NSMutableArray *array = _queries[query.key];
+                        if (!array) {
+                            array = [NSMutableArray array];
+                            _queries[query.key] = array;
+                        }
+                        array;
+                    });
+                    [array addObject:next];
+                } else {
+                    _queries[query.key] = next;
+                }
+                i++;
             } else if ([explain isMemberOfClass:[CLFlag class]]) {
                 CLFlag *flag = (CLFlag *)explain;
                 [_flags addObject:flag.key];
             } else {
                 // no define
-                if (command.allowInvalidKeys) {
-                    [_flags addObject:_flag];
-                } else {
+                if (!handlCommand.allowInvalidKeys) {
                     parseError = [NSError cl_unknowQuery:_flag];
                     break;
                 }
+                [_flags addObject:_flag];
             }
         }
     }
     
-    [command.queries enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull key, CLQuery * _Nonnull obj, BOOL * _Nonnull stop) {
+    [handlCommand.queries enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull key, CLQuery * _Nonnull obj, BOOL * _Nonnull stop) {
         if (obj.isOptional && obj.defaultValue && _queries[obj.key] == nil) {
             if (obj.isMultiable && ![obj.defaultValue isKindOfClass:[NSArray class]]) {
                 _queries[obj.key] = @[obj.defaultValue];

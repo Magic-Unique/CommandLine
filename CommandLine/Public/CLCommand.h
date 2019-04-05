@@ -58,6 +58,8 @@ typedef CLResponse *(^CLCommandTask)(CLCommand *command, CLRequest *request);
 
 @property (nonatomic, readonly) NSDictionary<NSString *, CLCommand *> *subcommands;
 
+@property (nonatomic, readonly) CLCommand *forwardingSubcommand;
+
 @property (nonatomic, readonly) NSDictionary<NSString *, CLQuery *> *queries;
 
 @property (nonatomic, readonly) NSDictionary<NSString *, CLFlag *> *flags;
@@ -74,6 +76,7 @@ typedef CLResponse *(^CLCommandTask)(CLCommand *command, CLRequest *request);
 @property (nonatomic, readonly) CLCommandTask task;
 
 - (instancetype)defineSubcommand:(NSString *)command;
+- (instancetype)defineForwardingSubcommand:(NSString *)command;
 - (void)onHandlerRequest:(CLCommandTask)onHandler;
 
 + (instancetype)main;

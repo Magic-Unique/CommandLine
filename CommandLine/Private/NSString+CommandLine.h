@@ -12,6 +12,8 @@
 
 + (instancetype)cl_stringWithSpace:(NSUInteger)length;
 
+- (BOOL)cl_matches:(NSString *)regularExpression;
+
 @end
 
 @interface NSMutableString (CommandLine)
