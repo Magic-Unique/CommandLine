@@ -27,8 +27,6 @@
     if ([request.flags containsObject:@"help"]) {
         [self printHelpInfo];
         return [CLResponse responseWithHelpCommands:request.commands];
-    } else {
-        NSLog(@"No help");
     }
     
     if (self.forwardingSubcommand) {
