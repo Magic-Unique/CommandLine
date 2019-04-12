@@ -70,7 +70,7 @@ typedef NS_OPTIONS(NSUInteger, CCStyle) {
  @param format format
  @param ... format arguments
  */
-FOUNDATION_EXTERN void CCPrintf(CCStyle style, NSString *format, ...);
+FOUNDATION_EXTERN void CCPrintf(CCStyle style, NSString * _Nonnull format, ...);
 
 /**
  Format a colorful text
@@ -80,7 +80,7 @@ FOUNDATION_EXTERN void CCPrintf(CCStyle style, NSString *format, ...);
  @param ... format arguments
  @return NSString
  */
-FOUNDATION_EXTERN NSString *CCText(CCStyle style, NSString *format, ...);
+FOUNDATION_EXTERN NSString * _Nonnull CCText(CCStyle style, NSString * _Nonnull format, ...);
 
 
 /**
@@ -89,4 +89,4 @@ FOUNDATION_EXTERN NSString *CCText(CCStyle style, NSString *format, ...);
  @param style CCStyle
  @return NSString
  */
-FOUNDATION_EXTERN NSString *CCStyleStringWithStyle(CCStyle style);
+FOUNDATION_EXTERN NSString * _Nonnull CCStyleStringWithStyle(CCStyle style);

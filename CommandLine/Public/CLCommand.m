@@ -7,6 +7,11 @@
 //
 
 #import "CLCommand.h"
+#import "CLQuery.h"
+#import "CLFlag.h"
+#import "CLIOPath.h"
+#import "CLRequest.h"
+#import "CLResponse.h"
 #import "CLResponse+Private.h"
 #import "CLCommand+Handler.h"
 #import "CLExplain+Private.h"

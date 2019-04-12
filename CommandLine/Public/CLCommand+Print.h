@@ -12,7 +12,7 @@
 
 - (void)printHelpInfo;
 
-- (void)printErrorInfo:(CLRequest *)request;
+- (void)printErrorInfo:(CLRequest * _Nonnull)request;
 
 + (void)printVersion;
 

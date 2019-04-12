@@ -6,25 +6,11 @@
 //  Copyright © 2018年 unique. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-#import "CLQuery.h"
-#import "CLFlag.h"
-#import "CLIOPath.h"
-#import "CLRequest.h"
-#import "CLResponse.h"
+#import "CLExplain.h"
 
-@class CLCommand, CLRequest, CLResponse;
+@class CLCommand, CLRequest, CLResponse, CLQuery, CLFlag, CLIOPath;
 
-
-
-
-typedef void(^CLCommandDefining)(CLCommand *command);
-
-typedef CLResponse *(^CLCommandTask)(CLCommand *command, CLRequest *request);
-
-
-
-
+typedef CLResponse * _Nullable (^CLCommandTask)(CLCommand * _Nonnull command, CLRequest * _Nonnull request);
 
 
 @interface CLCommand : CLExplain
@@ -34,14 +20,14 @@ typedef CLResponse *(^CLCommandTask)(CLCommand *command, CLRequest *request);
 
  @param version NSString
  */
-+ (void)setVersion:(NSString *)version;
++ (void)setVersion:(NSString * _Nonnull)version;
 
 /**
  Get the tool's version. 取此命令行的版本
 
  @return NSString
  */
-+ (NSString *)version;
++ (NSString * _Nullable)version;
 
 /**
  Handle a request. You need defined all commands before calling the method. 处理请求。执行之前请定义完毕所有命令。
@@ -49,51 +35,46 @@ typedef CLResponse *(^CLCommandTask)(CLCommand *command, CLRequest *request);
  @param request CLRequest
  @return CLResponse
  */
-+ (CLResponse *)handleRequest:(CLRequest *)request;
++ (CLResponse * _Nonnull)handleRequest:(CLRequest * _Nonnull)request;
 
 
-@property (nonatomic, readonly) NSString *command;
+@property (nonatomic, readonly, nonnull) NSString *command;
 
-@property (nonatomic, strong) NSString *explain;
+@property (nonatomic, strong, nullable) NSString *explain;
 
-@property (nonatomic, readonly) NSDictionary<NSString *, CLCommand *> *subcommands;
+@property (nonatomic, readonly, nonnull) NSDictionary<NSString *, CLCommand *> *subcommands;
 
-@property (nonatomic, readonly) CLCommand *forwardingSubcommand;
+@property (nonatomic, readonly, nullable) CLCommand *forwardingSubcommand;
 
-@property (nonatomic, readonly) NSDictionary<NSString *, CLQuery *> *queries;
+@property (nonatomic, readonly, nonnull) NSDictionary<NSString *, CLQuery *> *queries;
 
-@property (nonatomic, readonly) NSDictionary<NSString *, CLFlag *> *flags;
+@property (nonatomic, readonly, nonnull) NSDictionary<NSString *, CLFlag *> *flags;
 
-@property (nonatomic, readonly) NSArray<CLIOPath *> *ioPaths;
+@property (nonatomic, readonly, nonnull) NSArray<CLIOPath *> *ioPaths;
 
-@property (nonatomic, weak, readonly) CLCommand *supercommand;
-@property (nonatomic, readonly) NSArray<NSString *> *commandPath;
-@property (nonatomic, readonly) NSArray<CLCommand *> *commandNodes;
+@property (nonatomic, weak, readonly, nullable) CLCommand *supercommand;
+@property (nonatomic, readonly, nonnull) NSArray<NSString *> *commandPath;
+@property (nonatomic, readonly, nonnull) NSArray<CLCommand *> *commandNodes;
 
 /** ignore invalid key, default is NO, will inherit subcommands */
 @property (nonatomic, assign) BOOL allowInvalidKeys;
 
-@property (nonatomic, readonly) CLCommandTask task;
+@property (nonatomic, readonly, nullable) CLCommandTask task;
 
-- (instancetype)defineSubcommand:(NSString *)command;
-- (instancetype)defineForwardingSubcommand:(NSString *)command;
-- (void)onHandlerRequest:(CLCommandTask)onHandler;
+- (instancetype _Nonnull)defineSubcommand:(NSString * _Nonnull)command;
+- (instancetype _Nonnull)defineForwardingSubcommand:(NSString * _Nonnull)command;
+- (void)onHandlerRequest:(CLCommandTask _Nonnull)onHandler;
 
-+ (instancetype)main;
++ (instancetype _Nonnull)main;
 
-+ (void)defineCommandsForClass:(NSString *)className metaSelectorPrefix:(NSString *)prefix;
++ (void)defineCommandsForClass:(NSString * _Nonnull)className metaSelectorPrefix:(NSString * _Nonnull)prefix;
 
-@property (nonatomic, readonly) CLQuery *(^setQuery)(NSString *key);
+@property (nonatomic, readonly, nonnull) CLQuery * _Nonnull (^setQuery)(NSString * _Nonnull key);
 
-@property (nonatomic, readonly) CLFlag *(^setFlag)(NSString *key);
+@property (nonatomic, readonly, nonnull) CLFlag * _Nonnull (^setFlag)(NSString * _Nonnull key);
 
-@property (nonatomic, readonly) CLIOPath *(^addRequirePath)(NSString *key);
+@property (nonatomic, readonly, nonnull) CLIOPath * _Nonnull (^addRequirePath)(NSString * _Nonnull key);
 
-@property (nonatomic, readonly) CLIOPath *(^addOptionalPath)(NSString *key);
+@property (nonatomic, readonly, nonnull) CLIOPath * _Nonnull (^addOptionalPath)(NSString * _Nonnull key);
 
 @end
-
-#define CLDefineCommand(super, name, explain)
-
-#define CLDefSubcmd(cmd, subcmd)    CLCommand *subcmd = [cmd defineSubcommand: @#subcmd ]
-#define CLSubcmd(subcmd)            CLDefSubcmd([CLCommand main], subcmd)

@@ -23,7 +23,7 @@ FOUNDATION_EXTERN BOOL CLProcessIsAttached(void);
  @param ... arguments
  @return int
  */
-FOUNDATION_EXTERN int CLSystem(NSString *format, ...);
+FOUNDATION_EXTERN int CLSystem(NSString * _Nonnull format, ...);
 
 
 /**
@@ -32,7 +32,7 @@ FOUNDATION_EXTERN int CLSystem(NSString *format, ...);
  @param format NSString
  @param ... arguments
  */
-FOUNDATION_EXTERN void CLPrintf(NSString *format, ...);
+FOUNDATION_EXTERN void CLPrintf(NSString * _Nonnull format, ...);
 
 
 /**
@@ -42,7 +42,7 @@ FOUNDATION_EXTERN void CLPrintf(NSString *format, ...);
  @param ... NSStrings or NSArray
  @return NSString. Return nil if exit with FAILURE code.
  */
-FOUNDATION_EXTERN NSString *CLLaunch(NSString *launchDirectory, ...) NS_REQUIRES_NIL_TERMINATION;
+FOUNDATION_EXTERN NSString * _Nullable CLLaunch(NSString * _Nullable launchDirectory, ...) NS_REQUIRES_NIL_TERMINATION;
 
 
 /**
@@ -50,7 +50,7 @@ FOUNDATION_EXTERN NSString *CLLaunch(NSString *launchDirectory, ...) NS_REQUIRES
 
  @return NSString
  */
-FOUNDATION_EXTERN NSString *CLCurrentDirectory(void);
+FOUNDATION_EXTERN NSString * _Nonnull CLCurrentDirectory(void);
 
 
 /**
@@ -59,4 +59,4 @@ FOUNDATION_EXTERN NSString *CLCurrentDirectory(void);
  @param directory The new directory
  @return int
  */
-FOUNDATION_EXTERN int CLChangeCurrentDirectory(NSString *directory);
+FOUNDATION_EXTERN int CLChangeCurrentDirectory(NSString * _Nullable directory);

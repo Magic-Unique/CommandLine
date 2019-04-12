@@ -6,6 +6,8 @@
 //
 
 #import "CLCommand+Handler.h"
+#import "CLRequest.h"
+#import "CLQuery.h"
 #import "CLCommand+Print.h"
 #import "CLResponse+Private.h"
 

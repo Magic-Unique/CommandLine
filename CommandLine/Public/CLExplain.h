@@ -10,9 +10,9 @@
 
 @interface CLExplain : NSObject
 
-@property (nonatomic, strong, readonly) NSString *title;
+@property (nonatomic, strong, readonly, nullable) NSString *title;
 
-@property (nonatomic, strong, readonly) NSString *subtitle;
+@property (nonatomic, strong, readonly, nullable) NSString *subtitle;
 
 @property (nonatomic, assign, readonly) BOOL isInheritable;
 
@@ -23,7 +23,7 @@
 
 @interface CLExplain (Definer)
 
-@property (nonatomic, readonly) CLExplain *(^inheritify)(void);
+@property (nonatomic, readonly, nonnull) CLExplain * _Nonnull (^inheritify)(void);
 
 @end
 

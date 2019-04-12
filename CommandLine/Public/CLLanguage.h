@@ -10,30 +10,30 @@
 typedef NSString *CLLanguageKey;
 
 /** Explain for version flag */
-FOUNDATION_EXTERN CLLanguageKey const CLVersionExplainLanguageKey;
+FOUNDATION_EXTERN CLLanguageKey const _Nonnull CLVersionExplainLanguageKey;
 /** Explain for help flag */
-FOUNDATION_EXTERN CLLanguageKey const CLHelpExplainLanguageKey;
+FOUNDATION_EXTERN CLLanguageKey const _Nonnull CLHelpExplainLanguageKey;
 /** Explain for verbose flag */
-FOUNDATION_EXTERN CLLanguageKey const CLVerboseExplainLanguageKey;
+FOUNDATION_EXTERN CLLanguageKey const _Nonnull CLVerboseExplainLanguageKey;
 
 
 /** `Usage` keyword in helping information */
-FOUNDATION_EXTERN CLLanguageKey const CLHelpUsageLanguageKey;
+FOUNDATION_EXTERN CLLanguageKey const _Nonnull CLHelpUsageLanguageKey;
 /** `Commands` keyword in helping information */
-FOUNDATION_EXTERN CLLanguageKey const CLHelpCommandsLanguageKey;
+FOUNDATION_EXTERN CLLanguageKey const _Nonnull CLHelpCommandsLanguageKey;
 /** `Requires` keyword in helping infomation */
-FOUNDATION_EXTERN CLLanguageKey const CLHelpRequiresLanguageKey;
+FOUNDATION_EXTERN CLLanguageKey const _Nonnull CLHelpRequiresLanguageKey;
 /** `Options` keyword in helping information */
-FOUNDATION_EXTERN CLLanguageKey const CLHelpOptionsLanguageKey;
+FOUNDATION_EXTERN CLLanguageKey const _Nonnull CLHelpOptionsLanguageKey;
 
 /** `COMMAND` placeholder for sub command in helping infomation */
-FOUNDATION_EXTERN CLLanguageKey const CLHelpCommandLanguageKey;
+FOUNDATION_EXTERN CLLanguageKey const _Nonnull CLHelpCommandLanguageKey;
 
 /** Print if user input an illegal value */
-FOUNDATION_EXTERN CLLanguageKey const CLParseErrorIllegalValueLanguageKey;
+FOUNDATION_EXTERN CLLanguageKey const _Nonnull CLParseErrorIllegalValueLanguageKey;
 
 /** Print if user input an illegal value */
-FOUNDATION_EXTERN CLLanguageKey const CLParseErrorUnknowQueryLanguageKey;
+FOUNDATION_EXTERN CLLanguageKey const _Nonnull CLParseErrorUnknowQueryLanguageKey;
 
 
 
@@ -47,7 +47,7 @@ FOUNDATION_EXTERN CLLanguageKey const CLParseErrorUnknowQueryLanguageKey;
 
  @return CLLanguage
  */
-+ (instancetype)current;
++ (instancetype _Nonnull)current;
 
 
 
@@ -56,7 +56,7 @@ FOUNDATION_EXTERN CLLanguageKey const CLParseErrorUnknowQueryLanguageKey;
 
  @return CLLanguage
  */
-+ (instancetype)ChineseLanguage;
++ (instancetype _Nonnull)ChineseLanguage;
 
 
 /**
@@ -64,7 +64,7 @@ FOUNDATION_EXTERN CLLanguageKey const CLParseErrorUnknowQueryLanguageKey;
 
  @return CLLanguage
  */
-+ (instancetype)EnglishLanguage;
++ (instancetype _Nonnull)EnglishLanguage;
 
 
 /**
@@ -73,7 +73,7 @@ FOUNDATION_EXTERN CLLanguageKey const CLParseErrorUnknowQueryLanguageKey;
  @param strings NSDictionary, key is CLLanguageKey, value is NSString
  @return CLLanguage
  */
-+ (instancetype)languageWithStrings:(NSDictionary<CLLanguageKey, NSString *> *)strings;
++ (instancetype _Nonnull)languageWithStrings:(NSDictionary<CLLanguageKey, NSString *> * _Nonnull)strings;
 
 
 /**
@@ -82,7 +82,7 @@ FOUNDATION_EXTERN CLLanguageKey const CLParseErrorUnknowQueryLanguageKey;
  @param mapBlock set all keys value in block
  @return CLLanguage
  */
-+ (instancetype)languageWithMapBlock:(void (^)(NSMutableDictionary<CLLanguageKey, NSString *> *strings))mapBlock;
++ (instancetype _Nonnull)languageWithMapBlock:(void (^_Nonnull)(NSMutableDictionary<CLLanguageKey, NSString *> * _Nonnull strings))mapBlock;
 
 
 /**
@@ -91,7 +91,7 @@ FOUNDATION_EXTERN CLLanguageKey const CLParseErrorUnknowQueryLanguageKey;
  @param key CLLanguageKey
  @return NSString
  */
-- (NSString *)objectForKeyedSubscript:(CLLanguageKey)key;
+- (NSString * _Nullable)objectForKeyedSubscript:(CLLanguageKey _Nonnull)key;
 
 
 /**
@@ -100,7 +100,7 @@ FOUNDATION_EXTERN CLLanguageKey const CLParseErrorUnknowQueryLanguageKey;
  @param obj NSString
  @param key CLLanguageKey
  */
-- (void)setObject:(NSString *)obj forKeyedSubscript:(CLLanguageKey)key;
+- (void)setObject:(NSString *_Nullable)obj forKeyedSubscript:(CLLanguageKey _Nonnull)key;
 
 
 /**

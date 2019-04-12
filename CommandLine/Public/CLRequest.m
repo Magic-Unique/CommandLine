@@ -8,6 +8,7 @@
 
 #import "CLRequest.h"
 #import "CLCommand+Request.h"
+#import "CLFlag.h"
 #import "CLIOPath.h"
 #import "CCText.h"
 

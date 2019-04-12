@@ -7,6 +7,10 @@
 //
 
 #import "CLCommand+Print.h"
+#import "CLRequest.h"
+#import "CLQuery.h"
+#import "CLFlag.h"
+#import "CLIOPath.h"
 #import "CLLanguage+Private.h"
 #import "NSString+CommandLine.h"
 #import "NSArray+CommandLine.h"

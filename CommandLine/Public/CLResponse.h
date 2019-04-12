@@ -10,18 +10,18 @@
 
 @interface CLResponse : NSObject
 
-@property (nonatomic, strong, readonly) NSDictionary *userInfo;
+@property (nonatomic, strong, readonly, nullable) NSDictionary *userInfo;
 
-@property (nonatomic, strong, readonly) NSError *error;
+@property (nonatomic, strong, readonly, nullable) NSError *error;
 
 @property (nonatomic, assign, readonly) BOOL isFailed;
 
 @property (nonatomic, assign, readonly) BOOL needHelp;
 
-+ (instancetype)error:(NSError *)error;
-+ (instancetype)errorWithDescription:(NSString *)description;
++ (instancetype _Nonnull)error:(NSError * _Nullable)error;
++ (instancetype _Nonnull)errorWithDescription:(NSString * _Nullable)description;
 
-+ (instancetype)succeed:(NSDictionary *)userInfo;
++ (instancetype _Nonnull)succeed:(NSDictionary * _Nullable)userInfo;
 
 @end
 
@@ -33,6 +33,6 @@
 
  @return CLResponse
  */
-+ (instancetype)helpingResponse;
++ (instancetype _Nonnull)helpingResponse;
 
 @end

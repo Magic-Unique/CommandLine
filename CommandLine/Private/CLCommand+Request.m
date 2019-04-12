@@ -7,6 +7,9 @@
 //
 
 #import "CLCommand+Request.h"
+#import "CLQuery.h"
+#import "CLFlag.h"
+#import "CLRequest.h"
 #import "NSString+CommandLine.h"
 #import "NSError+CommandLine.h"
 

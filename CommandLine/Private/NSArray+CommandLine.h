@@ -10,6 +10,6 @@
 
 @interface NSArray (CommandLine)
 
-- (void)cl_sort:(NSComparator)cmptr enumerate:(void (^)(id _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop))enumerate;
+- (void)cl_sort:(NSComparator)cmptr enumerate:(void (^)(id obj, NSUInteger idx, BOOL *stop))enumerate;
 
 @end

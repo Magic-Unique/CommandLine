@@ -10,26 +10,26 @@
 
 @interface CLFlag : CLExplain
 
-@property (nonatomic, strong, readonly) NSString *key;
+@property (nonatomic, strong, readonly, nonnull) NSString *key;
 
 @property (nonatomic, assign, readonly) char abbr;
 
-@property (nonatomic, strong, readonly) NSString *explain;
+@property (nonatomic, strong, readonly, nullable) NSString *explain;
 
-+ (instancetype)help;
-+ (instancetype)verbose;
-+ (instancetype)version;
++ (instancetype _Nonnull)help;
++ (instancetype _Nonnull)verbose;
++ (instancetype _Nonnull)version;
 
 @end
 
 @interface CLFlag (Definer)
 
-@property (nonatomic, readonly) CLFlag *(^setAbbr)(char abbr);
+@property (nonatomic, readonly, nonnull) CLFlag * _Nonnull (^setAbbr)(char abbr);
 
-@property (nonatomic, readonly) CLFlag *(^setExplain)(NSString *explain);
+@property (nonatomic, readonly, nonnull) CLFlag * _Nonnull (^setExplain)(NSString * _Nonnull explain);
 
-@property (nonatomic, readonly) CLFlag *(^inheritify)(void);
+@property (nonatomic, readonly, nonnull) CLFlag * _Nonnull (^inheritify)(void);
 
-- (instancetype)initWithKey:(NSString *)key;
+- (instancetype _Nonnull)initWithKey:(NSString * _Nonnull)key;
 
 @end
