@@ -2,7 +2,7 @@
 //  CLLanguage+Private.h
 //  CommandLine
 //
-//  Created by 吴双 on 2018/11/13.
+//  Created by Magic-Unique on 2018/11/13.
 //
 
 #import "CLLanguage.h"

@@ -44,7 +44,7 @@
         } else if (self.subcommands.count && self.task == nil) {
             CCPrintf(0, @"    $ %@ <%@>\n", commands, CLCurrentLanguage.helpCommand);
         } else {
-            NSAssert(NO, @"The command `%@` should contains a task or a subcommand", self.command);
+            NSAssert(NO, @"The command `%@` should contains a task or a subcommand", self.name);
         }
         printf("\n");
         
@@ -79,7 +79,7 @@
         [self.flags enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull key, CLFlag * _Nonnull obj, BOOL * _Nonnull stop) {
             CLCompareMaxLength(obj.title);
         }];
-        [self.ioPaths enumerateObjectsUsingBlock:^(CLIOPath * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        [self.IOPaths enumerateObjectsUsingBlock:^(CLIOPath * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             CLCompareMaxLength(obj.title);
             if (obj.isRequire) {
                 [requireIOPaths addObject:obj];

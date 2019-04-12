@@ -105,15 +105,15 @@
     }
     
     if (arguments.count == 1) {
-        CLCommand *sharedCommand = CLCommand.main;
-        return [CLRequest requestWithCommands:@[sharedCommand.command] queries:nil flags:nil paths:nil];
+        CLCommand *sharedCommand = [CLCommand mainCommand];
+        return [CLRequest requestWithCommands:@[sharedCommand.name] queries:nil flags:nil paths:nil];
     }
     
     CLCommand *inputCommand = nil;
     CLCommand *handlCommand = nil;
     
     NSMutableArray *_arguments = [arguments mutableCopy];
-    NSMutableArray *_commands = [NSMutableArray array]; [_commands addObject:[CLCommand main].command];
+    NSMutableArray *_commands = [NSMutableArray array]; [_commands addObject:[CLCommand mainCommand].name];
     NSMutableDictionary *_queries = [NSMutableDictionary dictionary];
     NSMutableSet *_flags = [NSMutableSet set];
     NSMutableArray *_paths = [NSMutableArray array];
@@ -121,7 +121,7 @@
     
     // parse command level
     do {
-        CLCommand *command = [CLCommand main];
+        CLCommand *command = [CLCommand mainCommand];
         for (NSUInteger i = 1; i < _arguments.count; i++) {
             NSString *current = _arguments[i];
             if (![current cl_matches:@"^[a-zA-z][a-zA-z0-9\\-]*$"]) {
@@ -133,7 +133,7 @@
             }
             
             command = subcommand;
-            [_commands addObject:subcommand.command];
+            [_commands addObject:subcommand.name];
         }
         
         inputCommand = command;

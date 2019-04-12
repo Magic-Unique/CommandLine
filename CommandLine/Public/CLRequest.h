@@ -12,48 +12,160 @@
 
 @interface CLRequest : NSObject
 
-@property (nonatomic, strong, readonly) NSArray *commands;
+@property (nonatomic, strong, readonly, nonnull) NSArray *commands;
 
-@property (nonatomic, strong, readonly) NSDictionary *queries;
+/**
+ All inputed queries.
+ 
+ Contains: queries inputed by user, optional queries with default value but not inputed.
+ Key is query's key, value is an array (if query is multiable) or a string.
+ */
+@property (nonatomic, strong, readonly, nullable) NSDictionary<NSString *, id> *queries;
 
-@property (nonatomic, strong, readonly) NSSet *flags;
+/**
+ All inputed flags.
+ */
+@property (nonatomic, strong, readonly, nullable) NSSet *flags;
 
-@property (nonatomic, strong, readonly) NSArray *paths;
+/**
+ All inputed paths
+ */
+@property (nonatomic, strong, readonly, nullable) NSArray *paths;
 
-@property (nonatomic, strong, readonly) CLCommand *command;
+/**
+ Handler command
+ */
+@property (nonatomic, strong, readonly, nonnull) CLCommand *command;
 
-@property (nonatomic, strong, readonly) NSError *illegalError;
+/**
+ Error for parsing request.
+ */
+@property (nonatomic, strong, readonly, nullable) NSError *illegalError;
 
-+ (instancetype)request;
+/**
+ Create request with NSProcessInfo.arguments
 
-+ (instancetype)requestWithArgc:(int)argc argv:(const char *[])argv;
+ @return CLRequest
+ */
++ (instancetype _Nonnull)request;
 
-+ (instancetype)requestWithArguments:(NSArray *)arguments;
+/**
+ Create request with main() arguments
 
-+ (instancetype)requestWithCommands:(NSArray *)commands queries:(NSDictionary *)queries flags:(id)flags paths:(NSArray *)paths;
+ @param argc argc
+ @param argv argv
+ @return CLRequest
+ */
++ (instancetype _Nonnull)requestWithArgc:(int)argc argv:(const char * _Nonnull [_Nonnull])argv;
 
-+ (instancetype)illegallyRequestWithCommands:(NSArray *)commands error:(NSError *)error;
+/**
+ Create request with arguments
 
-- (NSString *)stringForQuery:(NSString *)query;
+ @param arguments NSArray
+ @return CLRequest
+ */
++ (instancetype _Nonnull)requestWithArguments:(NSArray * _Nonnull)arguments;
 
-- (NSString *)pathForQuery:(NSString *)query;
+/**
+ Create request with parsed data
 
-- (NSInteger)integerValueForQuery:(NSString *)query;
+ @param commands NSArray
+ @param queries Queries
+ @param flags Flags
+ @param paths IO paths
+ @return CLRequest
+ */
++ (instancetype _Nonnull)requestWithCommands:(NSArray * _Nonnull)commands queries:(NSDictionary * _Nullable)queries flags:(id _Nullable)flags paths:(NSArray * _Nullable)paths;
 
-- (BOOL)flag:(NSString *)flag;
+/**
+ Create an illegally request
 
-- (NSString *)pathForIndex:(NSUInteger)index;
+ @param commands NSArray
+ @param error NSError
+ @return CLRequest
+ */
++ (instancetype _Nonnull)illegallyRequestWithCommands:(NSArray * _Nonnull)commands error:(NSError * _Nonnull)error;
 
-- (void)verbose:(NSString *)format, ...;
+/**
+ Get string from queries
 
-- (void)print:(NSString *)format, ...;
+ @param query Key
+ @return NSString
+ */
+- (NSString * _Nullable)stringForQuery:(NSString * _Nonnull)query;
 
-- (void)error:(NSString *)format, ...;
+/**
+ Get full path from queries
 
-- (void)warning:(NSString *)format, ...;
+ @param query Key
+ @return NSString
+ */
+- (NSString * _Nullable)pathForQuery:(NSString * _Nonnull)query;
 
-- (void)success:(NSString *)format, ...;
+/**
+ Get integer from queries
 
-- (void)info:(NSString *)format, ...;
+ @param query Key
+ @return NSInteger
+ */
+- (NSInteger)integerValueForQuery:(NSString * _Nonnull)query;
+
+/**
+ Contains a flag
+
+ @param flag Key
+ @return BOOL
+ */
+- (BOOL)flag:(NSString * _Nonnull)flag;
+
+/**
+ Get IO path at index
+
+ @param index Index of path
+ @return NSString
+ */
+- (NSString * _Nullable)pathForIndex:(NSUInteger)index;
+
+/**
+ Print if flag `verbose`, auto append '\n'
+
+ @param format Format string
+ */
+- (void)verbose:(NSString * _Nonnull)format, ...;
+
+/**
+ Print
+ 
+ @param format Format string
+ */
+- (void)print:(NSString * _Nonnull)format, ...;
+
+/**
+ Print with red color, auto append '\n'
+
+ @param format Format string
+ */
+- (void)error:(NSString * _Nonnull)format, ...;
+
+/**
+ Print with yellow color, auto append '\n'
+ 
+ @param format Format string
+ */
+- (void)warning:(NSString * _Nonnull)format, ...;
+
+/**
+ Print with green color, auto append '\n'
+ 
+ @param format Format string
+ */
+- (void)success:(NSString * _Nonnull)format, ...;
+
+/**
+ Print with light font, auto append '\n'
+ 
+ @param format Format string
+ */
+- (void)info:(NSString * _Nonnull)format, ...;
 
 @end

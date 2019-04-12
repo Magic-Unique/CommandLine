@@ -2,7 +2,7 @@
 //  NSError+CommandLine.h
 //  CommandLine
 //
-//  Created by 吴双 on 2018/11/28.
+//  Created by Magic-Unique on 2018/11/28.
 //
 
 #import <Foundation/Foundation.h>

@@ -62,7 +62,7 @@
 
 + (instancetype)requestWithCommands:(NSArray *)commands queries:(NSDictionary *)queries flags:(id)flags paths:(NSArray *)paths {
     NSMutableArray *_cmds = [commands mutableCopy];
-    CLCommand *command = [CLCommand main];
+    CLCommand *command = [CLCommand mainCommand];
     while (_cmds.count > 1) {
         command = command.subcommands[_cmds[1]];
         [_cmds removeObjectAtIndex:1];
@@ -79,7 +79,7 @@
 
 + (instancetype)illegallyRequestWithCommands:(NSArray *)commands error:(NSError *)error {
     NSMutableArray *_cmds = [commands mutableCopy];
-    CLCommand *command = [CLCommand main];
+    CLCommand *command = [CLCommand mainCommand];
     while (_cmds.count > 1) {
         command = command.subcommands[_cmds[1]];
         [_cmds removeObjectAtIndex:1];

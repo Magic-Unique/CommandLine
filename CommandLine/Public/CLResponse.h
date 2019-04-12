@@ -18,9 +18,21 @@
 
 @property (nonatomic, assign, readonly) BOOL needHelp;
 
+/**
+ Create a failed response
+
+ @param error NSError
+ @return CLResponse
+ */
 + (instancetype _Nonnull)error:(NSError * _Nullable)error;
 + (instancetype _Nonnull)errorWithDescription:(NSString * _Nullable)description;
 
+/**
+ Create a succeed response
+
+ @param userInfo NSDictionary
+ @return CLResponse
+ */
 + (instancetype _Nonnull)succeed:(NSDictionary * _Nullable)userInfo;
 
 @end

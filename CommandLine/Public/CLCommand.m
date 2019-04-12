@@ -17,7 +17,6 @@
 #import "CLExplain+Private.h"
 #import <objc/runtime.h>
 
-#define SharedCommand           ((CLCommand *)[self main])
 #define CLDefaultExplain(cmd)   [NSString stringWithFormat:@"Call %@.explain = @\"Value you want.\" to change this line", cmd]
 
 static NSString *CLCommandVersion = nil;
@@ -42,18 +41,22 @@ static NSString *CLCommandVersion = nil;
 
 @implementation CLCommand
 
-+ (instancetype)main {
++ (instancetype)mainCommand {
     static CLCommand *_sharedInstance = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         NSString *executableName = [NSProcessInfo processInfo].arguments.firstObject.lastPathComponent;
-        _sharedInstance = [[self alloc] initWithName:executableName];
-        NSAssert(_sharedInstance.command, @"command is nil");
+        _sharedInstance = [[self alloc] initWithName:executableName supercommand:nil];
+        NSAssert(_sharedInstance.name, @"command is nil");
         _sharedInstance.mFlags[[CLFlag help].key] = [CLFlag help];
         _sharedInstance.mFlags[[CLFlag verbose].key] = [CLFlag verbose];
         _sharedInstance.explain = CLDefaultExplain(@"[CLCommand main]");
     });
     return _sharedInstance;
+}
+
++ (instancetype)main {
+    return [self mainCommand];
 }
 
 + (void)defineCommandsForClass:(NSString *)className metaSelectorPrefix:(NSString *)prefix {
@@ -69,17 +72,30 @@ static NSString *CLCommandVersion = nil;
             if ([name hasPrefix:prefix]) {
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-                [cls performSelector:sel withObject:[CLCommand main]];
+                [cls performSelector:sel];
 #pragma clang diagnostic pop
             }
         }
     }
 }
 
-- (instancetype)initWithName:(NSString *)name {
+- (instancetype)initWithName:(NSString *)name supercommand:(CLCommand *)supercommand {
     self = [super init];
     if (self) {
-        _command = [name copy];
+        _mSubcommands = [NSMutableDictionary dictionary];
+        _mQueries = [NSMutableDictionary dictionary];
+        _mFlags = [NSMutableDictionary dictionary];
+        _mRequirePath = [NSMutableArray array];
+        _mOptionalPath = [NSMutableArray array];
+        
+        _name = [name copy];
+        _explain = CLDefaultExplain(name);
+        _supercommand = supercommand;
+        _allowInvalidKeys = supercommand.allowInvalidKeys;
+        
+        if (supercommand) {
+            [self _inheritFromSupercommand];
+        }
     }
     return self;
 }
@@ -96,10 +112,10 @@ static NSString *CLCommandVersion = nil;
 
 - (NSArray<NSString *> *)commandPath {
     CLCommand *command = self;
-    NSMutableArray *path = [NSMutableArray arrayWithObject:command.command];
+    NSMutableArray *path = [NSMutableArray arrayWithObject:command.name];
     while (command.supercommand) {
         command = command.supercommand;
-        [path insertObject:command.command atIndex:0];
+        [path insertObject:command.name atIndex:0];
     }
     return [path copy];
 }
@@ -115,8 +131,10 @@ static NSString *CLCommandVersion = nil;
 
 - (instancetype)defineForwardingSubcommand:(NSString *)command {
     if (_forwardingSubcommand) {
-        if (![_forwardingSubcommand.command isEqualToString:command]) {
-            NSAssert(NO, @"The command `%@` already contains default subcommand `%@`", self.command, self.forwardingSubcommand.command);
+        if (![_forwardingSubcommand.name isEqualToString:command]) {
+            NSAssert(NO, @"The command `%@` already contains default subcommand `%@`", self.name, self.forwardingSubcommand.name);
+        } else {
+            return _forwardingSubcommand;
         }
     }
     CLCommand *subdefine = [self defineSubcommand:command];
@@ -125,17 +143,6 @@ static NSString *CLCommandVersion = nil;
         _forwardingSubcommand = subdefine;
     }
     return subdefine;
-}
-
-- (instancetype)initWithName:(NSString *)name supercommand:(CLCommand *)supercommand {
-    self = [self initWithName:name];
-    if (self) {
-        _explain = CLDefaultExplain(name);
-        _supercommand = supercommand;
-        _allowInvalidKeys = supercommand.allowInvalidKeys;
-        [self _inheritFromSupercommand];
-    }
-    return self;
 }
 
 - (void)_inheritFromSupercommand {
@@ -191,9 +198,17 @@ static NSString *CLCommandVersion = nil;
 + (void)setVersion:(NSString *)version {
     CLCommandVersion = version;
     if (version.length) {
-        SharedCommand.mFlags[@"version"] = [CLFlag version];
+        [CLCommand mainCommand].mFlags[@"version"] = [CLFlag version];
     } else {
-        [SharedCommand.mFlags removeObjectForKey:@"version"];
+        [[CLCommand mainCommand].mFlags removeObjectForKey:@"version"];
+    }
+}
+
++ (CLResponse *)handleRequest:(CLRequest *)request {
+    if (request.command) {
+        return [request.command _handleRequest:request];
+    } else {
+        return [CLResponse responseWithUnrecognizedCommands:request.commands];
     }
 }
 
@@ -213,7 +228,7 @@ static NSString *CLCommandVersion = nil;
     return [_mFlags copy];
 }
 
-- (NSArray *)ioPaths {
+- (NSArray *)IOPaths {
     if (_mRequirePath.count + _mOptionalPath.count == 0) {
         return nil;
     } else {
@@ -260,98 +275,11 @@ static NSString *CLCommandVersion = nil;
     };
 }
 
-+ (CLResponse *)handleRequest:(CLRequest *)request {
-    if (request.command) {
-        return [request.command _handleRequest:request];
-    } else {
-        return [CLResponse responseWithUnrecognizedCommands:request.commands];
-    }
-}
-
-- (NSMutableDictionary *)mSubcommands {
-    if (!_mSubcommands) {
-        _mSubcommands = [NSMutableDictionary dictionary];
-    }
-    return _mSubcommands;
-}
-
-- (NSMutableDictionary *)mQueries {
-    if (!_mQueries) {
-        _mQueries = [NSMutableDictionary dictionary];
-    }
-    return _mQueries;
-}
-
-- (NSMutableDictionary *)mFlags {
-    if (!_mFlags) {
-        _mFlags = [NSMutableDictionary dictionary];
-    }
-    return _mFlags;
-}
-
-- (NSMutableArray *)mRequirePath {
-    if (!_mRequirePath) {
-        _mRequirePath = [NSMutableArray array];
-    }
-    return _mRequirePath;
-}
-
-- (NSMutableArray *)mOptionalPath {
-    if (!_mOptionalPath) {
-        _mOptionalPath = [NSMutableArray array];
-    }
-    return _mOptionalPath;
-}
-
-- (NSString *)description {
-    NSMutableString *output = [NSMutableString string];
-    [output appendFormat:@"<Command\n"];
-    [output appendFormat:@"\tCOMMAND: %@\n", self.command];
-    if (_mQueries.count) {
-        [output appendString:@"\tQUERIES:\n"];
-        [[_mQueries.allValues sortedArrayUsingComparator:^NSComparisonResult(CLQuery *obj1, CLQuery *obj2) {
-            if (obj1.isOptional == YES && obj2.isOptional == NO) {
-                return NSOrderedDescending;
-            } else {
-                return NSOrderedAscending;
-            }
-        }] enumerateObjectsUsingBlock:^(CLQuery *obj, NSUInteger idx, BOOL *stop) {
-            [output appendFormat:@"\t\t%@\n", obj];
-        }];
-    }
-    if (_mFlags.count) {
-        [output appendString:@"\tFLAGS:\n"];
-        [_mFlags.allValues enumerateObjectsUsingBlock:^(CLFlag * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            [output appendFormat:@"\t\t%@\n", obj];
-        }];
-    }
-    if (_mRequirePath.count + _mOptionalPath.count) {
-        [output appendString:@"\tPATH:\n"];
-        [_mRequirePath enumerateObjectsUsingBlock:^(CLIOPath * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            [output appendFormat:@"\t\t%@\n", obj];
-        }];
-        [_mOptionalPath enumerateObjectsUsingBlock:^(CLIOPath * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            [output appendFormat:@"\t\t%@\n", obj];
-        }];
-    }
-    if (_mSubcommands.count) {
-        [output appendString:@"\tSUBCOMMANDS:\n"];
-        [_mSubcommands enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull key, CLCommand * _Nonnull obj, BOOL * _Nonnull stop) {
-            NSArray *lines = [obj.description componentsSeparatedByString:@"\n"];
-            for (NSString *line in lines) {
-                [output appendFormat:@"\t\t%@\n", line];
-            }
-        }];
-    }
-    [output appendString:@">"];
-    return [output copy];
-}
-
 - (NSString *)title {
     if (self.isForwardingTarget) {
-        return [NSString stringWithFormat:@"> %@", self.command];
+        return [NSString stringWithFormat:@"> %@", self.name];
     } else {
-        return [NSString stringWithFormat:@"+ %@", self.command];
+        return [NSString stringWithFormat:@"+ %@", self.name];
     }
 }
 

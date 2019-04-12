@@ -10,19 +10,21 @@
 #define CommandLine_h
 
 #import "CLCommand.h"
-#import "CLCommand+Print.h"
+#import "CLQuery.h"
+#import "CLFlag.h"
+#import "CLIOPath.h"
 #import "CLRequest.h"
 #import "CLResponse.h"
 
+#import "CLCommand+Print.h"
+
 #import "CLLanguage.h"
-
 #import "CCText.h"
-
 #import "CLTerminal.h"
 
 #define CLCommandMain() return (int)[CLCommand handleRequest:[CLRequest request]].error.code;
 
-#define CLMainExplain [CLCommand main].explain
+#define CLMainExplain [CLCommand mainCommand].explain
 
 #define CLMakeSubcommand(cls, pre) [CLCommand defineCommandsForClass:((cls *)0x0, @#cls) metaSelectorPrefix:@#pre];
 

@@ -35,20 +35,70 @@
 
 @interface CLQuery (Definer)
 
+/**
+ Mark the query as required
+ */
 @property (nonatomic, readonly, nonnull) CLQuery * _Nonnull (^require)(void);
+
+/**
+ Mark the query as optional
+ */
 @property (nonatomic, readonly, nonnull) CLQuery * _Nonnull (^optional)(void);
 
+/**
+ Set abbr
+ */
 @property (nonatomic, readonly, nonnull) CLQuery * _Nonnull (^setAbbr)(char abbr);
+
+/**
+ Set description
+ */
 @property (nonatomic, readonly, nonnull) CLQuery * _Nonnull (^setExplain)(NSString * _Nonnull explain);
+
+/**
+ Set default value. Array or String
+ */
 @property (nonatomic, readonly, nonnull) CLQuery * _Nonnull (^setDefaultValue)(id _Nonnull defaultValue);
+
+/**
+ Set example
+ 
+ Example will be printed in help document.
+ */
 @property (nonatomic, readonly, nonnull) CLQuery * _Nonnull (^setExample)(NSString * _Nonnull example);
 
+/**
+ Set value type as String
+ */
 @property (nonatomic, readonly, nonnull) CLQuery * _Nonnull (^asString)(void);
+
+/**
+ Set value type as path
+ */
 @property (nonatomic, readonly, nonnull) CLQuery * _Nonnull (^asPath)(void);
+
+/**
+ Set value type as number
+ */
 @property (nonatomic, readonly, nonnull) CLQuery * _Nonnull (^asNumber)(void);
+
+/**
+ Set mult-value.
+ 
+ The query can be inputed once or more, and the value will be parsed in an array.
+ */
 @property (nonatomic, readonly, nonnull) CLQuery * _Nonnull (^multify)(void);
+
+/**
+ Set value predicate.
+ 
+ Check value with predicate.
+ */
 @property (nonatomic, readonly, nonnull) CLQuery * _Nonnull (^predicate)(NSString * _Nonnull regular);
 
+/**
+ Inherit to subcommand
+ */
 @property (nonatomic, readonly, nonnull) CLQuery * _Nonnull (^inheritify)(void);
 
 - (instancetype _Nonnull)initWithKey:(NSString * _Nonnull)key;

@@ -30,10 +30,21 @@
 
 @interface CLIOPath (Definer)
 
+/**
+ Set description
+ */
 @property (nonatomic, readonly, nonnull) CLIOPath * _Nonnull (^setExplain)(NSString * _Nonnull explain);
 
+/**
+ Set example, Such as: /path/to/your_file
+ 
+ Example will be printed in help document.
+ */
 @property (nonatomic, readonly, nonnull) CLIOPath * _Nonnull (^setExample)(NSString * _Nonnull example);
 
+/**
+ Inherit to subcommand
+ */
 @property (nonatomic, readonly, nonnull) CLIOPath * _Nonnull (^inheritify)(void);
 
 @end

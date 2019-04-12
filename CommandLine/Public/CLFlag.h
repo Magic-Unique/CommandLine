@@ -24,10 +24,19 @@
 
 @interface CLFlag (Definer)
 
+/**
+ Set abbr
+ */
 @property (nonatomic, readonly, nonnull) CLFlag * _Nonnull (^setAbbr)(char abbr);
 
+/**
+ Set description
+ */
 @property (nonatomic, readonly, nonnull) CLFlag * _Nonnull (^setExplain)(NSString * _Nonnull explain);
 
+/**
+ Inherit to subcommand
+ */
 @property (nonatomic, readonly, nonnull) CLFlag * _Nonnull (^inheritify)(void);
 
 - (instancetype _Nonnull)initWithKey:(NSString * _Nonnull)key;
