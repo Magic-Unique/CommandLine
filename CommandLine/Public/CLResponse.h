@@ -16,8 +16,6 @@
 
 @property (nonatomic, assign, readonly) BOOL isFailed;
 
-@property (nonatomic, assign, readonly) BOOL needHelp;
-
 /**
  Create a failed response
 
@@ -25,7 +23,6 @@
  @return CLResponse
  */
 + (instancetype _Nonnull)error:(NSError * _Nullable)error;
-+ (instancetype _Nonnull)errorWithDescription:(NSString * _Nullable)description;
 
 /**
  Create a succeed response
@@ -34,17 +31,5 @@
  @return CLResponse
  */
 + (instancetype _Nonnull)succeed:(NSDictionary * _Nullable)userInfo;
-
-@end
-
-@interface CLResponse (Help)
-
-
-/**
- Return it in handle block, Command Line will print helping information.
-
- @return CLResponse
- */
-+ (instancetype _Nonnull)helpingResponse;
 
 @end

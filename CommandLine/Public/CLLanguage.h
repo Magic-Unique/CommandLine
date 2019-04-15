@@ -35,9 +35,11 @@ FOUNDATION_EXTERN CLLanguageKey const _Nonnull CLParseErrorIllegalValueLanguageK
 /** Print if user input an illegal value */
 FOUNDATION_EXTERN CLLanguageKey const _Nonnull CLParseErrorUnknowQueryLanguageKey;
 
+/** Commands's defaults explain */
+FOUNDATION_EXTERN CLLanguageKey const _Nonnull CLHelpCommandDefaultExplainKey;
 
 
-#define CLCurrentLanguage (CLLanguage.current)
+#define CLCurrentLanguage (CLLanguage.currentLanguage)
 
 @interface CLLanguage : NSObject
 
@@ -47,24 +49,7 @@ FOUNDATION_EXTERN CLLanguageKey const _Nonnull CLParseErrorUnknowQueryLanguageKe
 
  @return CLLanguage
  */
-+ (instancetype _Nonnull)current;
-
-
-
-/**
- Chinese Language
-
- @return CLLanguage
- */
-+ (instancetype _Nonnull)ChineseLanguage;
-
-
-/**
- English Language
-
- @return CLLanguage
- */
-+ (instancetype _Nonnull)EnglishLanguage;
++ (instancetype _Nonnull)currentLanguage;
 
 
 /**

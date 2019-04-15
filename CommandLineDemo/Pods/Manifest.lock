@@ -1,5 +1,5 @@
 PODS:
-  - CommandLine (1.2.1)
+  - CommandLine (1.2.4)
 
 DEPENDENCIES:
   - CommandLine (from `..`)
@@ -9,8 +9,8 @@ EXTERNAL SOURCES:
     :path: ".."
 
 SPEC CHECKSUMS:
-  CommandLine: 30ae416c36869bd1cc470f1190ce683f2dddff06
+  CommandLine: 0299ea98ea24606db93db5bf3cb1836d6f44a290
 
 PODFILE CHECKSUM: 2c9ee7aafc5189408c1a7aebf6d85b1ee5e34b7b
 
-COCOAPODS: 1.5.3
+COCOAPODS: 1.6.1

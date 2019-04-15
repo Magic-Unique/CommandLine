@@ -5,11 +5,15 @@
 //  Created by 冷秋 on 2018/6/4.
 //
 
-#import "CLCommand+Handler.h"
+#import "CLCommand+Process.h"
 #import "CLRequest.h"
 #import "CLQuery.h"
+#import "CLFlag.h"
 #import "CLCommand+Print.h"
 #import "CLResponse+Private.h"
+#import "CLRequest+Private.h"
+#import "CLError.h"
+#import "CCText.h"
 
 @interface CLCommand ()
 
@@ -17,22 +21,24 @@
 
 @end
 
-@implementation CLCommand (Handler)
+@implementation CLCommand (Process)
 
-- (CLResponse *)_handleRequest:(CLRequest *)request {
+- (CLResponse *)_processRequest:(CLRequest *)request {
     NSAssert((self.task || self.subcommands.count), @"The command `%@` should contains a task or a subcommand", [request.commands componentsJoinedByString:@" "]);
     
-    if (CLCommand.mainCommand == self && [request.flags containsObject:@"version"]) {
-        [CLCommand printVersion];
+    [CLRequest setVerbose:[request flag:[CLFlag verbose].key]];
+    
+    if (CLCommand.mainCommand == self && [request flag:@"version"]) {
+        CCPrintf(0, @"%@\n", [CLCommand version]);
         return [CLResponse succeed:@{@"mode":@"version"}];
     }
-    if ([request.flags containsObject:@"help"]) {
+    if ([request flag:@"help"]) {
         [self printHelpInfo];
         return [CLResponse responseWithHelpCommands:request.commands];
     }
     
     if (self.forwardingSubcommand) {
-        return [self.forwardingSubcommand _handleRequest:request];
+        return [self.forwardingSubcommand _processRequest:request];
     }
     
     if (self.task == nil) {
@@ -40,21 +46,20 @@
         return [CLResponse responseWithHelpCommands:request.commands];
     }
     
-    if (request.illegalError) {
-        [self printErrorInfo:request];
+    if (request.error) {
+        CCPrintf(0, request.error.userInfo[CLErrorPrintInformationKey]);
+        CCPrintf(0, @"\n");
         return [CLResponse responseWithHelpCommands:request.commands];
     }
     
     NSArray *_missingQueries = [self _missingQueriesInRequest:request];
     if (_missingQueries.count) {
-        // illegal
         [self printHelpInfo];
         return [CLResponse responseWithMissingArguments:[_missingQueries valueForKeyPath:@"key"]];
     }
     
     NSUInteger _missingPaths = [self _missingIOPathCountInRequest:request];
     if (_missingPaths > 0) {
-        //  missing paths
         [self printHelpInfo];
         return [CLResponse responseWithMissingPathsCount:_missingPaths];
     }
@@ -62,9 +67,6 @@
     CLResponse *response = self.task(self, request);
     if (!response) {
         response = [CLResponse succeed:nil];
-    }
-    if (response.needHelp) {
-        [self printHelpInfo];
     }
     return response;
 }

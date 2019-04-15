@@ -7,8 +7,8 @@
 
 #import "CLCommand.h"
 
-@interface CLCommand (Handler)
+@interface CLCommand (Process)
 
-- (CLResponse *)_handleRequest:(CLRequest *)request;
+- (CLResponse *)_processRequest:(CLRequest *)request;
 
 @end

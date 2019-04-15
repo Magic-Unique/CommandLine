@@ -37,7 +37,7 @@
 
 @implementation CLCommand (Demo)
 
-+ (void)__init_demo:(CLCommand *)main {
++ (void)__init_demo {
     CLCommand *cache = [[CLCommand mainCommand] defineSubcommand:@"cache"];
     cache.explain = @"Manipulate the CocoaPods cache";
     CLAddQueries(cache, name);

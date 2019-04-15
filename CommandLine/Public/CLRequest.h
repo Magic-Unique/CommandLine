@@ -33,58 +33,9 @@
 @property (nonatomic, strong, readonly, nullable) NSArray *paths;
 
 /**
- Handler command
- */
-@property (nonatomic, strong, readonly, nonnull) CLCommand *command;
-
-/**
  Error for parsing request.
  */
-@property (nonatomic, strong, readonly, nullable) NSError *illegalError;
-
-/**
- Create request with NSProcessInfo.arguments
-
- @return CLRequest
- */
-+ (instancetype _Nonnull)request;
-
-/**
- Create request with main() arguments
-
- @param argc argc
- @param argv argv
- @return CLRequest
- */
-+ (instancetype _Nonnull)requestWithArgc:(int)argc argv:(const char * _Nonnull [_Nonnull])argv;
-
-/**
- Create request with arguments
-
- @param arguments NSArray
- @return CLRequest
- */
-+ (instancetype _Nonnull)requestWithArguments:(NSArray * _Nonnull)arguments;
-
-/**
- Create request with parsed data
-
- @param commands NSArray
- @param queries Queries
- @param flags Flags
- @param paths IO paths
- @return CLRequest
- */
-+ (instancetype _Nonnull)requestWithCommands:(NSArray * _Nonnull)commands queries:(NSDictionary * _Nullable)queries flags:(id _Nullable)flags paths:(NSArray * _Nullable)paths;
-
-/**
- Create an illegally request
-
- @param commands NSArray
- @param error NSError
- @return CLRequest
- */
-+ (instancetype _Nonnull)illegallyRequestWithCommands:(NSArray * _Nonnull)commands error:(NSError * _Nonnull)error;
+@property (nonatomic, strong, readonly, nullable) NSError *error;
 
 /**
  Get string from queries
@@ -126,46 +77,52 @@
  */
 - (NSString * _Nullable)pathForIndex:(NSUInteger)index;
 
-/**
- Print if flag `verbose`, auto append '\n'
-
- @param format Format string
- */
-- (void)verbose:(NSString * _Nonnull)format, ...;
-
-/**
- Print
- 
- @param format Format string
- */
-- (void)print:(NSString * _Nonnull)format, ...;
-
-/**
- Print with red color, auto append '\n'
-
- @param format Format string
- */
-- (void)error:(NSString * _Nonnull)format, ...;
-
-/**
- Print with yellow color, auto append '\n'
- 
- @param format Format string
- */
-- (void)warning:(NSString * _Nonnull)format, ...;
-
-/**
- Print with green color, auto append '\n'
- 
- @param format Format string
- */
-- (void)success:(NSString * _Nonnull)format, ...;
-
-/**
- Print with light font, auto append '\n'
- 
- @param format Format string
- */
-- (void)info:(NSString * _Nonnull)format, ...;
-
 @end
+
+/**
+ Print detail text, only enable for --verbose
+
+ @param format NSString
+ @param ... Args
+ */
+FOUNDATION_EXTERN void CLVerbose(NSString * _Nonnull format, ...);
+
+/**
+ Print light text
+
+ @param format NSString
+ @param ... Args
+ */
+FOUNDATION_EXTERN void CLInfo(NSString * _Nonnull format, ...);
+
+/**
+ Print green text
+
+ @param format NSString
+ @param ... Args
+ */
+FOUNDATION_EXTERN void CLSuccess(NSString * _Nonnull format, ...);
+
+/**
+ Print yellow text
+
+ @param format NSString
+ @param ... Args
+ */
+FOUNDATION_EXTERN void CLWarning(NSString * _Nonnull format, ...);
+
+/**
+ Print red text
+
+ @param format NSString
+ @param ... Args
+ */
+FOUNDATION_EXTERN void CLError(NSString * _Nonnull format, ...);
+
+/**
+ Print in DEBUG mode
+
+ @param format NSString
+ @param ... Args
+ */
+FOUNDATION_EXTERN void CLLog(NSString * _Nonnull format, ...);

@@ -9,25 +9,23 @@
 #import "CLLanguage+Private.h"
 #import "CCText.h"
 
-NSErrorUserInfoKey const CLParseErrorReasonKey = @"CLParseErrorReasonKey";
-
-@implementation NSError (CommandLine)
-
-+ (instancetype)cl_illegalValueForQuery:(NSString *)query value:(NSString *)value {
-    query = CCText(CCStyleItalic, query);
+NSError *CLIllegalQueryError(NSString *key, NSString *value) {
+    key = CCText(CCStyleItalic, key);
     value = CCText(CCStyleForegroundColorDarkRed, value);
-    NSString *reason = [NSString stringWithFormat:CLCurrentLanguage.errorIllegalValue, query, value];
-    return [self errorWithDomain:@"com.commandline.parse.IllegalValue"
-                            code:1
-                        userInfo:@{CLParseErrorReasonKey:reason}];
+    NSString *reason = [NSString stringWithFormat:CLCurrentLanguage.errorIllegalValue, key, value];
+    return [NSError errorWithDomain:CLErrorDomain
+                               code:1
+                           userInfo:@{CLErrorPrintInformationKey:reason}];
 }
 
-+ (instancetype)cl_unknowQuery:(NSString *)query {
-    query = CCText(CCStyleForegroundColorDarkRed, query);
-    NSString *reason = [NSString stringWithFormat:CLCurrentLanguage.errorUnknowQuery, query];
-    return [self errorWithDomain:@"com.commandline.parse.UnknowQuery"
-                            code:1
-                        userInfo:@{CLParseErrorReasonKey:reason}];
+NSError *CLUnknowQueryError(NSString *key) {
+    key = CCText(CCStyleForegroundColorDarkRed, key);
+    NSString *reason = [NSString stringWithFormat:CLCurrentLanguage.errorUnknowQuery, key];
+    return [NSError errorWithDomain:CLErrorDomain
+                               code:1
+                           userInfo:@{CLErrorPrintInformationKey:reason}];
 }
 
-@end
+NSError *CLErrorWithPrintInformation(CLErrorCode code, NSString *infomation) {
+    return [NSError errorWithDomain:CLErrorDomain code:code userInfo:@{CLErrorPrintInformationKey:infomation}];
+}

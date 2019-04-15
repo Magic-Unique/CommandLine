@@ -7,6 +7,7 @@
 //
 
 #import "CLResponse+Private.h"
+#import "NSError+CommandLine.h"
 
 @implementation CLResponse (Private)
 
@@ -14,20 +15,15 @@
     return [self succeed:@{@"commands":commands}];
 }
 
-+ (instancetype)responseWithUnrecognizedCommands:(NSArray *)commands {
-    return [self errorWithDescription:[NSString stringWithFormat:@"Unrecognized command: %@.", [commands componentsJoinedByString:@" "]]];
-}
-
 + (instancetype)responseWithMissingArguments:(NSArray *)arguments {
-    return [self errorWithDescription:[NSString stringWithFormat:@"Missing require arguments: %@.", [arguments componentsJoinedByString:@","]]];
+    NSString *args = [arguments componentsJoinedByString:@","];
+    NSString *print = [NSString stringWithFormat:@"Missing require arguments: %@.", args];
+    return [self error:CLErrorWithPrintInformation(CLMissingRequireQueriesError, print)];
 }
 
 + (instancetype)responseWithMissingPathsCount:(NSUInteger)count {
-    return [self errorWithDescription:[NSString stringWithFormat:@"Missing path, require %lu path for this command.", count]];;
-}
-
-+ (instancetype)responseWithUndefinedTaskCommands:(NSArray *)commands {
-    return [self errorWithDescription:[NSString stringWithFormat:@"Undefined task for command: %@.", [commands componentsJoinedByString:@" "]]];
+    NSString *print = [NSString stringWithFormat:@"Missing path, require %lu path for this command.", count];
+    return [self error:CLErrorWithPrintInformation(CLMissingPathsError, print)];
 }
 
 @end

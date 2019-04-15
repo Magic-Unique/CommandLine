@@ -37,14 +37,6 @@ typedef CLResponse * _Nullable (^CLCommandTask)(CLCommand * _Nonnull command, CL
 + (NSString * _Nullable)version;
 
 /**
- Handle a request. You need defined all commands before calling the method.
- 
- @param request CLRequest
- @return CLResponse
- */
-+ (CLResponse * _Nonnull)handleRequest:(CLRequest * _Nonnull)request;
-
-/**
  Root command
 
  @return CLCommand
@@ -151,7 +143,6 @@ typedef CLResponse * _Nullable (^CLCommandTask)(CLCommand * _Nonnull command, CL
 @property (nonatomic, weak, readonly, nullable) CLCommand *supercommand;
 
 @property (nonatomic, readonly, nonnull) NSArray<NSString *> *commandPath;
-@property (nonatomic, readonly, nonnull) NSArray<CLCommand *> *commandNodes;
 
 /**
  Handler task.

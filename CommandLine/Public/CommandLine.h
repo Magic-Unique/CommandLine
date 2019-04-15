@@ -16,13 +16,15 @@
 #import "CLRequest.h"
 #import "CLResponse.h"
 
+#import "CLCommand+Handler.h"
 #import "CLCommand+Print.h"
 
 #import "CLLanguage.h"
 #import "CCText.h"
 #import "CLTerminal.h"
+#import "CLError.h"
 
-#define CLCommandMain() return (int)[CLCommand handleRequest:[CLRequest request]].error.code;
+#define CLCommandMain() return (int)[CLCommand handleArguments:[NSProcessInfo processInfo].arguments].error.code;
 
 #define CLMainExplain [CLCommand mainCommand].explain
 

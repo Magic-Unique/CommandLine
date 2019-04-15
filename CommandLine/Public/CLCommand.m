@@ -12,12 +12,14 @@
 #import "CLIOPath.h"
 #import "CLRequest.h"
 #import "CLResponse.h"
+#import "CLLanguage.h"
+#import "CLRequest+Private.h"
 #import "CLResponse+Private.h"
-#import "CLCommand+Handler.h"
+#import "CLCommand+Process.h"
 #import "CLExplain+Private.h"
 #import <objc/runtime.h>
 
-#define CLDefaultExplain(cmd)   [NSString stringWithFormat:@"Call %@.explain = @\"Value you want.\" to change this line", cmd]
+#define CLDefaultExplain(cmd)   [NSString stringWithFormat:CLCurrentLanguage[CLHelpCommandDefaultExplainKey], cmd]
 
 static NSString *CLCommandVersion = nil;
 
@@ -94,30 +96,17 @@ static NSString *CLCommandVersion = nil;
         _allowInvalidKeys = supercommand.allowInvalidKeys;
         
         if (supercommand) {
+            _commandPath = ({
+                NSMutableArray *array = [supercommand.commandPath mutableCopy];
+                [array addObject:name];
+                [array copy];
+            });
             [self _inheritFromSupercommand];
+        } else {
+            _commandPath = @[name];
         }
     }
     return self;
-}
-
-- (NSArray<CLCommand *> *)commandNodes {
-    CLCommand *command = self;
-    NSMutableArray *nodes = [NSMutableArray arrayWithObject:command];
-    while (command.supercommand) {
-        command = command.supercommand;
-        [nodes insertObject:command atIndex:0];
-    }
-    return [nodes copy];
-}
-
-- (NSArray<NSString *> *)commandPath {
-    CLCommand *command = self;
-    NSMutableArray *path = [NSMutableArray arrayWithObject:command.name];
-    while (command.supercommand) {
-        command = command.supercommand;
-        [path insertObject:command.name atIndex:0];
-    }
-    return [path copy];
 }
 
 - (instancetype)defineSubcommand:(NSString *)command {
@@ -201,14 +190,6 @@ static NSString *CLCommandVersion = nil;
         [CLCommand mainCommand].mFlags[@"version"] = [CLFlag version];
     } else {
         [[CLCommand mainCommand].mFlags removeObjectForKey:@"version"];
-    }
-}
-
-+ (CLResponse *)handleRequest:(CLRequest *)request {
-    if (request.command) {
-        return [request.command _handleRequest:request];
-    } else {
-        return [CLResponse responseWithUnrecognizedCommands:request.commands];
     }
 }
 

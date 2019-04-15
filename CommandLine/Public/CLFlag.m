@@ -36,7 +36,7 @@
 }
 
 - (NSString *)description {
-    return [NSString stringWithFormat:@"<Flag key=\"%@\" abbr=\'%c\'>: %@", _key, _abbr, _explain];
+    return [NSString stringWithFormat:@"<CLFlag key=\"%@\" abbr=\'%c\'>: %@", _key, _abbr, _explain];
 }
 
 + (instancetype)help {
@@ -44,9 +44,7 @@
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         _help = [[self alloc] initWithKey:@"help"];
-        _help.setAbbr('h')
-        .inheritify()
-        .setExplain(CLCurrentLanguage.helpExplain);//CLHelpExplain
+        _help.inheritify().setExplain(CLCurrentLanguage.helpExplain);
     });
     return _help;
 }
@@ -56,9 +54,7 @@
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         _verbose = [[self alloc] initWithKey:@"verbose"];
-        _verbose.setAbbr('V')
-        .inheritify()
-        .setExplain(CLCurrentLanguage.verboseExplain);
+        _verbose.inheritify().setExplain(CLCurrentLanguage.verboseExplain);
     });
     return _verbose;
 }
@@ -68,8 +64,7 @@
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         _version = [[self alloc] initWithKey:@"version"];
-        _version.setAbbr('v')
-        .setExplain(CLCurrentLanguage.versionExplain);
+        _version.setExplain(CLCurrentLanguage.versionExplain);
     });
     return _version;
 }

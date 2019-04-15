@@ -50,7 +50,7 @@
 }
 
 + (NSString *)objectForKeyedSubscript:(NSString *)key {
-    return [[CLLanguage current] objectForKeyedSubscript:key];
+    return [CLCurrentLanguage objectForKeyedSubscript:key];
 }
 
 @end

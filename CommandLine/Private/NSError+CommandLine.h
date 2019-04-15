@@ -6,13 +6,10 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "CLError.h"
 
-FOUNDATION_EXTERN NSErrorUserInfoKey const CLParseErrorReasonKey;
+FOUNDATION_EXTERN NSError *CLIllegalQueryError(NSString *key, NSString *value);
 
-@interface NSError (CommandLine)
+FOUNDATION_EXTERN NSError *CLUnknowQueryError(NSString *key);
 
-+ (instancetype)cl_illegalValueForQuery:(NSString *)query value:(NSString *)value;
-
-+ (instancetype)cl_unknowQuery:(NSString *)query;
-
-@end
+FOUNDATION_EXTERN NSError *CLErrorWithPrintInformation(CLErrorCode code, NSString *infomation);

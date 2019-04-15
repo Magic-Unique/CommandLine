@@ -15,42 +15,31 @@
 #import "NSString+CommandLine.h"
 #import "NSArray+CommandLine.h"
 #import "CCText.h"
+#import "CLError.h"
 #import "NSError+CommandLine.h"
 
 @implementation CLCommand (Print)
 
-+ (void)printVersion {
-    CCPrintf(0, @"%@\n", [self version]);
-}
-
-- (void)printErrorInfo:(CLRequest *)request {
-    if (request.illegalError) {
-        CCPrintf(0, request.illegalError.userInfo[CLParseErrorReasonKey]);
-        CCPrintf(0, @"\n");
-    } else {
-        [self printHelpInfo];
-    }
-}
-
 - (void)printHelpInfo {
     CCPrintf(CCStyleUnderline, @"%@:\n", CLCurrentLanguage.helpUsage);
-    printf("\n");
+    CCPrintf(0, @"\n");
     {
         NSString *commands = [[self commandPath] componentsJoinedByString:@" "];
+        CCPrintf(0, @"    $ ");
         if (self.subcommands.count && self.task) {
-            CCPrintf(0, @"    $ %@ [%@]\n", commands, CLCurrentLanguage.helpCommand);
+            CCPrintf(CCStyleForegroundColorGreen, @"%@ [%@]", commands, CLCurrentLanguage.helpCommand);
         } else if (self.subcommands.count == 0 && self.task) {
-            CCPrintf(0, @"    $ %@\n", commands);
+            CCPrintf(CCStyleForegroundColorGreen, @"%@", commands);
         } else if (self.subcommands.count && self.task == nil) {
-            CCPrintf(0, @"    $ %@ <%@>\n", commands, CLCurrentLanguage.helpCommand);
+            CCPrintf(CCStyleForegroundColorGreen, @"%@ <%@>", commands, CLCurrentLanguage.helpCommand);
         } else {
             NSAssert(NO, @"The command `%@` should contains a task or a subcommand", self.name);
         }
-        printf("\n");
+        CCPrintf(0, @"\n\n");
         
         if (self.explain.length) {
             CCPrintf(0, @"    %@\n", self.explain);
-            printf("\n");
+            CCPrintf(0, @"\n");
         }
     }
     
@@ -91,7 +80,7 @@
     
     if (self.subcommands.count) {
         CCPrintf(CCStyleUnderline, @"%@:\n", CLCurrentLanguage.helpCommands);
-        printf("\n");
+        CCPrintf(0, @"\n");
         [self.subcommands.allKeys cl_sort:^NSComparisonResult(NSString *  _Nonnull obj1, NSString *  _Nonnull obj2) {
             return [obj1 compare:obj2];
         } enumerate:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
@@ -104,14 +93,14 @@
             if (command.explain) {
                 CCPrintf(0, command.explain);
             }
-            printf("\n");
+            CCPrintf(0, @"\n");
         }];
-        printf("\n");
+        CCPrintf(0, @"\n");
     }
     
     if (requireQueryKeys.count + requireIOPaths.count) {
         CCPrintf(CCStyleUnderline, @"%@:\n", CLCurrentLanguage.helpRequires);
-        printf("\n");
+        CCPrintf(0, @"\n");
         
         if (requireQueryKeys.count) {
             [requireQueryKeys cl_sort:^NSComparisonResult(NSString *obj1, NSString *obj2) {
@@ -123,7 +112,7 @@
                 CCPrintf(CCStyleForegroundColorGreen, title);
                 CCPrintf(0, [NSString cl_stringWithSpace:maxKey + 3 - strlen(title.UTF8String)]);
                 CCPrintf(0, query.subtitle);
-                printf("\n");
+                CCPrintf(0, @"\n");
             }];
         }
         
@@ -134,16 +123,15 @@
                 CCPrintf(CCStyleForegroundColorGreen, title);
                 CCPrintf(0, [NSString cl_stringWithSpace:maxKey + 3 - strlen(title.UTF8String)]);
                 CCPrintf(0, obj.subtitle);
-                printf("\n");
+                CCPrintf(0, @"\n");
             }];
         }
-        
-        printf("\n");
+        CCPrintf(0, @"\n");
     }
     
     if (self.flags.count + optionalQueryKeys.count + optionalIOPaths.count) {
         CCPrintf(CCStyleUnderline, @"%@:\n", CLCurrentLanguage.helpOptions);
-        printf("\n");
+        CCPrintf(0, @"\n");
         [optionalQueryKeys cl_sort:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
             return [obj1 compare:obj2];
         } enumerate:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
@@ -154,11 +142,11 @@
             CCPrintf(CCStyleForegroundColorBlue, title);
             CCPrintf(0, [NSString cl_stringWithSpace:maxKey + 3 - strlen(title.UTF8String)]);
             CCPrintf(0, query.subtitle);
-            printf("\n");
+            CCPrintf(0, @"\n");
         }];
         
         if (optionalQueryKeys.count && self.flags.count) {
-            printf("\n");
+            CCPrintf(0, @"\n");
         }
         
         [self.flags.allValues cl_sort:^NSComparisonResult(CLFlag *obj1, CLFlag *obj2) {
@@ -183,7 +171,7 @@
             CCPrintf(CCStyleForegroundColorBlue, title);
             CCPrintf(0, [NSString cl_stringWithSpace:maxKey + 3 - strlen(title.UTF8String)]);
             CCPrintf(0, obj.subtitle);
-            printf("\n");
+            CCPrintf(0, @"\n");
         }];
         
         [optionalIOPaths enumerateObjectsUsingBlock:^(CLIOPath *obj, NSUInteger idx, BOOL *stop) {
@@ -192,10 +180,10 @@
             CCPrintf(CCStyleForegroundColorBlue, title);
             CCPrintf(0, [NSString cl_stringWithSpace:maxKey + 3 - strlen(title.UTF8String)]);
             CCPrintf(0, obj.subtitle);
-            printf("\n");
+            CCPrintf(0, @"\n");
         }];
         
-        printf("\n");
+        CCPrintf(0, @"\n");
     }
 }
 

@@ -10,6 +10,8 @@
 
 @interface CLCommand (Request)
 
-+ (CLRequest *)requestWithArguments:(NSArray *)arguments;
++ (CLCommand *)commandWithArguments:(NSMutableArray *)arguments;
+
+- (CLRequest *)requestWithCommands:(NSArray *)commands arguments:(NSArray *)arguments;
 
 @end
