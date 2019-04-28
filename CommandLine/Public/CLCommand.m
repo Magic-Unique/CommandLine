@@ -34,6 +34,7 @@ static NSString *CLCommandVersion = nil;
 @property (nonatomic, strong, readonly) NSMutableDictionary *mSubcommands;
 @property (nonatomic, strong, readonly) NSMutableDictionary *mQueries;
 @property (nonatomic, strong, readonly) NSMutableDictionary *mFlags;
+@property (nonatomic, strong, readonly) NSMutableDictionary *mPredefineFlags;
 @property (nonatomic, strong, readonly) NSMutableArray *mRequirePath;
 @property (nonatomic, strong, readonly) NSMutableArray *mOptionalPath;
 @property (nonatomic, assign, readonly) BOOL isForwardingTarget;
@@ -49,8 +50,8 @@ static NSString *CLCommandVersion = nil;
         NSString *executableName = [NSProcessInfo processInfo].arguments.firstObject.lastPathComponent;
         _sharedInstance = [[self alloc] initWithName:executableName supercommand:nil];
         NSAssert(_sharedInstance.name, @"command is nil");
-        _sharedInstance.mFlags[[CLFlag help].key] = [CLFlag help];
-        _sharedInstance.mFlags[[CLFlag verbose].key] = [CLFlag verbose];
+        _sharedInstance.mPredefineFlags[[CLFlag help].key] = [CLFlag help];
+        _sharedInstance.mPredefineFlags[[CLFlag verbose].key] = [CLFlag verbose];
         _sharedInstance.explain = CLDefaultExplain(@"[CLCommand main]");
     });
     return _sharedInstance;
@@ -93,6 +94,7 @@ static NSString *CLCommandVersion = nil;
         _mSubcommands = [NSMutableDictionary dictionary];
         _mQueries = [NSMutableDictionary dictionary];
         _mFlags = [NSMutableDictionary dictionary];
+        _mPredefineFlags = [NSMutableDictionary dictionary];
         _mRequirePath = [NSMutableArray array];
         _mOptionalPath = [NSMutableArray array];
         
@@ -155,6 +157,12 @@ static NSString *CLCommandVersion = nil;
         }
     }
     
+    for (CLFlag *superFlag in [supercommand.mPredefineFlags.allValues copy]) {
+        if (superFlag.isInheritable) {
+            self.mPredefineFlags[superFlag.key] = superFlag;
+        }
+    }
+    
     for (CLIOPath *superPath in [supercommand.mRequirePath copy]) {
         if (superPath.isInheritable) {
             [self.mRequirePath addObject:superPath];
@@ -190,17 +198,14 @@ static NSString *CLCommandVersion = nil;
     }
 }
 
-+ (void)setVersion:(NSString *)version {
-    CLCommandVersion = version;
+- (void)setVersion:(NSString *)version {
+    _version = version;
+    CLFlag *flag = [CLFlag version];
     if (version.length) {
-        [CLCommand mainCommand].mFlags[@"version"] = [CLFlag version];
+        self.mPredefineFlags[flag.key] = flag;
     } else {
-        [[CLCommand mainCommand].mFlags removeObjectForKey:@"version"];
+        [self.mPredefineFlags removeObjectForKey:flag.key];
     }
-}
-
-+ (NSString *)version {
-    return CLCommandVersion;
 }
 
 - (NSDictionary<NSString *,CLCommand *> *)subcommands {
@@ -213,6 +218,10 @@ static NSString *CLCommandVersion = nil;
 
 - (NSDictionary<NSString *,CLFlag *> *)flags {
     return [_mFlags copy];
+}
+
+- (NSDictionary<NSString *,CLFlag *> *)predefineFlags {
+    return [_mPredefineFlags copy];
 }
 
 - (NSArray *)IOPaths {

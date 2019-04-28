@@ -44,6 +44,7 @@
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         _help = [[self alloc] initWithKey:@"help"];
+        _help->_predefine = YES;
         _help.inheritify().setExplain(CLCurrentLanguage.helpExplain);
     });
     return _help;
@@ -54,6 +55,7 @@
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         _verbose = [[self alloc] initWithKey:@"verbose"];
+        _verbose->_predefine = YES;
         _verbose.inheritify().setExplain(CLCurrentLanguage.verboseExplain);
     });
     return _verbose;
@@ -64,6 +66,7 @@
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         _version = [[self alloc] initWithKey:@"version"];
+        _version->_predefine = YES;
         _version.setExplain(CLCurrentLanguage.versionExplain);
     });
     return _version;

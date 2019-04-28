@@ -16,6 +16,8 @@
 
 @property (nonatomic, strong, readonly, nullable) NSString *explain;
 
+@property (nonatomic, assign, readonly, getter=isPredefine) BOOL predefine;
+
 + (instancetype _Nonnull)help;
 + (instancetype _Nonnull)verbose;
 + (instancetype _Nonnull)version;

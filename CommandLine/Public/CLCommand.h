@@ -23,20 +23,6 @@ typedef int (^CLCommandTask)(CLCommand * _Nonnull command, CLProcess * _Nonnull 
 @interface CLCommand : CLExplain
 
 /**
- Set the tool's version.
-
- @param version NSString
- */
-+ (void)setVersion:(NSString * _Nonnull)version;
-
-/**
- Get the tool's version.
-
- @return NSString
- */
-+ (NSString * _Nullable)version;
-
-/**
  Root command
 
  @return CLCommand
@@ -135,6 +121,11 @@ typedef int (^CLCommandTask)(CLCommand * _Nonnull command, CLProcess * _Nonnull 
 @property (nonatomic, readonly, nonnull) NSDictionary<NSString *, CLFlag *> *flags;
 
 /**
+ All predefined flags, such as: version, verbose, help.
+ */
+@property (nonatomic, readonly, nonnull) NSDictionary<NSString *, CLFlag *> *predefineFlags;
+
+/**
  Add added IOPaths
  
  The key is IOPath's key, the value is IOPath.
@@ -150,6 +141,14 @@ typedef int (^CLCommandTask)(CLCommand * _Nonnull command, CLProcess * _Nonnull 
 @property (nonatomic, weak, readonly, nullable) CLCommand *supercommand;
 
 @property (nonatomic, readonly, nonnull) NSArray<NSString *> *commandPath;
+
+/**
+ Version of this command.
+ 
+ If set a value, the flag `--version` will be enable.
+ And if user pass `--version`, CommandLine will print this value without task running.
+ */
+@property (nonatomic, strong, nullable) NSString *version;
 
 /**
  Handler task.

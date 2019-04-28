@@ -25,12 +25,13 @@
     NSAssert((self.task || self.subcommands.count),
              @"The command `%@` should contains a task or a subcommand", [process.commands componentsJoinedByString:@" "]);
     
-    if (CLCommand.mainCommand == self && [process flag:@"version"]) {
-        CCPrintf(0, @"%@\n", [CLCommand version]);
-        return EXIT_SUCCESS;
-    }
     if ([process flag:@"help"]) {
         [self printHelpInfo];
+        return EXIT_SUCCESS;
+    }
+    
+    if ([process flag:@"version"]) {
+        CCPrintf(0, @"%@\n", self.version);
         return EXIT_SUCCESS;
     }
     

@@ -10,8 +10,10 @@
 
 @implementation NSArray (CommandLine)
 
-- (void)cl_sort:(NSComparator)cmptr enumerate:(void (^)(id _Nonnull, NSUInteger, BOOL * _Nonnull))enumerate {
-    [[self sortedArrayUsingComparator:cmptr] enumerateObjectsUsingBlock:enumerate];
+- (NSUInteger)cl_sort:(NSComparator)cmptr enumerate:(void (^)(id _Nonnull, NSUInteger, BOOL * _Nonnull))enumerate {
+    NSArray *sorted = cmptr?[self sortedArrayUsingComparator:cmptr]:self;
+    [sorted enumerateObjectsUsingBlock:enumerate];
+    return self.count;
 }
 
 @end

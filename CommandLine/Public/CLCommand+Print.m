@@ -97,41 +97,49 @@
         CCPrintf(0, @"\n");
     }
     
-    if (requireQueryKeys.count + requireIOPaths.count) {
+    const NSUInteger REQUIRE_COUNT = requireQueryKeys.count + requireIOPaths.count;
+    if (REQUIRE_COUNT) {
+        NSUInteger printedCount = 0;
+        
         CCPrintf(CCStyleUnderline, @"%@:\n", CLCurrentLanguage.helpRequires);
         CCPrintf(0, @"\n");
         
-        if (requireQueryKeys.count) {
-            [requireQueryKeys cl_sort:^NSComparisonResult(NSString *obj1, NSString *obj2) {
-                return [obj1 compare:obj2];
-            } enumerate:^(NSString *obj, NSUInteger idx, BOOL *stop) {
-                CLQuery *query = self.queries[obj];
-                NSString *title = query.title;
-                CCPrintf(0, @"    ");
-                CCPrintf(CCStyleForegroundColorGreen, title);
-                CCPrintf(0, [NSString cl_stringWithSpace:maxKey + 3 - strlen(title.UTF8String)]);
-                CCPrintf(0, query.subtitle);
-                CCPrintf(0, @"\n");
-            }];
+        printedCount += [requireQueryKeys cl_sort:^NSComparisonResult(NSString *obj1, NSString *obj2) {
+            return [obj1 compare:obj2];
+        } enumerate:^(NSString *obj, NSUInteger idx, BOOL *stop) {
+            CLQuery *query = self.queries[obj];
+            NSString *title = query.title;
+            CCPrintf(0, @"    ");
+            CCPrintf(CCStyleForegroundColorGreen, title);
+            CCPrintf(0, [NSString cl_stringWithSpace:maxKey + 3 - strlen(title.UTF8String)]);
+            CCPrintf(0, query.subtitle);
+            CCPrintf(0, @"\n");
+        }];
+        
+        if (printedCount && (REQUIRE_COUNT - printedCount)) {
+            CCPrintf(0, @"\n");
         }
         
-        if (requireIOPaths.count) {
-            [requireIOPaths enumerateObjectsUsingBlock:^(CLIOPath *obj, NSUInteger idx, BOOL *stop) {
-                NSString *title = obj.title;
-                CCPrintf(0, @"    ");
-                CCPrintf(CCStyleForegroundColorGreen, title);
-                CCPrintf(0, [NSString cl_stringWithSpace:maxKey + 3 - strlen(title.UTF8String)]);
-                CCPrintf(0, obj.subtitle);
-                CCPrintf(0, @"\n");
-            }];
-        }
+        printedCount += [requireIOPaths cl_sort:nil enumerate:^(CLIOPath *obj, NSUInteger idx, BOOL *stop) {
+            NSString *title = obj.title;
+            CCPrintf(0, @"    ");
+            CCPrintf(CCStyleForegroundColorGreen, title);
+            CCPrintf(0, [NSString cl_stringWithSpace:maxKey + 3 - strlen(title.UTF8String)]);
+            CCPrintf(0, obj.subtitle);
+            CCPrintf(0, @"\n");
+        }];
+        
         CCPrintf(0, @"\n");
     }
     
-    if (self.flags.count + optionalQueryKeys.count + optionalIOPaths.count) {
+    const NSUInteger OPTIONAL_COUNT = self.flags.count + self.predefineFlags.count + optionalQueryKeys.count + optionalIOPaths.count;
+    if (OPTIONAL_COUNT) {
+        NSUInteger printedCount = 0;
+        
         CCPrintf(CCStyleUnderline, @"%@:\n", CLCurrentLanguage.helpOptions);
         CCPrintf(0, @"\n");
-        [optionalQueryKeys cl_sort:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+        
+        printedCount += [optionalQueryKeys cl_sort:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
             return [obj1 compare:obj2];
         } enumerate:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             CLQuery *query = self.queries[obj];
@@ -144,28 +152,14 @@
             CCPrintf(0, @"\n");
         }];
         
-        if (optionalQueryKeys.count && self.flags.count) {
+        if (printedCount && (OPTIONAL_COUNT - printedCount)) {
             CCPrintf(0, @"\n");
         }
         
-        [self.flags.allValues cl_sort:^NSComparisonResult(CLFlag *obj1, CLFlag *obj2) {
-            BOOL default1 = ((obj1 == [CLFlag help] || obj1 == [CLFlag verbose]));
-            BOOL default2 = ((obj2 == [CLFlag help] || obj2 == [CLFlag verbose]));
-            if (default1 != default2) {
-                if (default1) {
-                    return NSOrderedDescending;
-                } else {
-                    return NSOrderedAscending;
-                }
-            } else {
-                return [obj1.key compare:obj2.key];
-            }
+        printedCount += [self.flags.allValues cl_sort:^NSComparisonResult(CLFlag *obj1, CLFlag *obj2) {
+            return [obj1.key compare:obj2.key];
         } enumerate:^(CLFlag *obj, NSUInteger idx, BOOL *stop) {
             NSString *title = obj.title;
-            
-            if (obj == [CLFlag help] && self.flags.count > 2) {
-                CCPrintf(0, @"\n");
-            }
             CCPrintf(0, @"    ");
             CCPrintf(CCStyleForegroundColorBlue, title);
             CCPrintf(0, [NSString cl_stringWithSpace:maxKey + 3 - strlen(title.UTF8String)]);
@@ -173,7 +167,26 @@
             CCPrintf(0, @"\n");
         }];
         
-        [optionalIOPaths enumerateObjectsUsingBlock:^(CLIOPath *obj, NSUInteger idx, BOOL *stop) {
+        if (printedCount && (OPTIONAL_COUNT - printedCount)) {
+            CCPrintf(0, @"\n");
+        }
+        
+        printedCount += [optionalIOPaths cl_sort:nil enumerate:^(CLIOPath *obj, NSUInteger idx, BOOL *stop) {
+            NSString *title = obj.title;
+            CCPrintf(0, @"    ");
+            CCPrintf(CCStyleForegroundColorBlue, title);
+            CCPrintf(0, [NSString cl_stringWithSpace:maxKey + 3 - strlen(title.UTF8String)]);
+            CCPrintf(0, obj.subtitle);
+            CCPrintf(0, @"\n");
+        }];
+        
+        if (printedCount && (OPTIONAL_COUNT - printedCount)) {
+            CCPrintf(0, @"\n");
+        }
+        
+        printedCount += [self.predefineFlags.allValues cl_sort:^NSComparisonResult(CLFlag *obj1, CLFlag *obj2) {
+            return [obj1.key compare:obj2.key];
+        } enumerate:^(CLFlag *obj, NSUInteger idx, BOOL *stop) {
             NSString *title = obj.title;
             CCPrintf(0, @"    ");
             CCPrintf(CCStyleForegroundColorBlue, title);

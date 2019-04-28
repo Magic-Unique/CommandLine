@@ -40,7 +40,12 @@
 + (void)__init_demo {
     CLCommand *cache = [[CLCommand mainCommand] defineSubcommand:@"cache"];
     cache.explain = @"Manipulate the CocoaPods cache";
-    CLAddQueries(cache, name);
+    cache.version = @"1.0.0";
+    cache.setQuery(@"query-require").require();
+    cache.setQuery(@"query-optional").optional();
+    cache.setFlag(@"flag");
+    cache.addRequirePath(@"path-require");
+    cache.addOptionalPath(@"path-optional");
     [cache onHandlerRequest:^int(CLCommand * _Nonnull command, CLProcess * _Nonnull process) {
         CLReceiveQText(name, mobileprovision, qurh);
         CLReceivePath(input, output);
