@@ -7,7 +7,6 @@
 //
 
 #import "CLCommand+Print.h"
-#import "CLRequest.h"
 #import "CLQuery.h"
 #import "CLFlag.h"
 #import "CLIOPath.h"

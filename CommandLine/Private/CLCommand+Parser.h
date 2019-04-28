@@ -8,10 +8,12 @@
 
 #import "CLCommand.h"
 
-@interface CLCommand (Request)
+@class CLProcess;
+
+@interface CLCommand (Parser)
 
 + (CLCommand *)commandWithArguments:(NSMutableArray *)arguments;
 
-- (CLRequest *)requestWithCommands:(NSArray *)commands arguments:(NSArray *)arguments;
+- (CLProcess *)processWithCommands:(NSArray *)commands arguments:(NSArray *)arguments;
 
 @end

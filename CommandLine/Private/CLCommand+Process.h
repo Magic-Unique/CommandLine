@@ -7,8 +7,10 @@
 
 #import "CLCommand.h"
 
+@class CLProcess;
+
 @interface CLCommand (Process)
 
-- (CLResponse *)_processRequest:(CLRequest *)request;
+- (int)_process:(CLProcess *)process;
 
 @end

@@ -8,16 +8,16 @@
 
 #import "CLExplain.h"
 
-@class CLCommand, CLRequest, CLResponse, CLQuery, CLFlag, CLIOPath;
+@class CLCommand, CLProcess, CLQuery, CLFlag, CLIOPath;
 
 /**
  Command handler task
 
  @param command CLCommand
- @param request CLRequest
- @return CLResponse
+ @param process CLProcess
+ @return int
  */
-typedef CLResponse * _Nullable (^CLCommandTask)(CLCommand * _Nonnull command, CLRequest * _Nonnull request);
+typedef int (^CLCommandTask)(CLCommand * _Nonnull command, CLProcess * _Nonnull process);
 
 
 @interface CLCommand : CLExplain
@@ -55,13 +55,20 @@ typedef CLResponse * _Nullable (^CLCommandTask)(CLCommand * _Nonnull command, CL
  
  You can define class in some meta class messages, and make those message has the same prefix. Such as:
  + [CLCommand __init_pod], + [CLCommand __init_repo], + [CLCommand __init_spec]...
- And call this method before handler request, all command will be defined batchly.
+ And call this method before handler process, all command will be defined batchly.
 
  @param className Class,
  @param prefix Prefix of meta message
  */
 + (void)defineCommandsForClass:(NSString * _Nonnull)className metaSelectorPrefix:(NSString * _Nonnull)prefix;
 
+
+/**
+ Handle arguments and process them using a task.
+
+ @return int
+ */
++ (int)handleProcess;
 
 /**
  Ignore invalid key, default is NO, will inherit subcommands

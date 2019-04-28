@@ -6,14 +6,12 @@
 //
 
 #import "CLCommand+Process.h"
-#import "CLRequest.h"
 #import "CLQuery.h"
 #import "CLFlag.h"
 #import "CLCommand+Print.h"
-#import "CLResponse+Private.h"
-#import "CLRequest+Private.h"
 #import "CLError.h"
 #import "CCText.h"
+#import "CLProcess.h"
 
 @interface CLCommand ()
 
@@ -23,58 +21,53 @@
 
 @implementation CLCommand (Process)
 
-- (CLResponse *)_processRequest:(CLRequest *)request {
-    NSAssert((self.task || self.subcommands.count), @"The command `%@` should contains a task or a subcommand", [request.commands componentsJoinedByString:@" "]);
+- (int)_process:(CLProcess *)process {
+    NSAssert((self.task || self.subcommands.count),
+             @"The command `%@` should contains a task or a subcommand", [process.commands componentsJoinedByString:@" "]);
     
-    [CLRequest setVerbose:[request flag:[CLFlag verbose].key]];
-    
-    if (CLCommand.mainCommand == self && [request flag:@"version"]) {
+    if (CLCommand.mainCommand == self && [process flag:@"version"]) {
         CCPrintf(0, @"%@\n", [CLCommand version]);
-        return [CLResponse succeed:@{@"mode":@"version"}];
+        return EXIT_SUCCESS;
     }
-    if ([request flag:@"help"]) {
+    if ([process flag:@"help"]) {
         [self printHelpInfo];
-        return [CLResponse responseWithHelpCommands:request.commands];
+        return EXIT_SUCCESS;
     }
     
     if (self.forwardingSubcommand) {
-        return [self.forwardingSubcommand _processRequest:request];
+        return [self.forwardingSubcommand _process:process];
     }
     
     if (self.task == nil) {
         [self printHelpInfo];
-        return [CLResponse responseWithHelpCommands:request.commands];
+        return EXIT_SUCCESS;
     }
     
-    if (request.error) {
-        CCPrintf(0, request.error.userInfo[CLErrorPrintInformationKey]);
+    if (process.error) {
+        CCPrintf(0, process.error.userInfo[CLErrorPrintInformationKey]);
         CCPrintf(0, @"\n");
-        return [CLResponse responseWithHelpCommands:request.commands];
+        return EXIT_FAILURE;
     }
     
-    NSArray *_missingQueries = [self _missingQueriesInRequest:request];
+    NSArray *_missingQueries = [self _missingQueriesInProcess:process];
     if (_missingQueries.count) {
         [self printHelpInfo];
-        return [CLResponse responseWithMissingArguments:[_missingQueries valueForKeyPath:@"key"]];
+        return EXIT_FAILURE;
     }
     
-    NSUInteger _missingPaths = [self _missingIOPathCountInRequest:request];
+    NSUInteger _missingPaths = [self _missingIOPathCountInProcess:process];
     if (_missingPaths > 0) {
         [self printHelpInfo];
-        return [CLResponse responseWithMissingPathsCount:_missingPaths];
+        return EXIT_FAILURE;
     }
     
-    CLResponse *response = self.task(self, request);
-    if (!response) {
-        response = [CLResponse succeed:nil];
-    }
-    return response;
+    return self.task(self, process);
 }
 
-- (NSArray *)_missingQueriesInRequest:(CLRequest *)request {
+- (NSArray *)_missingQueriesInProcess:(CLProcess *)process {
     NSMutableArray *queries = [NSMutableArray array];
     [self.queries enumerateKeysAndObjectsUsingBlock:^(NSString *key, CLQuery *obj, BOOL *stop) {
-        if (obj.isOptional == NO && request.queries[key] == nil) {
+        if (obj.isOptional == NO && process.queries[key] == nil) {
             [queries addObject:obj];
         }
     }];
@@ -85,9 +78,9 @@
     }
 }
 
-- (NSUInteger)_missingIOPathCountInRequest:(CLRequest *)request {
-    if (self.mRequirePath.count > request.paths.count) {
-        return self.mRequirePath.count - request.paths.count;
+- (NSUInteger)_missingIOPathCountInProcess:(CLProcess *)process {
+    if (self.mRequirePath.count > process.paths.count) {
+        return self.mRequirePath.count - process.paths.count;
     } else {
         return 0;
     }

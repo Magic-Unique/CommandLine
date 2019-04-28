@@ -10,14 +10,13 @@
 #import "CLQuery.h"
 #import "CLFlag.h"
 #import "CLIOPath.h"
-#import "CLRequest.h"
-#import "CLResponse.h"
 #import "CLLanguage.h"
-#import "CLRequest+Private.h"
-#import "CLResponse+Private.h"
 #import "CLCommand+Process.h"
 #import "CLExplain+Private.h"
 #import <objc/runtime.h>
+
+#import "CLCommand+Parser.h"
+#import "CLProcess.h"
 
 #define CLDefaultExplain(cmd)   [NSString stringWithFormat:CLCurrentLanguage[CLHelpCommandDefaultExplainKey], cmd]
 
@@ -79,6 +78,13 @@ static NSString *CLCommandVersion = nil;
             }
         }
     }
+}
+
++ (int)handleProcess {
+    NSMutableArray *arguments = [NSProcessInfo.processInfo.arguments mutableCopy];
+    CLCommand *command = [CLCommand commandWithArguments:arguments];
+    CLProcess *process = [command processWithCommands:command.commandPath arguments:arguments];
+    return [command _process:process];
 }
 
 - (instancetype)initWithName:(NSString *)name supercommand:(CLCommand *)supercommand {

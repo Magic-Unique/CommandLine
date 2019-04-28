@@ -6,15 +6,14 @@
 //  Copyright © 2018年 unique. All rights reserved.
 //
 
-#import "CLCommand+Request.h"
+#import "CLCommand+Parser.h"
 #import "CLQuery.h"
 #import "CLFlag.h"
-#import "CLRequest.h"
 #import "NSString+CommandLine.h"
 #import "NSError+CommandLine.h"
-#import "CLRequest+Private.h"
+#import "CLProcess+Private.h"
 
-@implementation CLCommand (Request)
+@implementation CLCommand (Parser)
 
 + (CLCommand *)commandWithArguments:(NSMutableArray *)arguments {
     if (arguments.count == 0) {
@@ -48,9 +47,9 @@
     return command;
 }
 
-- (CLRequest *)requestWithCommands:(NSArray *)commands arguments:(NSArray *)arguments {
+- (CLProcess *)processWithCommands:(NSArray *)commands arguments:(NSArray *)arguments {
     if (self.forwardingSubcommand) {
-        return [self.forwardingSubcommand requestWithCommands:commands arguments:arguments];
+        return [self.forwardingSubcommand processWithCommands:commands arguments:arguments];
     }
     NSMutableArray *_arguments = [arguments mutableCopy];
     
@@ -138,14 +137,10 @@
         }
     }];
     
-    if (parseError) {
-        return [CLRequest illegallyRequestWithCommands:commands error:parseError];
-    }
-    
     NSDictionary *queries = _queries.count ? [_queries copy]: nil;
     NSSet *flags = _flags.count ? [_flags copy] : nil;
     NSArray *paths = _paths.count ? [_paths copy] : nil;
-    return [CLRequest requestWithCommands:commands queries:queries flags:flags paths:paths];
+    return [[CLProcess alloc] initWithCommands:commands queries:queries flags:flags paths:paths error:parseError];
 }
 
 + (NSArray *)getAbbrs:(NSString *)string {
