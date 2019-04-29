@@ -33,14 +33,6 @@ int CLSystem(NSString *format, ...) {
     return system(str.UTF8String);
 }
 
-void CLPrintf(NSString *format, ...) {
-    va_list args;
-    va_start(args, format);
-    NSString *str = [[NSString alloc] initWithFormat:format arguments:args];
-    va_end(args);
-    printf("%s", str.UTF8String);
-}
-
 NSString *CLLaunch(NSString *launchDirectory, ...) {
     NSMutableArray *arguments = [NSMutableArray array];
     va_list v;

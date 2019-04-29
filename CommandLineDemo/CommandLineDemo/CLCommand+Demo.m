@@ -76,7 +76,7 @@
     list.setQuery(@"query").setAbbr('q').optional().setExplain(@"query");
     list.setFlag(@"flag").setAbbr('f').setExplain(@"Flag");
     [list onHandlerRequest:^int(CLCommand * _Nonnull command, CLProcess * _Nonnull process) {
-        NSLog(@"on handler list command [--query=%@]", process.queries[@"query"]);
+        CLError(@"on handler list command [--query=%@]", process.queries[@"query"]);
         return EXIT_SUCCESS;
     }];
 }

@@ -27,15 +27,6 @@ FOUNDATION_EXTERN int CLSystem(NSString * _Nonnull format, ...);
 
 
 /**
- Print
-
- @param format NSString
- @param ... arguments
- */
-FOUNDATION_EXTERN void CLPrintf(NSString * _Nonnull format, ...);
-
-
-/**
  launch a command
 
  @param launchDirectory Current work directory, Pass in nil to use default value.

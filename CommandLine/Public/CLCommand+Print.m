@@ -20,28 +20,6 @@
 @implementation CLCommand (Print)
 
 - (void)printHelpInfo {
-    CCPrintf(CCStyleUnderline, @"%@:\n", CLCurrentLanguage.helpUsage);
-    CCPrintf(0, @"\n");
-    {
-        NSString *commands = [[self commandPath] componentsJoinedByString:@" "];
-        CCPrintf(0, @"    $ ");
-        if (self.subcommands.count && self.task) {
-            CCPrintf(CCStyleForegroundColorGreen, @"%@ [%@]", commands, CLCurrentLanguage.helpCommand);
-        } else if (self.subcommands.count == 0 && self.task) {
-            CCPrintf(CCStyleForegroundColorGreen, @"%@", commands);
-        } else if (self.subcommands.count && self.task == nil) {
-            CCPrintf(CCStyleForegroundColorGreen, @"%@ <%@>", commands, CLCurrentLanguage.helpCommand);
-        } else {
-            NSAssert(NO, @"The command `%@` should contains a task or a subcommand", self.name);
-        }
-        CCPrintf(0, @"\n\n");
-        
-        if (self.explain.length) {
-            CCPrintf(0, @"    %@\n", self.explain);
-            CCPrintf(0, @"\n");
-        }
-    }
-    
     __block NSUInteger maxKey = 0;
     void (^CLCompareMaxLength)(NSString *string) = ^(NSString *string) {
         if (strlen(string.UTF8String) > maxKey) {
@@ -75,6 +53,29 @@
                 [optionalIOPaths addObject:obj];
             }
         }];
+    }
+    
+    CCPrintf(CCStyleUnderline, @"%@:\n", CLCurrentLanguage.helpUsage);
+    CCPrintf(0, @"\n");
+    {
+        NSString *commands = [[self commandPath] componentsJoinedByString:@" "];
+        CCPrintf(0, @"    $ ");
+        CCStyle style = CCStyleForegroundColorGreen;
+        if (self.subcommands.count && self.task) {
+            CCPrintf(style, @"%@ [%@]", commands, CLCurrentLanguage.helpCommand);
+        } else if (self.subcommands.count == 0 && self.task) {
+            CCPrintf(style, @"%@", commands);
+        } else if (self.subcommands.count && self.task == nil) {
+            CCPrintf(style, @"%@ <%@>", commands, CLCurrentLanguage.helpCommand);
+        } else {
+            NSAssert(NO, @"The command `%@` should contains a task or a subcommand", self.name);
+        }
+        CCPrintf(0, @"\n\n");
+        
+        if (self.explain.length) {
+            CCPrintf(0, @"    %@\n", self.explain);
+            CCPrintf(0, @"\n");
+        }
     }
     
     if (self.subcommands.count) {
@@ -132,7 +133,7 @@
         CCPrintf(0, @"\n");
     }
     
-    const NSUInteger OPTIONAL_COUNT = self.flags.count + self.predefineFlags.count + optionalQueryKeys.count + optionalIOPaths.count;
+    const NSUInteger OPTIONAL_COUNT = self.flags.count + optionalQueryKeys.count + optionalIOPaths.count;
     if (OPTIONAL_COUNT) {
         NSUInteger printedCount = 0;
         
@@ -156,7 +157,7 @@
             CCPrintf(0, @"\n");
         }
         
-        printedCount += [self.flags.allValues cl_sort:^NSComparisonResult(CLFlag *obj1, CLFlag *obj2) {
+        printedCount += [self.customFlags.allValues cl_sort:^NSComparisonResult(CLFlag *obj1, CLFlag *obj2) {
             return [obj1.key compare:obj2.key];
         } enumerate:^(CLFlag *obj, NSUInteger idx, BOOL *stop) {
             NSString *title = obj.title;

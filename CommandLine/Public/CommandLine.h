@@ -17,6 +17,7 @@
 
 #import "CLCommand+Print.h"
 
+#import "CLIO.h"
 #import "CLLanguage.h"
 #import "CCText.h"
 #import "CLTerminal.h"

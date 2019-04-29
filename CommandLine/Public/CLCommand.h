@@ -114,14 +114,23 @@ typedef int (^CLCommandTask)(CLCommand * _Nonnull command, CLProcess * _Nonnull 
 @property (nonatomic, readonly, nonnull) NSDictionary<NSString *, CLQuery *> *queries;
 
 /**
- All added flags
+ All flags, contains customFlags and predefineFlags
  
  The key is flag's key, the value is flag.
  */
 @property (nonatomic, readonly, nonnull) NSDictionary<NSString *, CLFlag *> *flags;
 
 /**
+ All custom flags
+ 
+ The key is flag's key, the value is flag.
+ */
+@property (nonatomic, readonly, nonnull) NSDictionary<NSString *, CLFlag *> *customFlags;
+
+/**
  All predefined flags, such as: version, verbose, help.
+ 
+ The key is flag's key, the value is flag.
  */
 @property (nonatomic, readonly, nonnull) NSDictionary<NSString *, CLFlag *> *predefineFlags;
 

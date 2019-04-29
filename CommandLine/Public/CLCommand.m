@@ -52,6 +52,8 @@ static NSString *CLCommandVersion = nil;
         NSAssert(_sharedInstance.name, @"command is nil");
         _sharedInstance.mPredefineFlags[[CLFlag help].key] = [CLFlag help];
         _sharedInstance.mPredefineFlags[[CLFlag verbose].key] = [CLFlag verbose];
+        _sharedInstance.mPredefineFlags[[CLFlag silent].key] = [CLFlag silent];
+        _sharedInstance.mPredefineFlags[[CLFlag noANSI].key] = [CLFlag noANSI];
         _sharedInstance.explain = CLDefaultExplain(@"[CLCommand main]");
     });
     return _sharedInstance;
@@ -217,6 +219,13 @@ static NSString *CLCommandVersion = nil;
 }
 
 - (NSDictionary<NSString *,CLFlag *> *)flags {
+    NSMutableDictionary *flags = [NSMutableDictionary dictionary];
+    [flags addEntriesFromDictionary:_mFlags];
+    [flags addEntriesFromDictionary:_mPredefineFlags];
+    return [flags copy];
+}
+
+- (NSDictionary<NSString *,CLFlag *> *)customFlags {
     return [_mFlags copy];
 }
 

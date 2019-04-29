@@ -15,6 +15,10 @@ FOUNDATION_EXTERN CLLanguageKey const _Nonnull CLVersionExplainLanguageKey;
 FOUNDATION_EXTERN CLLanguageKey const _Nonnull CLHelpExplainLanguageKey;
 /** Explain for verbose flag */
 FOUNDATION_EXTERN CLLanguageKey const _Nonnull CLVerboseExplainLanguageKey;
+/** Explain for silent flag */
+FOUNDATION_EXTERN CLLanguageKey const _Nonnull CLSilentExplainLanguageKey;
+/** Explain for no-ansi flag */
+FOUNDATION_EXTERN CLLanguageKey const _Nonnull CLNoANSIExplainLanguageKey;
 
 
 /** `Usage` keyword in helping information */

@@ -2,10 +2,18 @@
 //  CLIO.h
 //  CommandLine
 //
-//  Created by 吴双 on 2019/4/28.
+//  Created by Magic-Unique on 2019/4/28.
 //
 
 #import <Foundation/Foundation.h>
+
+/**
+ Print text without any style
+ 
+ @param format NSString
+ @param ... Args
+ */
+FOUNDATION_EXTERN void CLPrintf(NSString * _Nonnull format, ...);
 
 /**
  Print detail text, only enable for --verbose

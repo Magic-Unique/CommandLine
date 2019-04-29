@@ -2,7 +2,7 @@
 //  CLProcess.h
 //  CommandLine
 //
-//  Created by 吴双 on 2019/4/28.
+//  Created by Magic-Unique on 2019/4/28.
 //
 
 #import <Foundation/Foundation.h>

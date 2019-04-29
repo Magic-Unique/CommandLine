@@ -154,32 +154,22 @@
 }
 
 - (void)_enumerateQueriesUsingBlock:(void(^)(CLQuery *query, BOOL *stop))block {
-    CLCommand *command = self;
-    __block BOOL _stop = NO;
-    while (command) {
-        [command.queries.allValues enumerateObjectsUsingBlock:^(CLQuery * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            block(obj, &_stop);
-            *stop = _stop;
-        }];
+    BOOL _stop = NO;
+    for (CLQuery *query in self.queries.allValues) {
+        block(query, &_stop);
         if (_stop) {
             break;
         }
-        command = command.supercommand;
     }
 }
 
 - (void)_enumerateFlagsUsingBlock:(void(^)(CLFlag *flag, BOOL *stop))block {
-    CLCommand *command = self;
-    __block BOOL _stop = NO;
-    while (command) {
-        [command.flags.allValues enumerateObjectsUsingBlock:^(CLFlag * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            block(obj, &_stop);
-            *stop = _stop;
-        }];
+    BOOL _stop = NO;
+    for (CLFlag *flag in self.flags.allValues) {
+        block(flag, &_stop);
         if (_stop) {
             break;
         }
-        command = command.supercommand;
     }
 }
 

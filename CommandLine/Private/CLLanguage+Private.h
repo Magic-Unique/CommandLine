@@ -15,6 +15,10 @@
 
 @property (readonly) NSString *verboseExplain;
 
+@property (readonly) NSString *silentExplain;
+
+@property (readonly) NSString *noANSIExplain;
+
 @property (readonly) NSString *helpUsage;
 
 @property (readonly) NSString *helpCommands;

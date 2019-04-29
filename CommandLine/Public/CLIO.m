@@ -2,59 +2,106 @@
 //  CLIO.m
 //  CommandLine
 //
-//  Created by 吴双 on 2019/4/28.
+//  Created by Magic-Unique on 2019/4/28.
 //
 
 #import "CLIO.h"
 #import "CCText.h"
 #import "CLProcess.h"
+#import "CLFlag.h"
 
-FOUNDATION_EXTERN void CLVerbose(NSString * _Nonnull format, ...) {
-    if ([CLProcess.sharedProcess flag:@"verbose"]) {
+#define CLProcessFlag(_flag) ([CLProcess.sharedProcess flag:[CLFlag _flag].key])
+
+void CLPrintf(NSString * _Nonnull format, ...) {
+    if (CLProcessFlag(silent)) {
+        return;
+    }
+    va_list args;
+    va_start(args, format);
+    NSString *str = [[NSString alloc] initWithFormat:format arguments:args];
+    va_end(args);
+    CCStyle style = CCStyleNone;
+    if (CLProcessFlag(noANSI)) {
+        style = CCStyleNone;
+    }
+    CCPrintf(style, @"%@", str);
+}
+
+void CLVerbose(NSString * _Nonnull format, ...) {
+    if (CLProcessFlag(silent)) {
+        return;
+    }
+    if (CLProcessFlag(verbose)) {
         va_list args;
         va_start(args, format);
         NSString *str = [[NSString alloc] initWithFormat:format arguments:args];
-        str = [str stringByAppendingString:@"\n"];
         va_end(args);
-        printf("%s", str.UTF8String);
+        CCStyle style = CCStyleNone;
+        if (CLProcessFlag(noANSI)) {
+            style = CCStyleNone;
+        }
+        CCPrintf(style, @"%@\n", str);
     }
 }
 
-FOUNDATION_EXTERN void CLInfo(NSString * _Nonnull format, ...) {
+void CLInfo(NSString * _Nonnull format, ...) {
+    if (CLProcessFlag(silent)) {
+        return;
+    }
     va_list args;
     va_start(args, format);
     NSString *str = [[NSString alloc] initWithFormat:format arguments:args];
-    str = [str stringByAppendingString:@"\n"];
     va_end(args);
-    CCPrintf(CCStyleLight, str);
+    CCStyle style = CCStyleLight;
+    if (CLProcessFlag(noANSI)) {
+        style = CCStyleNone;
+    }
+    CCPrintf(style, @"%@\n", str);
 }
 
-FOUNDATION_EXTERN void CLSuccess(NSString * _Nonnull format, ...) {
+void CLSuccess(NSString * _Nonnull format, ...) {
+    if (CLProcessFlag(silent)) {
+        return;
+    }
     va_list args;
     va_start(args, format);
     NSString *str = [[NSString alloc] initWithFormat:format arguments:args];
-    str = [str stringByAppendingString:@"\n"];
     va_end(args);
-    CCPrintf(CCStyleForegroundColorGreen, str);
-    
+    CCStyle style = CCStyleForegroundColorGreen;
+    if (CLProcessFlag(noANSI)) {
+        style = CCStyleNone;
+    }
+    CCPrintf(style, @"%@\n", str);
 }
 
-FOUNDATION_EXTERN void CLWarning(NSString * _Nonnull format, ...) {
+void CLWarning(NSString * _Nonnull format, ...) {
+    if (CLProcessFlag(silent)) {
+        return;
+    }
     va_list args;
     va_start(args, format);
     NSString *str = [[NSString alloc] initWithFormat:format arguments:args];
-    str = [str stringByAppendingString:@"\n"];
     va_end(args);
-    CCPrintf(CCStyleForegroundColorYellow, str);
+    CCStyle style = CCStyleForegroundColorYellow;
+    if (CLProcessFlag(noANSI)) {
+        style = CCStyleNone;
+    }
+    CCPrintf(style, @"%@\n", str);
 }
 
-FOUNDATION_EXTERN void CLError(NSString * _Nonnull format, ...) {
+void CLError(NSString * _Nonnull format, ...) {
+    if (CLProcessFlag(silent)) {
+        return;
+    }
     va_list args;
     va_start(args, format);
     NSString *str = [[NSString alloc] initWithFormat:format arguments:args];
-    str = [str stringByAppendingString:@"\n"];
     va_end(args);
-    CCPrintf(CCStyleForegroundColorDarkRed, str);
+    CCStyle style = CCStyleForegroundColorDarkRed;
+    if (CLProcessFlag(noANSI)) {
+        style = CCStyleNone;
+    }
+    CCPrintf(style, @"%@\n", str);
 }
 
 void CLLog(NSString * _Nonnull format, ...) {
@@ -62,9 +109,8 @@ void CLLog(NSString * _Nonnull format, ...) {
     va_list args;
     va_start(args, format);
     NSString *str = [[NSString alloc] initWithFormat:format arguments:args];
-    str = [str stringByAppendingString:@"\n"];
     va_end(args);
-    CCPrintf(0, str);
+    CCPrintf(0, @"%@\n", str);
 #endif
 }
 

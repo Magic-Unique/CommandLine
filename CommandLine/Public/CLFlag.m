@@ -27,6 +27,8 @@
     NSString *prefix = @"   ";
     if (self.abbr) {
         prefix = [NSString stringWithFormat:@"-%c|", self.abbr];
+    } else if (self.isPredefine) {
+        prefix = @"";
     }
     return [NSString stringWithFormat:@"%@--%@", prefix, self.key];
 }
@@ -40,36 +42,58 @@
 }
 
 + (instancetype)help {
-    static CLFlag *_help = nil;
+    static CLFlag *flag = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        _help = [[self alloc] initWithKey:@"help"];
-        _help->_predefine = YES;
-        _help.inheritify().setExplain(CLCurrentLanguage.helpExplain);
+        flag = [[self alloc] initWithKey:@"help"];
+        flag->_predefine = YES;
+        flag.inheritify().setExplain(CLCurrentLanguage.helpExplain);
     });
-    return _help;
+    return flag;
 }
 
 + (instancetype)verbose {
-    static CLFlag *_verbose = nil;
+    static CLFlag *flag = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        _verbose = [[self alloc] initWithKey:@"verbose"];
-        _verbose->_predefine = YES;
-        _verbose.inheritify().setExplain(CLCurrentLanguage.verboseExplain);
+        flag = [[self alloc] initWithKey:@"verbose"];
+        flag->_predefine = YES;
+        flag.inheritify().setExplain(CLCurrentLanguage.verboseExplain);
     });
-    return _verbose;
+    return flag;
 }
 
 + (instancetype)version {
-    static CLFlag *_version = nil;
+    static CLFlag *flag = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        _version = [[self alloc] initWithKey:@"version"];
-        _version->_predefine = YES;
-        _version.setExplain(CLCurrentLanguage.versionExplain);
+        flag = [[self alloc] initWithKey:@"version"];
+        flag->_predefine = YES;
+        flag.setExplain(CLCurrentLanguage.versionExplain);
     });
-    return _version;
+    return flag;
+}
+
++ (instancetype)silent {
+    static CLFlag *flag = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        flag = [[self alloc] initWithKey:@"silent"];
+        flag->_predefine = YES;
+        flag.inheritify().setExplain(CLCurrentLanguage.silentExplain);
+    });
+    return flag;
+}
+
++ (instancetype)noANSI {
+    static CLFlag *flag = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        flag = [[self alloc] initWithKey:@"no-ansi"];
+        flag->_predefine = YES;
+        flag.inheritify().setExplain(CLCurrentLanguage.noANSIExplain);
+    });
+    return flag;
 }
 
 @end

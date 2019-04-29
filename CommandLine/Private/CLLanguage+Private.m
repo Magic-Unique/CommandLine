@@ -21,6 +21,14 @@
     return self[CLVerboseExplainLanguageKey];
 }
 
+- (NSString *)silentExplain {
+    return self[CLSilentExplainLanguageKey];
+}
+
+- (NSString *)noANSIExplain {
+    return self[CLNoANSIExplainLanguageKey];
+}
+
 - (NSString *)helpUsage {
     return self[CLHelpUsageLanguageKey];
 }

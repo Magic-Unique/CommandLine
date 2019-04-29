@@ -21,6 +21,8 @@
 + (instancetype _Nonnull)help;
 + (instancetype _Nonnull)verbose;
 + (instancetype _Nonnull)version;
++ (instancetype _Nonnull)silent;
++ (instancetype _Nonnull)noANSI;
 
 @end
 

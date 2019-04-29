@@ -13,6 +13,8 @@
 ConstLanguageKey(CLVersionExplainLanguageKey);
 ConstLanguageKey(CLHelpExplainLanguageKey);
 ConstLanguageKey(CLVerboseExplainLanguageKey);
+ConstLanguageKey(CLSilentExplainLanguageKey);
+ConstLanguageKey(CLNoANSIExplainLanguageKey);
 
 ConstLanguageKey(CLHelpUsageLanguageKey);
 ConstLanguageKey(CLHelpCommandsLanguageKey);
@@ -53,6 +55,8 @@ static CLLanguage *_current_language_ = nil;
     return @{CLVersionExplainLanguageKey: @"Show the version of the tool",
              CLHelpExplainLanguageKey: @"Show help banner of specified command",
              CLVerboseExplainLanguageKey: @"Show more information",
+             CLSilentExplainLanguageKey: @"Show nothing",
+             CLNoANSIExplainLanguageKey: @"Show output without ANSI codes",
              
              CLHelpUsageLanguageKey: @"Usage",
              CLHelpCommandsLanguageKey: @"Commands",
