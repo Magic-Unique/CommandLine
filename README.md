@@ -1,6 +1,8 @@
 # CommandLine
 
-> 1.1.1
+[![Version](https://img.shields.io/cocoapods/v/CommandLine.svg?style=flat)](https://cocoapods.org/pods/CommandLine)
+[![License](https://img.shields.io/cocoapods/l/CommandLine.svg?style=flat)](https://cocoapods.org/pods/CommandLine)
+[![Platform](https://img.shields.io/cocoapods/p/CommandLine.svg?style=flat)](https://cocoapods.org/pods/CommandLine)
 
 A command line arguments parser of Objective-C
 
@@ -68,11 +70,11 @@ spec.explain = @"Spec commands"
 {
 	CLCommand *create = [spec defineSubcommand:@"create"];
     create.explain = @"Create a pod spec";
-	[create onHandlerRequest:^CLResponse *(CLCommand *command, CLRequest *request) {
+	[create onHandlerprocess:^int(CLCommand *command, CLProcess *process) {
 		// do something to create a cocoapods spec.
                                      
-		// return an error or an userInfo for succeed.
-        return [CLResponse succeed:nil];
+		// return an int to main()
+        return EXIT_SUCCESS;
     }];
 }
 ```
@@ -103,7 +105,7 @@ repo.explain = @"Repo operator"
 {
 	CLCommand * list = [spec defineForwardingSubcommand:@"list"];
     list = @"List all local repo";
-	[create onHandlerRequest:^CLResponse *(CLCommand *command, CLRequest *request) {
+	[create onHandlerprocess:^int(CLCommand *command, CLProcess *process) {
 		// do something to list out local repo
     }];
 }
@@ -137,12 +139,12 @@ codesign.setQuery(@"cert")
     .setAbbr('c')
     .require()
     .setExplain("Cert name"); // define a require query
-[codesign onHandlerRequest:^CLResponse *(CLCommand *command, CLRequest *request) {
-    NSString *cert = request.queries[@"cert"]; // get value with key.
-    NSString *entitlement = request.queries[@"entitlement"]; // nonable
+[codesign onHandlerprocess:^CLResponse *(CLCommand *command, CLProcess *process) {
+    NSString *cert = process.queries[@"cert"]; // get value with key.
+    NSString *entitlement = process.queries[@"entitlement"]; // nonable
 	//	to code sign
     
-    return [CLResponse succeed:nil];
+    return EXIT_SUCCESS;
 }];
 ```
 
@@ -164,10 +166,10 @@ you can execute the code before parse.
 
 CLCommand *demo = [CLCommand main];
 demo.setQuery(@"input").mutiable().require();
-[demo onHandlerRequest: ^CLResponse *(CLCommand *command, CLRequest *request) {
-	NSArray *inputs = request.queries[@"input"];
+[demo onHandlerprocess: ^CLResponse *(CLCommand *command, CLProcess *process) {
+	NSArray *inputs = process.queries[@"input"];
 	
-	return [CLResponse succeed:nil];
+	return EXIT_SUCCESS;
 }];
 ```
 
@@ -194,8 +196,8 @@ CLCommand *ls = [CLCommand main]; // get main command (without any command or su
 ls.setFlag(@"all")
     .setAbbr('a')
     .setExplain(@"Print all contents."); // define a optional query
-[ls onHandlerRequest:^CLResponse *(CLCommand *command, CLRequest *request) {
-    BOOL all = [request.flags containsObject:@"all"];
+[ls onHandlerprocess:^CLResponse *(CLCommand *command, CLProcess *process) {
+    BOOL all = [process flag:@"all"];
     
     // list and print
     NSFileManager *fmgr = [NSFileManager defaultManager];
@@ -208,12 +210,12 @@ ls.setFlag(@"all")
     if (NO == all) {
     	NSMutableArray *mContents = [NSMutableArray arrayWithArray:contents];
         //	remove all item with "." prefix in mContents;
-        contents = ;mContents copy];
+        contents = [mContents copy];
     }
     for (NSString *item in contents) {
         printf("%s\n", item.UTF8String);
     }
-    return [CLResponse success:nil];
+    return EXIT_SUCCESS;
 }];
 ```
 
@@ -274,8 +276,8 @@ zip.addRequirePath(@"input1")
 zip.addOptionalPath(@"input2")
     .setExplain(@"Input path");
 
-[zip onHandlerRequest:^CLResponse *(CLCommand *command, CLRequest *request) {
-    NSArray *paths = request.paths; // paths.count >= 2
+[zip onHandlerprocess:^CLResponse *(CLCommand *command, CLProcess *process) {
+    NSArray *paths = process.paths; // paths.count >= 2
     NSString *output = paths.firstObject;
     NSArray *inputs = ({
         NSMutableArray *inputs = paths.mutableCopy;
@@ -285,43 +287,46 @@ zip.addOptionalPath(@"input2")
     
     NSString *fullOutput = [CLIOPath abslutePath:output]; // replace `~` with $HOME and append current directory if needs.
     //	to zip
-	return [CLResponse success:nil];
+	return EXIT_SUCCESS;
 }];
 ```
 
 ### Parse
 
-After you defined all commands and their subcommands, you can parse arguments.
-
-**1. Make a request**
+After you defined all commands and their subcommands, you can handle and process the arguments
 
 ```objc
-//	Making with arguments of main()
-CLRequest *request = [CLRequest requestWithArgc:argc argv:argv];
-
-//	Making with NSProcressInfo.processInfo.arguments
-CLRequest *request = [CLRequest request];
-
-//	See more in CLRequest.h ...
+CLCommandMain(); //	return [CLCommand handleProcess];
 ```
 
-**2. Parse request**
+### Recommand Usage
+
+**Frist**: Define all command in meta-class method with same prefix:
 
 ```objc
-CLResponse *response = [CLCommand handleRequest:request];
-```
+//	In a category.
++ (void)__init_command1 {
+	// to define you command
+}
 
-**3. Return in main()**
-
-```objc
-if (response.error) {
-    return response.error.code;
-} else {
-    return 0;
+//	In other category
++ (void)__init_command2 {
+	//	to define you command
 }
 ```
 
+**Second**: Coding in main():
 
+```objc
+int main(int argc, const char * argv[]) {
+    @autoreleasepool {
+        CLMainExplain = @"Description for this command line tool"; // set description
+        CLMakeSubcommand(CLCommand, __init_); // define your command. The second argument is the prefix in first step.
+        CLCommandMain(); // handle and process arguments
+    }
+    return 0;
+}
+```
 
 ### Helping Infomations
 
@@ -346,8 +351,8 @@ It will be triggered by flag `--verbose`.
 You can use in task:
 
 ```objective-c
-[request verbose:@"Making temp directory: %@", tempDirectory];
-//	it will be print if the request contains `verbose` flag.
+CLVerbose(@"Making temp directory: %@", tempDirectory);
+//	it will be print if the process contains `verbose` flag.
 //	auto append a '\n' in end.
 ```
 #### 2. Success
@@ -357,7 +362,8 @@ Print **green** text.
 You can use in task:
 
 ```objc
-[request success:@"Done! There are %lu devices in the mobileprovision", devices.count];// devices is instance of NSArray
+CLSuccess(@"Done! There are %lu devices in the mobileprovision", devices.count);
+//	devices is instance of NSArray
 //	print the text render with green color
 //	auto append a '\n' in end.
 ```
@@ -367,7 +373,7 @@ You can use in task:
 Pring **yellow** text.
 
 ```objc
-[request warning:@"The directory is not exist, it will be ignore."];
+CLWarning(@"The directory is not exist, it will be ignore.");
 //	print the text render with yellow color
 //	auto append a '\n' in end.
 ```
@@ -378,7 +384,7 @@ Print **red** text.
 You can use in task:
 
 ```objc
-[request error:@"Error: %@", error];// error is instance of NSError
+CLError(@"Error: %@", error);// error is instance of NSError
 //	print the text render with red color
 //	auto append a '\n' in end.
 ```
@@ -390,27 +396,33 @@ Print **light** text.
 You can use in task:
 
 ```objc
-[request info:@"XXXXXX"];
+CLInfo(@"XXXXXX");
 //	print the text with light font.
 //	auto append a '\n' in end.
 ```
 
+#### 6. --no-ansi flag
+
+If user pass `--no-ansi` flag into arguments, all above function will print plain text.
+
+#### 7. --silent flag
+
+If use pass `--silent` flag into arguments, all above function will be invalid.
+
 ### Version
 
-Print version of this tool.
+Print version of this tool or command.
 
 ```objc
-[CLCommand setVersion:@"1.0.0"]; // do once.
+[CLCommand mainCommand].version = @"1.0.0"; // do once.
 ```
 
 ```shell
 $ tool --version
 1.0.0
 
-# or
-
-$ tool -v
-1.0.0
+$ tool subcommand --version
+1.2.0
 ```
 
 ### Terminal
@@ -426,7 +438,7 @@ CLLaunch(nil, @[@"ls", @"-a"], nil);
 ```objc
 #import "CCText.h"
 CCPrintf(CCStyleBord|CCStyleItalic, @"A text with %@ and %@", @"bord", @"italic");
-// see move CCStyle in CCText.h
+// see more CCStyle in CCText.h
 ```
 
 ## LICENCE
