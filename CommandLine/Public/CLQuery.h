@@ -9,6 +9,20 @@
 #import "CLExplain.h"
 
 
+/**
+ Query multi-type
+
+ - CLQueryMultiTypeNone: Unsupport multi input.
+ - CLQueryMultiTypeSeparatedByComma: A key and a value with separated by comma, such as: --key value1,value2
+ - CLQueryMultiTypeMoreKeyValue: More keys and values, such as: --key value1 --key --value2
+ */
+typedef NS_ENUM(NSUInteger, CLQueryMultiType) {
+    CLQueryMultiTypeNone,
+    CLQueryMultiTypeSeparatedByComma,
+    CLQueryMultiTypeMoreKeyValue,
+};
+
+
 @interface CLQuery : CLExplain
 
 @property (nonatomic, strong, readonly, nonnull) NSString *key;
@@ -21,7 +35,7 @@
 
 @property (nonatomic, strong, readonly, nullable) NSString *regular;
 
-@property (nonatomic, assign, readonly) BOOL isMultiable;
+@property (nonatomic, assign, readonly) CLQueryMultiType multiType;
 
 @property (nonatomic, strong, readonly, nullable) NSString *example;
 
@@ -87,7 +101,7 @@
  
  The query can be inputed once or more, and the value will be parsed in an array.
  */
-@property (nonatomic, readonly, nonnull) CLQuery * _Nonnull (^multify)(void);
+@property (nonatomic, readonly, nonnull) CLQuery * _Nonnull (^setMultiType)(CLQueryMultiType type);
 
 /**
  Set value predicate.

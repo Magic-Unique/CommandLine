@@ -37,11 +37,23 @@
 
 - (NSString *)title {
     NSString *prefix = @"   ";
-    NSString *muti_tips = self.isMultiable ? @" ..." : @"";
+    NSString *value = self.example?:self.key;
+    NSString *muti_tips = [NSString stringWithFormat:@"<%@>", value];
+    switch (self.multiType) {
+        case CLQueryMultiTypeSeparatedByComma:
+            muti_tips = [NSString stringWithFormat:@"<%@1,%@2...>", value, value];
+            break;
+        case CLQueryMultiTypeMoreKeyValue:
+            muti_tips = [NSString stringWithFormat:@"<%@1> ...", value];
+            break;
+        case CLQueryMultiTypeNone:
+        default:
+            break;
+    }
     if (self.abbr) {
         prefix = [NSString stringWithFormat:@"-%c|", self.abbr];
     }
-    return [NSString stringWithFormat:@"%@--%@ <%@>%@", prefix, self.key, self.example?self.example:self.key, muti_tips];
+    return [NSString stringWithFormat:@"%@--%@ %@", prefix, self.key, muti_tips];
 }
 
 - (NSString *)subtitle {
@@ -139,9 +151,9 @@
     };
 }
 
-- (CLQuery *(^)(void))multify {
-    return ^CLQuery *() {
-        self->_isMultiable = YES;
+- (CLQuery * _Nonnull (^)(CLQueryMultiType))setMultiType {
+    return ^CLQuery *(CLQueryMultiType type) {
+        self->_multiType = type;
         return self;
     };
 }

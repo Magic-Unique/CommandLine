@@ -99,7 +99,11 @@
                     parseError = CLIllegalQueryError(query.key, next);
                     break;
                 }
-                if (query.isMultiable) {
+                if (query.multiType == CLQueryMultiTypeNone) {
+                    _queries[query.key] = next;
+                } else if (query.multiType == CLQueryMultiTypeSeparatedByComma) {
+                    _queries[query.key] = [next componentsSeparatedByString:@","];
+                } else if (query.multiType == CLQueryMultiTypeMoreKeyValue) {
                     NSMutableArray *array = ({
                         NSMutableArray *array = _queries[query.key];
                         if (!array) {
@@ -109,8 +113,6 @@
                         array;
                     });
                     [array addObject:next];
-                } else {
-                    _queries[query.key] = next;
                 }
                 i++;
             } else if ([explain isMemberOfClass:[CLFlag class]]) {
@@ -129,7 +131,7 @@
     
     [self.queries enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull key, CLQuery * _Nonnull obj, BOOL * _Nonnull stop) {
         if (obj.isOptional && obj.defaultValue && _queries[obj.key] == nil) {
-            if (obj.isMultiable && ![obj.defaultValue isKindOfClass:[NSArray class]]) {
+            if (obj.multiType && ![obj.defaultValue isKindOfClass:[NSArray class]]) {
                 _queries[obj.key] = @[obj.defaultValue];
             } else {
                 _queries[obj.key] = obj.defaultValue;

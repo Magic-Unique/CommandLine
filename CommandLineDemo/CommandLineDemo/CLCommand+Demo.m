@@ -64,10 +64,15 @@
         return EXIT_SUCCESS;
     }];
     
-    CLCommand *print = [CLCommand.mainCommand defineSubcommand:@"print"];
-    print.explain = @"打印文件详细信息";
-    print.setQuery(@"array").setAbbr('a').asNumber().multify().require();
+    CLCommand *print = [CLCommand.mainCommand defineSubcommand:@"test-mult"];
+    print.explain = @"Test mult-query";
+    print.setQuery(@"key1").require().setMultiType(CLQueryMultiTypeSeparatedByComma).setExample(@"v").setExplain(@"Value");
+    print.setQuery(@"key2").require().setMultiType(CLQueryMultiTypeMoreKeyValue).setExample(@"v").setExplain(@"Value");
     [print onHandlerRequest:^int(CLCommand * _Nonnull command, CLProcess * _Nonnull process) {
+        id key1 = process.queries[@"key1"];
+        id key2 = process.queries[@"key2"];
+        CLSuccess(@"%@", key1);
+        CLSuccess(@"%@", key2);
         return EXIT_SUCCESS;
     }];
     
