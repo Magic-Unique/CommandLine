@@ -89,7 +89,7 @@
             
             CCPrintf(0, @"    ");
             CCPrintf(CCStyleForegroundColorGreen, title);
-            CCPrintf(0, [NSString cl_stringWithSpace:maxKey + 3 - strlen(title.UTF8String)]);
+            CCPrintf(0, CLSpaceString(maxKey + 3 - strlen(title.UTF8String)));
             if (command.explain) {
                 CCPrintf(0, command.explain);
             }
@@ -112,7 +112,7 @@
             NSString *title = query.title;
             CCPrintf(0, @"    ");
             CCPrintf(CCStyleForegroundColorGreen, title);
-            CCPrintf(0, [NSString cl_stringWithSpace:maxKey + 3 - strlen(title.UTF8String)]);
+            CCPrintf(0, CLSpaceString(maxKey + 3 - strlen(title.UTF8String)));
             CCPrintf(0, query.subtitle);
             CCPrintf(0, @"\n");
         }];
@@ -125,7 +125,7 @@
             NSString *title = obj.title;
             CCPrintf(0, @"    ");
             CCPrintf(CCStyleForegroundColorGreen, title);
-            CCPrintf(0, [NSString cl_stringWithSpace:maxKey + 3 - strlen(title.UTF8String)]);
+            CCPrintf(0, CLSpaceString(maxKey + 3 - strlen(title.UTF8String)));
             CCPrintf(0, obj.subtitle);
             CCPrintf(0, @"\n");
         }];
@@ -148,7 +148,7 @@
             
             CCPrintf(0, @"    ");
             CCPrintf(CCStyleForegroundColorBlue, title);
-            CCPrintf(0, [NSString cl_stringWithSpace:maxKey + 3 - strlen(title.UTF8String)]);
+            CCPrintf(0, CLSpaceString(maxKey + 3 - strlen(title.UTF8String)));
             CCPrintf(0, query.subtitle);
             CCPrintf(0, @"\n");
         }];
@@ -163,7 +163,7 @@
             NSString *title = obj.title;
             CCPrintf(0, @"    ");
             CCPrintf(CCStyleForegroundColorBlue, title);
-            CCPrintf(0, [NSString cl_stringWithSpace:maxKey + 3 - strlen(title.UTF8String)]);
+            CCPrintf(0, CLSpaceString(maxKey + 3 - strlen(title.UTF8String)));
             CCPrintf(0, obj.subtitle);
             CCPrintf(0, @"\n");
         }];
@@ -176,7 +176,7 @@
             NSString *title = obj.title;
             CCPrintf(0, @"    ");
             CCPrintf(CCStyleForegroundColorBlue, title);
-            CCPrintf(0, [NSString cl_stringWithSpace:maxKey + 3 - strlen(title.UTF8String)]);
+            CCPrintf(0, CLSpaceString(maxKey + 3 - strlen(title.UTF8String)));
             CCPrintf(0, obj.subtitle);
             CCPrintf(0, @"\n");
         }];
@@ -191,7 +191,7 @@
             NSString *title = obj.title;
             CCPrintf(0, @"    ");
             CCPrintf(CCStyleForegroundColorBlue, title);
-            CCPrintf(0, [NSString cl_stringWithSpace:maxKey + 3 - strlen(title.UTF8String)]);
+            CCPrintf(0, CLSpaceString(maxKey + 3 - strlen(title.UTF8String)));
             CCPrintf(0, obj.subtitle);
             CCPrintf(0, @"\n");
         }];

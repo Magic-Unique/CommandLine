@@ -8,9 +8,7 @@
 
 #import "NSString+CommandLine.h"
 
-@implementation NSString (CommandLine)
-
-+ (instancetype)cl_stringWithSpace:(NSUInteger)length {
+NSString *CLSpaceString(NSUInteger length) {
     NSMutableString *string = [NSMutableString new];
     for (NSUInteger i = 0; i < length; i++) {
         [string appendString:@" "];
@@ -18,12 +16,10 @@
     return [string copy];
 }
 
-- (BOOL)cl_matches:(NSString *)regularExpression {
+BOOL CLStringMatches(NSString *string, NSString *regularExpression) {
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", regularExpression];
-    return [predicate evaluateWithObject:self];
+    return [predicate evaluateWithObject:string];
 }
-
-@end
 
 @implementation NSMutableString (CommandLine)
 

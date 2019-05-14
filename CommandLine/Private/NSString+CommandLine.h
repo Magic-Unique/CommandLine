@@ -8,13 +8,9 @@
 
 #import <Foundation/Foundation.h>
 
-@interface NSString (CommandLine)
+FOUNDATION_EXTERN NSString *CLSpaceString(NSUInteger length);
 
-+ (instancetype)cl_stringWithSpace:(NSUInteger)length;
-
-- (BOOL)cl_matches:(NSString *)regularExpression;
-
-@end
+FOUNDATION_EXTERN BOOL CLStringMatches(NSString *string, NSString *regularExpression);
 
 @interface NSMutableString (CommandLine)
 

@@ -31,7 +31,7 @@
     while (arguments.count) {
         NSString *current = arguments[0];
         
-        if (![current cl_matches:@"^[a-zA-z][a-zA-z0-9\\-]*$"]) {
+        if (!CLStringMatches(current, @"^[a-zA-z][a-zA-z0-9\\-]*$")) {
             break;
         }
         
