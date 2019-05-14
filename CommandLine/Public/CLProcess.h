@@ -78,4 +78,13 @@
  */
 - (NSString * _Nullable)pathForIndex:(NSUInteger)index;
 
+/**
+ Terminal current process with exit code
+
+ @param code int
+ */
+- (void)exit:(int)code;
+
 @end
+
+FOUNDATION_EXTERN void CLExit(int code);

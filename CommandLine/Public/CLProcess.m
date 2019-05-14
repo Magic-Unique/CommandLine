@@ -77,4 +77,13 @@
     }
     return [CLIOPath abslutePath:self.paths[index]];
 }
+
+- (void)exit:(int)code {
+    exit(code);
+}
+
 @end
+
+void CLExit(int code) {
+    [[CLProcess currentProcess] exit:code];
+}
