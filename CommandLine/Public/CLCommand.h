@@ -54,7 +54,7 @@ typedef int (^CLCommandTask)(CLCommand * _Nonnull command, CLProcess * _Nonnull 
 
  @return int
  */
-+ (int)handleProcess;
++ (int)process;
 
 /**
  Ignore invalid key, default is NO, will inherit subcommands
@@ -87,9 +87,9 @@ typedef int (^CLCommandTask)(CLCommand * _Nonnull command, CLProcess * _Nonnull 
 /**
  Make handler task
 
- @param onHandler Handler task
+ @param handler Handler task
  */
-- (void)onHandlerRequest:(CLCommandTask _Nonnull)onHandler;
+- (void)handleProcess:(CLCommandTask _Nonnull)handler;
 
 
 /**

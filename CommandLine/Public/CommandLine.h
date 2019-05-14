@@ -23,7 +23,7 @@
 #import "CLTerminal.h"
 #import "CLError.h"
 
-#define CLCommandMain() return [CLCommand handleProcess];
+#define CLCommandMain() return [CLCommand process];
 
 #define CLMainExplain [CLCommand mainCommand].explain
 

@@ -46,7 +46,7 @@
     cache.setFlag(@"flag");
     cache.addRequirePath(@"path-require");
     cache.addOptionalPath(@"path-optional");
-    [cache onHandlerRequest:^int(CLCommand * _Nonnull command, CLProcess * _Nonnull process) {
+    [cache handleProcess:^int(CLCommand * _Nonnull command, CLProcess * _Nonnull process) {
         CLReceiveQText(name, mobileprovision, qurh);
         CLReceivePath(input, output);
         CLReceiveFlag(xml, json);
@@ -55,12 +55,12 @@
     }];
     CLCommand *deintegrate = [[CLCommand mainCommand] defineSubcommand:@"deintegrate"];
     deintegrate.explain = @"Deintegrate CocoaPods from your project";
-    [deintegrate onHandlerRequest:^int(CLCommand * _Nonnull command, CLProcess * _Nonnull process) {
+    [deintegrate handleProcess:^int(CLCommand * _Nonnull command, CLProcess * _Nonnull process) {
         return EXIT_SUCCESS;
     }];
     CLCommand *env = [CLCommand.mainCommand defineSubcommand:@"env"];
     env.explain = @"Display pod environment";
-    [env onHandlerRequest:^int(CLCommand * _Nonnull command, CLProcess * _Nonnull process) {
+    [env handleProcess:^int(CLCommand * _Nonnull command, CLProcess * _Nonnull process) {
         return EXIT_SUCCESS;
     }];
     
@@ -68,7 +68,7 @@
     print.explain = @"Test mult-query";
     print.setQuery(@"key1").require().setMultiType(CLQueryMultiTypeSeparatedByComma).setExample(@"v").setExplain(@"Value");
     print.setQuery(@"key2").require().setMultiType(CLQueryMultiTypeMoreKeyValue).setExample(@"v").setExplain(@"Value");
-    [print onHandlerRequest:^int(CLCommand * _Nonnull command, CLProcess * _Nonnull process) {
+    [print handleProcess:^int(CLCommand * _Nonnull command, CLProcess * _Nonnull process) {
         id key1 = process.queries[@"key1"];
         id key2 = process.queries[@"key2"];
         CLSuccess(@"%@", key1);
@@ -80,7 +80,7 @@
     CLCommand *list = [repo defineForwardingSubcommand:@"list"];
     list.setQuery(@"query").setAbbr('q').optional().setExplain(@"query");
     list.setFlag(@"flag").setAbbr('f').setExplain(@"Flag");
-    [list onHandlerRequest:^int(CLCommand * _Nonnull command, CLProcess * _Nonnull process) {
+    [list handleProcess:^int(CLCommand * _Nonnull command, CLProcess * _Nonnull process) {
         CLError(@"on handler list command [--query=%@]", process.queries[@"query"]);
         return EXIT_SUCCESS;
     }];

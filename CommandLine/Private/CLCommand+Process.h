@@ -11,6 +11,8 @@
 
 @interface CLCommand (Process)
 
++ (int)_process:(CLProcess *)process;
+
 - (int)_process:(CLProcess *)process;
 
 @end

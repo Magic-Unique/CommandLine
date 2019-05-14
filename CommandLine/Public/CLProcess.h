@@ -11,9 +11,9 @@
 
 @interface CLProcess : NSObject
 
-+ (instancetype _Nonnull)sharedProcess;
++ (instancetype _Nonnull)currentProcess;
 
-@property (nonatomic, strong, readonly, nonnull) NSArray *commands;
+@property (nonatomic, strong, readonly, nonnull) NSArray<NSString *> *commands;
 
 /**
  All inputed queries.
@@ -26,12 +26,12 @@
 /**
  All inputed flags.
  */
-@property (nonatomic, strong, readonly, nullable) NSSet *flags;
+@property (nonatomic, strong, readonly, nullable) NSSet<NSString *> *flags;
 
 /**
  All inputed paths
  */
-@property (nonatomic, strong, readonly, nullable) NSArray *paths;
+@property (nonatomic, strong, readonly, nullable) NSArray<NSString *> *paths;
 
 /**
  Error for parsing arguments.

@@ -21,6 +21,16 @@
 
 @implementation CLCommand (Process)
 
++ (int)_process:(CLProcess *)process {
+    CLCommand *command = [CLCommand mainCommand];
+    for (NSUInteger i = 1; i < process.commands.count; i++) {
+        NSString *name = process.commands[i];
+        command = command.subcommands[name];
+        NSAssert(command, @"The command `%@` can not be processd.", [process.commands componentsJoinedByString:@" "]);
+    }
+    return [command _process:process];
+}
+
 - (int)_process:(CLProcess *)process {
     NSAssert((self.task || self.subcommands.count),
              @"The command `%@` should contains a task or a subcommand", [process.commands componentsJoinedByString:@" "]);

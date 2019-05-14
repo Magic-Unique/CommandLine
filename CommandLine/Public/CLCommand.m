@@ -83,11 +83,8 @@ static NSString *CLCommandVersion = nil;
     }
 }
 
-+ (int)handleProcess {
-    NSMutableArray *arguments = [NSProcessInfo.processInfo.arguments mutableCopy];
-    CLCommand *command = [CLCommand commandWithArguments:arguments];
-    CLProcess *process = [command processWithCommands:command.commandPath arguments:arguments];
-    return [command _process:process];
++ (int)process {
+    return [CLCommand _process:[CLProcess currentProcess]];
 }
 
 - (instancetype)initWithName:(NSString *)name supercommand:(CLCommand *)supercommand {
@@ -178,8 +175,8 @@ static NSString *CLCommandVersion = nil;
     }
 }
 
-- (void)onHandlerRequest:(CLCommandTask)onHandler {
-    _task = [onHandler copy];
+- (void)handleProcess:(CLCommandTask)handler {
+    _task = [handler copy];
 }
 
 - (void)explainDidInheritify:(CLExplain *)explain {

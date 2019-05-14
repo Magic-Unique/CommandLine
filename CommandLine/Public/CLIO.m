@@ -10,7 +10,7 @@
 #import "CLProcess.h"
 #import "CLFlag.h"
 
-#define CLProcessFlag(_flag) ([CLProcess.sharedProcess flag:[CLFlag _flag].key])
+#define CLProcessFlag(_flag) ([CLProcess.currentProcess flag:[CLFlag _flag].key])
 
 void CLPrintf(NSString * _Nonnull format, ...) {
     if (CLProcessFlag(silent)) {
