@@ -42,9 +42,9 @@ static CLLanguage *_current_language_ = nil;
     if (_current_language_ == nil) {
         NSString *LANG = [NSProcessInfo processInfo].environment[@"LANG"];
         LANG = [LANG componentsSeparatedByString:@"."].firstObject;
-        CLLanguage *language = [CLLanguage MAP][LANG];
+        CLLanguage *language = [CLLanguage __languageWithKey:LANG];
         if (!language) {
-            language = [CLLanguage EnglishLanguage];
+            language = [CLLanguage en_US];
         }
         _current_language_ = language;
     }
@@ -72,11 +72,14 @@ static CLLanguage *_current_language_ = nil;
              };
 }
 
-+ (NSDictionary<NSString *, CLLanguage *> *)MAP {
-    return @{
-             @"zh_CN":[CLLanguage ChineseLanguage],
-             @"en_US":[CLLanguage EnglishLanguage],
-             };
++ (CLLanguage *)__languageWithKey:(NSString *)key {
+    if ([CLLanguage respondsToSelector:NSSelectorFromString(key)]) {
+        CLLanguage *language = [CLLanguage performSelector:NSSelectorFromString(key)];
+        if ([language isKindOfClass:[CLLanguage class]]) {
+            return language;
+        }
+    }
+    return nil;
 }
 
 + (instancetype)languageWithMapBlock:(void (^)(NSMutableDictionary<CLLanguageKey,NSString *> *))mapBlock {

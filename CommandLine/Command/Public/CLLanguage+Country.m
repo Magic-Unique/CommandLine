@@ -10,7 +10,7 @@
 
 @implementation CLLanguage (Country)
 
-+ (instancetype)EnglishLanguage {
++ (instancetype)en_US {
     return [self languageWithMapBlock:^(NSMutableDictionary<CLLanguageKey, NSString *> * _Nonnull strings) {
         strings[CLVersionExplainLanguageKey] = @"Show the version of the tool";
         strings[CLHelpExplainLanguageKey] = @"Show help banner of specified command";
@@ -32,7 +32,7 @@
     }];
 }
 
-+ (instancetype)ChineseLanguage {
++ (instancetype)zh_CN {
     return [self languageWithMapBlock:^(NSMutableDictionary<CLLanguageKey, NSString *> * _Nonnull strings) {
         strings[CLVersionExplainLanguageKey] = @"输出版本信息";
         strings[CLHelpExplainLanguageKey] = @"输出帮助信息";

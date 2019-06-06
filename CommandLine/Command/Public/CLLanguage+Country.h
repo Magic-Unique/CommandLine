@@ -14,7 +14,7 @@
  
  @return CLLanguage
  */
-+ (instancetype _Nonnull)ChineseLanguage;
++ (instancetype _Nonnull)zh_CN;
 
 
 /**
@@ -22,6 +22,6 @@
  
  @return CLLanguage
  */
-+ (instancetype _Nonnull)EnglishLanguage;
++ (instancetype _Nonnull)en_US;
 
 @end
