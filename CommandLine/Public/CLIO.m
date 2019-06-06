@@ -36,7 +36,7 @@ void CLVerbose(NSString * _Nonnull format, ...) {
         va_start(args, format);
         NSString *str = [[NSString alloc] initWithFormat:format arguments:args];
         va_end(args);
-        CCStyle style = CCStyleNone;
+        CCStyle style = CCStyleLight;
         if (CLProcessFlag(noANSI)) {
             style = CCStyleNone;
         }
@@ -52,7 +52,7 @@ void CLInfo(NSString * _Nonnull format, ...) {
     va_start(args, format);
     NSString *str = [[NSString alloc] initWithFormat:format arguments:args];
     va_end(args);
-    CCStyle style = CCStyleLight;
+    CCStyle style = CCStyleNone;
     if (CLProcessFlag(noANSI)) {
         style = CCStyleNone;
     }
