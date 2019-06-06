@@ -7,7 +7,6 @@
 //
 
 #import "CLText.h"
-#import "CLTerminal.h"
 #import <CommandLine/Tools.h>
 
 NSUInteger CCStyleCodeWithStyle(CCStyle style) {
