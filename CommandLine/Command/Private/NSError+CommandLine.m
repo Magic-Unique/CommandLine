@@ -7,7 +7,7 @@
 
 #import "NSError+CommandLine.h"
 #import "CLLanguage+Private.h"
-#import "CCText.h"
+#import <CommandLine/ANSI.h>
 
 NSError *CLIllegalQueryError(NSString *key, NSString *value) {
     key = CCText(CCStyleItalic, key);

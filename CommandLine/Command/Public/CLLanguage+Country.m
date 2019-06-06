@@ -6,7 +6,7 @@
 //
 
 #import "CLLanguage+Country.h"
-#import "CCText.h"
+#import <CommandLine/ANSI.h>
 
 @implementation CLLanguage (Country)
 

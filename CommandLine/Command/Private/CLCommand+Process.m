@@ -10,7 +10,7 @@
 #import "CLFlag.h"
 #import "CLCommand+Print.h"
 #import "CLError.h"
-#import "CCText.h"
+#import <CommandLine/ANSI.h>
 #import "CLProcess.h"
 
 @interface CLCommand ()

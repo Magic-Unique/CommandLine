@@ -7,11 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <CommandLine/CommandLine.h>
+#import <CommandLine/Command.h>
 #import <objc/runtime.h>
 #include <stdio.h>
 #include <stdlib.h>
-#import <CommandLine/CLLanguage.h>
 
 static void _CLInitCommand(Class class) {
     unsigned count = 0;

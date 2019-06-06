@@ -1,1 +1,1 @@
-../../../../../CommandLine/Private/NSString+CommandLine.h
+../../../../../CommandLine/Command/Private/NSString+CommandLine.h

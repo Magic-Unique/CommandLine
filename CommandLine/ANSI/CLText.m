@@ -6,8 +6,9 @@
 //  Copyright © 2018年 unique. All rights reserved.
 //
 
-#import "CCText.h"
+#import "CLText.h"
 #import "CLTerminal.h"
+#import <CommandLine/Tools.h>
 
 NSUInteger CCStyleCodeWithStyle(CCStyle style) {
     switch (style) {

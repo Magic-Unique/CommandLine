@@ -9,7 +9,7 @@
 #import "CLCommand+Parser.h"
 #import "CLFlag.h"
 #import "CLIOPath.h"
-#import "CCText.h"
+#import <CommandLine/ANSI.h>
 
 @implementation CLProcess
 

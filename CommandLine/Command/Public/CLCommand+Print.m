@@ -13,7 +13,7 @@
 #import "CLLanguage+Private.h"
 #import "NSString+CommandLine.h"
 #import "NSArray+CommandLine.h"
-#import "CCText.h"
+#import <CommandLine/ANSI.h>
 #import "CLError.h"
 #import "NSError+CommandLine.h"
 

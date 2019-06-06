@@ -19,8 +19,6 @@
 
 #import "CLIO.h"
 #import "CLLanguage.h"
-#import "CCText.h"
-#import "CLTerminal.h"
 #import "CLError.h"
 
 #define CLCommandMain() return [CLCommand process];

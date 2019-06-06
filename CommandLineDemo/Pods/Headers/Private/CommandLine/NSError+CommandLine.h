@@ -1,1 +1,1 @@
-../../../../../CommandLine/Private/NSError+CommandLine.h
+../../../../../CommandLine/Command/Private/NSError+CommandLine.h

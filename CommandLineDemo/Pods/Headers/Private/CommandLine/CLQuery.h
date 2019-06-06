@@ -1,1 +1,1 @@
-../../../../../CommandLine/Public/CLQuery.h
+../../../../../CommandLine/Command/Public/CLQuery.h
