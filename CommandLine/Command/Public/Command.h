@@ -6,8 +6,8 @@
 //  Copyright © 2018年 unique. All rights reserved.
 //
 
-#ifndef CommandLine_h
-#define CommandLine_h
+#ifndef Command_h
+#define Command_h
 
 #import "CLCommand.h"
 #import "CLQuery.h"
@@ -27,4 +27,4 @@
 
 #define CLMakeSubcommand(cls, pre) [CLCommand defineCommandsForClass:((cls *)0x0, @#cls) metaSelectorPrefix:@#pre];
 
-#endif /* CommandLine_h */
+#endif /* Command_h */

@@ -1,6 +1,6 @@
 {
   "name": "CommandLine",
-  "version": "2.0.1",
+  "version": "2.1.0",
   "summary": "A command line arguments parser of Objective-C",
   "description": "If you want to build a command line tool and require some arguments when running it.\nYou can link CommandLine, and dont warry about the arguments-parsing. CommandLine\ncan complete it for you.",
   "homepage": "https://github.com/Magic-Unique/CommandLine",
@@ -13,18 +13,30 @@
   },
   "source": {
     "git": "https://github.com/Magic-Unique/CommandLine.git",
-    "tag": "2.0.1"
+    "tag": "2.1.0"
   },
   "subspecs": [
     {
+      "name": "Main",
+      "source_files": "CommandLine/CommandLine.h"
+    },
+    {
       "name": "Tools",
-      "source_files": "CommandLine/Tools/*.{h,m}"
+      "source_files": "CommandLine/Tools/*.{h,m}",
+      "dependencies": {
+        "CommandLine/Main": [
+
+        ]
+      }
     },
     {
       "name": "ANSI",
       "source_files": "CommandLine/ANSI/*.{h,m}",
       "dependencies": {
         "CommandLine/Tools": [
+
+        ],
+        "CommandLine/Main": [
 
         ]
       }
@@ -35,13 +47,21 @@
       "dependencies": {
         "CommandLine/ANSI": [
 
+        ],
+        "CommandLine/Main": [
+
         ]
       },
       "public_header_files": "CommandLine/Command/Public/*.h"
     },
     {
       "name": "Launcher",
-      "source_files": "CommandLine/Launcher/*.{h,m}"
+      "source_files": "CommandLine/Launcher/*.{h,m}",
+      "dependencies": {
+        "CommandLine/Main": [
+
+        ]
+      }
     }
   ]
 }

@@ -94,7 +94,7 @@ Pod::Spec.new do |s|
   #  Not including the public_header_files will make all headers public.
   #
 
-  # s.source_files  = "CommandLine/**/*.{h,m}"
+#  s.source_files  = "CommandLine/CommandLine.h"
   # s.exclude_files = "Classes/Exclude"
 
   # s.public_header_files = "CommandLine/Public/*.h"
@@ -137,23 +137,31 @@ Pod::Spec.new do |s|
 
   # s.xcconfig = { "HEADER_SEARCH_PATHS" => "$(SDKROOT)/usr/include/libxml2" }
   # s.dependency "JSONKit", "~> 1.4"
+  
+  s.subspec 'Main' do |ss|
+    ss.source_files  = "CommandLine/CommandLine.h"
+  end
 
   s.subspec 'Tools' do |ss|
     ss.source_files = 'CommandLine/Tools/*.{h,m}'
+    ss.dependency "CommandLine/Main"
   end
 
   s.subspec 'ANSI' do |ss|
     ss.source_files = 'CommandLine/ANSI/*.{h,m}'
     ss.dependency "CommandLine/Tools"
+    ss.dependency "CommandLine/Main"
   end
 
   s.subspec 'Command' do |ss|
     ss.source_files = 'CommandLine/Command/**/*.{h,m}'
     ss.dependency "CommandLine/ANSI"
+    ss.dependency "CommandLine/Main"
     ss.public_header_files = "CommandLine/Command/Public/*.h"
   end
 
   s.subspec 'Launcher' do |ss|
     ss.source_files = 'CommandLine/Launcher/*.{h,m}'
+    ss.dependency "CommandLine/Main"
   end
 end

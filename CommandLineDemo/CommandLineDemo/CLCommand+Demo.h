@@ -6,7 +6,7 @@
 //  Copyright © 2019 unique. All rights reserved.
 //
 
-#import <CommandLine/Command.h>
+#import <CommandLine/CommandLine.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
