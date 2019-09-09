@@ -15,6 +15,18 @@
  */
 FOUNDATION_EXTERN void CLPrintf(NSString * _Nonnull format, ...);
 
+
+/**
+ Set indent for output.
+ 
+ The indent will be used at CLVerbose, CLInfo, CLSuccess, CLWarning, CLError, CLLog
+
+ @param indent NSString, default is 4 spaces
+ */
+FOUNDATION_EXTERN void CLSetIndent(NSString * _Nullable indent);
+FOUNDATION_EXTERN void CLPushIndent(void);
+FOUNDATION_EXTERN void CLPopIndent(void);
+
 /**
  Print detail text, only enable for --verbose
  

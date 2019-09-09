@@ -27,6 +27,29 @@ void CLPrintf(NSString * _Nonnull format, ...) {
     CCPrintf(style, @"%@", str);
 }
 
+static NSString *INDENT = nil;
+static NSUInteger INDENT_LENGTH = 0;
+
+void CLSetIndent(NSString * _Nullable indent) {
+    INDENT = indent;
+}
+
+void CLPushIndent(void) {
+    INDENT_LENGTH++;
+}
+
+void CLPopIndent(void) {
+    INDENT_LENGTH == 0 ? 0 : INDENT_LENGTH--;
+}
+
+NSString *_CLGetCurrentIndent(void) {
+    NSMutableString *indent = [NSMutableString string];
+    for (NSUInteger i = 0; i < INDENT_LENGTH; i++) {
+        [indent appendString:INDENT?:@"    "];
+    }
+    return [indent copy];
+}
+
 void CLVerbose(NSString * _Nonnull format, ...) {
     if (CLProcessFlag(silent)) {
         return;
@@ -40,7 +63,7 @@ void CLVerbose(NSString * _Nonnull format, ...) {
         if (CLProcessFlag(noANSI)) {
             style = CCStyleNone;
         }
-        CCPrintf(style, @"%@\n", str);
+        CCPrintf(style, @"%@%@\n", _CLGetCurrentIndent(), str);
     }
 }
 
@@ -56,7 +79,7 @@ void CLInfo(NSString * _Nonnull format, ...) {
     if (CLProcessFlag(noANSI)) {
         style = CCStyleNone;
     }
-    CCPrintf(style, @"%@\n", str);
+    CCPrintf(style, @"%@%@\n", _CLGetCurrentIndent(), str);
 }
 
 void CLSuccess(NSString * _Nonnull format, ...) {
@@ -71,7 +94,7 @@ void CLSuccess(NSString * _Nonnull format, ...) {
     if (CLProcessFlag(noANSI)) {
         style = CCStyleNone;
     }
-    CCPrintf(style, @"%@\n", str);
+    CCPrintf(style, @"%@%@\n", _CLGetCurrentIndent(), str);
 }
 
 void CLWarning(NSString * _Nonnull format, ...) {
@@ -86,7 +109,7 @@ void CLWarning(NSString * _Nonnull format, ...) {
     if (CLProcessFlag(noANSI)) {
         style = CCStyleNone;
     }
-    CCPrintf(style, @"%@\n", str);
+    CCPrintf(style, @"%@%@\n", _CLGetCurrentIndent(), str);
 }
 
 void CLError(NSString * _Nonnull format, ...) {
@@ -101,7 +124,7 @@ void CLError(NSString * _Nonnull format, ...) {
     if (CLProcessFlag(noANSI)) {
         style = CCStyleNone;
     }
-    CCPrintf(style, @"%@\n", str);
+    CCPrintf(style, @"%@%@\n", _CLGetCurrentIndent(), str);
 }
 
 void CLLog(NSString * _Nonnull format, ...) {
@@ -110,7 +133,7 @@ void CLLog(NSString * _Nonnull format, ...) {
     va_start(args, format);
     NSString *str = [[NSString alloc] initWithFormat:format arguments:args];
     va_end(args);
-    CCPrintf(0, @"%@\n", str);
+    CCPrintf(CCStyleNone, @"%@%@\n", _CLGetCurrentIndent(), str);
 #endif
 }
 
