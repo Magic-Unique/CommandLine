@@ -1,24 +1,32 @@
 PODS:
-  - CommandLine/ANSI (2.1.0):
+  - CommandLine (2.3.0):
+    - CommandLine/ANSI (= 2.3.0)
+    - CommandLine/Command (= 2.3.0)
+    - CommandLine/Launcher (= 2.3.0)
+    - CommandLine/Main (= 2.3.0)
+    - CommandLine/Tools (= 2.3.0)
+  - CommandLine/ANSI (2.3.0):
     - CommandLine/Main
     - CommandLine/Tools
-  - CommandLine/Command (2.1.0):
+  - CommandLine/Command (2.3.0):
     - CommandLine/ANSI
     - CommandLine/Main
-  - CommandLine/Main (2.1.0)
-  - CommandLine/Tools (2.1.0):
+  - CommandLine/Launcher (2.3.0):
+    - CommandLine/Main
+  - CommandLine/Main (2.3.0)
+  - CommandLine/Tools (2.3.0):
     - CommandLine/Main
 
 DEPENDENCIES:
-  - CommandLine/Command (from `..`)
+  - CommandLine (from `..`)
 
 EXTERNAL SOURCES:
   CommandLine:
     :path: ".."
 
 SPEC CHECKSUMS:
-  CommandLine: e692a6621dce076fcf69b8865b72836def0e40d8
+  CommandLine: aa227b799681477be00ca27d48659b35285e86c6
 
-PODFILE CHECKSUM: 595ad12685470428579b5c88bb9baad375742c5e
+PODFILE CHECKSUM: 3cfd9ce6de90aab41a96e7d39df4ec6544576994
 
 COCOAPODS: 1.7.5

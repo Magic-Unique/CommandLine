@@ -63,3 +63,38 @@ NSString *CLLaunch(NSString *launchDirectory, ...) {
         return nil;
     }
 }
+
+@implementation _CLEnvironment
+
++ (instancetype _Nonnull)environment {
+    static _CLEnvironment *_shared = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        _shared = [[self alloc] init];
+    });
+    return _shared;
+}
+
+- (void)setObject:(NSString * _Nullable)obj forKeyedSubscript:(NSString * _Nonnull)key {
+    if (obj) {
+        setenv(key.UTF8String, obj.UTF8String, 0);
+    } else {
+        unsetenv(key.UTF8String);
+    }
+}
+
+- (NSString * _Nullable)objectForKeyedSubscript:(NSString * _Nonnull)key {
+    char *_key = getenv(key.UTF8String);
+    if (_key) {
+        NSString *string = [NSString stringWithUTF8String:_key];
+        return string;
+    } else {
+        return nil;
+    }
+}
+
+- (NSString *)description {
+    return NSProcessInfo.processInfo.environment.description;
+}
+
+@end

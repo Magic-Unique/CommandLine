@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <CommandLine/Command.h>
+#import <CommandLine/CommandLine.h>
 #import <objc/runtime.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -48,9 +48,17 @@ static void _CLInitCommand(Class class) {
 
 int main(int argc, const char * argv[]) {
     @autoreleasepool {
-        CLMainExplain = @"My explain for main command.";
-        CLInitCommand(CLCommand);
-        CLCommandMain();
+//        CLMainExplain = @"My explain for main command.";
+//        CLInitCommand(CLCommand);
+//        CLCommandMain();
+        NSLog(@"%@", CLEnvironment);
+        CLEnvironment[@"aa"] = @"bb";
+        NSLog(@"%@", CLEnvironment[@"aa"]);
+        NSLog(@"%@", CLEnvironment);
+        CLEnvironment[@"aa"] = nil;
+        NSLog(@"%@", CLEnvironment[@"aa"]);
+        NSLog(@"%@", CLEnvironment);
+
     }
     return 0;
 }

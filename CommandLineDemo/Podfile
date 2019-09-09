@@ -8,6 +8,6 @@ target 'CommandLineDemo' do
 
   # Pods for CommandLineDemo
 
-  pod 'CommandLine', :path => '..', :subspecs => ['Command']
+  pod 'CommandLine', :path => '..'
 
 end

@@ -7,56 +7,59 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0687166596DDA08169435DFBC3258965 /* CLLanguage+Private.m in Sources */ = {isa = PBXBuildFile; fileRef = F3040C11704FD66EC5D8E58C2748C218 /* CLLanguage+Private.m */; };
-		0CCAC1DA7449F4195581F0E77F18C39B /* CLFlag.h in Headers */ = {isa = PBXBuildFile; fileRef = B29543672D574A073860754C10FA7C2C /* CLFlag.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		0CDA58412EE77630F99893C07844C230 /* NSError+CommandLine.m in Sources */ = {isa = PBXBuildFile; fileRef = A3ACED30C43252448955AD28549A1A86 /* NSError+CommandLine.m */; };
-		11EDFAA2EA0078602BD7EB80A07D8DF9 /* CLText.h in Headers */ = {isa = PBXBuildFile; fileRef = ED2C19B1E9CB6944470E7A24F048E616 /* CLText.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		1292291EC10FAB44C861DE5DEA288433 /* Tools.h in Headers */ = {isa = PBXBuildFile; fileRef = 6574A895E65692E22FE23B7FA7211F18 /* Tools.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		13435185927C35F3496DAF470D78AC4E /* CommandLine-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A29D541436CE1380248EF4152EE0038 /* CommandLine-dummy.m */; };
-		13EFADA44064DB3704D10AA6557C5033 /* CLError.h in Headers */ = {isa = PBXBuildFile; fileRef = D07C274469EEDC25BEE5D83F185FC785 /* CLError.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		262FFA63C5D91C15272930B3EBADF6D3 /* ANSI.h in Headers */ = {isa = PBXBuildFile; fileRef = FFBBE34F9692BC787D188F82BAC1F91B /* ANSI.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		27FC4F56587835DF2EA12948EC768325 /* CLExplain+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 1A6C1F65C4E668F92A2A32E790A2137B /* CLExplain+Private.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		2CBE8242D558AD0DF04A526B8DDB8AD0 /* CLQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = 10B4A9BA4AD8A4A90C54F0D901E61DCA /* CLQuery.m */; };
-		43165E0B0CE3B61D3F9096B05EC5D2AE /* CLProcess.h in Headers */ = {isa = PBXBuildFile; fileRef = C1C4E408026C4ED69285A7C8E3930845 /* CLProcess.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		46B226F7BE0177B0AA4A418FD345BD5C /* CLCommand+Process.h in Headers */ = {isa = PBXBuildFile; fileRef = 342707DD7FDCF9A8A2686790478FC8B0 /* CLCommand+Process.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		4791568F83834219ACF8C2F93F52AFCC /* CLLanguage+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 01C15E51435B90ABAF84130B593DCB1E /* CLLanguage+Private.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		49728775081D8DF598D27659F231EBB3 /* NSArray+CommandLine.h in Headers */ = {isa = PBXBuildFile; fileRef = DF8C036DDC3F3AF4A96462145BEF2BF5 /* NSArray+CommandLine.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		57BD3DBF230A0DACA8A2C8BCED4DAFCD /* CLLanguage.m in Sources */ = {isa = PBXBuildFile; fileRef = CBB05858580A2E321FCFA06D10D27062 /* CLLanguage.m */; };
-		5B7AA8670BEE68F4B4FB22FC757CD1E0 /* CLCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = 283CDFFA8490E9FEE707DD9280C61DAB /* CLCommand.m */; };
-		609CC6AF5D0E47E91AE6DA194D0122F5 /* CLDebugger.m in Sources */ = {isa = PBXBuildFile; fileRef = 149EF1AA00674A406229A5D2B98E35D1 /* CLDebugger.m */; };
-		62A05FA9231E1375E2E1ADBC2732F70F /* NSError+CommandLine.h in Headers */ = {isa = PBXBuildFile; fileRef = 71976F8503A90C05493BF4C2BC377D4D /* NSError+CommandLine.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		684E0BFAF12459DDEAC0095E3542F5ED /* CLProcess+Private.m in Sources */ = {isa = PBXBuildFile; fileRef = 5357345B69992709DDD727C1F3D58E0D /* CLProcess+Private.m */; };
-		692A66100C2E9BF375C086F35027D70D /* CLIO.h in Headers */ = {isa = PBXBuildFile; fileRef = 1C03CE937021FE4030B5FD3E28D12E19 /* CLIO.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		697FD27941B01BC3E19F0203FE0A2C53 /* CLExplain+Private.m in Sources */ = {isa = PBXBuildFile; fileRef = B4BC1FF69BC01A912801D1DC448B6EC9 /* CLExplain+Private.m */; };
-		70B8082C5CF1850066506C4A41DD4814 /* CLQuery.h in Headers */ = {isa = PBXBuildFile; fileRef = 5B20545C4281D60FA4558CE6839B8670 /* CLQuery.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		71306C8C0FEC8464B7D149DB6E71D2B2 /* CLExplain.h in Headers */ = {isa = PBXBuildFile; fileRef = 8A47D237A40F098E764A8E864809AA9F /* CLExplain.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		7425B917B3CA8BDF21DF4139BCF6044D /* CLIOPath.m in Sources */ = {isa = PBXBuildFile; fileRef = 420198B9DFEED3E9B702C13AA3FD8374 /* CLIOPath.m */; };
-		81FB1F0D660AA02FAC39CB8788F365AA /* NSString+CommandLine.m in Sources */ = {isa = PBXBuildFile; fileRef = 785A741E7A2CFC80457C35EF6283CEDB /* NSString+CommandLine.m */; };
-		87B6B4E2EE019BCBAFA4695378F20667 /* CLLanguage+Country.m in Sources */ = {isa = PBXBuildFile; fileRef = C3E60A77B90B246376932ED7CCB5832B /* CLLanguage+Country.m */; };
-		98A0D16B5B4DBA4488A9139D4B8B2830 /* CLWorkDirectory.h in Headers */ = {isa = PBXBuildFile; fileRef = B552C31CC862E8B7D065C32910F3EBE1 /* CLWorkDirectory.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		9C60BC672CFD229017F04A6FC6B8F0A3 /* CLExplain.m in Sources */ = {isa = PBXBuildFile; fileRef = 16B7A970384E896AE53BAE23A475F27C /* CLExplain.m */; };
-		A29DC181F2748C659FBD679DAE646FEC /* CLWorkDirectory.m in Sources */ = {isa = PBXBuildFile; fileRef = 68BB5A5D72959147C75A8DC23D7828AB /* CLWorkDirectory.m */; };
+		000539E4C6A9D9BD7E3684526AE795A7 /* CLProcess+Private.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BFD7F0275D2F153EDB19A61EA23CCE0 /* CLProcess+Private.m */; };
+		012841017A5E9DEBF78D09EE01F14FA8 /* CLFlag.h in Headers */ = {isa = PBXBuildFile; fileRef = 6F0981B0D8CE2DEF6C4F9C0E7F0F3FAF /* CLFlag.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		0BE252EA0A1513F71A2558CC136059EA /* CLCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BC9C816190A203FCC72DB91278557C9 /* CLCommand.m */; };
+		1056A591C8227C341481B736BAA10154 /* CLCommand+Parser.m in Sources */ = {isa = PBXBuildFile; fileRef = F854F79A146A120D1361636B0FE00A94 /* CLCommand+Parser.m */; };
+		14C4BB8926030B5012642EB6A93BCDEC /* CLLanguage+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 336DCFF61D2DC4B9C4877853651A7AF2 /* CLLanguage+Private.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		14F405D8D162FF3CE405EF5C5532A1DF /* CLProcess+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 17F3FB072EA2DBA4F7B891BAB11BA0D0 /* CLProcess+Private.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		2670784B023D2730E6997A97377AB8A6 /* CLLanguage.h in Headers */ = {isa = PBXBuildFile; fileRef = 34893C0A5B7CBDE6D7C636B3F9829295 /* CLLanguage.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		2CDCA2279A1C2684FD8A418EC380339B /* CommandLine.h in Headers */ = {isa = PBXBuildFile; fileRef = 48AA28425FFC617A8AB42578197940C7 /* CommandLine.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		2F85149D85F70C15800729ECA5189531 /* CLExplain.m in Sources */ = {isa = PBXBuildFile; fileRef = F42189D5B7CEF6737618C019F16B0CB1 /* CLExplain.m */; };
+		313E128277A99D16F73F2DC7526419AD /* Launcher.h in Headers */ = {isa = PBXBuildFile; fileRef = 5724C4249319E0150E1999DCC6CD3D45 /* Launcher.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		32C7B0FBE330E78C55C09BD1806D2002 /* CLWorkDirectory.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A56AA3C6EFF36ABF4435435A552059B /* CLWorkDirectory.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		335DA10D601445AF46C102B5C22A6CA0 /* CLError.h in Headers */ = {isa = PBXBuildFile; fileRef = FD6F4AFE5683AB7CAA16DB255BD6E4C8 /* CLError.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		3C1AA393AAA23B44B552F1476C23363F /* CLLanguage+Country.m in Sources */ = {isa = PBXBuildFile; fileRef = F15FD3BC3CCEEE935595B82E1983D076 /* CLLanguage+Country.m */; };
+		4C64F552A5EE718EA56D9AA4998351C5 /* CLError.m in Sources */ = {isa = PBXBuildFile; fileRef = 45CF15019D19B7B796DBF9FFE4380B16 /* CLError.m */; };
+		593F00CF8C02E5280FDF9DB7A07987CD /* Tools.h in Headers */ = {isa = PBXBuildFile; fileRef = BDC7280FABF156A1A3201B36665B0DA1 /* Tools.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		713CBAE2DD84F363C2C6641CB437F3E0 /* CLLanguage+Country.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E6778CCAC74DC6860114B5B0E3C27EA /* CLLanguage+Country.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		71E4DCB5B87DD03DFD47A56F54B9CB7B /* CLLanguage+Private.m in Sources */ = {isa = PBXBuildFile; fileRef = 86D25B36D00087FB603D3611C38D3BB6 /* CLLanguage+Private.m */; };
+		72A30708AEF2A3863CDE2427D8A344FC /* CommandLine-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 0325EB0C23220320C3FA969177AF7715 /* CommandLine-dummy.m */; };
+		7683343B8F063CF19172080942737F98 /* CLCommand+Print.m in Sources */ = {isa = PBXBuildFile; fileRef = 05A01A17B76C688396CBF0914AC592DD /* CLCommand+Print.m */; };
+		77A146D793CC61089CC892694171C05E /* NSString+CommandLine.h in Headers */ = {isa = PBXBuildFile; fileRef = FC7125D9A81EFFE6E0C3785BC56749EC /* NSString+CommandLine.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		7846240EEEA1D03F62C01E79C2630224 /* CLIOPath.m in Sources */ = {isa = PBXBuildFile; fileRef = DBE4EE0C1E3D8F26833B63AD62027028 /* CLIOPath.m */; };
+		7C23AF65CEF63BE8CB5409C53619F6A3 /* CLWorkDirectory.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F8BD29AF54A73EF1453CF1F29FF3F7F /* CLWorkDirectory.m */; };
+		7E39680B566804011436BB22CFE7DD36 /* CLCommand+Process.h in Headers */ = {isa = PBXBuildFile; fileRef = E4D438B7A28F6AF1C6F42B5658A64D9F /* CLCommand+Process.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		844EF4DF2A60819468B3B784A4FA2B06 /* CLIO.h in Headers */ = {isa = PBXBuildFile; fileRef = FC8EBFDB1D9BDF56D5C1AC4C397D71C3 /* CLIO.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		89349280A4FD9F647BC241049A94D598 /* CLQuery.h in Headers */ = {isa = PBXBuildFile; fileRef = 698B69337602A2439CB28FC334A33F3B /* CLQuery.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		8A13427F74D45F8BB44F93890F91B02A /* CLCommand.h in Headers */ = {isa = PBXBuildFile; fileRef = 1A184E9F9A84ADC268FEC7FA8B54A82C /* CLCommand.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		8D12509E08688A31F6016703237DA1F8 /* NSString+CommandLine.m in Sources */ = {isa = PBXBuildFile; fileRef = FE3A7FD6AE608A4277FE9D1CB5E6F4EC /* NSString+CommandLine.m */; };
+		92F55C5E26C76A12C875223DDD7CCE5D /* CLCommand+Parser.h in Headers */ = {isa = PBXBuildFile; fileRef = 537DB133E599706179D915675747EAC6 /* CLCommand+Parser.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		94D8E6C2B3245FD6B170580E78D46FB7 /* CLFlag.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C4795D08D5EE9894CF3EC879015A74D /* CLFlag.m */; };
+		95D0C180022770B897A79CB2C168AE07 /* CLText.m in Sources */ = {isa = PBXBuildFile; fileRef = 96004D26BC42350D88C82A09B508AE65 /* CLText.m */; };
+		9AEB2E89FD3B95F86B8D72A81869BA3D /* CLTerminal.m in Sources */ = {isa = PBXBuildFile; fileRef = 0258E7E17BF7FE96A20A202DC0F023F1 /* CLTerminal.m */; };
+		9BC18A81C7C027CE22252C64A1169CBF /* CLProcess.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BC181945D5979F75D9A109EDB067353 /* CLProcess.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		9CF048B2D9E78BB5467FD30B4CA74D17 /* NSArray+CommandLine.h in Headers */ = {isa = PBXBuildFile; fileRef = 205328428E454CA3D3E490D3054619BA /* NSArray+CommandLine.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		9E6EDED7821AD7054B4C489109EB00F4 /* CLExplain.h in Headers */ = {isa = PBXBuildFile; fileRef = E8C593CCC3F676FEE9948686E6A88F51 /* CLExplain.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		A04A417556FFE5803F591E10D465A2FD /* CLIOPath.h in Headers */ = {isa = PBXBuildFile; fileRef = E78D138CD0CBA973F88B4DC6B3CA70AB /* CLIOPath.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		A3B66E50EC703829162C4188FCC79B3E /* Pods-CommandLineDemo-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 996BAD9159906455B0AC9DEFD9B89EAD /* Pods-CommandLineDemo-dummy.m */; };
-		A672C343C4AFC66C329FA89981D96F35 /* CLCommand.h in Headers */ = {isa = PBXBuildFile; fileRef = 15DE215088B10D58BADE6A03F88D3574 /* CLCommand.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		A85DE550021160D428F45D0323AFCAA5 /* CLLanguage.h in Headers */ = {isa = PBXBuildFile; fileRef = 80EAA365AE144925C9AE9333AE8E5B49 /* CLLanguage.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		ABBE837A0FB7A396AF64A7502EEA792D /* CLCommand+Process.m in Sources */ = {isa = PBXBuildFile; fileRef = CC0C24B0FAC5788329AC8E9458CC0E94 /* CLCommand+Process.m */; };
-		AD253E2D601EF02AAE94E9418781FB10 /* CLCommand+Parser.h in Headers */ = {isa = PBXBuildFile; fileRef = F42104C5108009DDA58D62FB0EE67F84 /* CLCommand+Parser.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		CAECCE2062F15FA7B12CCBE7F8A2C8D7 /* CLLanguage+Country.h in Headers */ = {isa = PBXBuildFile; fileRef = C24F72920BD614FABBE77262A589A9EB /* CLLanguage+Country.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		CD07505EE6356351137F69A4DB2C11AE /* Command.h in Headers */ = {isa = PBXBuildFile; fileRef = C8514263AB542DFC315D6DBE903D98FD /* Command.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		D4C82128A6E5F91711AA4FEED9AA1E1F /* NSString+CommandLine.h in Headers */ = {isa = PBXBuildFile; fileRef = DBB01AFA4A449AF66AF7CBA4264B676B /* NSString+CommandLine.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		D668512F98BEE3728BC0268A4577E86A /* CLDebugger.h in Headers */ = {isa = PBXBuildFile; fileRef = 78A1D65EA638DFACA40F17FB9465146A /* CLDebugger.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		D889EA67F80D6C547FF03E6C8371266A /* CommandLine.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E26151CAFC0175AFB319F32F8ED811B /* CommandLine.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		E077C004BB84BCFA3A5AD55DBAFF9762 /* CLText.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F6AC8D4A40A2B425BA395B6CA11C2B0 /* CLText.m */; };
-		E0DD9236FDDCA50D1CD736DEC034A262 /* CLFlag.m in Sources */ = {isa = PBXBuildFile; fileRef = 8479D9AC51AF2D5BD30598EA99A1329C /* CLFlag.m */; };
-		E46718D7A8A6FCB74C826A909F2AFEE1 /* CLIO.m in Sources */ = {isa = PBXBuildFile; fileRef = ADA32A1662798D7079E8FB5E1AFF29BB /* CLIO.m */; };
-		E4E8D78DE18C66CB55930FE5ACC0DFE8 /* CLProcess.m in Sources */ = {isa = PBXBuildFile; fileRef = 08865F2D622D8F087F07E85AF4F4D472 /* CLProcess.m */; };
-		E6A02F5C012D1F594FCA112916C7B0EC /* CLProcess+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 5837BB9647F302E3FD29C4961A6BF486 /* CLProcess+Private.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		E818B7B0E84C92D3DDC23411B0428F18 /* CLCommand+Print.m in Sources */ = {isa = PBXBuildFile; fileRef = A8E752389E3FADF48FF301F5B2442DA6 /* CLCommand+Print.m */; };
-		EFB54655E1478A3F31091A8604B3DAE6 /* CLError.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD1DC5E6C9615EDE3C88A81969C8BC8 /* CLError.m */; };
-		F47A3D418E1844EC84DC0A4B8261704A /* CLIOPath.h in Headers */ = {isa = PBXBuildFile; fileRef = EDF594CE4477A39D69E11C8EDA35B695 /* CLIOPath.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		F6C2C7648E76C22BAA8AA2F901498BE9 /* NSArray+CommandLine.m in Sources */ = {isa = PBXBuildFile; fileRef = BAEE3B35B512DCFA1445CA903DB49FE2 /* NSArray+CommandLine.m */; };
-		F6FBE95D46E124AA347CC0C55DF4D2A2 /* CLCommand+Print.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E116D003A9037BAF82F4DA3D59F8F4D /* CLCommand+Print.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		F800F67633F6B9317F9C670A5E8EBD68 /* CLCommand+Parser.m in Sources */ = {isa = PBXBuildFile; fileRef = 491E88E7E63B59F1313B1C24CC6D69C6 /* CLCommand+Parser.m */; };
+		A5B8AD6E04CD990BE9EC529649A746DE /* NSError+CommandLine.h in Headers */ = {isa = PBXBuildFile; fileRef = 5C7C9E94589E822FDF82BFB3648C9E33 /* NSError+CommandLine.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		A8FB9FD2B14B5467C632F78C7D0E07EA /* CLQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DF25FC4506154FA2321C085517CB7D3 /* CLQuery.m */; };
+		AA51F3F3E6E49BA61A8216F237E83372 /* ANSI.h in Headers */ = {isa = PBXBuildFile; fileRef = DC45677DA4218D405F37158E0BE42413 /* ANSI.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		AAA566607B33F5740CDC12649978C655 /* CLProcess.m in Sources */ = {isa = PBXBuildFile; fileRef = 016BA6467387A333175297A1149503A1 /* CLProcess.m */; };
+		B1B2C8704FB4BBA045B83B9F8DA40D4F /* NSArray+CommandLine.m in Sources */ = {isa = PBXBuildFile; fileRef = E416DF2AD124FA161FB7C3DE66D30F35 /* NSArray+CommandLine.m */; };
+		BDFB2E5A15237BCE320BD0398F2F77EF /* CLTerminal.h in Headers */ = {isa = PBXBuildFile; fileRef = 812A0A89D36A2B7267D04DADF2831B85 /* CLTerminal.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		C1C969C2AD82E5F85E96A7C50594CFEC /* CLDebugger.h in Headers */ = {isa = PBXBuildFile; fileRef = F775370D13D7630C9F561904759E833B /* CLDebugger.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		C4FB583765A0F55E5DD623FBBB4FF609 /* CLExplain+Private.m in Sources */ = {isa = PBXBuildFile; fileRef = B788E6B2C1891D042E0233B258B8FF46 /* CLExplain+Private.m */; };
+		C5F2F5096D9F721F27EDC8EEF4E7061E /* CLCommand+Process.m in Sources */ = {isa = PBXBuildFile; fileRef = C70F84C6CDCDB1DDC31FCDFCCBAA18F9 /* CLCommand+Process.m */; };
+		CC15BDC10352169B0A62EB4E5E5C9A73 /* CLIO.m in Sources */ = {isa = PBXBuildFile; fileRef = A078D528F2B9359C67DE7FB1977B3CDD /* CLIO.m */; };
+		D02A8EAF40F92011E6EE42E5E8118ABD /* CLDebugger.m in Sources */ = {isa = PBXBuildFile; fileRef = 11E22D3455444593A36F38D626B67F40 /* CLDebugger.m */; };
+		D779B1D3C9C3B7FB336C06F94612EF3A /* CLExplain+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 0A93BE2D6D2036A4CD0FF007957DF4A3 /* CLExplain+Private.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		E0BE3CC2361380B8830FAC1DE58F5FAE /* CLLanguage.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F43F5B2C1F30E3AADCA5728F2CC6C5C /* CLLanguage.m */; };
+		E219E885831B67229FF4E2C0290FBD28 /* CLText.h in Headers */ = {isa = PBXBuildFile; fileRef = B30B80A13F263176A9AC54D44EFCA0F5 /* CLText.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		E56CFB2A77ECE00C00BF1FF3B7FAD1C0 /* CLCommand+Print.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F5F7640C2BA03239228ED85444780DB /* CLCommand+Print.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		EE775CA4F55C11CF787233603820C957 /* Command.h in Headers */ = {isa = PBXBuildFile; fileRef = 2581B905CAFE1BC9E4CE89D1523D2FE7 /* Command.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		EEFB735EFCD9BD56DA44079D1376EA06 /* NSError+CommandLine.m in Sources */ = {isa = PBXBuildFile; fileRef = A8017A728E5C65B64305C21B7056B9E2 /* NSError+CommandLine.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -70,68 +73,71 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		01C15E51435B90ABAF84130B593DCB1E /* CLLanguage+Private.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "CLLanguage+Private.h"; sourceTree = "<group>"; };
-		08865F2D622D8F087F07E85AF4F4D472 /* CLProcess.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = CLProcess.m; sourceTree = "<group>"; };
+		016BA6467387A333175297A1149503A1 /* CLProcess.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = CLProcess.m; sourceTree = "<group>"; };
+		01988F0858A604D7FC0CE718C8409D52 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; path = LICENSE; sourceTree = "<group>"; };
+		0258E7E17BF7FE96A20A202DC0F023F1 /* CLTerminal.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = CLTerminal.m; path = CommandLine/Launcher/CLTerminal.m; sourceTree = "<group>"; };
+		0325EB0C23220320C3FA969177AF7715 /* CommandLine-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "CommandLine-dummy.m"; sourceTree = "<group>"; };
+		05A01A17B76C688396CBF0914AC592DD /* CLCommand+Print.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "CLCommand+Print.m"; sourceTree = "<group>"; };
+		0A93BE2D6D2036A4CD0FF007957DF4A3 /* CLExplain+Private.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "CLExplain+Private.h"; sourceTree = "<group>"; };
 		0C9DDE684DC0C6B8ED0F49B06D5F463A /* libCommandLine.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = libCommandLine.a; path = libCommandLine.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		10B4A9BA4AD8A4A90C54F0D901E61DCA /* CLQuery.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = CLQuery.m; sourceTree = "<group>"; };
-		149EF1AA00674A406229A5D2B98E35D1 /* CLDebugger.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = CLDebugger.m; path = CommandLine/Tools/CLDebugger.m; sourceTree = "<group>"; };
-		15DE215088B10D58BADE6A03F88D3574 /* CLCommand.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = CLCommand.h; sourceTree = "<group>"; };
-		16B7A970384E896AE53BAE23A475F27C /* CLExplain.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = CLExplain.m; sourceTree = "<group>"; };
-		1A29D541436CE1380248EF4152EE0038 /* CommandLine-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "CommandLine-dummy.m"; sourceTree = "<group>"; };
-		1A6C1F65C4E668F92A2A32E790A2137B /* CLExplain+Private.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "CLExplain+Private.h"; sourceTree = "<group>"; };
-		1C03CE937021FE4030B5FD3E28D12E19 /* CLIO.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = CLIO.h; sourceTree = "<group>"; };
-		283CDFFA8490E9FEE707DD9280C61DAB /* CLCommand.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = CLCommand.m; sourceTree = "<group>"; };
-		2CD1DC5E6C9615EDE3C88A81969C8BC8 /* CLError.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = CLError.m; sourceTree = "<group>"; };
-		342707DD7FDCF9A8A2686790478FC8B0 /* CLCommand+Process.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "CLCommand+Process.h"; sourceTree = "<group>"; };
-		3DB425BD8493F8497CB28A2D766E0EF7 /* CommandLine-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "CommandLine-prefix.pch"; sourceTree = "<group>"; };
-		420198B9DFEED3E9B702C13AA3FD8374 /* CLIOPath.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = CLIOPath.m; sourceTree = "<group>"; };
-		491E88E7E63B59F1313B1C24CC6D69C6 /* CLCommand+Parser.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "CLCommand+Parser.m"; sourceTree = "<group>"; };
-		4E116D003A9037BAF82F4DA3D59F8F4D /* CLCommand+Print.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "CLCommand+Print.h"; sourceTree = "<group>"; };
-		4E26151CAFC0175AFB319F32F8ED811B /* CommandLine.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = CommandLine.h; path = CommandLine/CommandLine.h; sourceTree = "<group>"; };
-		5357345B69992709DDD727C1F3D58E0D /* CLProcess+Private.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "CLProcess+Private.m"; sourceTree = "<group>"; };
-		5837BB9647F302E3FD29C4961A6BF486 /* CLProcess+Private.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "CLProcess+Private.h"; sourceTree = "<group>"; };
-		5B20545C4281D60FA4558CE6839B8670 /* CLQuery.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = CLQuery.h; sourceTree = "<group>"; };
-		6574A895E65692E22FE23B7FA7211F18 /* Tools.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = Tools.h; path = CommandLine/Tools/Tools.h; sourceTree = "<group>"; };
-		68BB5A5D72959147C75A8DC23D7828AB /* CLWorkDirectory.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = CLWorkDirectory.m; path = CommandLine/Tools/CLWorkDirectory.m; sourceTree = "<group>"; };
-		6F6AC8D4A40A2B425BA395B6CA11C2B0 /* CLText.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = CLText.m; path = CommandLine/ANSI/CLText.m; sourceTree = "<group>"; };
-		71976F8503A90C05493BF4C2BC377D4D /* NSError+CommandLine.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "NSError+CommandLine.h"; sourceTree = "<group>"; };
+		11E22D3455444593A36F38D626B67F40 /* CLDebugger.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = CLDebugger.m; path = CommandLine/Tools/CLDebugger.m; sourceTree = "<group>"; };
+		17F3FB072EA2DBA4F7B891BAB11BA0D0 /* CLProcess+Private.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "CLProcess+Private.h"; sourceTree = "<group>"; };
+		1A184E9F9A84ADC268FEC7FA8B54A82C /* CLCommand.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = CLCommand.h; sourceTree = "<group>"; };
+		1E6778CCAC74DC6860114B5B0E3C27EA /* CLLanguage+Country.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "CLLanguage+Country.h"; sourceTree = "<group>"; };
+		1F8BD29AF54A73EF1453CF1F29FF3F7F /* CLWorkDirectory.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = CLWorkDirectory.m; path = CommandLine/Tools/CLWorkDirectory.m; sourceTree = "<group>"; };
+		205328428E454CA3D3E490D3054619BA /* NSArray+CommandLine.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "NSArray+CommandLine.h"; sourceTree = "<group>"; };
+		2581B905CAFE1BC9E4CE89D1523D2FE7 /* Command.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = Command.h; sourceTree = "<group>"; };
+		2F43F5B2C1F30E3AADCA5728F2CC6C5C /* CLLanguage.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = CLLanguage.m; sourceTree = "<group>"; };
+		336DCFF61D2DC4B9C4877853651A7AF2 /* CLLanguage+Private.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "CLLanguage+Private.h"; sourceTree = "<group>"; };
+		34893C0A5B7CBDE6D7C636B3F9829295 /* CLLanguage.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = CLLanguage.h; sourceTree = "<group>"; };
+		3BECAD57903EEE540B98C11A791143C1 /* CommandLine-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "CommandLine-prefix.pch"; sourceTree = "<group>"; };
+		449EFFD3297DEE2139485B0DA569FCD8 /* CommandLine.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = CommandLine.xcconfig; sourceTree = "<group>"; };
+		45CF15019D19B7B796DBF9FFE4380B16 /* CLError.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = CLError.m; sourceTree = "<group>"; };
+		48AA28425FFC617A8AB42578197940C7 /* CommandLine.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = CommandLine.h; path = CommandLine/CommandLine.h; sourceTree = "<group>"; };
+		4A54FB4BE097A48A32BF81AA0643940B /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; path = README.md; sourceTree = "<group>"; };
+		4F5F7640C2BA03239228ED85444780DB /* CLCommand+Print.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "CLCommand+Print.h"; sourceTree = "<group>"; };
+		537DB133E599706179D915675747EAC6 /* CLCommand+Parser.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "CLCommand+Parser.h"; sourceTree = "<group>"; };
+		5724C4249319E0150E1999DCC6CD3D45 /* Launcher.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = Launcher.h; path = CommandLine/Launcher/Launcher.h; sourceTree = "<group>"; };
+		5A56AA3C6EFF36ABF4435435A552059B /* CLWorkDirectory.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = CLWorkDirectory.h; path = CommandLine/Tools/CLWorkDirectory.h; sourceTree = "<group>"; };
+		5BC181945D5979F75D9A109EDB067353 /* CLProcess.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = CLProcess.h; sourceTree = "<group>"; };
+		5BFD7F0275D2F153EDB19A61EA23CCE0 /* CLProcess+Private.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "CLProcess+Private.m"; sourceTree = "<group>"; };
+		5C7C9E94589E822FDF82BFB3648C9E33 /* NSError+CommandLine.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "NSError+CommandLine.h"; sourceTree = "<group>"; };
+		698B69337602A2439CB28FC334A33F3B /* CLQuery.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = CLQuery.h; sourceTree = "<group>"; };
+		6C4795D08D5EE9894CF3EC879015A74D /* CLFlag.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = CLFlag.m; sourceTree = "<group>"; };
+		6F0981B0D8CE2DEF6C4F9C0E7F0F3FAF /* CLFlag.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = CLFlag.h; sourceTree = "<group>"; };
 		76831B99C95EF84F8CD88FF509A96C16 /* libPods-CommandLineDemo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "libPods-CommandLineDemo.a"; path = "libPods-CommandLineDemo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		785A741E7A2CFC80457C35EF6283CEDB /* NSString+CommandLine.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "NSString+CommandLine.m"; sourceTree = "<group>"; };
-		78A1D65EA638DFACA40F17FB9465146A /* CLDebugger.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = CLDebugger.h; path = CommandLine/Tools/CLDebugger.h; sourceTree = "<group>"; };
-		80EAA365AE144925C9AE9333AE8E5B49 /* CLLanguage.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = CLLanguage.h; sourceTree = "<group>"; };
-		8479D9AC51AF2D5BD30598EA99A1329C /* CLFlag.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = CLFlag.m; sourceTree = "<group>"; };
-		8A47D237A40F098E764A8E864809AA9F /* CLExplain.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = CLExplain.h; sourceTree = "<group>"; };
-		8B7ADD0AC3E291759F2690012B03E2A6 /* CommandLine.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; path = CommandLine.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		9166E7BCADE3A0E3952E1303385EEA30 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; path = LICENSE; sourceTree = "<group>"; };
-		967A7AF04BB0799485DD6012CEA3B8A8 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; path = README.md; sourceTree = "<group>"; };
+		7DF25FC4506154FA2321C085517CB7D3 /* CLQuery.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = CLQuery.m; sourceTree = "<group>"; };
+		812A0A89D36A2B7267D04DADF2831B85 /* CLTerminal.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = CLTerminal.h; path = CommandLine/Launcher/CLTerminal.h; sourceTree = "<group>"; };
+		86D25B36D00087FB603D3611C38D3BB6 /* CLLanguage+Private.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "CLLanguage+Private.m"; sourceTree = "<group>"; };
+		8AD05675874AFC594932482F3246F0FD /* CommandLine.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; path = CommandLine.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		96004D26BC42350D88C82A09B508AE65 /* CLText.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = CLText.m; path = CommandLine/ANSI/CLText.m; sourceTree = "<group>"; };
 		996BAD9159906455B0AC9DEFD9B89EAD /* Pods-CommandLineDemo-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-CommandLineDemo-dummy.m"; sourceTree = "<group>"; };
+		9BC9C816190A203FCC72DB91278557C9 /* CLCommand.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = CLCommand.m; sourceTree = "<group>"; };
 		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		A3ACED30C43252448955AD28549A1A86 /* NSError+CommandLine.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "NSError+CommandLine.m"; sourceTree = "<group>"; };
-		A8E752389E3FADF48FF301F5B2442DA6 /* CLCommand+Print.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "CLCommand+Print.m"; sourceTree = "<group>"; };
-		ADA32A1662798D7079E8FB5E1AFF29BB /* CLIO.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = CLIO.m; sourceTree = "<group>"; };
-		B29543672D574A073860754C10FA7C2C /* CLFlag.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = CLFlag.h; sourceTree = "<group>"; };
-		B29B7B02846524706A719D6741B6A19D /* CommandLine.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = CommandLine.xcconfig; sourceTree = "<group>"; };
-		B4BC1FF69BC01A912801D1DC448B6EC9 /* CLExplain+Private.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "CLExplain+Private.m"; sourceTree = "<group>"; };
-		B552C31CC862E8B7D065C32910F3EBE1 /* CLWorkDirectory.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = CLWorkDirectory.h; path = CommandLine/Tools/CLWorkDirectory.h; sourceTree = "<group>"; };
-		BAEE3B35B512DCFA1445CA903DB49FE2 /* NSArray+CommandLine.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "NSArray+CommandLine.m"; sourceTree = "<group>"; };
-		C1C4E408026C4ED69285A7C8E3930845 /* CLProcess.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = CLProcess.h; sourceTree = "<group>"; };
-		C24F72920BD614FABBE77262A589A9EB /* CLLanguage+Country.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "CLLanguage+Country.h"; sourceTree = "<group>"; };
-		C3E60A77B90B246376932ED7CCB5832B /* CLLanguage+Country.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "CLLanguage+Country.m"; sourceTree = "<group>"; };
-		C8514263AB542DFC315D6DBE903D98FD /* Command.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = Command.h; sourceTree = "<group>"; };
-		CBB05858580A2E321FCFA06D10D27062 /* CLLanguage.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = CLLanguage.m; sourceTree = "<group>"; };
-		CC0C24B0FAC5788329AC8E9458CC0E94 /* CLCommand+Process.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "CLCommand+Process.m"; sourceTree = "<group>"; };
-		D07C274469EEDC25BEE5D83F185FC785 /* CLError.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = CLError.h; sourceTree = "<group>"; };
+		A078D528F2B9359C67DE7FB1977B3CDD /* CLIO.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = CLIO.m; sourceTree = "<group>"; };
+		A8017A728E5C65B64305C21B7056B9E2 /* NSError+CommandLine.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "NSError+CommandLine.m"; sourceTree = "<group>"; };
+		B30B80A13F263176A9AC54D44EFCA0F5 /* CLText.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = CLText.h; path = CommandLine/ANSI/CLText.h; sourceTree = "<group>"; };
+		B788E6B2C1891D042E0233B258B8FF46 /* CLExplain+Private.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "CLExplain+Private.m"; sourceTree = "<group>"; };
+		BDC7280FABF156A1A3201B36665B0DA1 /* Tools.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = Tools.h; path = CommandLine/Tools/Tools.h; sourceTree = "<group>"; };
+		C70F84C6CDCDB1DDC31FCDFCCBAA18F9 /* CLCommand+Process.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "CLCommand+Process.m"; sourceTree = "<group>"; };
 		D68E1AC3DE01F3C7BBE9ED13528A6730 /* Pods-CommandLineDemo-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-CommandLineDemo-acknowledgements.markdown"; sourceTree = "<group>"; };
-		DBB01AFA4A449AF66AF7CBA4264B676B /* NSString+CommandLine.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "NSString+CommandLine.h"; sourceTree = "<group>"; };
 		DBC45EDBC1EEF4825372FBB9718B5C63 /* Pods-CommandLineDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-CommandLineDemo.release.xcconfig"; sourceTree = "<group>"; };
-		DF8C036DDC3F3AF4A96462145BEF2BF5 /* NSArray+CommandLine.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "NSArray+CommandLine.h"; sourceTree = "<group>"; };
-		ED2C19B1E9CB6944470E7A24F048E616 /* CLText.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = CLText.h; path = CommandLine/ANSI/CLText.h; sourceTree = "<group>"; };
-		EDF594CE4477A39D69E11C8EDA35B695 /* CLIOPath.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = CLIOPath.h; sourceTree = "<group>"; };
-		F3040C11704FD66EC5D8E58C2748C218 /* CLLanguage+Private.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "CLLanguage+Private.m"; sourceTree = "<group>"; };
-		F42104C5108009DDA58D62FB0EE67F84 /* CLCommand+Parser.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "CLCommand+Parser.h"; sourceTree = "<group>"; };
+		DBE4EE0C1E3D8F26833B63AD62027028 /* CLIOPath.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = CLIOPath.m; sourceTree = "<group>"; };
+		DC45677DA4218D405F37158E0BE42413 /* ANSI.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ANSI.h; path = CommandLine/ANSI/ANSI.h; sourceTree = "<group>"; };
+		E416DF2AD124FA161FB7C3DE66D30F35 /* NSArray+CommandLine.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "NSArray+CommandLine.m"; sourceTree = "<group>"; };
+		E4D438B7A28F6AF1C6F42B5658A64D9F /* CLCommand+Process.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "CLCommand+Process.h"; sourceTree = "<group>"; };
+		E78D138CD0CBA973F88B4DC6B3CA70AB /* CLIOPath.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = CLIOPath.h; sourceTree = "<group>"; };
+		E8C593CCC3F676FEE9948686E6A88F51 /* CLExplain.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = CLExplain.h; sourceTree = "<group>"; };
+		F15FD3BC3CCEEE935595B82E1983D076 /* CLLanguage+Country.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "CLLanguage+Country.m"; sourceTree = "<group>"; };
+		F42189D5B7CEF6737618C019F16B0CB1 /* CLExplain.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = CLExplain.m; sourceTree = "<group>"; };
 		F5E6EF3F3BB88E1B4280C4FF53D2160C /* Pods-CommandLineDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-CommandLineDemo.debug.xcconfig"; sourceTree = "<group>"; };
+		F775370D13D7630C9F561904759E833B /* CLDebugger.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = CLDebugger.h; path = CommandLine/Tools/CLDebugger.h; sourceTree = "<group>"; };
+		F854F79A146A120D1361636B0FE00A94 /* CLCommand+Parser.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "CLCommand+Parser.m"; sourceTree = "<group>"; };
 		FAD4AD520796BEAC310733906811BE7C /* Pods-CommandLineDemo-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-CommandLineDemo-acknowledgements.plist"; sourceTree = "<group>"; };
-		FFBBE34F9692BC787D188F82BAC1F91B /* ANSI.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ANSI.h; path = CommandLine/ANSI/ANSI.h; sourceTree = "<group>"; };
+		FC7125D9A81EFFE6E0C3785BC56749EC /* NSString+CommandLine.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "NSString+CommandLine.h"; sourceTree = "<group>"; };
+		FC8EBFDB1D9BDF56D5C1AC4C397D71C3 /* CLIO.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = CLIO.h; sourceTree = "<group>"; };
+		FD6F4AFE5683AB7CAA16DB255BD6E4C8 /* CLError.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = CLError.h; sourceTree = "<group>"; };
+		FE3A7FD6AE608A4277FE9D1CB5E6F4EC /* NSString+CommandLine.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "NSString+CommandLine.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -142,7 +148,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		BC1AAB5ED0C24093EA47441CA425E250 /* Frameworks */ = {
+		898C01E69574A32B432EB2C9EB690859 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -152,59 +158,104 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		15D82E8FC3C750763BD7BC7002ED7C4E /* CommandLine */ = {
+		0EDE1B295344F4F6F82A9D1CF533ECEC /* CommandLine */ = {
 			isa = PBXGroup;
 			children = (
-				5332820F1C1D34498DE0E45463A0B725 /* ANSI */,
-				608E1EB07FECF880A3979AC1DCE4D62E /* Command */,
-				1E007130F3EA299688DD542035B0B0BD /* Main */,
-				F8EB08FE5A6B3B7B8327797FFDFFD7D2 /* Pod */,
-				357D67E351B1328B21850C28D4513DEF /* Support Files */,
-				46002F24D864E3751A25E6C719ABBF2C /* Tools */,
+				AFA2F5FBCC04CF2E520E075C52C88926 /* ANSI */,
+				A68CA81236AC692B53A0947F5195C378 /* Command */,
+				41DC044E8CB8ED7E4B146FFB157BE056 /* Launcher */,
+				35993094E279CF0B03578C2DC3C523FF /* Main */,
+				B63D05B4BB34E74F93DD654B5A737BD6 /* Pod */,
+				A2BED5BF4E70BB9495F9FD4D1447F2FA /* Support Files */,
+				53F7C05567D2A463CEE02152DBF9E374 /* Tools */,
 			);
 			name = CommandLine;
 			path = ../..;
 			sourceTree = "<group>";
 		};
-		1E007130F3EA299688DD542035B0B0BD /* Main */ = {
+		236B49F022AAFAFFAC31D5BC874BB632 /* Public */ = {
 			isa = PBXGroup;
 			children = (
-				4E26151CAFC0175AFB319F32F8ED811B /* CommandLine.h */,
+				1A184E9F9A84ADC268FEC7FA8B54A82C /* CLCommand.h */,
+				9BC9C816190A203FCC72DB91278557C9 /* CLCommand.m */,
+				4F5F7640C2BA03239228ED85444780DB /* CLCommand+Print.h */,
+				05A01A17B76C688396CBF0914AC592DD /* CLCommand+Print.m */,
+				FD6F4AFE5683AB7CAA16DB255BD6E4C8 /* CLError.h */,
+				45CF15019D19B7B796DBF9FFE4380B16 /* CLError.m */,
+				E8C593CCC3F676FEE9948686E6A88F51 /* CLExplain.h */,
+				F42189D5B7CEF6737618C019F16B0CB1 /* CLExplain.m */,
+				6F0981B0D8CE2DEF6C4F9C0E7F0F3FAF /* CLFlag.h */,
+				6C4795D08D5EE9894CF3EC879015A74D /* CLFlag.m */,
+				FC8EBFDB1D9BDF56D5C1AC4C397D71C3 /* CLIO.h */,
+				A078D528F2B9359C67DE7FB1977B3CDD /* CLIO.m */,
+				E78D138CD0CBA973F88B4DC6B3CA70AB /* CLIOPath.h */,
+				DBE4EE0C1E3D8F26833B63AD62027028 /* CLIOPath.m */,
+				34893C0A5B7CBDE6D7C636B3F9829295 /* CLLanguage.h */,
+				2F43F5B2C1F30E3AADCA5728F2CC6C5C /* CLLanguage.m */,
+				1E6778CCAC74DC6860114B5B0E3C27EA /* CLLanguage+Country.h */,
+				F15FD3BC3CCEEE935595B82E1983D076 /* CLLanguage+Country.m */,
+				5BC181945D5979F75D9A109EDB067353 /* CLProcess.h */,
+				016BA6467387A333175297A1149503A1 /* CLProcess.m */,
+				698B69337602A2439CB28FC334A33F3B /* CLQuery.h */,
+				7DF25FC4506154FA2321C085517CB7D3 /* CLQuery.m */,
+				2581B905CAFE1BC9E4CE89D1523D2FE7 /* Command.h */,
+			);
+			name = Public;
+			path = CommandLine/Command/Public;
+			sourceTree = "<group>";
+		};
+		35993094E279CF0B03578C2DC3C523FF /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				48AA28425FFC617A8AB42578197940C7 /* CommandLine.h */,
 			);
 			name = Main;
 			sourceTree = "<group>";
 		};
-		357D67E351B1328B21850C28D4513DEF /* Support Files */ = {
+		41DC044E8CB8ED7E4B146FFB157BE056 /* Launcher */ = {
 			isa = PBXGroup;
 			children = (
-				B29B7B02846524706A719D6741B6A19D /* CommandLine.xcconfig */,
-				1A29D541436CE1380248EF4152EE0038 /* CommandLine-dummy.m */,
-				3DB425BD8493F8497CB28A2D766E0EF7 /* CommandLine-prefix.pch */,
+				812A0A89D36A2B7267D04DADF2831B85 /* CLTerminal.h */,
+				0258E7E17BF7FE96A20A202DC0F023F1 /* CLTerminal.m */,
+				5724C4249319E0150E1999DCC6CD3D45 /* Launcher.h */,
 			);
-			name = "Support Files";
-			path = "CommandLineDemo/Pods/Target Support Files/CommandLine";
+			name = Launcher;
 			sourceTree = "<group>";
 		};
-		46002F24D864E3751A25E6C719ABBF2C /* Tools */ = {
+		484586ADB1EEFD6EB7A4F72D18E7EFF7 /* Private */ = {
 			isa = PBXGroup;
 			children = (
-				78A1D65EA638DFACA40F17FB9465146A /* CLDebugger.h */,
-				149EF1AA00674A406229A5D2B98E35D1 /* CLDebugger.m */,
-				B552C31CC862E8B7D065C32910F3EBE1 /* CLWorkDirectory.h */,
-				68BB5A5D72959147C75A8DC23D7828AB /* CLWorkDirectory.m */,
-				6574A895E65692E22FE23B7FA7211F18 /* Tools.h */,
+				537DB133E599706179D915675747EAC6 /* CLCommand+Parser.h */,
+				F854F79A146A120D1361636B0FE00A94 /* CLCommand+Parser.m */,
+				E4D438B7A28F6AF1C6F42B5658A64D9F /* CLCommand+Process.h */,
+				C70F84C6CDCDB1DDC31FCDFCCBAA18F9 /* CLCommand+Process.m */,
+				0A93BE2D6D2036A4CD0FF007957DF4A3 /* CLExplain+Private.h */,
+				B788E6B2C1891D042E0233B258B8FF46 /* CLExplain+Private.m */,
+				336DCFF61D2DC4B9C4877853651A7AF2 /* CLLanguage+Private.h */,
+				86D25B36D00087FB603D3611C38D3BB6 /* CLLanguage+Private.m */,
+				17F3FB072EA2DBA4F7B891BAB11BA0D0 /* CLProcess+Private.h */,
+				5BFD7F0275D2F153EDB19A61EA23CCE0 /* CLProcess+Private.m */,
+				205328428E454CA3D3E490D3054619BA /* NSArray+CommandLine.h */,
+				E416DF2AD124FA161FB7C3DE66D30F35 /* NSArray+CommandLine.m */,
+				5C7C9E94589E822FDF82BFB3648C9E33 /* NSError+CommandLine.h */,
+				A8017A728E5C65B64305C21B7056B9E2 /* NSError+CommandLine.m */,
+				FC7125D9A81EFFE6E0C3785BC56749EC /* NSString+CommandLine.h */,
+				FE3A7FD6AE608A4277FE9D1CB5E6F4EC /* NSString+CommandLine.m */,
+			);
+			name = Private;
+			path = CommandLine/Command/Private;
+			sourceTree = "<group>";
+		};
+		53F7C05567D2A463CEE02152DBF9E374 /* Tools */ = {
+			isa = PBXGroup;
+			children = (
+				F775370D13D7630C9F561904759E833B /* CLDebugger.h */,
+				11E22D3455444593A36F38D626B67F40 /* CLDebugger.m */,
+				5A56AA3C6EFF36ABF4435435A552059B /* CLWorkDirectory.h */,
+				1F8BD29AF54A73EF1453CF1F29FF3F7F /* CLWorkDirectory.m */,
+				BDC7280FABF156A1A3201B36665B0DA1 /* Tools.h */,
 			);
 			name = Tools;
-			sourceTree = "<group>";
-		};
-		5332820F1C1D34498DE0E45463A0B725 /* ANSI */ = {
-			isa = PBXGroup;
-			children = (
-				FFBBE34F9692BC787D188F82BAC1F91B /* ANSI.h */,
-				ED2C19B1E9CB6944470E7A24F048E616 /* CLText.h */,
-				6F6AC8D4A40A2B425BA395B6CA11C2B0 /* CLText.m */,
-			);
-			name = ANSI;
 			sourceTree = "<group>";
 		};
 		597B791BF79E97E4F21EA26C1E7A5012 /* Products */ = {
@@ -216,68 +267,34 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		608E1EB07FECF880A3979AC1DCE4D62E /* Command */ = {
+		A2BED5BF4E70BB9495F9FD4D1447F2FA /* Support Files */ = {
 			isa = PBXGroup;
 			children = (
-				870088FCD76E777E3897E302163DC52C /* Private */,
-				810F9EF4A39F4B0740FCD286F17B505C /* Public */,
+				449EFFD3297DEE2139485B0DA569FCD8 /* CommandLine.xcconfig */,
+				0325EB0C23220320C3FA969177AF7715 /* CommandLine-dummy.m */,
+				3BECAD57903EEE540B98C11A791143C1 /* CommandLine-prefix.pch */,
+			);
+			name = "Support Files";
+			path = "CommandLineDemo/Pods/Target Support Files/CommandLine";
+			sourceTree = "<group>";
+		};
+		A68CA81236AC692B53A0947F5195C378 /* Command */ = {
+			isa = PBXGroup;
+			children = (
+				484586ADB1EEFD6EB7A4F72D18E7EFF7 /* Private */,
+				236B49F022AAFAFFAC31D5BC874BB632 /* Public */,
 			);
 			name = Command;
 			sourceTree = "<group>";
 		};
-		810F9EF4A39F4B0740FCD286F17B505C /* Public */ = {
+		AFA2F5FBCC04CF2E520E075C52C88926 /* ANSI */ = {
 			isa = PBXGroup;
 			children = (
-				15DE215088B10D58BADE6A03F88D3574 /* CLCommand.h */,
-				283CDFFA8490E9FEE707DD9280C61DAB /* CLCommand.m */,
-				4E116D003A9037BAF82F4DA3D59F8F4D /* CLCommand+Print.h */,
-				A8E752389E3FADF48FF301F5B2442DA6 /* CLCommand+Print.m */,
-				D07C274469EEDC25BEE5D83F185FC785 /* CLError.h */,
-				2CD1DC5E6C9615EDE3C88A81969C8BC8 /* CLError.m */,
-				8A47D237A40F098E764A8E864809AA9F /* CLExplain.h */,
-				16B7A970384E896AE53BAE23A475F27C /* CLExplain.m */,
-				B29543672D574A073860754C10FA7C2C /* CLFlag.h */,
-				8479D9AC51AF2D5BD30598EA99A1329C /* CLFlag.m */,
-				1C03CE937021FE4030B5FD3E28D12E19 /* CLIO.h */,
-				ADA32A1662798D7079E8FB5E1AFF29BB /* CLIO.m */,
-				EDF594CE4477A39D69E11C8EDA35B695 /* CLIOPath.h */,
-				420198B9DFEED3E9B702C13AA3FD8374 /* CLIOPath.m */,
-				80EAA365AE144925C9AE9333AE8E5B49 /* CLLanguage.h */,
-				CBB05858580A2E321FCFA06D10D27062 /* CLLanguage.m */,
-				C24F72920BD614FABBE77262A589A9EB /* CLLanguage+Country.h */,
-				C3E60A77B90B246376932ED7CCB5832B /* CLLanguage+Country.m */,
-				C1C4E408026C4ED69285A7C8E3930845 /* CLProcess.h */,
-				08865F2D622D8F087F07E85AF4F4D472 /* CLProcess.m */,
-				5B20545C4281D60FA4558CE6839B8670 /* CLQuery.h */,
-				10B4A9BA4AD8A4A90C54F0D901E61DCA /* CLQuery.m */,
-				C8514263AB542DFC315D6DBE903D98FD /* Command.h */,
+				DC45677DA4218D405F37158E0BE42413 /* ANSI.h */,
+				B30B80A13F263176A9AC54D44EFCA0F5 /* CLText.h */,
+				96004D26BC42350D88C82A09B508AE65 /* CLText.m */,
 			);
-			name = Public;
-			path = CommandLine/Command/Public;
-			sourceTree = "<group>";
-		};
-		870088FCD76E777E3897E302163DC52C /* Private */ = {
-			isa = PBXGroup;
-			children = (
-				F42104C5108009DDA58D62FB0EE67F84 /* CLCommand+Parser.h */,
-				491E88E7E63B59F1313B1C24CC6D69C6 /* CLCommand+Parser.m */,
-				342707DD7FDCF9A8A2686790478FC8B0 /* CLCommand+Process.h */,
-				CC0C24B0FAC5788329AC8E9458CC0E94 /* CLCommand+Process.m */,
-				1A6C1F65C4E668F92A2A32E790A2137B /* CLExplain+Private.h */,
-				B4BC1FF69BC01A912801D1DC448B6EC9 /* CLExplain+Private.m */,
-				01C15E51435B90ABAF84130B593DCB1E /* CLLanguage+Private.h */,
-				F3040C11704FD66EC5D8E58C2748C218 /* CLLanguage+Private.m */,
-				5837BB9647F302E3FD29C4961A6BF486 /* CLProcess+Private.h */,
-				5357345B69992709DDD727C1F3D58E0D /* CLProcess+Private.m */,
-				DF8C036DDC3F3AF4A96462145BEF2BF5 /* NSArray+CommandLine.h */,
-				BAEE3B35B512DCFA1445CA903DB49FE2 /* NSArray+CommandLine.m */,
-				71976F8503A90C05493BF4C2BC377D4D /* NSError+CommandLine.h */,
-				A3ACED30C43252448955AD28549A1A86 /* NSError+CommandLine.m */,
-				DBB01AFA4A449AF66AF7CBA4264B676B /* NSString+CommandLine.h */,
-				785A741E7A2CFC80457C35EF6283CEDB /* NSString+CommandLine.m */,
-			);
-			name = Private;
-			path = CommandLine/Command/Private;
+			name = ANSI;
 			sourceTree = "<group>";
 		};
 		B4C3D8B03A54E84A4FDCFFDE7E146111 /* Targets Support Files */ = {
@@ -288,11 +305,21 @@
 			name = "Targets Support Files";
 			sourceTree = "<group>";
 		};
+		B63D05B4BB34E74F93DD654B5A737BD6 /* Pod */ = {
+			isa = PBXGroup;
+			children = (
+				8AD05675874AFC594932482F3246F0FD /* CommandLine.podspec */,
+				01988F0858A604D7FC0CE718C8409D52 /* LICENSE */,
+				4A54FB4BE097A48A32BF81AA0643940B /* README.md */,
+			);
+			name = Pod;
+			sourceTree = "<group>";
+		};
 		CF1408CF629C7361332E53B88F7BD30C = {
 			isa = PBXGroup;
 			children = (
 				9D940727FF8FB9C785EB98E56350EF41 /* Podfile */,
-				E3BA1D082868C8C4F4912751489F76DD /* Development Pods */,
+				E80A8F81E570C7C3A970F12C56AB0CC8 /* Development Pods */,
 				D89477F20FB1DE18A04690586D7808C4 /* Frameworks */,
 				597B791BF79E97E4F21EA26C1E7A5012 /* Products */,
 				B4C3D8B03A54E84A4FDCFFDE7E146111 /* Targets Support Files */,
@@ -319,57 +346,49 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		E3BA1D082868C8C4F4912751489F76DD /* Development Pods */ = {
+		E80A8F81E570C7C3A970F12C56AB0CC8 /* Development Pods */ = {
 			isa = PBXGroup;
 			children = (
-				15D82E8FC3C750763BD7BC7002ED7C4E /* CommandLine */,
+				0EDE1B295344F4F6F82A9D1CF533ECEC /* CommandLine */,
 			);
 			name = "Development Pods";
-			sourceTree = "<group>";
-		};
-		F8EB08FE5A6B3B7B8327797FFDFFD7D2 /* Pod */ = {
-			isa = PBXGroup;
-			children = (
-				8B7ADD0AC3E291759F2690012B03E2A6 /* CommandLine.podspec */,
-				9166E7BCADE3A0E3952E1303385EEA30 /* LICENSE */,
-				967A7AF04BB0799485DD6012CEA3B8A8 /* README.md */,
-			);
-			name = Pod;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
-		41432D00F9FBE4C7B9886A35BE4F3F6D /* Headers */ = {
+		47E7E6EE3AE9563179E6BBFC35D722D1 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				262FFA63C5D91C15272930B3EBADF6D3 /* ANSI.h in Headers */,
-				AD253E2D601EF02AAE94E9418781FB10 /* CLCommand+Parser.h in Headers */,
-				F6FBE95D46E124AA347CC0C55DF4D2A2 /* CLCommand+Print.h in Headers */,
-				46B226F7BE0177B0AA4A418FD345BD5C /* CLCommand+Process.h in Headers */,
-				A672C343C4AFC66C329FA89981D96F35 /* CLCommand.h in Headers */,
-				D668512F98BEE3728BC0268A4577E86A /* CLDebugger.h in Headers */,
-				13EFADA44064DB3704D10AA6557C5033 /* CLError.h in Headers */,
-				27FC4F56587835DF2EA12948EC768325 /* CLExplain+Private.h in Headers */,
-				71306C8C0FEC8464B7D149DB6E71D2B2 /* CLExplain.h in Headers */,
-				0CCAC1DA7449F4195581F0E77F18C39B /* CLFlag.h in Headers */,
-				692A66100C2E9BF375C086F35027D70D /* CLIO.h in Headers */,
-				F47A3D418E1844EC84DC0A4B8261704A /* CLIOPath.h in Headers */,
-				CAECCE2062F15FA7B12CCBE7F8A2C8D7 /* CLLanguage+Country.h in Headers */,
-				4791568F83834219ACF8C2F93F52AFCC /* CLLanguage+Private.h in Headers */,
-				A85DE550021160D428F45D0323AFCAA5 /* CLLanguage.h in Headers */,
-				E6A02F5C012D1F594FCA112916C7B0EC /* CLProcess+Private.h in Headers */,
-				43165E0B0CE3B61D3F9096B05EC5D2AE /* CLProcess.h in Headers */,
-				70B8082C5CF1850066506C4A41DD4814 /* CLQuery.h in Headers */,
-				11EDFAA2EA0078602BD7EB80A07D8DF9 /* CLText.h in Headers */,
-				98A0D16B5B4DBA4488A9139D4B8B2830 /* CLWorkDirectory.h in Headers */,
-				CD07505EE6356351137F69A4DB2C11AE /* Command.h in Headers */,
-				D889EA67F80D6C547FF03E6C8371266A /* CommandLine.h in Headers */,
-				49728775081D8DF598D27659F231EBB3 /* NSArray+CommandLine.h in Headers */,
-				62A05FA9231E1375E2E1ADBC2732F70F /* NSError+CommandLine.h in Headers */,
-				D4C82128A6E5F91711AA4FEED9AA1E1F /* NSString+CommandLine.h in Headers */,
-				1292291EC10FAB44C861DE5DEA288433 /* Tools.h in Headers */,
+				AA51F3F3E6E49BA61A8216F237E83372 /* ANSI.h in Headers */,
+				92F55C5E26C76A12C875223DDD7CCE5D /* CLCommand+Parser.h in Headers */,
+				E56CFB2A77ECE00C00BF1FF3B7FAD1C0 /* CLCommand+Print.h in Headers */,
+				7E39680B566804011436BB22CFE7DD36 /* CLCommand+Process.h in Headers */,
+				8A13427F74D45F8BB44F93890F91B02A /* CLCommand.h in Headers */,
+				C1C969C2AD82E5F85E96A7C50594CFEC /* CLDebugger.h in Headers */,
+				335DA10D601445AF46C102B5C22A6CA0 /* CLError.h in Headers */,
+				D779B1D3C9C3B7FB336C06F94612EF3A /* CLExplain+Private.h in Headers */,
+				9E6EDED7821AD7054B4C489109EB00F4 /* CLExplain.h in Headers */,
+				012841017A5E9DEBF78D09EE01F14FA8 /* CLFlag.h in Headers */,
+				844EF4DF2A60819468B3B784A4FA2B06 /* CLIO.h in Headers */,
+				A04A417556FFE5803F591E10D465A2FD /* CLIOPath.h in Headers */,
+				713CBAE2DD84F363C2C6641CB437F3E0 /* CLLanguage+Country.h in Headers */,
+				14C4BB8926030B5012642EB6A93BCDEC /* CLLanguage+Private.h in Headers */,
+				2670784B023D2730E6997A97377AB8A6 /* CLLanguage.h in Headers */,
+				14F405D8D162FF3CE405EF5C5532A1DF /* CLProcess+Private.h in Headers */,
+				9BC18A81C7C027CE22252C64A1169CBF /* CLProcess.h in Headers */,
+				89349280A4FD9F647BC241049A94D598 /* CLQuery.h in Headers */,
+				BDFB2E5A15237BCE320BD0398F2F77EF /* CLTerminal.h in Headers */,
+				E219E885831B67229FF4E2C0290FBD28 /* CLText.h in Headers */,
+				32C7B0FBE330E78C55C09BD1806D2002 /* CLWorkDirectory.h in Headers */,
+				EE775CA4F55C11CF787233603820C957 /* Command.h in Headers */,
+				2CDCA2279A1C2684FD8A418EC380339B /* CommandLine.h in Headers */,
+				313E128277A99D16F73F2DC7526419AD /* Launcher.h in Headers */,
+				9CF048B2D9E78BB5467FD30B4CA74D17 /* NSArray+CommandLine.h in Headers */,
+				A5B8AD6E04CD990BE9EC529649A746DE /* NSError+CommandLine.h in Headers */,
+				77A146D793CC61089CC892694171C05E /* NSString+CommandLine.h in Headers */,
+				593F00CF8C02E5280FDF9DB7A07987CD /* Tools.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -385,11 +404,11 @@
 /* Begin PBXNativeTarget section */
 		9EE3532B59B7D73F4715C3AC5737B081 /* CommandLine */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = D567CBF134F6CF4A2E5EB8139C78048E /* Build configuration list for PBXNativeTarget "CommandLine" */;
+			buildConfigurationList = 51063A5BCEA1B2DB49F55336DD323335 /* Build configuration list for PBXNativeTarget "CommandLine" */;
 			buildPhases = (
-				41432D00F9FBE4C7B9886A35BE4F3F6D /* Headers */,
-				F34C9F9E08A3EB58595AC82556C3E46A /* Sources */,
-				BC1AAB5ED0C24093EA47441CA425E250 /* Frameworks */,
+				47E7E6EE3AE9563179E6BBFC35D722D1 /* Headers */,
+				83C26AE8BE69DD327E95785ED5FDB5C7 /* Sources */,
+				898C01E69574A32B432EB2C9EB690859 /* Frameworks */,
 			);
 			buildRules = (
 			);
@@ -454,33 +473,34 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		F34C9F9E08A3EB58595AC82556C3E46A /* Sources */ = {
+		83C26AE8BE69DD327E95785ED5FDB5C7 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F800F67633F6B9317F9C670A5E8EBD68 /* CLCommand+Parser.m in Sources */,
-				E818B7B0E84C92D3DDC23411B0428F18 /* CLCommand+Print.m in Sources */,
-				ABBE837A0FB7A396AF64A7502EEA792D /* CLCommand+Process.m in Sources */,
-				5B7AA8670BEE68F4B4FB22FC757CD1E0 /* CLCommand.m in Sources */,
-				609CC6AF5D0E47E91AE6DA194D0122F5 /* CLDebugger.m in Sources */,
-				EFB54655E1478A3F31091A8604B3DAE6 /* CLError.m in Sources */,
-				697FD27941B01BC3E19F0203FE0A2C53 /* CLExplain+Private.m in Sources */,
-				9C60BC672CFD229017F04A6FC6B8F0A3 /* CLExplain.m in Sources */,
-				E0DD9236FDDCA50D1CD736DEC034A262 /* CLFlag.m in Sources */,
-				E46718D7A8A6FCB74C826A909F2AFEE1 /* CLIO.m in Sources */,
-				7425B917B3CA8BDF21DF4139BCF6044D /* CLIOPath.m in Sources */,
-				87B6B4E2EE019BCBAFA4695378F20667 /* CLLanguage+Country.m in Sources */,
-				0687166596DDA08169435DFBC3258965 /* CLLanguage+Private.m in Sources */,
-				57BD3DBF230A0DACA8A2C8BCED4DAFCD /* CLLanguage.m in Sources */,
-				684E0BFAF12459DDEAC0095E3542F5ED /* CLProcess+Private.m in Sources */,
-				E4E8D78DE18C66CB55930FE5ACC0DFE8 /* CLProcess.m in Sources */,
-				2CBE8242D558AD0DF04A526B8DDB8AD0 /* CLQuery.m in Sources */,
-				E077C004BB84BCFA3A5AD55DBAFF9762 /* CLText.m in Sources */,
-				A29DC181F2748C659FBD679DAE646FEC /* CLWorkDirectory.m in Sources */,
-				13435185927C35F3496DAF470D78AC4E /* CommandLine-dummy.m in Sources */,
-				F6C2C7648E76C22BAA8AA2F901498BE9 /* NSArray+CommandLine.m in Sources */,
-				0CDA58412EE77630F99893C07844C230 /* NSError+CommandLine.m in Sources */,
-				81FB1F0D660AA02FAC39CB8788F365AA /* NSString+CommandLine.m in Sources */,
+				1056A591C8227C341481B736BAA10154 /* CLCommand+Parser.m in Sources */,
+				7683343B8F063CF19172080942737F98 /* CLCommand+Print.m in Sources */,
+				C5F2F5096D9F721F27EDC8EEF4E7061E /* CLCommand+Process.m in Sources */,
+				0BE252EA0A1513F71A2558CC136059EA /* CLCommand.m in Sources */,
+				D02A8EAF40F92011E6EE42E5E8118ABD /* CLDebugger.m in Sources */,
+				4C64F552A5EE718EA56D9AA4998351C5 /* CLError.m in Sources */,
+				C4FB583765A0F55E5DD623FBBB4FF609 /* CLExplain+Private.m in Sources */,
+				2F85149D85F70C15800729ECA5189531 /* CLExplain.m in Sources */,
+				94D8E6C2B3245FD6B170580E78D46FB7 /* CLFlag.m in Sources */,
+				CC15BDC10352169B0A62EB4E5E5C9A73 /* CLIO.m in Sources */,
+				7846240EEEA1D03F62C01E79C2630224 /* CLIOPath.m in Sources */,
+				3C1AA393AAA23B44B552F1476C23363F /* CLLanguage+Country.m in Sources */,
+				71E4DCB5B87DD03DFD47A56F54B9CB7B /* CLLanguage+Private.m in Sources */,
+				E0BE3CC2361380B8830FAC1DE58F5FAE /* CLLanguage.m in Sources */,
+				000539E4C6A9D9BD7E3684526AE795A7 /* CLProcess+Private.m in Sources */,
+				AAA566607B33F5740CDC12649978C655 /* CLProcess.m in Sources */,
+				A8FB9FD2B14B5467C632F78C7D0E07EA /* CLQuery.m in Sources */,
+				9AEB2E89FD3B95F86B8D72A81869BA3D /* CLTerminal.m in Sources */,
+				95D0C180022770B897A79CB2C168AE07 /* CLText.m in Sources */,
+				7C23AF65CEF63BE8CB5409C53619F6A3 /* CLWorkDirectory.m in Sources */,
+				72A30708AEF2A3863CDE2427D8A344FC /* CommandLine-dummy.m in Sources */,
+				B1B2C8704FB4BBA045B83B9F8DA40D4F /* NSArray+CommandLine.m in Sources */,
+				EEFB735EFCD9BD56DA44079D1376EA06 /* NSError+CommandLine.m in Sources */,
+				8D12509E08688A31F6016703237DA1F8 /* NSString+CommandLine.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -496,31 +516,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		07D1D73F0620CAF4374BF5BBD3AF2AE6 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = B29B7B02846524706A719D6741B6A19D /* CommandLine.xcconfig */;
-			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
-				CLANG_ENABLE_OBJC_WEAK = NO;
-				CODE_SIGN_IDENTITY = "-";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				EXECUTABLE_PREFIX = lib;
-				GCC_PREFIX_HEADER = "Target Support Files/CommandLine/CommandLine-prefix.pch";
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PRIVATE_HEADERS_FOLDER_PATH = "";
-				PRODUCT_MODULE_NAME = CommandLine;
-				PRODUCT_NAME = CommandLine;
-				PUBLIC_HEADERS_FOLDER_PATH = "";
-				SDKROOT = macosx;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-			};
-			name = Release;
-		};
 		0A4E8437AC7C5E8A6E80920A6EEE3954 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -668,9 +663,9 @@
 			};
 			name = Release;
 		};
-		B7FDBEAC6C63F7DDD2B76F12E5150C91 /* Debug */ = {
+		BDAD2B9926FEB424F6E1422963EFA25D /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B29B7B02846524706A719D6741B6A19D /* CommandLine.xcconfig */;
+			baseConfigurationReference = 449EFFD3297DEE2139485B0DA569FCD8 /* CommandLine.xcconfig */;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_ENABLE_OBJC_WEAK = NO;
@@ -692,6 +687,31 @@
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
 			};
 			name = Debug;
+		};
+		C91455D0C82793133692B93C6FF6DACD /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 449EFFD3297DEE2139485B0DA569FCD8 /* CommandLine.xcconfig */;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_IDENTITY = "-";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				EXECUTABLE_PREFIX = lib;
+				GCC_PREFIX_HEADER = "Target Support Files/CommandLine/CommandLine-prefix.pch";
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRIVATE_HEADERS_FOLDER_PATH = "";
+				PRODUCT_MODULE_NAME = CommandLine;
+				PRODUCT_NAME = CommandLine;
+				PUBLIC_HEADERS_FOLDER_PATH = "";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+			};
+			name = Release;
 		};
 		FDEBF6B38E462898AAE435CBBE6A1AAA /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -737,11 +757,11 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		D567CBF134F6CF4A2E5EB8139C78048E /* Build configuration list for PBXNativeTarget "CommandLine" */ = {
+		51063A5BCEA1B2DB49F55336DD323335 /* Build configuration list for PBXNativeTarget "CommandLine" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				B7FDBEAC6C63F7DDD2B76F12E5150C91 /* Debug */,
-				07D1D73F0620CAF4374BF5BBD3AF2AE6 /* Release */,
+				BDAD2B9926FEB424F6E1422963EFA25D /* Debug */,
+				C91455D0C82793133692B93C6FF6DACD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
