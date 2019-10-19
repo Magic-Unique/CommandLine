@@ -19,6 +19,11 @@
  */
 typedef int (^CLCommandTask)(CLCommand * _Nonnull command, CLProcess * _Nonnull process);
 
+typedef NS_ENUM(NSUInteger, CLSortType) {
+    CLSortTypeByName,               //  Sort by name, default.
+    CLSortTypeByAddingQueue,        //  First add, first print.
+};
+
 
 @interface CLCommand : CLExplain
 
@@ -35,6 +40,8 @@ typedef int (^CLCommandTask)(CLCommand * _Nonnull command, CLProcess * _Nonnull 
  @return CLCommand
  */
 + (instancetype _Nonnull)main __deprecated_msg("Deprecated. Use +[CLCommand mainCommand]");
+
+@property (class, nonatomic, assign) CLSortType parametersSortType;
 
 /**
  Define commands use meta class message.

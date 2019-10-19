@@ -25,8 +25,6 @@ typedef NS_ENUM(NSUInteger, CLQueryMultiType) {
 
 @interface CLQuery : CLExplain
 
-@property (nonatomic, strong, readonly, nonnull) NSString *key;
-
 @property (nonatomic, assign, readonly) char abbr;
 
 @property (nonatomic, strong, readonly, nullable) NSString *explain;
@@ -114,8 +112,6 @@ typedef NS_ENUM(NSUInteger, CLQueryMultiType) {
  Inherit to subcommand
  */
 @property (nonatomic, readonly, nonnull) CLQuery * _Nonnull (^inheritify)(void);
-
-- (instancetype _Nonnull)initWithKey:(NSString * _Nonnull)key;
 
 @end
 

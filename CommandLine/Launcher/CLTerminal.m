@@ -50,12 +50,18 @@ NSString *CLLaunch(NSString *launchDirectory, ...) {
     if (arguments.count) {
         task.arguments = arguments;
     }
-    task.standardOutput = [NSPipe pipe];
-    task.standardError = task.standardOutput;
+    NSPipe *pipe = [NSPipe pipe];
+    task.standardOutput = pipe;
+    task.standardError = pipe;
     [task launch];
-    [task waitUntilExit];
-    NSPipe *pipe = task.standardOutput;
-    NSData *data = pipe.fileHandleForReading.availableData;
+    
+    NSMutableData *data = [NSMutableData data];
+    while (task.isRunning) {
+        NSData *avaliable = pipe.fileHandleForReading.availableData;
+        if (avaliable.length) {
+            [data appendData:avaliable];
+        }
+    }
     NSString *string = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
     if (task.terminationStatus == EXIT_SUCCESS) {
         return string ?: @"";

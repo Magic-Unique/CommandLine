@@ -27,6 +27,20 @@ void CLPrintf(NSString * _Nonnull format, ...) {
     CCPrintf(style, @"%@", str);
 }
 
+void CLANSIPrintf(CCStyle style, NSString * _Nonnull format, ...) {
+    if (CLProcessFlag(silent)) {
+        return;
+    }
+    va_list args;
+    va_start(args, format);
+    NSString *str = [[NSString alloc] initWithFormat:format arguments:args];
+    va_end(args);
+    if (CLProcessFlag(noANSI)) {
+        style = CCStyleNone;
+    }
+    CCPrintf(style, @"%@", str);
+}
+
 static NSString *INDENT = nil;
 static NSUInteger INDENT_LENGTH = 0;
 

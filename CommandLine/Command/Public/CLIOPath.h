@@ -10,7 +10,7 @@
 
 @interface CLIOPath : CLExplain
 
-@property (nonatomic, strong, readonly, nonnull) NSString *key;
+@property (nonatomic, strong, readonly, nonnull) NSString *title;
 
 @property (nonatomic, assign, readonly) BOOL isRequire;
 
@@ -18,7 +18,7 @@
 
 @property (nonatomic, strong, readonly, nullable) NSString *explain;
 
-- (instancetype _Nonnull)initWithKey:(NSString * _Nonnull)key require:(BOOL)require;
+- (instancetype _Nonnull)initWithKey:(NSString * _Nonnull)key index:(NSUInteger)index require:(BOOL)require;
 
 + (NSString * _Nonnull)abslutePath:(NSString * _Nonnull)relativePath;
 

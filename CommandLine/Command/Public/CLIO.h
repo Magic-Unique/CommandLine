@@ -6,6 +6,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "ANSI.h"
 
 /**
  Print text without any style
@@ -15,6 +16,14 @@
  */
 FOUNDATION_EXTERN void CLPrintf(NSString * _Nonnull format, ...);
 
+/**
+ Print ANSI test
+
+ @param style CCStyle
+ @param format NSString
+ @param ... Args
+ */
+FOUNDATION_EXTERN void CLANSIPrintf(CCStyle style, NSString * _Nonnull format, ...);
 
 /**
  Set indent for output.

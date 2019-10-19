@@ -10,8 +10,6 @@
 
 @interface CLFlag : CLExplain
 
-@property (nonatomic, strong, readonly, nonnull) NSString *key;
-
 @property (nonatomic, assign, readonly) char abbr;
 
 @property (nonatomic, strong, readonly, nullable) NSString *explain;
@@ -42,7 +40,5 @@
  Inherit to subcommand
  */
 @property (nonatomic, readonly, nonnull) CLFlag * _Nonnull (^inheritify)(void);
-
-- (instancetype _Nonnull)initWithKey:(NSString * _Nonnull)key;
 
 @end

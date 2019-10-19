@@ -18,4 +18,9 @@
 
 @property (nonatomic, weak) id<CLExplainDelegate> delegate;
 
+@property (nonatomic, assign) NSUInteger addedIndex;
+
+- (NSComparisonResult)sortByKey:(CLExplain *)other;
+- (NSComparisonResult)sortByIndex:(CLExplain *)other;
+
 @end

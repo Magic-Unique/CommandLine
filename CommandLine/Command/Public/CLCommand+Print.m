@@ -12,49 +12,91 @@
 #import "CLIOPath.h"
 #import "CLLanguage+Private.h"
 #import "NSString+CommandLine.h"
-#import "NSArray+CommandLine.h"
 #import <CommandLine/ANSI.h>
 #import "CLError.h"
 #import "NSError+CommandLine.h"
+#import "CLExplain+Private.h"
 
 @implementation CLCommand (Print)
 
 - (void)printHelpInfo {
+    
     __block NSUInteger maxKey = 0;
     void (^CLCompareMaxLength)(NSString *string) = ^(NSString *string) {
         if (strlen(string.UTF8String) > maxKey) {
             maxKey = strlen(string.UTF8String);
         }
     };
-    NSMutableArray *optionalQueryKeys = [NSMutableArray array];
-    NSMutableArray *requireQueryKeys = [NSMutableArray array];
-    NSMutableArray *optionalIOPaths = [NSMutableArray array];
-    NSMutableArray *requireIOPaths = [NSMutableArray array];
-    if (self.subcommands.count + self.queries.count + self.flags.count) {
-        [self.subcommands enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull key, CLCommand * _Nonnull obj, BOOL * _Nonnull stop) {
-            CLCompareMaxLength(obj.title);
-        }];
-        [self.queries enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull key, CLQuery * _Nonnull obj, BOOL * _Nonnull stop) {
-            CLCompareMaxLength(obj.title);
-            if (obj.isOptional) {
-                [optionalQueryKeys addObject:obj.key];
-            } else {
-                [requireQueryKeys addObject:obj.key];
-            }
-        }];
-        [self.flags enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull key, CLFlag * _Nonnull obj, BOOL * _Nonnull stop) {
-            CLCompareMaxLength(obj.title);
-        }];
-        [self.IOPaths enumerateObjectsUsingBlock:^(CLIOPath * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            CLCompareMaxLength(obj.title);
-            if (obj.isRequire) {
-                [requireIOPaths addObject:obj];
-            } else {
-                [optionalIOPaths addObject:obj];
-            }
-        }];
+    
+    BOOL containsAbbr = NO;
+    
+    CLSortType parametersSortType = [CLCommand parametersSortType];
+    
+    NSMutableArray<CLCommand *> *subcommands        = [self.subcommands.allValues mutableCopy];
+    NSMutableArray<CLQuery *>   *optionalQueries    = [NSMutableArray array];
+    NSMutableArray<CLQuery *>   *requireQueries     = [NSMutableArray array];
+    for (CLQuery *query in self.queries.allValues) {
+        if (query.abbr != 0) {
+            containsAbbr = YES;
+        }
+        if (query.isOptional) {
+            [optionalQueries addObject:query];
+        } else {
+            [requireQueries addObject:query];
+        }
+    }
+    NSMutableArray<CLFlag *>    *flags              = [NSMutableArray array];
+    for (CLFlag *flag in self.customFlags.allValues) {
+        if (flag.abbr != 0) {
+            containsAbbr = YES;
+        }
+        [flags addObject:flag];
+    }
+    NSMutableArray<CLIOPath *>  *optionalIOPaths    = [NSMutableArray array];
+    NSMutableArray<CLIOPath *>  *requireIOPaths     = [NSMutableArray array];
+    for (CLIOPath *path in self.IOPaths) {
+        if (path.isRequire) {
+            [requireIOPaths addObject:path];
+        } else {
+            [optionalIOPaths addObject:path];
+        }
     }
     
+    if (parametersSortType == CLSortTypeByName) {
+        [subcommands        sortUsingSelector:@selector(sortByKey:)];
+        [optionalQueries    sortUsingSelector:@selector(sortByKey:)];
+        [requireQueries     sortUsingSelector:@selector(sortByKey:)];
+        [flags              sortUsingSelector:@selector(sortByKey:)];
+        [requireIOPaths     sortUsingSelector:@selector(sortByKey:)];
+        [optionalIOPaths    sortUsingSelector:@selector(sortByKey:)];
+    }
+    else if (parametersSortType == CLSortTypeByAddingQueue) {
+        [subcommands        sortUsingSelector:@selector(sortByKey:)];
+        [optionalQueries    sortUsingSelector:@selector(sortByIndex:)];
+        [requireQueries     sortUsingSelector:@selector(sortByIndex:)];
+        [flags              sortUsingSelector:@selector(sortByIndex:)];
+        [requireIOPaths     sortUsingSelector:@selector(sortByIndex:)];
+        [optionalIOPaths    sortUsingSelector:@selector(sortByIndex:)];
+    }
+    
+    //  Calcular max key length
+    [self.subcommands enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull key, CLCommand * _Nonnull obj, BOOL * _Nonnull stop) {
+        CLCompareMaxLength([obj titleWithAbbr:containsAbbr]);
+    }];
+    [self.queries enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull key, CLQuery * _Nonnull obj, BOOL * _Nonnull stop) {
+        CLCompareMaxLength([obj titleWithAbbr:containsAbbr]);
+    }];
+    [self.flags enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull key, CLFlag * _Nonnull obj, BOOL * _Nonnull stop) {
+        CLCompareMaxLength([obj titleWithAbbr:containsAbbr]);
+    }];
+    [self.IOPaths enumerateObjectsUsingBlock:^(CLIOPath * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        CLCompareMaxLength([obj titleWithAbbr:containsAbbr]);
+    }];
+    [self.predefineFlags enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull key, CLFlag * _Nonnull obj, BOOL * _Nonnull stop) {
+        CLCompareMaxLength([obj titleWithAbbr:containsAbbr]);
+    }];
+    
+    // Usage
     CCPrintf(CCStyleUnderline, @"%@:\n", CLCurrentLanguage.helpUsage);
     CCPrintf(0, @"\n");
     {
@@ -63,9 +105,18 @@
         CCStyle style = CCStyleForegroundColorGreen;
         if (self.subcommands.count && self.task) {
             CCPrintf(style, @"%@ [%@]", commands, CLCurrentLanguage.helpCommand);
-        } else if (self.subcommands.count == 0 && self.task) {
-            CCPrintf(style, @"%@", commands);
-        } else if (self.subcommands.count && self.task == nil) {
+        } else if (self.task) {
+            NSString *suffix = @"";
+            if (self.IOPaths) {
+                NSArray *requireList = [requireIOPaths valueForKeyPath:@"title"];
+                NSArray *optionalList = [optionalIOPaths valueForKeyPath:@"title"];
+                NSMutableArray *paths = [NSMutableArray array];
+                [paths addObjectsFromArray:requireList];
+                [paths addObjectsFromArray:optionalList];
+                suffix = [paths componentsJoinedByString:@" "];
+            }
+            CCPrintf(style, @"%@ %@", commands, suffix);
+        } else if (self.subcommands.count) {
             CCPrintf(style, @"%@ <%@>", commands, CLCurrentLanguage.helpCommand);
         } else {
             NSAssert(NO, @"The command `%@` should contains a task or a subcommand", self.name);
@@ -78,14 +129,13 @@
         }
     }
     
+    // Commands
     if (self.subcommands.count) {
         CCPrintf(CCStyleUnderline, @"%@:\n", CLCurrentLanguage.helpCommands);
         CCPrintf(0, @"\n");
-        [self.subcommands.allKeys cl_sort:^NSComparisonResult(NSString *  _Nonnull obj1, NSString *  _Nonnull obj2) {
-            return [obj1 compare:obj2];
-        } enumerate:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            CLCommand *command = self.subcommands[obj];
-            NSString *title = command.title;
+        [subcommands enumerateObjectsUsingBlock:^(CLCommand * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            CLCommand *command = obj;
+            NSString *title = [command titleWithAbbr:containsAbbr];
             
             CCPrintf(0, @"    ");
             CCPrintf(CCStyleForegroundColorGreen, title);
@@ -98,31 +148,28 @@
         CCPrintf(0, @"\n");
     }
     
-    const NSUInteger REQUIRE_COUNT = requireQueryKeys.count + requireIOPaths.count;
+    // Require
+    const NSUInteger REQUIRE_COUNT = requireQueries.count + requireIOPaths.count;
     if (REQUIRE_COUNT) {
-        NSUInteger printedCount = 0;
         
         CCPrintf(CCStyleUnderline, @"%@:\n", CLCurrentLanguage.helpRequires);
         CCPrintf(0, @"\n");
         
-        printedCount += [requireQueryKeys cl_sort:^NSComparisonResult(NSString *obj1, NSString *obj2) {
-            return [obj1 compare:obj2];
-        } enumerate:^(NSString *obj, NSUInteger idx, BOOL *stop) {
-            CLQuery *query = self.queries[obj];
-            NSString *title = query.title;
+        [requireQueries enumerateObjectsUsingBlock:^(CLQuery * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            NSString *title = [obj titleWithAbbr:containsAbbr];
             CCPrintf(0, @"    ");
             CCPrintf(CCStyleForegroundColorGreen, title);
             CCPrintf(0, CLSpaceString(maxKey + 3 - strlen(title.UTF8String)));
-            CCPrintf(0, query.subtitle);
+            CCPrintf(0, obj.subtitle);
             CCPrintf(0, @"\n");
         }];
         
-        if (printedCount && (REQUIRE_COUNT - printedCount)) {
+        if (requireQueries.count && requireIOPaths.count) {
             CCPrintf(0, @"\n");
         }
         
-        printedCount += [requireIOPaths cl_sort:nil enumerate:^(CLIOPath *obj, NSUInteger idx, BOOL *stop) {
-            NSString *title = obj.title;
+        [requireIOPaths enumerateObjectsUsingBlock:^(CLIOPath * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            NSString *title = [obj titleWithAbbr:containsAbbr];
             CCPrintf(0, @"    ");
             CCPrintf(CCStyleForegroundColorGreen, title);
             CCPrintf(0, CLSpaceString(maxKey + 3 - strlen(title.UTF8String)));
@@ -133,62 +180,58 @@
         CCPrintf(0, @"\n");
     }
     
-    const NSUInteger OPTIONAL_COUNT = self.flags.count + optionalQueryKeys.count + optionalIOPaths.count;
+    //  Optional
+    const NSUInteger OPTIONAL_COUNT = self.flags.count + optionalQueries.count + optionalIOPaths.count;
     if (OPTIONAL_COUNT) {
         NSUInteger printedCount = 0;
         
         CCPrintf(CCStyleUnderline, @"%@:\n", CLCurrentLanguage.helpOptions);
         CCPrintf(0, @"\n");
         
-        printedCount += [optionalQueryKeys cl_sort:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-            return [obj1 compare:obj2];
-        } enumerate:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            CLQuery *query = self.queries[obj];
-            NSString *title = query.title;
-            
-            CCPrintf(0, @"    ");
-            CCPrintf(CCStyleForegroundColorBlue, title);
-            CCPrintf(0, CLSpaceString(maxKey + 3 - strlen(title.UTF8String)));
-            CCPrintf(0, query.subtitle);
-            CCPrintf(0, @"\n");
-        }];
-        
-        if (printedCount && (OPTIONAL_COUNT - printedCount)) {
-            CCPrintf(0, @"\n");
-        }
-        
-        printedCount += [self.customFlags.allValues cl_sort:^NSComparisonResult(CLFlag *obj1, CLFlag *obj2) {
-            return [obj1.key compare:obj2.key];
-        } enumerate:^(CLFlag *obj, NSUInteger idx, BOOL *stop) {
-            NSString *title = obj.title;
+        [optionalQueries enumerateObjectsUsingBlock:^(CLQuery * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            NSString *title = [obj titleWithAbbr:containsAbbr];
             CCPrintf(0, @"    ");
             CCPrintf(CCStyleForegroundColorBlue, title);
             CCPrintf(0, CLSpaceString(maxKey + 3 - strlen(title.UTF8String)));
             CCPrintf(0, obj.subtitle);
             CCPrintf(0, @"\n");
         }];
+        printedCount += optionalQueries.count;
         
         if (printedCount && (OPTIONAL_COUNT - printedCount)) {
             CCPrintf(0, @"\n");
         }
         
-        printedCount += [optionalIOPaths cl_sort:nil enumerate:^(CLIOPath *obj, NSUInteger idx, BOOL *stop) {
-            NSString *title = obj.title;
+        [flags enumerateObjectsUsingBlock:^(CLFlag * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            NSString *title = [obj titleWithAbbr:containsAbbr];
             CCPrintf(0, @"    ");
             CCPrintf(CCStyleForegroundColorBlue, title);
             CCPrintf(0, CLSpaceString(maxKey + 3 - strlen(title.UTF8String)));
             CCPrintf(0, obj.subtitle);
             CCPrintf(0, @"\n");
         }];
+        printedCount += flags.count;
         
         if (printedCount && (OPTIONAL_COUNT - printedCount)) {
             CCPrintf(0, @"\n");
         }
         
-        printedCount += [self.predefineFlags.allValues cl_sort:^NSComparisonResult(CLFlag *obj1, CLFlag *obj2) {
-            return [obj1.key compare:obj2.key];
-        } enumerate:^(CLFlag *obj, NSUInteger idx, BOOL *stop) {
-            NSString *title = obj.title;
+        [optionalIOPaths enumerateObjectsUsingBlock:^(CLIOPath * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            NSString *title = [obj titleWithAbbr:containsAbbr];
+            CCPrintf(0, @"    ");
+            CCPrintf(CCStyleForegroundColorBlue, title);
+            CCPrintf(0, CLSpaceString(maxKey + 3 - strlen(title.UTF8String)));
+            CCPrintf(0, obj.subtitle);
+            CCPrintf(0, @"\n");
+        }];
+        printedCount += optionalIOPaths.count;
+        
+        if (printedCount && (OPTIONAL_COUNT - printedCount)) {
+            CCPrintf(0, @"\n");
+        }
+        
+        [self.predefineFlags.allValues enumerateObjectsUsingBlock:^(CLFlag * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            NSString *title = [obj titleWithAbbr:containsAbbr];
             CCPrintf(0, @"    ");
             CCPrintf(CCStyleForegroundColorBlue, title);
             CCPrintf(0, CLSpaceString(maxKey + 3 - strlen(title.UTF8String)));

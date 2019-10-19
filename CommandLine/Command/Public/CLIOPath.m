@@ -10,10 +10,9 @@
 
 @implementation CLIOPath
 
-- (instancetype)initWithKey:(NSString *)key require:(BOOL)require {
-    self = [super init];
+- (instancetype)initWithKey:(NSString *)key index:(NSUInteger)index require:(BOOL)require {
+    self = [super initWithKey:key index:index];
     if (self) {
-        _key = key;
         _isRequire = require;
     }
     return self;
@@ -28,7 +27,12 @@
 }
 
 - (NSString *)title {
-    return self.isRequire ? [NSString stringWithFormat:@"<%@>", self.example?:self.key] : [NSString stringWithFormat:@"[%@]", self.example?:self.key];
+    return [self titleWithAbbr:NO];
+}
+
+- (NSString *)titleWithAbbr:(BOOL)abbr {
+    NSString *contents = self.example?:self.key;
+    return self.isRequire ? [NSString stringWithFormat:@"<%@>", contents] : [NSString stringWithFormat:@"[%@]", contents];
 }
 
 - (NSString *)subtitle {
@@ -36,7 +40,7 @@
 }
 
 - (NSString *)description {
-    return [NSString stringWithFormat:@"<IOPath key=%@ %@>: %@", _key, _isRequire?@"require":@"optional", _explain];
+    return [NSString stringWithFormat:@"<IOPath key=%@ %@>: %@", self.key, _isRequire?@"require":@"optional", _explain];
 }
 
 + (NSString *)abslutePath:(NSString *)relativePath {

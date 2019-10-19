@@ -63,6 +63,16 @@ static NSString *CLCommandVersion = nil;
     return [self mainCommand];
 }
 
+static CLSortType _parametersSortType;
+
++ (void)setParametersSortType:(CLSortType)parametersSortType {
+    _parametersSortType = parametersSortType;
+}
+
++ (CLSortType)parametersSortType {
+    return _parametersSortType;
+}
+
 + (void)defineCommandsForClass:(NSString *)className metaSelectorPrefix:(NSString *)prefix {
     Class metaCls = objc_getMetaClass(className.UTF8String);
     Class cls = objc_getClass(className.UTF8String);
@@ -243,7 +253,11 @@ static NSString *CLCommandVersion = nil;
 
 - (CLQuery *(^)(NSString *))setQuery {
     return ^CLQuery *(NSString *key) {
-        CLQuery *query = [[CLQuery alloc] initWithKey:key];
+        CLQuery *query = self.mQueries[key];
+        if (query) {
+            return query;
+        }
+        query = [[CLQuery alloc] initWithKey:key index:self.mQueries.count];
         query.delegate = self;
         self.mQueries[key] = query;
         return query;
@@ -252,8 +266,13 @@ static NSString *CLCommandVersion = nil;
 
 - (CLFlag *(^)(NSString *))setFlag {
     return ^CLFlag *(NSString *key) {
-        CLFlag *flag = [[CLFlag alloc] initWithKey:key];
+        CLFlag *flag = self.mFlags[key];
+        if (flag) {
+            return flag;
+        }
+        flag = [[CLFlag alloc] initWithKey:key index:self.mFlags.count];
         flag.delegate = self;
+        flag.addedIndex = self.mFlags.count;
         self.mFlags[key] = flag;
         return flag;
     };
@@ -261,8 +280,9 @@ static NSString *CLCommandVersion = nil;
 
 - (CLIOPath *(^)(NSString *))addRequirePath {
     return ^(NSString *key) {
-        CLIOPath *path = [[CLIOPath alloc] initWithKey:key require:YES];
+        CLIOPath *path = [[CLIOPath alloc] initWithKey:key index:self.mRequirePath.count require:YES];
         path.delegate = self;
+        path.addedIndex = self.mRequirePath.count;
         [self.mRequirePath addObject:path];
         return path;
     };
@@ -270,14 +290,15 @@ static NSString *CLCommandVersion = nil;
 
 - (CLIOPath *(^)(NSString *))addOptionalPath {
     return ^(NSString *key) {
-        CLIOPath *path = [[CLIOPath alloc] initWithKey:key require:NO];
+        CLIOPath *path = [[CLIOPath alloc] initWithKey:key index:self.mOptionalPath.count require:NO];
         path.delegate = self;
+        path.addedIndex = self.mOptionalPath.count;
         [self.mOptionalPath addObject:path];
         return path;
     };
 }
 
-- (NSString *)title {
+- (NSString *)titleWithAbbr:(BOOL)abbr {
     if (self.isForwardingTarget) {
         return [NSString stringWithFormat:@"> %@", self.name];
     } else {

@@ -11,10 +11,6 @@
 
 @implementation CLFlag
 
-- (void)setKey:(NSString *)key {
-    _key = key;
-}
-
 - (void)setAbbr:(char)abbr {
     _abbr = abbr;
 }
@@ -23,8 +19,8 @@
     _explain = explain;
 }
 
-- (NSString *)title {
-    NSString *prefix = @"   ";
+- (NSString *)titleWithAbbr:(BOOL)abbr {
+    NSString *prefix = abbr ? @"   " : @"";
     if (self.abbr) {
         prefix = [NSString stringWithFormat:@"-%c|", self.abbr];
     } else if (self.isPredefine) {
@@ -38,14 +34,14 @@
 }
 
 - (NSString *)description {
-    return [NSString stringWithFormat:@"<CLFlag key=\"%@\" abbr=\'%c\'>: %@", _key, _abbr, _explain];
+    return [NSString stringWithFormat:@"<CLFlag key=\"%@\" abbr=\'%c\'>: %@", self.key, _abbr, _explain];
 }
 
 + (instancetype)help {
     static CLFlag *flag = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        flag = [[self alloc] initWithKey:@"help"];
+        flag = [[self alloc] initWithKey:@"help" index:4];
         flag->_predefine = YES;
         flag.inheritify().setExplain(CLCurrentLanguage.helpExplain);
     });
@@ -56,7 +52,7 @@
     static CLFlag *flag = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        flag = [[self alloc] initWithKey:@"verbose"];
+        flag = [[self alloc] initWithKey:@"verbose" index:2];
         flag->_predefine = YES;
         flag.inheritify().setExplain(CLCurrentLanguage.verboseExplain);
     });
@@ -67,7 +63,7 @@
     static CLFlag *flag = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        flag = [[self alloc] initWithKey:@"version"];
+        flag = [[self alloc] initWithKey:@"version" index:1];
         flag->_predefine = YES;
         flag.setExplain(CLCurrentLanguage.versionExplain);
     });
@@ -78,7 +74,7 @@
     static CLFlag *flag = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        flag = [[self alloc] initWithKey:@"silent"];
+        flag = [[self alloc] initWithKey:@"silent" index:0];
         flag->_predefine = YES;
         flag.inheritify().setExplain(CLCurrentLanguage.silentExplain);
     });
@@ -89,7 +85,7 @@
     static CLFlag *flag = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        flag = [[self alloc] initWithKey:@"no-ansi"];
+        flag = [[self alloc] initWithKey:@"no-ansi" index:3];
         flag->_predefine = YES;
         flag.inheritify().setExplain(CLCurrentLanguage.noANSIExplain);
     });
@@ -99,14 +95,6 @@
 @end
 
 @implementation CLFlag (Definer)
-
-- (instancetype)initWithKey:(NSString *)key {
-    self = [super init];
-    if (self) {
-        self.key = key;
-    }
-    return self;
-}
 
 - (CLFlag *(^)(char))setAbbr {
     return ^CLFlag *(char abbr) {

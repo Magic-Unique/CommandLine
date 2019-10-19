@@ -10,11 +10,15 @@
 
 @interface CLExplain : NSObject
 
-@property (nonatomic, strong, readonly, nullable) NSString *title;
+@property (nonatomic, copy, readonly, nonnull) NSString *key;
 
-@property (nonatomic, strong, readonly, nullable) NSString *subtitle;
+@property (nonatomic, copy, readonly, nullable) NSString *subtitle;
 
 @property (nonatomic, assign, readonly) BOOL isInheritable;
+
+- (instancetype _Nonnull)initWithKey:(NSString * _Nonnull)key index:(NSUInteger)index;
+
+- (NSString * _Nonnull)titleWithAbbr:(BOOL)abbr;
 
 @end
 

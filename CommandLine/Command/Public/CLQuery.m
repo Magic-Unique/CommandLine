@@ -11,10 +11,6 @@
 
 @implementation CLQuery
 
-- (void)setKey:(NSString *)key {
-    _key = key;
-}
-
 - (void)setAbbr:(char)abbr {
     _abbr = abbr;
 }
@@ -35,8 +31,8 @@
     _example = example;
 }
 
-- (NSString *)title {
-    NSString *prefix = @"   ";
+- (NSString *)titleWithAbbr:(BOOL)abbr {
+    NSString *prefix = abbr ? @"   " : @"";
     NSString *value = self.example?:self.key;
     NSString *muti_tips = [NSString stringWithFormat:@"<%@>", value];
     switch (self.multiType) {
@@ -50,7 +46,7 @@
         default:
             break;
     }
-    if (self.abbr) {
+    if (self.abbr && abbr) {
         prefix = [NSString stringWithFormat:@"-%c|", self.abbr];
     }
     return [NSString stringWithFormat:@"%@--%@ %@", prefix, self.key, muti_tips];
@@ -61,7 +57,7 @@
 }
 
 - (NSString *)description {
-    return [NSString stringWithFormat:@"<Query key=\"%@\" abbr=\'%c\' %@>: %@", _key, _abbr, _isOptional?@"optional":@"require", _explain?:@"NO EXPLAIN"];
+    return [NSString stringWithFormat:@"<Query key=\"%@\" abbr=\'%c\' %@>: %@", self.key, _abbr, _isOptional?@"optional":@"require", _explain?:@"NO EXPLAIN"];
 }
 
 @end
@@ -80,13 +76,6 @@
 @end
 
 @implementation CLQuery (Definer)
-
-- (CLQuery *(^)(NSString *))setKey {
-    return ^CLQuery *(NSString *key) {
-        self.key = key;
-        return self;
-    };
-}
 
 - (CLQuery *(^)(char))setAbbr {
     return ^CLQuery *(char abbr) {
@@ -163,14 +152,6 @@
         self->_regular = [regular copy];
         return self;
     };
-}
-
-- (instancetype)initWithKey:(NSString *)key {
-    self = [super init];
-    if (self) {
-        self.key = key;
-    }
-    return self;
 }
 
 @end
