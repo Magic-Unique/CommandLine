@@ -27,6 +27,8 @@
 /* Begin PBXFileReference section */
 		6D35EB9120AB2CB80041FCDF /* CommandLineDemo */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = CommandLineDemo; sourceTree = BUILT_PRODUCTS_DIR; };
 		6D35EB9420AB2CB80041FCDF /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		6D944AA4235A0308003252E1 /* CLDemo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CLDemo.h; sourceTree = "<group>"; };
+		6D944AA5235A0308003252E1 /* CLDemo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CLDemo.m; sourceTree = "<group>"; };
 		7E86CDBB2207E9BA00392901 /* CLCommand+Demo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CLCommand+Demo.h"; sourceTree = "<group>"; };
 		7E86CDBC2207E9BA00392901 /* CLCommand+Demo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "CLCommand+Demo.m"; sourceTree = "<group>"; };
 		7EB4C35A2243748300EBE65E /* MUHookMetaMacro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUHookMetaMacro.h; sourceTree = "<group>"; };
@@ -79,6 +81,8 @@
 			children = (
 				6D35EB9420AB2CB80041FCDF /* main.m */,
 				7EB4C35A2243748300EBE65E /* MUHookMetaMacro.h */,
+				6D944AA4235A0308003252E1 /* CLDemo.h */,
+				6D944AA5235A0308003252E1 /* CLDemo.m */,
 				7E86CDBB2207E9BA00392901 /* CLCommand+Demo.h */,
 				7E86CDBC2207E9BA00392901 /* CLCommand+Demo.m */,
 			);

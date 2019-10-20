@@ -164,4 +164,11 @@ Pod::Spec.new do |s|
     ss.source_files = 'CommandLine/Launcher/*.{h,m}'
     ss.dependency "CommandLine/Main"
   end
+
+  s.subspec 'Interface' do |ss|
+    ss.source_files = 'CommandLine/Interface/*.{h,m}'
+    ss.dependency "CommandLine/Main"
+    ss.dependency "CommandLine/ANSI"
+  end
+  
 end

@@ -62,6 +62,18 @@
 
         ]
       }
+    },
+    {
+      "name": "Interface",
+      "source_files": "CommandLine/Interface/*.{h,m}",
+      "dependencies": {
+        "CommandLine/Main": [
+
+        ],
+        "CommandLine/ANSI": [
+
+        ]
+      }
     }
   ]
 }

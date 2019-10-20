@@ -51,14 +51,45 @@ int main(int argc, const char * argv[]) {
 //        CLMainExplain = @"My explain for main command.";
 //        CLInitCommand(CLCommand);
 //        CLCommandMain();
-        NSLog(@"%@", CLEnvironment);
-        CLEnvironment[@"aa"] = @"bb";
-        NSLog(@"%@", CLEnvironment[@"aa"]);
-        NSLog(@"%@", CLEnvironment);
-        CLEnvironment[@"aa"] = nil;
-        NSLog(@"%@", CLEnvironment[@"aa"]);
-        NSLog(@"%@", CLEnvironment);
-
+        
+        NSMutableArray *list = [NSMutableArray array];
+        for (NSUInteger i = 0; i < 10; i++) {
+            [list addObject:[NSUUID UUID].UUIDString];
+        }
+        
+        CLMultiSelector *selector = [CLMultiSelector selector];
+        NSArray *index = [selector select:list render:^NSString *(id item) {
+            return item;
+        }];
+        CLSuccess(@"You select: %@", index);
+        
+        
+//
+////        NSUInteger index = [CLDemo select:list
+////                             defaultIndex:0
+////                                   normal:CCStyleLight
+////                                highlight:CCStyleForegroundColorGreen|CCStyleBold
+////                                   render:^NSString *(id item, NSUInteger index, BOOL highlight) {
+////                                       return item;
+////                                   }];
+////
+////        CLSuccess(@"You select: %@", list[index]);
+//        
+//        NSLog(@"%@", [NSProcessInfo processInfo].environment);
+//        
+//        list = [CLDemo multiSelect:list
+//                            normal:CCStyleLight
+//                         highlight:CCStyleForegroundColorGreen|CCStyleBold
+//                          selected:CCStyleForegroundColorDarkGreen
+//                            render:^NSString *(id item, NSUInteger index, BOOL highlight, BOOL selected) {
+//                                NSMutableString *string = [NSMutableString string];
+//                                [string appendString:highlight?@"> ":@"  "];
+//                                [string appendString:selected?@"[*] ":@"[ ] "];
+//                                [string appendString:item];
+//                                return [string copy];
+//                            }];
+//
+//        NSLog(@"%@", list);
     }
     return 0;
 }

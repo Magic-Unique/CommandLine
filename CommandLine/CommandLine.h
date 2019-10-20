@@ -2,7 +2,7 @@
 //  CommandLine.h
 //  Pods
 //
-//  Created by 吴双 on 2019/8/24.
+//  Created by 冷秋 on 2019/8/24.
 //
 
 #ifndef CommandLine_h
@@ -32,6 +32,12 @@
 #import <CommandLine/ANSI.h>
 #elif __has_include("ANSI.h")
 #import "ANSI.h"
+#endif
+
+#if __has_include(<CommandLine/Interface.h>)
+#import <CommandLine/Interface.h>
+#elif __has_include("Interface.h")
+#import "Interface.h"
 #endif
 
 #endif /* CommandLine_h */
