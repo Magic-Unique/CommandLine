@@ -40,43 +40,6 @@ int resetattr(struct termios *oldt)
     return 0;
 }
 
-
-typedef NS_ENUM(NSInteger, CLKey) {
-    CLKeyNone       = 0,
-    CLKeyReturn     = 10,
-    CLKey_q         = 113,
-    CLKeyUp         = -1,
-    CLKeyDown       = -2,
-    CLKeyRight      = -3,
-    CLKeyLeft       = -4,
-};
-
-CLKey getkey()
-{
-    char buf[3];
-    ssize_t bytes_read;
-    switch ( bytes_read = read(STDIN_FILENO, &buf, 3) )
-    {
-        case -1:
-            return CLKeyNone;
-        case 1:
-            return buf[0];
-        case 3:
-            switch(buf[2])
-        {
-            case 'A':
-                return CLKeyUp;
-            case 'B':
-                return CLKeyDown;
-            case 'C':
-                return CLKeyRight;
-            case 'D':
-                return CLKeyLeft;
-        }
-    }
-    return 0;
-}
-
 @implementation CLDemo
 
 + (void)__changeKeyboardMode:(void (^)(void))block {

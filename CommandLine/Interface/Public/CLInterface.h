@@ -10,4 +10,18 @@
 
 @interface CLInterface : NSObject
 
+- (void)moveUp:(NSUInteger)steps;
+
+- (void)moveDown:(NSUInteger)steps;
+
+- (void)moveLeft:(NSUInteger)steps;
+
+- (void)moveRight:(NSUInteger)steps;
+
+- (void)cleanAfter;
+
+- (void)hideCursor;
+
+- (void)showCursor;
+
 @end

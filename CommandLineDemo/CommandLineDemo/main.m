@@ -46,50 +46,42 @@ static void _CLInitCommand(Class class) {
 
 #define CLInitCommand(_class) (_class *)0x0; _CLInitCommand([_class class]);
 
+static NSString *RandomString(void) {
+    NSString *format = @"0123456789abcdef";
+    NSMutableString *string = [NSMutableString string];
+    NSUInteger randomLength = arc4random() % 20 + 4;
+    for (NSUInteger i = 0; i < randomLength; i++) {
+        NSUInteger randomIndex = arc4random() % format.length;
+        NSString *charactor = [format substringWithRange:NSMakeRange(randomIndex, 1)];
+        [string appendString:charactor];
+    }
+    return string.copy;
+}
+
 int main(int argc, const char * argv[]) {
     @autoreleasepool {
-//        CLMainExplain = @"My explain for main command.";
-//        CLInitCommand(CLCommand);
-//        CLCommandMain();
         
         NSMutableArray *list = [NSMutableArray array];
-        for (NSUInteger i = 0; i < 10; i++) {
-            [list addObject:[NSUUID UUID].UUIDString];
+        for (NSUInteger i = 0; i < 20; i++) {
+            [list addObject:RandomString()];
         }
+        CLInfo(@"Select a item");
         
-        CLMultiSelector *selector = [CLMultiSelector selector];
-        NSArray *index = [selector select:list render:^NSString *(id item) {
+#define MULTISELECTOR
+        
+//#ifdef MULTISELECTOR
+        CLMultiSelector *mSelector = [CLMultiSelector selector];
+        NSArray *selectList = [mSelector select:list render:^NSString *(id item) {
             return item;
         }];
-        CLSuccess(@"You select: %@", index);
-        
-        
-//
-////        NSUInteger index = [CLDemo select:list
-////                             defaultIndex:0
-////                                   normal:CCStyleLight
-////                                highlight:CCStyleForegroundColorGreen|CCStyleBold
-////                                   render:^NSString *(id item, NSUInteger index, BOOL highlight) {
-////                                       return item;
-////                                   }];
-////
-////        CLSuccess(@"You select: %@", list[index]);
-//        
-//        NSLog(@"%@", [NSProcessInfo processInfo].environment);
-//        
-//        list = [CLDemo multiSelect:list
-//                            normal:CCStyleLight
-//                         highlight:CCStyleForegroundColorGreen|CCStyleBold
-//                          selected:CCStyleForegroundColorDarkGreen
-//                            render:^NSString *(id item, NSUInteger index, BOOL highlight, BOOL selected) {
-//                                NSMutableString *string = [NSMutableString string];
-//                                [string appendString:highlight?@"> ":@"  "];
-//                                [string appendString:selected?@"[*] ":@"[ ] "];
-//                                [string appendString:item];
-//                                return [string copy];
-//                            }];
-//
-//        NSLog(@"%@", list);
+        CLSuccess(@"You select: %@", selectList);
+//#else
+        CLSingleSelector *sSelector = [CLSingleSelector selector];
+        NSUInteger index = [sSelector select:list render:^NSString *(id item) {
+            return item;
+        }];
+        CLSuccess(@"You select: %@", list[index]);
+//#endif
     }
     return 0;
 }

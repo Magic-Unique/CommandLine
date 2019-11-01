@@ -166,9 +166,10 @@ Pod::Spec.new do |s|
   end
 
   s.subspec 'Interface' do |ss|
-    ss.source_files = 'CommandLine/Interface/*.{h,m}'
+    ss.source_files = 'CommandLine/Interface/**/*.{h,m}'
     ss.dependency "CommandLine/Main"
     ss.dependency "CommandLine/ANSI"
+    ss.public_header_files = "CommandLine/Interface/Public/*.h"
   end
   
 end

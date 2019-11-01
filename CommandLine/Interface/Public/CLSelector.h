@@ -9,17 +9,6 @@
 #import "CLInterface.h"
 #import "ANSI.h"
 
-
-typedef NS_ENUM(NSInteger, CLKey) {
-    CLKeyNone       = 0,
-    CLKeyReturn     = 10,
-    CLKey_q         = 113,
-    CLKeyUp         = -1,
-    CLKeyDown       = -2,
-    CLKeyRight      = -3,
-    CLKeyLeft       = -4,
-};
-
 typedef NSString *(^CLSelectorRender)(NSString *item, BOOL highlight, BOOL selected);
 
 @interface CLSelector : CLInterface
@@ -37,7 +26,5 @@ typedef NSString *(^CLSelectorRender)(NSString *item, BOOL highlight, BOOL selec
 + (instancetype)selectorWithRender:(CLSelectorRender)render;
 
 - (id)doSelect:(id (^)(void))selection;
-
-- (CLKey)getKey;
 
 @end

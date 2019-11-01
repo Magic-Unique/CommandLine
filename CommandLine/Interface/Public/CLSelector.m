@@ -37,33 +37,6 @@ int resetattr(struct termios *oldt)
     return 0;
 }
 
-
-CLKey getkey()
-{
-    char buf[3];
-    ssize_t bytes_read;
-    switch ( bytes_read = read(STDIN_FILENO, &buf, 3) )
-    {
-        case -1:
-            return CLKeyNone;
-        case 1:
-            return buf[0];
-        case 3:
-            switch(buf[2])
-        {
-            case 'A':
-                return CLKeyUp;
-            case 'B':
-                return CLKeyDown;
-            case 'C':
-                return CLKeyRight;
-            case 'D':
-                return CLKeyLeft;
-        }
-    }
-    return 0;
-}
-
 @implementation CLSelector
 
 + (instancetype)selector {
@@ -82,7 +55,7 @@ CLKey getkey()
     self = [super init];
     if (self) {
         _normalStyle = CCStyleLight;
-        _highlightStyle = CCStyleForegroundColorGreen|CCStyleFlash|CCStyleBold;
+        _highlightStyle = CCStyleBold;
         _selectedStyle = CCStyleForegroundColorDarkGreen;
     }
     return self;
@@ -92,13 +65,11 @@ CLKey getkey()
     struct termios oldt;
     getattr(&oldt);
     setattr(oldt);
+    [self hideCursor];
     id object = selection();
+    [self showCursor];
     resetattr(&oldt);
     return object;
-}
-
-- (CLKey)getKey {
-    return getkey();
 }
 
 @end
