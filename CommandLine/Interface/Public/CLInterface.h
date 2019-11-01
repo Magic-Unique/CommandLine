@@ -24,4 +24,8 @@
 
 - (void)showCursor;
 
+- (void)storageCursorPosition;
+
+- (void)recoverCursorPosition;
+
 @end

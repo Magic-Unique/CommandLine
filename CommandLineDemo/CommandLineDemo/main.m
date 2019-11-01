@@ -12,7 +12,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-static void _CLInitCommand(Class class) {
+__unused static void _CLInitCommand(Class class) {
     unsigned count = 0;
     Method *methodList = class_copyMethodList(object_getClass(class), &count);
     for (unsigned i = 0; i < count; i++) {
@@ -62,26 +62,26 @@ int main(int argc, const char * argv[]) {
     @autoreleasepool {
         
         NSMutableArray *list = [NSMutableArray array];
-        for (NSUInteger i = 0; i < 20; i++) {
+        for (NSUInteger i = 0; i < 3; i++) {
             [list addObject:RandomString()];
         }
         CLInfo(@"Select a item");
         
-#define MULTISELECTOR
+//#define MULTISELECTOR
         
-//#ifdef MULTISELECTOR
+#ifdef MULTISELECTOR
         CLMultiSelector *mSelector = [CLMultiSelector selector];
         NSArray *selectList = [mSelector select:list render:^NSString *(id item) {
             return item;
         }];
         CLSuccess(@"You select: %@", selectList);
-//#else
+#else
         CLSingleSelector *sSelector = [CLSingleSelector selector];
         NSUInteger index = [sSelector select:list render:^NSString *(id item) {
             return item;
         }];
         CLSuccess(@"You select: %@", list[index]);
-//#endif
+#endif
     }
     return 0;
 }

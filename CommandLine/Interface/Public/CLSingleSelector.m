@@ -49,38 +49,14 @@
     });
     
     NSNumber *selection = [self doSelect:^id{
-        
         NSUInteger highlight = 0;
-        NSUInteger rerenderLine = 0;
-        
-        for (NSUInteger i = 0; i < list.count; i++) {
-            [self __render:items index:i highlight:highlight];
-        }
-        
         
         while (YES) {
-            NSUInteger step = items.count - rerenderLine;
-            [self moveUp:step];
-            for (NSUInteger i = rerenderLine; i < rerenderLine + 2 && i < list.count; i++) {
+            for (NSUInteger i = 0; i < items.count; i++) {
                 [self __render:items index:i highlight:highlight];
             }
-            step = step - 2;
-            [self moveDown:step];
             
-            CLInputKey *input = nil;
-            while (input == nil) {
-                input = [CLInputKey getKey];
-                if (input.key == 'q') {
-                    break;
-                }
-                if (input.key == CLKeyReturn) {
-                    break;
-                }
-                if (input.key != CLKeyUp && input.key != CLKeyDown) {
-                    input = nil;
-                }
-            }
-            
+            CLInputKey *input = [CLInputKey getSelectorKey:NO];
             
             if (input.key == 'q') {
                 return nil;
@@ -90,11 +66,10 @@
             }
             if (input.key == CLKeyUp) {
                 highlight = highlight == 0 ? 0 : highlight - 1;
-                rerenderLine = highlight;
             } else if (input.key == CLKeyDown) {
                 highlight = (highlight + 1 == list.count) ? highlight : highlight + 1;
-                rerenderLine = highlight == 0 ? highlight : highlight - 1;
             }
+            [self moveUp:items.count];
         }
         //  exit
         [self moveUp:items.count];
@@ -102,12 +77,9 @@
         for (NSUInteger i = 0; i < list.count; i++) {
             [self cleanAfter];
             printf("\n");
-//            [self __render:items index:i highlight:-1];
         }
         
         [self moveUp:items.count];
-//        [self cleanAfter];
-//        CCPrintf(0, @"\n");
         
         return @(highlight);
     }];

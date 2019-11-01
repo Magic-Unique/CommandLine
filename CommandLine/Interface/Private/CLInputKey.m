@@ -41,4 +41,33 @@
     return nil;
 }
 
++ (instancetype)getKeyWithFilter:(BOOL (^)(CLInputKey *))filter {
+    CLInputKey *input = nil;
+    while (input == nil) {
+        input = [CLInputKey getKey];
+        if (filter(input)) {
+            return input;
+        }
+    }
+    return nil;
+}
+
++ (instancetype)getSelectorKey:(BOOL)multiSelect {
+    return [self getKeyWithFilter:^BOOL(CLInputKey *key) {
+        if (key.key == 'q') {
+            return YES;
+        }
+        if (key.key == CLKeyReturn) {
+            return YES;
+        }
+        if (key.key == ' ' && multiSelect) {
+            return YES;
+        }
+        if (key.key == CLKeyUp || key.key == CLKeyDown) {
+            return YES;
+        }
+        return NO;
+    }];
+}
+
 @end

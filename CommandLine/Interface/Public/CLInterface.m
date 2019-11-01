@@ -45,4 +45,12 @@
     printf("\033[?25h");
 }
 
+- (void)storageCursorPosition {
+    printf("\033[s");
+}
+
+- (void)recoverCursorPosition {
+    printf("\033[u");
+}
+
 @end

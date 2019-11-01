@@ -23,4 +23,8 @@ typedef NS_ENUM(NSInteger, CLKey) {
 
 + (instancetype)getKey;
 
++ (instancetype)getKeyWithFilter:(BOOL (^)(CLInputKey *key))filter;
+
++ (instancetype)getSelectorKey:(BOOL)multiSelect;
+
 @end
