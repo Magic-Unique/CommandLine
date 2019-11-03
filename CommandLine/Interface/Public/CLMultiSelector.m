@@ -72,9 +72,8 @@
             else if (input.key == ' ') {
                 CLSelectItem *item = items[highlight];
                 item.selected = !item.selected;
-                continue;
             }
-            if (input.key == CLKeyUp) {
+            else if (input.key == CLKeyUp) {
                 highlight = highlight == 0 ? 0 : highlight - 1;
             } else if (input.key == CLKeyDown) {
                 highlight = (highlight + 1 == list.count) ? highlight : highlight + 1;
