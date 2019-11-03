@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "CommandLine"
-  s.version      = "2.4.5"
+  s.version      = "2.4.6"
   s.summary      = "A command line arguments parser of Objective-C"
 
   # This description is used to generate tags and improve search results.
