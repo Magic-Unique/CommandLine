@@ -16,16 +16,14 @@
 @implementation CLCommand (Parser)
 
 + (CLCommand *)commandWithArguments:(NSMutableArray *)arguments {
+    
     if (arguments.count == 0) {
         return nil;
     }
     
-    if (arguments.count == 1) {
-        return [CLCommand mainCommand];
-    }
+    [arguments removeObjectAtIndex:0];
     
     CLCommand *command = [CLCommand mainCommand];
-    [arguments removeObjectAtIndex:0];
     
     // parse command level
     while (arguments.count) {
