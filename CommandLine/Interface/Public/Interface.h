@@ -10,5 +10,7 @@
 
 #import <CommandLine/CLSingleSelector.h>
 #import <CommandLine/CLMultiSelector.h>
+#import <CommandLine/CLLoading.h>
+#import <CommandLine/CLProgress.h>
 
 #endif /* Interface_h */

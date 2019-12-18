@@ -65,9 +65,9 @@ int resetattr(struct termios *oldt)
     struct termios oldt;
     getattr(&oldt);
     setattr(oldt);
-    [self hideCursor];
+    [CLCursor hide];
     id object = selection();
-    [self showCursor];
+    [CLCursor show];
     resetattr(&oldt);
     return object;
 }

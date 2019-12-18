@@ -7,25 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "CLCursor.h"
 
 @interface CLInterface : NSObject
-
-- (void)moveUp:(NSUInteger)steps;
-
-- (void)moveDown:(NSUInteger)steps;
-
-- (void)moveLeft:(NSUInteger)steps;
-
-- (void)moveRight:(NSUInteger)steps;
-
-- (void)cleanAfter;
-
-- (void)hideCursor;
-
-- (void)showCursor;
-
-- (void)storageCursorPosition;
-
-- (void)recoverCursorPosition;
 
 @end

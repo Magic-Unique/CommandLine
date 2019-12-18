@@ -35,7 +35,7 @@
     } else if (item.selected) {
         style = self.selectedStyle;
     }
-    [self cleanAfter];
+    [CLCursor cleanAfter];
     CCPrintf(style, @"%@\n", text);
 }
 
@@ -78,16 +78,16 @@
             } else if (input.key == CLKeyDown) {
                 highlight = (highlight + 1 == list.count) ? highlight : highlight + 1;
             }
-            [self moveUp:items.count];
+            [CLCursor up:items.count];
         }
         //  exit
-        [self moveUp:items.count];
+        [CLCursor up:items.count];
         for (NSUInteger i = 0; i < list.count; i++) {
-            [self cleanAfter];
+            [CLCursor cleanAfter];
             CCPrintf(0, @"\n");
         }
         
-        [self moveUp:items.count];
+        [CLCursor up:items.count];
 //        [self cleanAfter];
 //        CCPrintf(0, @"\n");
         

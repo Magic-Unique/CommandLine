@@ -65,16 +65,33 @@ int main(int argc, const char * argv[]) {
         for (NSUInteger i = 0; i < 3; i++) {
             [list addObject:RandomString()];
         }
-        CLInfo(@"Select a item");
+//        CLInfo(@"Select a item");
         
-//#define MULTISELECTOR
+#define MULTISELECTOR
         
 #ifdef MULTISELECTOR
-        CLMultiSelector *mSelector = [CLMultiSelector selector];
-        NSArray *selectList = [mSelector select:list render:^NSString *(id item) {
-            return item;
-        }];
-        CLSuccess(@"You select: %@", selectList);
+//        CLMultiSelector *mSelector = [CLMultiSelector selector];
+//        NSArray *selectList = [mSelector select:list render:^NSString *(id item) {
+//            return item;
+//        }];
+//        CLSuccess(@"You select: %@", selectList);
+//        [CLCursor clear];
+        
+//        [[CLLoadingIndicator indicatorWithType:CLLoadingIndicatorTypeCycleVolumes] applyDefaultIndicator];
+//        CLLoading *loading = [CLLoading loading];
+//        loading.text = @"Waiting";
+//        [loading start];
+//        [NSThread sleepForTimeInterval:3];
+//        [loading stop];
+        
+        CLProgress *progress = [CLProgress progressWithProgressBar:[CLProgressBar progressBarWithType:CLProgressBarStyleFullBar]];
+        progress.text = @"loading";
+        [progress start];
+        for (NSUInteger i = 0; i < 100; i++) {
+            progress.progress = i / 100.0;
+            [NSThread sleepForTimeInterval:0.03];
+        }
+        [progress stop];
 #else
         CLSingleSelector *sSelector = [CLSingleSelector selector];
         NSUInteger index = [sSelector select:list render:^NSString *(id item) {
