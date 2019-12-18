@@ -26,6 +26,8 @@ See [Magic-Unique/MobileProvisionTool](https://github.com/Magic-Unique/MobilePro
 6. Version command
 7. Output with verbose/success/warning/error/info
 8. Custom colorful text
+9. Loading Indicator
+10. Progress Bar
 
 ## Installation
 
@@ -440,6 +442,30 @@ CLLaunch(nil, @[@"ls", @"-a"], nil);
 CCPrintf(CCStyleBord|CCStyleItalic, @"A text with %@ and %@", @"bord", @"italic");
 // see more CCStyle in CCText.h
 ```
+
+### Loading & Progress
+
+```objc
+CLLoading *loading = [CLLoading loading];
+[loading start];
+// do you task
+[loading stop];
+```
+
+![Loading with Bar](Resources/loading-bar.gif)
+![Loading with SixPoints](Resources/loading-sixpoints.gif)
+
+
+```objc
+CLProgress *progress = [CLProgress progress];
+[progress start];
+// do you task and set progress between 0.0 ~ 1.0
+progress.progress = 0.5;
+[progress stop];
+```
+
+![Progress with Bar](Resources/progress-fullbar.gif)
+![Progress with SixPoints](Resources/progress-percent.gif)
 
 ## LICENCE
 
