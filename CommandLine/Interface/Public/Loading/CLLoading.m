@@ -11,6 +11,8 @@
 
 @property (nonatomic, strong) dispatch_semaphore_t semaphore_t;
 
+@property (nonatomic, assign) NSUInteger index;
+
 @end
 
 @implementation CLLoading
@@ -26,37 +28,60 @@
 }
 
 - (void)start {
-    _isLoading = YES;
     NSThread *thread = [[NSThread alloc] initWithTarget:self
                                                selector:@selector(threadLoop)
                                                  object:nil];
     [thread start];
 }
 
+- (void)setText:(NSString *)text {
+    _text = text;
+    if (self.isLoading) {
+        [self __refresh];
+    }
+}
+
 - (void)threadLoop {
-    [CLCursor hide];
-    NSUInteger index = 0;
+    @synchronized (self) {
+        if (self.isLoading) {
+            return;
+        }
+        [CLCursor hide];
+        self.index = 0;
+        _isLoading = YES;
+    }
     while (self.isLoading) {
-        NSString *frame = [self frameForIndex:index];
-        [CLCursor cleanAfter];
-        printf("%s\n", frame.UTF8String);
-        [CLCursor up];
+        [self __refresh];
         [NSThread sleepForTimeInterval:self.indicator.frameDuration];
-        index++;
-        if (index >= self.indicator.frames.count) {
-            index = 0;
+        @synchronized (self) {
+            self.index++;
+            if (self.index >= self.indicator.frames.count) {
+                self.index = 0;
+            }
         }
     }
-    [CLCursor show];
+    @synchronized (self) {
+        [CLCursor cleanAfter];
+        [CLCursor show];
+    }
     if (self.semaphore_t) {
         dispatch_semaphore_signal(self.semaphore_t);
         self.semaphore_t = NULL;
     }
 }
 
+- (void)__refresh {
+    @synchronized (self) {
+        NSString *frame = [self frameForIndex:self.index];
+        [CLCursor cleanAfter];
+        printf("%s\n", frame.UTF8String);
+        [CLCursor up];
+    }
+}
+
 - (void)stop {
-    _isLoading = NO;
     self.semaphore_t = dispatch_semaphore_create(0);
+    _isLoading = NO;
     dispatch_semaphore_wait(self.semaphore_t, DISPATCH_TIME_FOREVER);
     // wait until the thread exit.
 }

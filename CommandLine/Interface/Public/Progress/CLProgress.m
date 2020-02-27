@@ -29,13 +29,32 @@
     [CLCursor hide];
     _isLoading = YES;
     _progress = 0;
-    [self print:_progress];
+    [self __refresh];
+}
+
+- (void)stop {
+    _isLoading = NO;
+    [self clean];
+    [CLCursor show];
 }
 
 - (void)setProgress:(double)progress {
     _progress = progress;
+    if (_isLoading) {
+        [self __refresh];
+    }
+}
+
+- (void)setText:(NSString *)text {
+    _text = text;
+    if (self.isLoading) {
+        [self print:self.progress];
+    }
+}
+
+- (void)__refresh {
     [self clean];
-    [self print:progress];
+    [self print:_progress];
 }
 
 - (void)clean {
@@ -49,12 +68,6 @@
 - (void)print:(double)progress {
     NSString *frame = [self.progressBar frameWithText:self.text progress:progress];
     printf("%s\n", frame.UTF8String);
-}
-
-- (void)stop {
-    [CLCursor show];
-    _isLoading = NO;
-    [self clean];
 }
 
 @end
