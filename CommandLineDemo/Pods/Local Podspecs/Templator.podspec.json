@@ -1,0 +1,78 @@
+{
+  "name": "Templator",
+  "version": "0.1.0",
+  "summary": "A short description of Templator.",
+  "description": "TODO: Add long description of the pod here.",
+  "homepage": "https://github.com/冷秋/Templator",
+  "license": {
+    "type": "MIT",
+    "file": "LICENSE"
+  },
+  "authors": {
+    "冷秋": "516563564@qq.com"
+  },
+  "source": {
+    "git": "https://github.com/冷秋/Templator.git",
+    "tag": "0.1.0"
+  },
+  "platforms": {
+    "osx": "10.10"
+  },
+  "subspecs": [
+    {
+      "name": "Main",
+      "source_files": "Templator/Main/**/*.{h,m}"
+    },
+    {
+      "name": "Core",
+      "source_files": "Templator/Core/**/*.{h,m}",
+      "dependencies": {
+        "Templator/Main": [
+
+        ],
+        "CommandLine": [
+
+        ],
+        "MUFoundation/MUPath": [
+
+        ]
+      }
+    },
+    {
+      "name": "Git",
+      "source_files": "Templator/Git/**/*.{h,m}",
+      "dependencies": {
+        "Templator/Main": [
+
+        ]
+      }
+    },
+    {
+      "name": "CocoaPods",
+      "source_files": "Templator/CocoaPods/**/*.{h,m}",
+      "dependencies": {
+        "Templator/Main": [
+
+        ]
+      }
+    },
+    {
+      "name": "Replacement",
+      "source_files": "Templator/Replacement/**/*.{h,m}",
+      "dependencies": {
+        "Templator/Main": [
+
+        ]
+      }
+    },
+    {
+      "name": "Open",
+      "source_files": "Templator/Open/**/*.{h,m}",
+      "dependencies": {
+        "Templator/Main": [
+
+        ]
+      }
+    }
+  ]
+}

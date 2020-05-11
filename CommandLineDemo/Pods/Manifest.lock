@@ -1,24 +1,24 @@
 PODS:
-  - CommandLine (2.4.7):
-    - CommandLine/ANSI (= 2.4.7)
-    - CommandLine/Command (= 2.4.7)
-    - CommandLine/Interface (= 2.4.7)
-    - CommandLine/Launcher (= 2.4.7)
-    - CommandLine/Main (= 2.4.7)
-    - CommandLine/Tools (= 2.4.7)
-  - CommandLine/ANSI (2.4.7):
+  - CommandLine (2.5.0):
+    - CommandLine/ANSI (= 2.5.0)
+    - CommandLine/Command (= 2.5.0)
+    - CommandLine/Interface (= 2.5.0)
+    - CommandLine/Launcher (= 2.5.0)
+    - CommandLine/Main (= 2.5.0)
+    - CommandLine/Tools (= 2.5.0)
+  - CommandLine/ANSI (2.5.0):
     - CommandLine/Main
     - CommandLine/Tools
-  - CommandLine/Command (2.4.7):
+  - CommandLine/Command (2.5.0):
     - CommandLine/ANSI
     - CommandLine/Main
-  - CommandLine/Interface (2.4.7):
+  - CommandLine/Interface (2.5.0):
     - CommandLine/ANSI
     - CommandLine/Main
-  - CommandLine/Launcher (2.4.7):
+  - CommandLine/Launcher (2.5.0):
     - CommandLine/Main
-  - CommandLine/Main (2.4.7)
-  - CommandLine/Tools (2.4.7):
+  - CommandLine/Main (2.5.0)
+  - CommandLine/Tools (2.5.0):
     - CommandLine/Main
 
 DEPENDENCIES:
@@ -29,7 +29,7 @@ EXTERNAL SOURCES:
     :path: ".."
 
 SPEC CHECKSUMS:
-  CommandLine: 6d64f97acd42b9bc2a044ef2cb82b98e25368685
+  CommandLine: bbe17fd61d857f9f3098ed1a7d094f63027c661f
 
 PODFILE CHECKSUM: 3cfd9ce6de90aab41a96e7d39df4ec6544576994
 

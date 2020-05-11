@@ -47,7 +47,7 @@ __unused static void _CLInitCommand(Class class) {
 
 #define CLInitCommand(_class) (_class *)0x0; _CLInitCommand([_class class]);
 
-static NSString *RandomString(void) {
+__unused static NSString *RandomString(void) {
     NSString *format = @"0123456789abcdef";
     NSMutableString *string = [NSMutableString string];
     NSUInteger randomLength = arc4random() % 20 + 4;
@@ -64,6 +64,16 @@ int main(int argc, const char * argv[]) {
         
         CLMakeSubcommand(Demo, __init_);
         CLCommandMain();
+        
+//#define PrintColor(c) @#c @"\n".ansi. c . _##c .flash.print();
+//        PrintColor(black)
+//        PrintColor(red)
+//        PrintColor(green)
+//        PrintColor(yellow)
+//        PrintColor(blue)
+//        PrintColor(purple)
+//        PrintColor(darkGreen)
+//        PrintColor(white)
         
 //#define MULTISELECTOR
 //        

@@ -9,5 +9,6 @@
 #define ANSI_h
 
 #import "CLText.h"
+#import "NSString+ANSI.h"
 
 #endif /* ANSI_h */

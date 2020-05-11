@@ -27,6 +27,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		2DECA22BAE31F5B7BAE186A8 /* Pods-CommandLineTools.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CommandLineTools.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CommandLineTools/Pods-CommandLineTools.debug.xcconfig"; sourceTree = "<group>"; };
+		6A10E933FFE6ADCDF2C296EB /* libPods-CommandLineTools.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CommandLineTools.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6D35EB9120AB2CB80041FCDF /* CommandLineDemo */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = CommandLineDemo; sourceTree = BUILT_PRODUCTS_DIR; };
 		6D35EB9420AB2CB80041FCDF /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		6D72040223AA7378004142B5 /* Demo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Demo.h; sourceTree = "<group>"; };
@@ -37,6 +39,7 @@
 		7E86CDBC2207E9BA00392901 /* CLCommand+Demo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "CLCommand+Demo.m"; sourceTree = "<group>"; };
 		7EB4C35A2243748300EBE65E /* MUHookMetaMacro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUHookMetaMacro.h; sourceTree = "<group>"; };
 		96C5FE76C915CD83CCFC3DF3 /* Pods-CommandLineDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CommandLineDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-CommandLineDemo/Pods-CommandLineDemo.release.xcconfig"; sourceTree = "<group>"; };
+		9B5F0A3CD90DFBED7E51A176 /* Pods-CommandLineTools.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CommandLineTools.release.xcconfig"; path = "Pods/Target Support Files/Pods-CommandLineTools/Pods-CommandLineTools.release.xcconfig"; sourceTree = "<group>"; };
 		B6C4FEEA3E340995EBC27F4B /* Pods-CommandLineDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CommandLineDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CommandLineDemo/Pods-CommandLineDemo.debug.xcconfig"; sourceTree = "<group>"; };
 		EF049D923897519329AC34BE /* libPods-CommandLineDemo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CommandLineDemo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -58,6 +61,8 @@
 			children = (
 				B6C4FEEA3E340995EBC27F4B /* Pods-CommandLineDemo.debug.xcconfig */,
 				96C5FE76C915CD83CCFC3DF3 /* Pods-CommandLineDemo.release.xcconfig */,
+				2DECA22BAE31F5B7BAE186A8 /* Pods-CommandLineTools.debug.xcconfig */,
+				9B5F0A3CD90DFBED7E51A176 /* Pods-CommandLineTools.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -99,6 +104,7 @@
 			isa = PBXGroup;
 			children = (
 				EF049D923897519329AC34BE /* libPods-CommandLineDemo.a */,
+				6A10E933FFE6ADCDF2C296EB /* libPods-CommandLineTools.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
