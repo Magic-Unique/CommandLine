@@ -64,10 +64,9 @@
         [CLCursor cleanAfter];
         [CLCursor show];
     }
-    if (self.semaphore_t) {
-        dispatch_semaphore_signal(self.semaphore_t);
-        self.semaphore_t = NULL;
-    }
+    while (!self.semaphore_t) {}
+    dispatch_semaphore_signal(self.semaphore_t);
+    self.semaphore_t = NULL;
 }
 
 - (void)__refresh {
@@ -80,6 +79,9 @@
 }
 
 - (void)stop {
+    if (_isLoading == NO) {
+        return;
+    }
     self.semaphore_t = dispatch_semaphore_create(0);
     _isLoading = NO;
     dispatch_semaphore_wait(self.semaphore_t, DISPATCH_TIME_FOREVER);
