@@ -61,9 +61,10 @@ __unused static NSString *RandomString(void) {
 
 int main(int argc, const char * argv[]) {
     @autoreleasepool {
+//        CLMakeSubcommand(Demo, __init_);
+//        CLCommandMain();
         
-        CLMakeSubcommand(Demo, __init_);
-        CLCommandMain();
+        [Demo main:@[@"CommandLineTool", @"subdemo", @"--input", @"This is input", @"-o", @"This is output"]];
         
 //#define PrintColor(c) @#c @"\n".ansi. c . _##c .flash.print();
 //        PrintColor(black)

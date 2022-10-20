@@ -157,6 +157,7 @@ Pod::Spec.new do |s|
     ss.source_files = 'CommandLine/Command/**/*.{h,m}'
     ss.dependency "CommandLine/ANSI"
     ss.dependency "CommandLine/Main"
+    ss.dependency "libextobjc/EXTScope"
     ss.public_header_files = "CommandLine/Command/Public/*.h"
   end
 

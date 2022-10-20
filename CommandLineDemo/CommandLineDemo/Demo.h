@@ -7,7 +7,14 @@
 //
 
 #import <CommandLine/CommandLine.h>
+#import "CLRunnableCommand.h"
 
-@interface Demo : NSObject
+@interface CLArgumentPool : NSObject
+
+@end
+
+
+
+@interface Demo : CLRunnableCommand
 
 @end

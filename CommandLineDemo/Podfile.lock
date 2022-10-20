@@ -1,36 +1,45 @@
 PODS:
-  - CommandLine (2.5.0):
-    - CommandLine/ANSI (= 2.5.0)
-    - CommandLine/Command (= 2.5.0)
-    - CommandLine/Interface (= 2.5.0)
-    - CommandLine/Launcher (= 2.5.0)
-    - CommandLine/Main (= 2.5.0)
-    - CommandLine/Tools (= 2.5.0)
-  - CommandLine/ANSI (2.5.0):
+  - CommandLine (2.5.1):
+    - CommandLine/ANSI (= 2.5.1)
+    - CommandLine/Command (= 2.5.1)
+    - CommandLine/Interface (= 2.5.1)
+    - CommandLine/Launcher (= 2.5.1)
+    - CommandLine/Main (= 2.5.1)
+    - CommandLine/Tools (= 2.5.1)
+  - CommandLine/ANSI (2.5.1):
     - CommandLine/Main
     - CommandLine/Tools
-  - CommandLine/Command (2.5.0):
+  - CommandLine/Command (2.5.1):
     - CommandLine/ANSI
     - CommandLine/Main
-  - CommandLine/Interface (2.5.0):
+    - libextobjc/EXTScope
+  - CommandLine/Interface (2.5.1):
     - CommandLine/ANSI
     - CommandLine/Main
-  - CommandLine/Launcher (2.5.0):
+  - CommandLine/Launcher (2.5.1):
     - CommandLine/Main
-  - CommandLine/Main (2.5.0)
-  - CommandLine/Tools (2.5.0):
+  - CommandLine/Main (2.5.1)
+  - CommandLine/Tools (2.5.1):
     - CommandLine/Main
+  - libextobjc/EXTScope (0.6):
+    - libextobjc/RuntimeExtensions
+  - libextobjc/RuntimeExtensions (0.6)
 
 DEPENDENCIES:
   - CommandLine (from `..`)
+
+SPEC REPOS:
+  trunk:
+    - libextobjc
 
 EXTERNAL SOURCES:
   CommandLine:
     :path: ".."
 
 SPEC CHECKSUMS:
-  CommandLine: bbe17fd61d857f9f3098ed1a7d094f63027c661f
+  CommandLine: 2af420ab73ba5e79a41d02c67c77cc184946dfa5
+  libextobjc: aed8b7d2b07f511c1a7ecaacb33ea03e327c69b7
 
 PODFILE CHECKSUM: 3cfd9ce6de90aab41a96e7d39df4ec6544576994
 
-COCOAPODS: 1.8.4
+COCOAPODS: 1.11.2
