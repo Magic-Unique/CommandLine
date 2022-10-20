@@ -1,1 +1,0 @@
-../../../../../CommandLine/ANSI/CLText.h
