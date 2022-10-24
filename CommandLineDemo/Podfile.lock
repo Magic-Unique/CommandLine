@@ -2,6 +2,9 @@ PODS:
   - CommandLine (2.5.1):
     - CommandLine/ANSI (= 2.5.1)
     - CommandLine/Command (= 2.5.1)
+    - CommandLine/Error (= 2.5.1)
+    - CommandLine/Explains (= 2.5.1)
+    - CommandLine/I18N (= 2.5.1)
     - CommandLine/Interface (= 2.5.1)
     - CommandLine/Launcher (= 2.5.1)
     - CommandLine/Main (= 2.5.1)
@@ -11,8 +14,18 @@ PODS:
     - CommandLine/Tools
   - CommandLine/Command (2.5.1):
     - CommandLine/ANSI
+    - CommandLine/Explains
+    - CommandLine/I18N
     - CommandLine/Main
     - libextobjc/EXTScope
+  - CommandLine/Error (2.5.1):
+    - CommandLine/Main
+  - CommandLine/Explains (2.5.1):
+    - CommandLine/I18N
+    - CommandLine/Main
+  - CommandLine/I18N (2.5.1):
+    - CommandLine/ANSI
+    - CommandLine/Main
   - CommandLine/Interface (2.5.1):
     - CommandLine/ANSI
     - CommandLine/Main
@@ -37,9 +50,9 @@ EXTERNAL SOURCES:
     :path: ".."
 
 SPEC CHECKSUMS:
-  CommandLine: 2af420ab73ba5e79a41d02c67c77cc184946dfa5
+  CommandLine: 00faa73a8dee082858508dd32216dbeffc273bbf
   libextobjc: aed8b7d2b07f511c1a7ecaacb33ea03e327c69b7
 
 PODFILE CHECKSUM: 3cfd9ce6de90aab41a96e7d39df4ec6544576994
 
-COCOAPODS: 1.11.2
+COCOAPODS: 1.11.3

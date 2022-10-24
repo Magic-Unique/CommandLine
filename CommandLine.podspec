@@ -141,6 +141,11 @@ Pod::Spec.new do |s|
   s.subspec 'Main' do |ss|
     ss.source_files  = "CommandLine/CommandLine.h"
   end
+  
+  s.subspec 'Error' do |ss|
+    ss.source_files = 'CommandLine/Error/*.{h,m}'
+    ss.dependency "CommandLine/Main"
+  end
 
   s.subspec 'Tools' do |ss|
     ss.source_files = 'CommandLine/Tools/*.{h,m}'
@@ -153,10 +158,24 @@ Pod::Spec.new do |s|
     ss.dependency "CommandLine/Main"
   end
 
+  s.subspec 'I18N' do |ss|
+    ss.source_files = 'CommandLine/I18N/*.{h,m}'
+    ss.dependency "CommandLine/Main"
+    ss.dependency "CommandLine/ANSI"
+  end
+
+  s.subspec 'Explains' do |ss|
+    ss.source_files = 'CommandLine/Explains/*.{h,m}'
+    ss.dependency "CommandLine/Main"
+    ss.dependency "CommandLine/I18N"
+  end
+
   s.subspec 'Command' do |ss|
     ss.source_files = 'CommandLine/Command/**/*.{h,m}'
-    ss.dependency "CommandLine/ANSI"
     ss.dependency "CommandLine/Main"
+    ss.dependency "CommandLine/ANSI"
+    ss.dependency "CommandLine/I18N"
+    ss.dependency "CommandLine/Explains"
     ss.dependency "libextobjc/EXTScope"
     ss.public_header_files = "CommandLine/Command/Public/*.h"
   end
