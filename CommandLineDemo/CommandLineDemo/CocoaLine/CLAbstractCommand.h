@@ -1,5 +1,5 @@
 //
-//  CLRunnableCommand.h
+//  CLAbstractCommand.h
 //  CommandLineDemo
 //
 //  Created by 吴双 on 2022/8/31.
@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "CLRunner.h"
 #import <libextobjc/EXTScope.h>
-#import "CLInfo.h"
+#import "CLCommandInfo.h"
 #import "CLType.h"
 
 NS_INLINE NSArray *NSArrayWithMap(NSArray *array, id(^mapBlock)(id obj)) {
@@ -27,9 +27,9 @@ NS_INLINE NSArray *NSArrayWithMap(NSArray *array, id(^mapBlock)(id obj)) {
 
 @protocol CLParsable <NSObject>
 
-@optional
-
 + (NSString *)name;
+
++ (NSString *)note;
 
 + (NSArray<Class> *)subcommands;
 
@@ -49,10 +49,12 @@ NS_INLINE NSArray *NSArrayWithMap(NSArray *array, id(^mapBlock)(id obj)) {
 
 
 
-@interface CLRunnableCommand : NSObject <CLParsable, CLRunnable>
+@interface CLAbstractCommand : NSObject <CLParsable, CLRunnable>
 
 @property (nonatomic, strong, readonly) CLRunner *runner;
 
++ (int)main;
++ (int)main:(int)argc argv:(const char *[])argv;
 + (int)main:(NSArray<NSString *> *)arguments;
 
 @end
@@ -110,12 +112,23 @@ int main(int argc, const char * argv[]) { \
 } NSArray<type> *name; + (void)_This_command_should_not_contains_two_array_input {}; \
 + (void)_CL_CONCAT_3(_, __CLARY, index, name):(CLArgumentInfo *)name { \
     [name setType:@#type]; \
-    [name setIsArray:YES]; \
     metamacro_foreach_cxt(_CL_ATTRS,,name,self,##__VA_ARGS__) \
 }
 
 #define input_array(type, name, ...) _CL_ARRAY(__COUNTER__, type, name, ##__VA_ARGS__)
 
+#pragma mark - Command
+
+#define command_name(n) (NSString *)name { return @#n; }
+
+#define command_note(n) (NSString *)note { return n; }
+
+#define _CL_EACH_SUBCMD(INDEX, CTX, VAR) [VAR class],
+#define command_subcmd(...) (NSArray<Class> *)subcommand {\
+    return @[metamacro_foreach_cxt(_CL_EACH_SUBCMD,,,##__VA_ARGS__)]; \
+}
+
+#define command_main() (int)main
 
 /*
  

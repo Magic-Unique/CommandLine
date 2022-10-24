@@ -4,6 +4,7 @@ PODS:
     - CommandLine/Command (= 2.5.1)
     - CommandLine/Error (= 2.5.1)
     - CommandLine/Explains (= 2.5.1)
+    - CommandLine/Helper (= 2.5.1)
     - CommandLine/I18N (= 2.5.1)
     - CommandLine/Interface (= 2.5.1)
     - CommandLine/Launcher (= 2.5.1)
@@ -23,6 +24,11 @@ PODS:
   - CommandLine/Explains (2.5.1):
     - CommandLine/I18N
     - CommandLine/Main
+  - CommandLine/Helper (2.5.1):
+    - CommandLine/ANSI
+    - CommandLine/Explains
+    - CommandLine/I18N
+    - CommandLine/Main
   - CommandLine/I18N (2.5.1):
     - CommandLine/ANSI
     - CommandLine/Main
@@ -37,22 +43,26 @@ PODS:
   - libextobjc/EXTScope (0.6):
     - libextobjc/RuntimeExtensions
   - libextobjc/RuntimeExtensions (0.6)
+  - MUFoundation/MUPath (0.0.6)
 
 DEPENDENCIES:
   - CommandLine (from `..`)
+  - MUFoundation/MUPath
 
 SPEC REPOS:
   trunk:
     - libextobjc
+    - MUFoundation
 
 EXTERNAL SOURCES:
   CommandLine:
     :path: ".."
 
 SPEC CHECKSUMS:
-  CommandLine: 00faa73a8dee082858508dd32216dbeffc273bbf
+  CommandLine: b9b95eebcfd7ba1d40214b4b3d93f4328850e00d
   libextobjc: aed8b7d2b07f511c1a7ecaacb33ea03e327c69b7
+  MUFoundation: 7ba494a348139d1a355a3f20b5ba3de11720c9d4
 
-PODFILE CHECKSUM: 3cfd9ce6de90aab41a96e7d39df4ec6544576994
+PODFILE CHECKSUM: 26c19550fa7df6674d85aebce0b527327cb60e30
 
 COCOAPODS: 1.11.3

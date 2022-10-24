@@ -11,9 +11,9 @@
 @class _CLBool;
 
 #define CLConvertType(type) NS_INLINE type CLConvert_##type(NSString *string)
+#define CLConvertClass(class, type) typedef class *type; CLConvertType(type)
 
-typedef NSString *CLString;
-CLConvertType(CLString) { return string; }
+CLConvertClass(NSString, CLString) { return string; }
 CLConvertType(NSInteger) { return string.integerValue; }
 CLConvertType(NSUInteger) { return (NSUInteger)string.integerValue; }
 CLConvertType(int) { return string.intValue; }

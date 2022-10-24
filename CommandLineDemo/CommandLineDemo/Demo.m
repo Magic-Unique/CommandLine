@@ -11,25 +11,30 @@
 
 @implementation Demo
 
-- input_option(CLString, input, shortName='i', note=@"Input path.")
-- input_option(CLString, output, shortName='o', note=@"Output path.")
+//+ command_name(demo)
+
++ command_note(@"This is a demo command");
+
++ command_subcmd(ABSubdemo, ABSubdemo)
+
+- input_option(CLPath, input, shortName='i', nonnull, note=@"Input path.")
+- input_option(CLString, output, shortName='o', nullable, note=@"Output path.")
 - input_option(CLBool, replace, shortName='R', note=@"Replace current file.")
+- input_option(int, zipLevel, shortName='l', nonnull, note=@"0-9 level for zip.")
 
 - input_argument(CLString, input1, note=@"Input path")
 - input_argument(CLString, input2, note=@"Input path")
 
 - input_array(CLString, array)
 
-- (int)main {
+- command_main() {
     NSLog(@"_input = %@", input);
     NSLog(@"self.input = %@", self.input);
     NSLog(@"_output = %@", output);
     NSLog(@"self.output = %@", self.output);
+    NSLog(@"_replace = %d", replace.isTrue);
+    NSLog(@"self.replace = %d", self.replace.isTrue);
     return 0;
-}
-
-+ (NSArray<Class> *)subcommands {
-    return @[[Subdemo class]];
 }
 
 @end

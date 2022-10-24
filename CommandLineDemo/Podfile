@@ -9,5 +9,6 @@ target 'CommandLineDemo' do
   # Pods for CommandLineDemo
 
   pod 'CommandLine', :path => '..'
+  pod 'MUFoundation/MUPath'
 
 end

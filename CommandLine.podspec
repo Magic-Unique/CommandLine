@@ -169,6 +169,14 @@ Pod::Spec.new do |s|
     ss.dependency "CommandLine/Main"
     ss.dependency "CommandLine/I18N"
   end
+  
+  s.subspec 'Helper' do |ss|
+    ss.source_files = 'CommandLine/Helper/*.{h,m}'
+    ss.dependency "CommandLine/Main"
+    ss.dependency "CommandLine/ANSI"
+    ss.dependency "CommandLine/I18N"
+    ss.dependency "CommandLine/Explains"
+  end
 
   s.subspec 'Command' do |ss|
     ss.source_files = 'CommandLine/Command/**/*.{h,m}'

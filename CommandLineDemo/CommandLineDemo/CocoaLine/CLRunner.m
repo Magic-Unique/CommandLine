@@ -7,7 +7,7 @@
 //
 
 #import "CLRunner.h"
-#import "CLInfo.h"
+#import "CLCommandInfo.h"
 
 @implementation CLRunner
 
@@ -24,11 +24,11 @@
                 options[option.name] = arguments.firstObject;
                 [arguments removeObjectAtIndex:0];
             } else {
-                return [NSError errorWithDomain:@"" code:1 userInfo:nil];
+                return [NSError errorWithDomain:@"" code:1 userInfo:@{NSLocalizedDescriptionKey: @"缺失参数"}];
             }
         } else {
             // unknow key
-            return [NSError errorWithDomain:@"" code:2 userInfo:nil];
+            return [NSError errorWithDomain:@"" code:2 userInfo:@{NSLocalizedDescriptionKey: @"未知 key"}];
         }
         return nil;
     };
@@ -68,7 +68,18 @@
             valueRequireCount++;
         }
         if (values.count < valueRequireCount) {
-            error = [NSError errorWithDomain:@"" code:3 userInfo:nil];
+            error = [NSError errorWithDomain:@"" code:3 userInfo:@{NSLocalizedDescriptionKey: @"缺失参数"}];
+        }
+    }
+    
+    // Check require arguments
+    for (CLOptionInfo *option in commandInfo.options.allValues) {
+        if (!option.isBOOL && option.isRequired) {
+            NSString *name = option.name;
+            if (options[name] == nil) {
+                error = [NSError errorWithDomain:@"" code:4 userInfo:@{NSLocalizedDescriptionKey: @"缺失必要参数"}];
+                break;
+            }
         }
     }
     
@@ -94,6 +105,7 @@
         return self.options[option.name];
     }
     else if ([info isKindOfClass:[CLArgumentInfo class]]) {
+        // TODO: Array
         CLArgumentInfo *argument = (CLArgumentInfo *)info;
         if (argument.index < self.arguments.count) {
             return self.arguments[argument.index];

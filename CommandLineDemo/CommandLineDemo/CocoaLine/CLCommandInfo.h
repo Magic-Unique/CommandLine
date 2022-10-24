@@ -26,18 +26,19 @@
 
 @property char shortName;
 
-@property BOOL required;
+@property (readonly) BOOL isRequired; // private
+@property (readonly) BOOL isBOOL; // private
 
-@property (readonly) BOOL isBOOL;
+@property (readonly) BOOL nullable;
+@property (readonly) BOOL nonnull;
 
 @end
 
 
 @interface CLArgumentInfo : CLBaseInfo
 
-@property BOOL isArray;
-
-@property NSUInteger index;
+@property BOOL isArray; // private
+@property NSUInteger index; // private
 
 @end
 

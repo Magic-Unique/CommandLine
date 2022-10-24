@@ -12,6 +12,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #import "Demo.h"
+#import "Subdemo.h"
 
 __unused static void _CLInitCommand(Class class) {
     unsigned count = 0;
@@ -63,8 +64,7 @@ int main(int argc, const char * argv[]) {
     @autoreleasepool {
 //        CLMakeSubcommand(Demo, __init_);
 //        CLCommandMain();
-        
-        [Demo main:@[@"CommandLineTool", @"subdemo", @"--input", @"This is input", @"-o", @"This is output"]];
+        return [Demo main:@[@"tool", @"-R", @"--input", @"This is input", @"-o", @"This is output", @"I1", @"I2"]];
         
 //#define PrintColor(c) @#c @"\n".ansi. c . _##c .flash.print();
 //        PrintColor(black)

@@ -8,7 +8,7 @@
 
 #import "Subdemo.h"
 
-@implementation Subdemo
+@implementation ABSubdemo
 
 - input_array(CLString, list)
 

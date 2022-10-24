@@ -6,11 +6,11 @@
 //  Copyright © 2022 unique. All rights reserved.
 //
 
-#import "CLRunnableCommand.h"
+#import "CLAbstractCommand.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface Subdemo : CLRunnableCommand
+@interface ABSubdemo : CLAbstractCommand
 
 @end
 

@@ -7,14 +7,11 @@
 //
 
 #import <CommandLine/CommandLine.h>
-#import "CLRunnableCommand.h"
+#import "CLAbstractCommand.h"
+#import <MUFoundation/MUPath.h>
 
-@interface CLArgumentPool : NSObject
+CLConvertClass(MUPath, CLPath) { return [MUPath pathWithString:string]; }
 
-@end
-
-
-
-@interface Demo : CLRunnableCommand
+@interface Demo : CLAbstractCommand
 
 @end

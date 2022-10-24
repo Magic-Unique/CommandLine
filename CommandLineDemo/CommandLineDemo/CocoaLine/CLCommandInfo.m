@@ -6,7 +6,7 @@
 //  Copyright © 2022 unique. All rights reserved.
 //
 
-#import "CLInfo.h"
+#import "CLCommandInfo.h"
 
 @implementation CLBaseInfo
 
@@ -20,8 +20,16 @@
 
 @end
 
-@implementation CLOptionInfo @end
+@implementation CLOptionInfo
+- (BOOL)isBOOL { return [self.type isEqualToString:@"CLBool"]; }
+- (BOOL)nonnull { _isRequired = YES; return _isRequired; }
+- (BOOL)nullable { _isRequired = NO; return _isRequired; }
+@end
+
 @implementation CLArgumentInfo @end
+
+
+
 @implementation CLCommandInfo
 
 - (CLOptionInfo *)optionInfoForName:(NSString *)name {

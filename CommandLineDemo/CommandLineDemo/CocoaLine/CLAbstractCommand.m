@@ -1,17 +1,45 @@
 //
-//  CLRunnableCommand.m
+//  CLAbstractCommand.m
 //  CommandLineDemo
 //
 //  Created by 吴双 on 2022/8/31.
 //  Copyright © 2022 unique. All rights reserved.
 //
 
-#import "CLRunnableCommand.h"
+#import "CLAbstractCommand.h"
 #import <objc/runtime.h>
 
-@implementation CLRunnableCommand
+static NSString *GenName(NSString *nsClassName) {
+    int lastIndex = -1;
+    for (int i = 0; i < nsClassName.length; i++) {
+        char current = nsClassName.UTF8String[i];
+        if (current >= 'A' && current <= 'Z') {
+            lastIndex ++;
+        } else {
+            break;
+        }
+    }
+    if (lastIndex == -1) {
+        lastIndex = 0;
+    }
+    NSMutableString *name = [NSMutableString string];
+    for (int i = lastIndex; i < nsClassName.length; i++) {
+        char current = nsClassName.UTF8String[i];
+        if (current >= 'A' && current <= 'Z') {
+            [name appendFormat:@"-%c", (current - 'A' + 'a')];
+        } else {
+            [name appendFormat:@"%c", current];
+        }
+    }
+    if ([name hasPrefix:@"-"]) {
+        [name deleteCharactersInRange:NSMakeRange(0, 1)];
+    }
+    return name;
+}
 
-- (void)enumerateInstanceMethodUsingBlock:(void (^)(CLRunnableCommand *self, SEL selector, NSString *name))block {
+@implementation CLAbstractCommand
+
+- (void)enumerateInstanceMethodUsingBlock:(void (^)(CLAbstractCommand *self, SEL selector, NSString *name))block {
     Class cls = [self class];
     if (cls) {
         unsigned count = 0;
@@ -68,6 +96,7 @@
             else if ([_type isEqualToString:@"CLARY"]) {
                 CLArgumentInfo *info = [[CLArgumentInfo alloc] initWithName:name];
                 info.index = arguments.count;
+                info.isArray = YES;
                 [cls performSelector:selector withObject:info];
                 arguments[name] = info;
                 properties[@(index).stringValue] = info;
@@ -84,11 +113,25 @@
 #pragma clang diagnostic pop
         }
     }];
-    CLCommandInfo *command = [[CLCommandInfo alloc] initWithName:[self __nameForCommand:self]];
+    CLCommandInfo *command = [[CLCommandInfo alloc] initWithName:[self name]];
     command.properties = properties;
     command.options = options;
     command.arguments = arguments;
     return command;
+}
+
++ (int)main {
+    return [self main:NSProcessInfo.processInfo.arguments];
+}
+
++ (int)main:(int)argc argv:(const char *[])argv {
+    NSMutableArray *arguments = [NSMutableArray array];
+    for (int i = 0; i < argc; i++) {
+        const char *item = argv[i];
+        NSString *_str = [NSString stringWithUTF8String:item];
+        [arguments addObject:_str];
+    }
+    return [self main:arguments];
 }
 
 + (int)main:(NSArray<NSString *> *)arguments {
@@ -102,7 +145,7 @@
         current = next;
         next = [current __nextCommandForPrecommands:precommand arguments:sufargs];
     }
-    return [current __main:precommand sufarguments:sufargs];
+    return [current __handle:precommand sufarguments:sufargs];
 }
 
 + (Class)__nextCommandForPrecommands:(NSMutableArray<NSString *> *)precommands arguments:(NSMutableArray<NSString *> *)arguments {
@@ -113,7 +156,7 @@
     NSArray *subcommands = [self subcommands];
     Class cmd = nil;
     for (Class subcmd in subcommands) {
-        if ([[self __nameForCommand:subcmd] isEqualToString:name]) {
+        if ([[subcmd name] isEqualToString:name]) {
             cmd = subcmd;
             [arguments removeObjectAtIndex:0];
             break;
@@ -122,29 +165,25 @@
     return cmd;
 }
 
-+ (int)__main:(NSMutableArray<NSString *> *)precommand sufarguments:(NSMutableArray<NSString *> *)sufarguments {
++ (int)__handle:(NSMutableArray<NSString *> *)precommand sufarguments:(NSMutableArray<NSString *> *)sufarguments {
+    if (![self __validity]) {
+        return 1;
+    }
     CLCommandInfo *info = [self generateCommandInfo];
     CLRunner *runner = [CLRunner runnerWithCommandInfo:info arguments:sufarguments];
-    CLRunnableCommand *cmd = [[self alloc] initWithRunner:runner];
+    if (runner.error) {
+        NSLog(@"%@", runner.error.localizedDescription);
+        return (int)runner.error.code;
+    }
+    CLAbstractCommand *cmd = [[self alloc] initWithRunner:runner];
     return [cmd main];
-}
-
-+ (NSString *)__nameForCommand:(Class<CLParsable>)command {
-    NSString *name = nil;
-    if ([command respondsToSelector:@selector(name)]) {
-        name = command.name;
-    }
-    if (name) {
-        return name;
-    }
-    return NSStringFromClass(command).lowercaseString;
 }
 
 - (instancetype)initWithRunner:(CLRunner *)runner {
     self = [super init];
     if (self) {
         _runner = runner;
-        [self enumerateInstanceMethodUsingBlock:^(CLRunnableCommand *self, SEL selector, NSString *name) {
+        [self enumerateInstanceMethodUsingBlock:^(CLAbstractCommand *self, SEL selector, NSString *name) {
             if ([name hasPrefix:@"__Init"]) {
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
@@ -154,6 +193,16 @@
         }];
     }
     return self;
+}
+
++ (NSString *)name { return GenName(NSStringFromClass(self)); }
++ (NSString *)note { return nil; }
++ (NSArray<Class> *)subcommands { return nil; }
+
++ (BOOL)__validity {
+    BOOL containsSubcmds = ([self subcommands].count > 0);
+    BOOL containsEntry = [self instancesRespondToSelector:@selector(main)];
+    return containsSubcmds || containsEntry;
 }
 
 @end
