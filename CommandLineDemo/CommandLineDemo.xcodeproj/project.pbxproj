@@ -14,7 +14,6 @@
 		6DB7CD3028BF6A29000105A5 /* CLAbstractCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DB7CD2F28BF6A29000105A5 /* CLAbstractCommand.m */; };
 		6DB7CD3328BF6AF2000105A5 /* CLRunner.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DB7CD3228BF6AF2000105A5 /* CLRunner.m */; };
 		6DF5EB20290199EE00602990 /* CLType.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DF5EB1F290199EE00602990 /* CLType.m */; };
-		6DF5EB232901A57300602990 /* CLCommandInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DF5EB212901A57300602990 /* CLCommandInfo.m */; };
 		6DF5EB262901A9AD00602990 /* Subdemo.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DF5EB252901A9AD00602990 /* Subdemo.m */; };
 		873C3751D2B04A53D0DC4A3B /* libPods-CommandLineDemo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EF049D923897519329AC34BE /* libPods-CommandLineDemo.a */; };
 /* End PBXBuildFile section */
@@ -46,8 +45,6 @@
 		6DB7CD3228BF6AF2000105A5 /* CLRunner.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CLRunner.m; sourceTree = "<group>"; };
 		6DF5EB1E290199EE00602990 /* CLType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CLType.h; sourceTree = "<group>"; };
 		6DF5EB1F290199EE00602990 /* CLType.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CLType.m; sourceTree = "<group>"; };
-		6DF5EB212901A57300602990 /* CLCommandInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CLCommandInfo.m; sourceTree = "<group>"; };
-		6DF5EB222901A57300602990 /* CLCommandInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLCommandInfo.h; sourceTree = "<group>"; };
 		6DF5EB242901A9AD00602990 /* Subdemo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Subdemo.h; sourceTree = "<group>"; };
 		6DF5EB252901A9AD00602990 /* Subdemo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Subdemo.m; sourceTree = "<group>"; };
 		7E86CDBB2207E9BA00392901 /* CLCommand+Demo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CLCommand+Demo.h"; sourceTree = "<group>"; };
@@ -123,8 +120,6 @@
 			children = (
 				6DB7CD2E28BF6A29000105A5 /* CLAbstractCommand.h */,
 				6DB7CD2F28BF6A29000105A5 /* CLAbstractCommand.m */,
-				6DF5EB222901A57300602990 /* CLCommandInfo.h */,
-				6DF5EB212901A57300602990 /* CLCommandInfo.m */,
 				6DB7CD3128BF6AF2000105A5 /* CLRunner.h */,
 				6DB7CD3228BF6AF2000105A5 /* CLRunner.m */,
 				6DF5EB1E290199EE00602990 /* CLType.h */,
@@ -246,7 +241,6 @@
 				6D35EB9520AB2CB80041FCDF /* main.m in Sources */,
 				6D72040423AA7378004142B5 /* Demo.m in Sources */,
 				6D17647422A8EC4400F457AF /* CLCommand+Demo.m in Sources */,
-				6DF5EB232901A57300602990 /* CLCommandInfo.m in Sources */,
 				6D72040723AA7389004142B5 /* Demo+Loading.m in Sources */,
 				6DF5EB262901A9AD00602990 /* Subdemo.m in Sources */,
 			);

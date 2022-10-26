@@ -20,9 +20,10 @@
 - input_option(CLPath, input, shortName='i', nonnull, note=@"Input path.")
 - input_option(CLString, output, shortName='o', nullable, note=@"Output path.")
 - input_option(CLBool, replace, shortName='R', note=@"Replace current file.")
-- input_option(int, zipLevel, shortName='l', nonnull, note=@"0-9 level for zip.")
+- input_option(int, zipLevel, shortName='z', nonnull, note=@"0-9 level for zip.")
+- input_option(NSUInteger, deep, nonnull, note=@"0-9 level for zip.")
 
-- input_argument(CLString, input1, note=@"Input path")
+- input_argument(CLString, input1, nonnull, note=@"Input path")
 - input_argument(CLString, input2, note=@"Input path")
 
 - input_array(CLString, array)

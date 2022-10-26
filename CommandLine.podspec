@@ -165,7 +165,7 @@ Pod::Spec.new do |s|
   end
 
   s.subspec 'Explains' do |ss|
-    ss.source_files = 'CommandLine/Explains/*.{h,m}'
+    ss.source_files = 'CommandLine/Explains/**/*.{h,m}'
     ss.dependency "CommandLine/Main"
     ss.dependency "CommandLine/I18N"
   end

@@ -8,6 +8,7 @@
 
 #import "CLAbstractCommand.h"
 #import <objc/runtime.h>
+#import <CommandLine/CLHelpBanner.h>
 
 static NSString *GenName(NSString *nsClassName) {
     int lastIndex = -1;
@@ -114,9 +115,20 @@ static NSString *GenName(NSString *nsClassName) {
         }
     }];
     CLCommandInfo *command = [[CLCommandInfo alloc] initWithName:[self name]];
+    command.note = [self note];
     command.properties = properties;
     command.options = options;
     command.arguments = arguments;
+    command.subcommands = ({
+        NSMutableDictionary *subcommands = [NSMutableDictionary dictionary];
+        for (Class subclass in [self subcommands]) {
+            CLCommandInfo *commandInfo = [[CLCommandInfo alloc] initWithName:[subclass name]];
+            commandInfo.note = [subclass note];
+            subcommands[commandInfo.name] = commandInfo;
+        }
+        subcommands;
+    });
+    command.runnable = [self instancesRespondToSelector:@selector(main)];
     return command;
 }
 
@@ -135,10 +147,10 @@ static NSString *GenName(NSString *nsClassName) {
 }
 
 + (int)main:(NSArray<NSString *> *)arguments {
-    NSMutableArray *precommand = [NSMutableArray array];
-    NSMutableArray *sufargs = [arguments mutableCopy];
-    NSString *cmd = sufargs.firstObject; [sufargs removeObjectAtIndex:0];
-    [precommand addObject:cmd];
+    NSMutableArray<NSString *> *precommand = [NSMutableArray array];
+    NSMutableArray<NSString *> *sufargs = [arguments mutableCopy];
+    [precommand addObject:sufargs.firstObject.lastPathComponent];
+    [sufargs removeObjectAtIndex:0];
     Class current = nil;
     Class next = self;
     while (next) {
@@ -158,6 +170,7 @@ static NSString *GenName(NSString *nsClassName) {
     for (Class subcmd in subcommands) {
         if ([[subcmd name] isEqualToString:name]) {
             cmd = subcmd;
+            [precommands addObject:arguments.firstObject];
             [arguments removeObjectAtIndex:0];
             break;
         }
@@ -166,13 +179,11 @@ static NSString *GenName(NSString *nsClassName) {
 }
 
 + (int)__handle:(NSMutableArray<NSString *> *)precommand sufarguments:(NSMutableArray<NSString *> *)sufarguments {
-    if (![self __validity]) {
-        return 1;
-    }
     CLCommandInfo *info = [self generateCommandInfo];
+    NSAssert([self __validity], @"The command %@ must contains +command_subcommand list or -main function", self);
     CLRunner *runner = [CLRunner runnerWithCommandInfo:info arguments:sufarguments];
     if (runner.error) {
-        NSLog(@"%@", runner.error.localizedDescription);
+        [CLHelpBanner printHelpBannerForPrecommands:precommand commandInfo:info error:runner.error];
         return (int)runner.error.code;
     }
     CLAbstractCommand *cmd = [[self alloc] initWithRunner:runner];

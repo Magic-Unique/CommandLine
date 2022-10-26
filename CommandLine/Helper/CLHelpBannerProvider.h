@@ -12,7 +12,7 @@
 
 @protocol CLHelpBannerProvider <NSObject>
 
-- (NSString *)helpBannerForCommandInfo:(CLCommandInfo *)commandInfo error:(NSError *)error;
+- (NSString *)helpBannerForPrecommands:(NSArray *)precommands commandInfo:(CLCommandInfo *)commandInfo error:(NSError *)error;
 
 @end
 

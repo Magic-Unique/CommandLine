@@ -16,6 +16,10 @@
 
 @property NSString *note;
 
+@property (readonly) BOOL isRequired; // private
+@property (readonly) BOOL nullable;
+@property (readonly) BOOL nonnull;
+
 - (instancetype)initWithName:(NSString *)name;
 
 @end
@@ -26,11 +30,16 @@
 
 @property char shortName;
 
-@property (readonly) BOOL isRequired; // private
+@property NSString *placeholder;
+
 @property (readonly) BOOL isBOOL; // private
 
-@property (readonly) BOOL nullable;
-@property (readonly) BOOL nonnull;
++ (instancetype)verboseOption;
++ (instancetype)helpOption;
++ (instancetype)silentOption;
++ (instancetype)plainOption;
+
++ (NSArray<CLOptionInfo *> *)defaultOptions;
 
 @end
 
@@ -50,6 +59,10 @@
 @property (nonatomic, strong) NSMutableDictionary<NSString *, CLBaseInfo *> *properties;
 @property (nonatomic, strong) NSMutableDictionary<NSString *, CLOptionInfo *> *options;
 @property (nonatomic, strong) NSMutableDictionary<NSString *, CLArgumentInfo *> *arguments;
+
+@property (nonatomic, strong) NSMutableDictionary<NSString *, CLCommandInfo *> *subcommands;
+
+@property (nonatomic, assign) BOOL runnable;
 
 - (CLOptionInfo *)optionInfoForName:(NSString *)name;
 - (CLOptionInfo *)optionInfoForShortName:(char)shortName;

@@ -64,7 +64,8 @@ int main(int argc, const char * argv[]) {
     @autoreleasepool {
 //        CLMakeSubcommand(Demo, __init_);
 //        CLCommandMain();
-        return [Demo main:@[@"tool", @"-R", @"--input", @"This is input", @"-o", @"This is output", @"I1", @"I2"]];
+        return [Demo main];
+//        return [Demo main:@[@"tool", @"bb", @"-R", @"--input", @"This is input", @"-o", @"This is output", @"I1", @"I2"]];
         
 //#define PrintColor(c) @#c @"\n".ansi. c . _##c .flash.print();
 //        PrintColor(black)

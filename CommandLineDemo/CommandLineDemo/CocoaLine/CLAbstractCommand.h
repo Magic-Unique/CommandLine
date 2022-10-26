@@ -61,7 +61,7 @@ NS_INLINE NSArray *NSArrayWithMap(NSArray *array, id(^mapBlock)(id obj)) {
 
 #define CLRunnableMain(cmd) \
 int main(int argc, const char * argv[]) { \
-    int ret = 0; @autoreleasepool { ret = [cmd main:nil]; } return ret; \
+    int ret = 0; @autoreleasepool { ret = [cmd main]; } return ret; \
 }
 
 
@@ -124,7 +124,7 @@ int main(int argc, const char * argv[]) { \
 #define command_note(n) (NSString *)note { return n; }
 
 #define _CL_EACH_SUBCMD(INDEX, CTX, VAR) [VAR class],
-#define command_subcmd(...) (NSArray<Class> *)subcommand {\
+#define command_subcmd(...) (NSArray<Class> *)subcommands {\
     return @[metamacro_foreach_cxt(_CL_EACH_SUBCMD,,,##__VA_ARGS__)]; \
 }
 

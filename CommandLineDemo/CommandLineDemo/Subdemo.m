@@ -12,6 +12,8 @@
 
 - input_array(CLString, list)
 
++ command_note(@"This is sub command note")
+
 - (int)main {
     return 0;
 }

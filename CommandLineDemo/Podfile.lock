@@ -59,7 +59,7 @@ EXTERNAL SOURCES:
     :path: ".."
 
 SPEC CHECKSUMS:
-  CommandLine: b9b95eebcfd7ba1d40214b4b3d93f4328850e00d
+  CommandLine: bc3a39b4291212707528c252456a028da6aef77f
   libextobjc: aed8b7d2b07f511c1a7ecaacb33ea03e327c69b7
   MUFoundation: 7ba494a348139d1a355a3f20b5ba3de11720c9d4
 

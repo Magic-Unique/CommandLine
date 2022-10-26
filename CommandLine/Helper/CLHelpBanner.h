@@ -12,8 +12,8 @@
 
 @property (class, nonatomic, strong) id<CLHelpBannerProvider> helpBannerProvider;
 
-- (NSString *)helpBannerForCommand:(CLCommandInfo *)command error:(NSError *)error;
++ (NSString *)helpBannerForPrecommands:(NSArray *)precommands commandInfo:(CLCommandInfo *)command error:(NSError *)error;
 
-- (void)printHelpBannerForCommand:(CLCommandInfo *)command error:(NSError *)error;
++ (void)printHelpBannerForPrecommands:(NSArray *)precommands commandInfo:(CLCommandInfo *)command error:(NSError *)error;
 
 @end
