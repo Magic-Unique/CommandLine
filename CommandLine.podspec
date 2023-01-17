@@ -137,14 +137,11 @@ Pod::Spec.new do |s|
 
   # s.xcconfig = { "HEADER_SEARCH_PATHS" => "$(SDKROOT)/usr/include/libxml2" }
   # s.dependency "JSONKit", "~> 1.4"
+
+  s.default_subspecs = 'Command', 'Launcher', 'Interface'
   
   s.subspec 'Main' do |ss|
     ss.source_files  = "CommandLine/CommandLine.h"
-  end
-  
-  s.subspec 'Error' do |ss|
-    ss.source_files = 'CommandLine/Error/*.{h,m}'
-    ss.dependency "CommandLine/Main"
   end
 
   s.subspec 'Tools' do |ss|
@@ -161,11 +158,16 @@ Pod::Spec.new do |s|
   s.subspec 'I18N' do |ss|
     ss.source_files = 'CommandLine/I18N/*.{h,m}'
     ss.dependency "CommandLine/Main"
-    ss.dependency "CommandLine/ANSI"
   end
-
-  s.subspec 'Explains' do |ss|
-    ss.source_files = 'CommandLine/Explains/**/*.{h,m}'
+  
+  s.subspec 'Error' do |ss|
+    ss.source_files = 'CommandLine/Error/*.{h,m}'
+    ss.dependency "CommandLine/Main"
+    ss.dependency "CommandLine/I18N"
+  end
+  
+  s.subspec 'Info' do |ss|
+    ss.source_files = 'CommandLine/Info/**/*.{h,m}'
     ss.dependency "CommandLine/Main"
     ss.dependency "CommandLine/I18N"
   end
@@ -175,16 +177,17 @@ Pod::Spec.new do |s|
     ss.dependency "CommandLine/Main"
     ss.dependency "CommandLine/ANSI"
     ss.dependency "CommandLine/I18N"
-    ss.dependency "CommandLine/Explains"
+    ss.dependency "CommandLine/Info"
   end
-
+  
   s.subspec 'Command' do |ss|
     ss.source_files = 'CommandLine/Command/**/*.{h,m}'
     ss.dependency "CommandLine/Main"
     ss.dependency "CommandLine/ANSI"
     ss.dependency "CommandLine/I18N"
-    ss.dependency "CommandLine/Explains"
-    ss.dependency "libextobjc/EXTScope"
+    ss.dependency "CommandLine/Error"
+    ss.dependency "CommandLine/Info"
+    ss.dependency "CommandLine/Helper"
     ss.public_header_files = "CommandLine/Command/Public/*.h"
   end
 
@@ -199,5 +202,23 @@ Pod::Spec.new do |s|
     ss.dependency "CommandLine/ANSI"
     ss.public_header_files = "CommandLine/Interface/Public/**/*.h"
   end
+
+
+  # DEPRECATED
+  # s.subspec 'Explains' do |ss|
+  #   ss.source_files = 'Deprecated/Explains/**/*.{h,m}'
+  #   ss.dependency "CommandLine/Main"
+  #   ss.dependency "CommandLine/I18N"
+  # end
+
+  # s.subspec 'Command' do |ss|
+  #   ss.source_files = 'Deprecated/Command/**/*.{h,m}'
+  #   ss.dependency "CommandLine/Main"
+  #   ss.dependency "CommandLine/ANSI"
+  #   ss.dependency "CommandLine/I18N"
+  #   ss.dependency "CommandLine/Explains"
+  #   ss.dependency "libextobjc/RuntimeExtensions"
+  #   ss.public_header_files = "CommandLine/Command/Public/*.h"
+  # end
   
 end

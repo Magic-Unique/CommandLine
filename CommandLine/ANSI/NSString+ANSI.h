@@ -2,7 +2,7 @@
 //  NSString+ANSI.h
 //  CommandLine
 //
-//  Created by 吴双 on 2020/5/11.
+//  Created by 冷秋 on 2020/5/11.
 //
 
 #import <Foundation/Foundation.h>

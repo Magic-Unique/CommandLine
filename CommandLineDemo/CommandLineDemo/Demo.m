@@ -2,8 +2,8 @@
 //  Demo.m
 //  CommandLineDemo
 //
-//  Created by 吴双 on 2019/12/18.
-//  Copyright © 2019 unique. All rights reserved.
+//  Created by 冷秋 on 2019/12/18.
+//  Copyright © 2023 Magic-Unique. All rights reserved.
 //
 
 #import "Demo.h"
@@ -11,24 +11,25 @@
 
 @implementation Demo
 
-//+ command_name(demo)
++ command_configuration() {
+    configuration.name = @"aaa";
+    configuration.note = @"This is a demo command";
+}
 
-+ command_note(@"This is a demo command");
+//+ command_subcommands(ABSubdemo, ABSubdemo)
 
-+ command_subcmd(ABSubdemo, ABSubdemo)
++ command_option(CLPath, input, shortName='i', nonnull, note=@"Input path.")
++ command_option(CLString, output, shortName='o', nullable, note=@"Output path.")
++ command_option(CLBool, replace, shortName='R', note=@"Replace current file.")
++ command_option(int, zipLevel, shortName='z', nonnull, note=@"0-9 level for zip.")
++ command_option(NSUInteger, deep, nonnull, placeholder=@"THE_DEEP", note=@"0-9 level for zip.")
 
-- input_option(CLPath, input, shortName='i', nonnull, note=@"Input path.")
-- input_option(CLString, output, shortName='o', nullable, note=@"Output path.")
-- input_option(CLBool, replace, shortName='R', note=@"Replace current file.")
-- input_option(int, zipLevel, shortName='z', nonnull, note=@"0-9 level for zip.")
-- input_option(NSUInteger, deep, nonnull, note=@"0-9 level for zip.")
++ command_argument(CLString, arg1, nonnull, placeholder=@"/path/to/arg1", note=@"Input path")
++ command_argument(CLString, arg2, nullable, note=@"Input path")
 
-- input_argument(CLString, input1, nonnull, note=@"Input path")
-- input_argument(CLString, input2, note=@"Input path")
++ command_arguments(CLString, array)
 
-- input_array(CLString, array)
-
-- command_main() {
++ command_main() {
     NSLog(@"_input = %@", input);
     NSLog(@"self.input = %@", self.input);
     NSLog(@"_output = %@", output);

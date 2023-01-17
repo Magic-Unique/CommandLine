@@ -12,8 +12,6 @@
 #import <CommandLine/Command.h>
 #elif __has_include("Command.h")
 #import "Command.h"
-#else
-#define CLCommand NSObject
 #endif
 
 #if __has_include(<CommandLine/Tools.h>)

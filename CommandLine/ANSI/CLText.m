@@ -3,7 +3,7 @@
 //  CommandLineDemo
 //
 //  Created by Unique on 2018/5/26.
-//  Copyright © 2018年 unique. All rights reserved.
+//  Copyright © 2023 Magic-Unique. All rights reserved.
 //
 
 #import "CLText.h"

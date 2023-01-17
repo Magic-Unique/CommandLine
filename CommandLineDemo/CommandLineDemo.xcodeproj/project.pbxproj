@@ -7,13 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		6D17647422A8EC4400F457AF /* CLCommand+Demo.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E86CDBC2207E9BA00392901 /* CLCommand+Demo.m */; };
 		6D35EB9520AB2CB80041FCDF /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D35EB9420AB2CB80041FCDF /* main.m */; };
 		6D72040423AA7378004142B5 /* Demo.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D72040323AA7378004142B5 /* Demo.m */; };
-		6D72040723AA7389004142B5 /* Demo+Loading.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D72040623AA7389004142B5 /* Demo+Loading.m */; };
-		6DB7CD3028BF6A29000105A5 /* CLAbstractCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DB7CD2F28BF6A29000105A5 /* CLAbstractCommand.m */; };
-		6DB7CD3328BF6AF2000105A5 /* CLRunner.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DB7CD3228BF6AF2000105A5 /* CLRunner.m */; };
-		6DF5EB20290199EE00602990 /* CLType.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DF5EB1F290199EE00602990 /* CLType.m */; };
 		6DF5EB262901A9AD00602990 /* Subdemo.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DF5EB252901A9AD00602990 /* Subdemo.m */; };
 		873C3751D2B04A53D0DC4A3B /* libPods-CommandLineDemo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EF049D923897519329AC34BE /* libPods-CommandLineDemo.a */; };
 /* End PBXBuildFile section */
@@ -39,16 +34,8 @@
 		6D72040323AA7378004142B5 /* Demo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Demo.m; sourceTree = "<group>"; };
 		6D72040523AA7389004142B5 /* Demo+Loading.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Demo+Loading.h"; sourceTree = "<group>"; };
 		6D72040623AA7389004142B5 /* Demo+Loading.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "Demo+Loading.m"; sourceTree = "<group>"; };
-		6DB7CD2E28BF6A29000105A5 /* CLAbstractCommand.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CLAbstractCommand.h; sourceTree = "<group>"; };
-		6DB7CD2F28BF6A29000105A5 /* CLAbstractCommand.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CLAbstractCommand.m; sourceTree = "<group>"; };
-		6DB7CD3128BF6AF2000105A5 /* CLRunner.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CLRunner.h; sourceTree = "<group>"; };
-		6DB7CD3228BF6AF2000105A5 /* CLRunner.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CLRunner.m; sourceTree = "<group>"; };
-		6DF5EB1E290199EE00602990 /* CLType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CLType.h; sourceTree = "<group>"; };
-		6DF5EB1F290199EE00602990 /* CLType.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CLType.m; sourceTree = "<group>"; };
 		6DF5EB242901A9AD00602990 /* Subdemo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Subdemo.h; sourceTree = "<group>"; };
 		6DF5EB252901A9AD00602990 /* Subdemo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Subdemo.m; sourceTree = "<group>"; };
-		7E86CDBB2207E9BA00392901 /* CLCommand+Demo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CLCommand+Demo.h"; sourceTree = "<group>"; };
-		7E86CDBC2207E9BA00392901 /* CLCommand+Demo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "CLCommand+Demo.m"; sourceTree = "<group>"; };
 		7EB4C35A2243748300EBE65E /* MUHookMetaMacro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUHookMetaMacro.h; sourceTree = "<group>"; };
 		96C5FE76C915CD83CCFC3DF3 /* Pods-CommandLineDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CommandLineDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-CommandLineDemo/Pods-CommandLineDemo.release.xcconfig"; sourceTree = "<group>"; };
 		9B5F0A3CD90DFBED7E51A176 /* Pods-CommandLineTools.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CommandLineTools.release.xcconfig"; path = "Pods/Target Support Files/Pods-CommandLineTools/Pods-CommandLineTools.release.xcconfig"; sourceTree = "<group>"; };
@@ -108,24 +95,8 @@
 				6D72040523AA7389004142B5 /* Demo+Loading.h */,
 				6D72040623AA7389004142B5 /* Demo+Loading.m */,
 				7EB4C35A2243748300EBE65E /* MUHookMetaMacro.h */,
-				7E86CDBB2207E9BA00392901 /* CLCommand+Demo.h */,
-				7E86CDBC2207E9BA00392901 /* CLCommand+Demo.m */,
-				6DB7CD2C28BF0E69000105A5 /* CocoaLine */,
 			);
 			path = CommandLineDemo;
-			sourceTree = "<group>";
-		};
-		6DB7CD2C28BF0E69000105A5 /* CocoaLine */ = {
-			isa = PBXGroup;
-			children = (
-				6DB7CD2E28BF6A29000105A5 /* CLAbstractCommand.h */,
-				6DB7CD2F28BF6A29000105A5 /* CLAbstractCommand.m */,
-				6DB7CD3128BF6AF2000105A5 /* CLRunner.h */,
-				6DB7CD3228BF6AF2000105A5 /* CLRunner.m */,
-				6DF5EB1E290199EE00602990 /* CLType.h */,
-				6DF5EB1F290199EE00602990 /* CLType.m */,
-			);
-			path = CocoaLine;
 			sourceTree = "<group>";
 		};
 		ACFA73402DACBDE447462F97 /* Frameworks */ = {
@@ -235,13 +206,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6DB7CD3328BF6AF2000105A5 /* CLRunner.m in Sources */,
-				6DF5EB20290199EE00602990 /* CLType.m in Sources */,
-				6DB7CD3028BF6A29000105A5 /* CLAbstractCommand.m in Sources */,
 				6D35EB9520AB2CB80041FCDF /* main.m in Sources */,
 				6D72040423AA7378004142B5 /* Demo.m in Sources */,
-				6D17647422A8EC4400F457AF /* CLCommand+Demo.m in Sources */,
-				6D72040723AA7389004142B5 /* Demo+Loading.m in Sources */,
 				6DF5EB262901A9AD00602990 /* Subdemo.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

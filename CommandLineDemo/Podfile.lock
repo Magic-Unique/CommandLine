@@ -1,36 +1,30 @@
 PODS:
   - CommandLine (2.5.1):
-    - CommandLine/ANSI (= 2.5.1)
     - CommandLine/Command (= 2.5.1)
-    - CommandLine/Error (= 2.5.1)
-    - CommandLine/Explains (= 2.5.1)
-    - CommandLine/Helper (= 2.5.1)
-    - CommandLine/I18N (= 2.5.1)
     - CommandLine/Interface (= 2.5.1)
     - CommandLine/Launcher (= 2.5.1)
-    - CommandLine/Main (= 2.5.1)
-    - CommandLine/Tools (= 2.5.1)
   - CommandLine/ANSI (2.5.1):
     - CommandLine/Main
     - CommandLine/Tools
   - CommandLine/Command (2.5.1):
     - CommandLine/ANSI
-    - CommandLine/Explains
+    - CommandLine/Error
+    - CommandLine/Helper
     - CommandLine/I18N
+    - CommandLine/Info
     - CommandLine/Main
-    - libextobjc/EXTScope
   - CommandLine/Error (2.5.1):
-    - CommandLine/Main
-  - CommandLine/Explains (2.5.1):
     - CommandLine/I18N
     - CommandLine/Main
   - CommandLine/Helper (2.5.1):
     - CommandLine/ANSI
-    - CommandLine/Explains
     - CommandLine/I18N
+    - CommandLine/Info
     - CommandLine/Main
   - CommandLine/I18N (2.5.1):
-    - CommandLine/ANSI
+    - CommandLine/Main
+  - CommandLine/Info (2.5.1):
+    - CommandLine/I18N
     - CommandLine/Main
   - CommandLine/Interface (2.5.1):
     - CommandLine/ANSI
@@ -40,9 +34,6 @@ PODS:
   - CommandLine/Main (2.5.1)
   - CommandLine/Tools (2.5.1):
     - CommandLine/Main
-  - libextobjc/EXTScope (0.6):
-    - libextobjc/RuntimeExtensions
-  - libextobjc/RuntimeExtensions (0.6)
   - MUFoundation/MUPath (0.0.6)
 
 DEPENDENCIES:
@@ -51,7 +42,6 @@ DEPENDENCIES:
 
 SPEC REPOS:
   trunk:
-    - libextobjc
     - MUFoundation
 
 EXTERNAL SOURCES:
@@ -59,8 +49,7 @@ EXTERNAL SOURCES:
     :path: ".."
 
 SPEC CHECKSUMS:
-  CommandLine: bc3a39b4291212707528c252456a028da6aef77f
-  libextobjc: aed8b7d2b07f511c1a7ecaacb33ea03e327c69b7
+  CommandLine: 0d587ef2086d126860d8abf2ba1c68c47fa0390e
   MUFoundation: 7ba494a348139d1a355a3f20b5ba3de11720c9d4
 
 PODFILE CHECKSUM: 26c19550fa7df6674d85aebce0b527327cb60e30

@@ -2,20 +2,12 @@
 //  CLDefaultHelpBannerProvider.m
 //  Pods
 //
-//  Created by 吴双 on 2022/10/24.
+//  Created by 冷秋 on 2022/10/24.
 //
 
 #import "CLDefaultHelpBannerProvider.h"
 #import <CommandLine/ANSI.h>
 #import "CLCommandInfo.h"
-
-//static NSString *CLStringRepeat(NSString *str, NSUInteger count) {
-//    NSMutableString *string = [NSMutableString string];
-//    for (NSUInteger i = 0; i < count; i++) {
-//        [string appendString:str];
-//    }
-//    return [string copy];
-//}
 
 #define CL_TAB @"    "
 
@@ -226,12 +218,13 @@
     NSMutableArray *rows = [NSMutableArray array];
     for (CLArgumentInfo *argument in arguments) {
         CLDefaultHelpRow *row = [[CLDefaultHelpRow alloc] init];
+        NSString *pre = argument.placeholder ?: argument.name;
         NSString *suf = argument.isArray ? @" ..." : @"";
         if (argument.isRequired) {
-            row.title = [NSString stringWithFormat:@"<%@%@>", argument.name, suf];
+            row.title = [NSString stringWithFormat:@"<%@%@>", pre, suf];
             row.leftStyle = CCStyleForegroundColorPurple;
         } else {
-            row.title = [NSString stringWithFormat:@"[%@%@]", argument.name, suf];
+            row.title = [NSString stringWithFormat:@"[%@%@]", pre, suf];
             row.leftStyle = CCStyleForegroundColorYellow;
         }
         row.note = argument.note;

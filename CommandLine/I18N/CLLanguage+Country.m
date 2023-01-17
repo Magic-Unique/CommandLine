@@ -6,7 +6,6 @@
 //
 
 #import "CLLanguage+Country.h"
-#import <CommandLine/ANSI.h>
 
 @implementation CLLanguage (Country)
 
@@ -27,8 +26,6 @@
         
         strings[CLParseErrorIllegalValueLanguageKey] = @"Error: argument key `%@` does not support value `%@`";
         strings[CLParseErrorUnknowQueryLanguageKey] = @"Error: illegal key `%@`";
-        
-        strings[CLHelpCommandDefaultExplainKey] = [NSString stringWithFormat:@"Call %@ to change this line", CCText(CCStyleLight, @"%%@.explain = @\"Value you want.\"")];
     }];
 }
 
@@ -49,8 +46,6 @@
         
         strings[CLParseErrorIllegalValueLanguageKey] = @"错误：参数 `%@` 不能为 `%@`";
         strings[CLParseErrorUnknowQueryLanguageKey] = @"错误：无效关键字 `%@`";
-        
-        strings[CLHelpCommandDefaultExplainKey] = [NSString stringWithFormat:@"请执行 %@ 来改变此行的内容", CCText(CCStyleLight, @"%%@.explain = @\"命令详细描述\"")];
     }];
 }
 

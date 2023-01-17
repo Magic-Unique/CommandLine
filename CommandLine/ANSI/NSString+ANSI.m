@@ -2,7 +2,7 @@
 //  NSString+ANSI.m
 //  CommandLine
 //
-//  Created by 吴双 on 2020/5/11.
+//  Created by 冷秋 on 2020/5/11.
 //
 
 #import "NSString+ANSI.h"

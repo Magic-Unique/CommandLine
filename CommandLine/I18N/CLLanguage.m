@@ -26,8 +26,6 @@ ConstLanguageKey(CLHelpCommandLanguageKey);
 ConstLanguageKey(CLParseErrorIllegalValueLanguageKey);
 ConstLanguageKey(CLParseErrorUnknowQueryLanguageKey);
 
-ConstLanguageKey(CLHelpCommandDefaultExplainKey)
-
 @interface CLLanguage ()
 
 @property (nonatomic, strong, readonly) NSMutableDictionary *strings;
@@ -67,8 +65,6 @@ static CLLanguage *_current_language_ = nil;
              
              CLParseErrorIllegalValueLanguageKey: @"Error: argument key `%@` does not support value `%@`",
              CLParseErrorUnknowQueryLanguageKey: @"Error: illegal key `%@`",
-             
-             CLHelpCommandDefaultExplainKey: @"Call %@.explain = @\"Value you want.\" to change this line",
              };
 }
 

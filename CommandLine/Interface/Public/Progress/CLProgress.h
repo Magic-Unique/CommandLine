@@ -2,7 +2,7 @@
 //  CLProgress.h
 //  CommandLine
 //
-//  Created by 吴双 on 2019/12/15.
+//  Created by 冷秋 on 2019/12/15.
 //
 
 #import "CLInterface.h"

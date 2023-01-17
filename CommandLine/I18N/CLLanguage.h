@@ -39,9 +39,6 @@ FOUNDATION_EXTERN CLLanguageKey const _Nonnull CLParseErrorIllegalValueLanguageK
 /** Print if user input an illegal value */
 FOUNDATION_EXTERN CLLanguageKey const _Nonnull CLParseErrorUnknowQueryLanguageKey;
 
-/** Commands's defaults explain */
-FOUNDATION_EXTERN CLLanguageKey const _Nonnull CLHelpCommandDefaultExplainKey;
-
 
 #define CLCurrentLanguage (CLLanguage.currentLanguage)
 

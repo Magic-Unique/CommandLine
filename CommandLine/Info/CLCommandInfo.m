@@ -2,8 +2,8 @@
 //  CLArgumentInfo.m
 //  CommandLineDemo
 //
-//  Created by 吴双 on 2022/10/19.
-//  Copyright © 2022 unique. All rights reserved.
+//  Created by 冷秋 on 2022/10/19.
+//  Copyright © 2022 Magic-Unique. All rights reserved.
 //
 
 #import "CLCommandInfo.h"
@@ -14,6 +14,7 @@
     self = [super init];
     if (self) {
         _name = name;
+        _isRequired = YES;
     }
     return self;
 }

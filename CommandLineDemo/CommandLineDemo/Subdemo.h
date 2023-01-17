@@ -2,15 +2,15 @@
 //  Subdemo.h
 //  CommandLineDemo
 //
-//  Created by 吴双 on 2022/10/21.
-//  Copyright © 2022 unique. All rights reserved.
+//  Created by 冷秋 on 2022/10/21.
+//  Copyright © 2022 Magic-Unique. All rights reserved.
 //
 
-#import "CLAbstractCommand.h"
+#import "CLCommand.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ABSubdemo : CLAbstractCommand
+@interface ABSubdemo : CLCommand
 
 @end
 
