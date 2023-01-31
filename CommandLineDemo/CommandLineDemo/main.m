@@ -32,6 +32,12 @@ int main(int argc, const char * argv[]) {
     @autoreleasepool {
 //        CLMakeSubcommand(Demo, __init_);
 //        CLCommandMain();
+        CLInfo(@"info");
+        CLWarning(@"warning");
+        CLError(@"error");
+        CLVerbose(@"verbose");
+        CLDebug(@"debug", @"debug2");
+        CLLog(@"log");
         return [Demo main];
 //        return [Demo main:@[@"tool", @"bb", @"-R", @"--input", @"This is input", @"-o", @"This is output", @"I1", @"I2"]];
         

@@ -41,6 +41,8 @@ static NSString *GenName(NSString *nsClassName) {
 
 @implementation CLCommand
 
+static CLCommand *current = nil;
+
 - (void)enumerateInstanceMethodUsingBlock:(void (^)(CLCommand *self, SEL selector, NSString *name))block {
     Class cls = [self class];
     if (cls) {
@@ -199,6 +201,7 @@ static NSString *GenName(NSString *nsClassName) {
         return (int)runner.error.code;
     }
     CLCommand *cmd = [[self alloc] initWithRunner:runner];
+    current = cmd;
     return [cmd main];
 }
 
@@ -241,6 +244,32 @@ static NSString *GenName(NSString *nsClassName) {
     BOOL containsSubcmds = ([self subcommands].count > 0);
     BOOL containsEntry = [self instancesRespondToSelector:@selector(main)];
     return containsSubcmds || containsEntry;
+}
+
++ (CLCommand *)currentCommand { return current; }
+
+@end
+
+@implementation CLCommand (Predefine)
+
+- (BOOL)verbose {
+    CLBool _bool = self.runner.options[CLOptionInfo.verboseOption.name];
+    return _bool.isYES;
+}
+
+- (BOOL)help {
+    CLBool _bool = self.runner.options[CLOptionInfo.helpOption.name];
+    return _bool.isYES;
+}
+
+- (BOOL)silent {
+    CLBool _bool = self.runner.options[CLOptionInfo.silentOption.name];
+    return _bool.isYES;
+}
+
+- (BOOL)noANSI {
+    CLBool _bool = self.runner.options[CLOptionInfo.plainOption.name];
+    return _bool.isYES;
 }
 
 @end

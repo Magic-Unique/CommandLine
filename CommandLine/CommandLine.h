@@ -8,10 +8,13 @@
 #ifndef CommandLine_h
 #define CommandLine_h
 
-#if __has_include(<CommandLine/Command.h>)
-#import <CommandLine/Command.h>
-#elif __has_include("Command.h")
-#import "Command.h"
+#if __has_include(<CommandLine/CLCommand.h>)
+#import <CommandLine/CLCommand.h>
+#import <CommandLine/CLRunner.h>
+#import <CommandLine/CLType.h>
+#import <CommandLine/CLIO.h>
+#elif __has_include("CLCommand.h")
+#import "CLCommand.h"
 #endif
 
 #if __has_include(<CommandLine/Tools.h>)

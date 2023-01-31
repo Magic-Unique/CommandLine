@@ -1,38 +1,38 @@
 PODS:
-  - CommandLine (2.5.1):
-    - CommandLine/Command (= 2.5.1)
-    - CommandLine/Interface (= 2.5.1)
-    - CommandLine/Launcher (= 2.5.1)
-  - CommandLine/ANSI (2.5.1):
+  - CommandLine (3.0.0):
+    - CommandLine/Command (= 3.0.0)
+    - CommandLine/Interface (= 3.0.0)
+    - CommandLine/Launcher (= 3.0.0)
+  - CommandLine/ANSI (3.0.0):
     - CommandLine/Main
     - CommandLine/Tools
-  - CommandLine/Command (2.5.1):
+  - CommandLine/Command (3.0.0):
     - CommandLine/ANSI
     - CommandLine/Error
     - CommandLine/Helper
     - CommandLine/I18N
     - CommandLine/Info
     - CommandLine/Main
-  - CommandLine/Error (2.5.1):
+  - CommandLine/Error (3.0.0):
     - CommandLine/I18N
     - CommandLine/Main
-  - CommandLine/Helper (2.5.1):
+  - CommandLine/Helper (3.0.0):
     - CommandLine/ANSI
     - CommandLine/I18N
     - CommandLine/Info
     - CommandLine/Main
-  - CommandLine/I18N (2.5.1):
+  - CommandLine/I18N (3.0.0):
     - CommandLine/Main
-  - CommandLine/Info (2.5.1):
+  - CommandLine/Info (3.0.0):
     - CommandLine/I18N
     - CommandLine/Main
-  - CommandLine/Interface (2.5.1):
+  - CommandLine/Interface (3.0.0):
     - CommandLine/ANSI
     - CommandLine/Main
-  - CommandLine/Launcher (2.5.1):
+  - CommandLine/Launcher (3.0.0):
     - CommandLine/Main
-  - CommandLine/Main (2.5.1)
-  - CommandLine/Tools (2.5.1):
+  - CommandLine/Main (3.0.0)
+  - CommandLine/Tools (3.0.0):
     - CommandLine/Main
   - MUFoundation/MUPath (0.0.6)
 
@@ -49,7 +49,7 @@ EXTERNAL SOURCES:
     :path: ".."
 
 SPEC CHECKSUMS:
-  CommandLine: 0d587ef2086d126860d8abf2ba1c68c47fa0390e
+  CommandLine: 2cc8d28659f647310813b6661471c41cb2637af8
   MUFoundation: 7ba494a348139d1a355a3f20b5ba3de11720c9d4
 
 PODFILE CHECKSUM: 26c19550fa7df6674d85aebce0b527327cb60e30

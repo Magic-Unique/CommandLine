@@ -80,6 +80,15 @@
     return options;
 }
 
++ (CLOptionInfo *)defaultOptionForName:(NSString *)name {
+    for (CLOptionInfo *item in [self defaultOptions]) {
+        if ([item.name isEqualToString:name]) {
+            return item;
+        }
+    }
+    return nil;
+}
+
 @end
 
 @implementation CLArgumentInfo @end
@@ -89,7 +98,7 @@
 @implementation CLCommandInfo
 
 - (CLOptionInfo *)optionInfoForName:(NSString *)name {
-    return self.options[name];
+    return self.options[name] ?: [CLOptionInfo defaultOptionForName:name];
 }
 
 - (CLOptionInfo *)optionInfoForShortName:(char)shortName {

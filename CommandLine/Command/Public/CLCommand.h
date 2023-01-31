@@ -53,6 +53,17 @@ NS_INLINE NSArray *NSArrayWithMap(NSArray *array, id(^mapBlock)(id obj)) {
 + (int)main:(int)argc argv:(const char *[])argv;
 + (int)main:(NSArray<NSString *> *)arguments;
 
++ (instancetype)currentCommand;
+
+@end
+
+@interface CLCommand (Predefine)
+
+@property (nonatomic, assign, readonly) BOOL verbose;
+@property (nonatomic, assign, readonly) BOOL help;
+@property (nonatomic, assign, readonly) BOOL silent;
+@property (nonatomic, assign, readonly) BOOL noANSI;
+
 @end
 
 #define CLRunnableMain(cmd) \
@@ -70,7 +81,7 @@ int main(int argc, const char * argv[]) { \
 #pragma mark - Option
 
 #define _CL_OPTION(index, type, name, ...) \
-(void)_CL_CONCAT_3(_, __CLOPT, index, name):(CLOptionInfo *)name {\
++ (void)_CL_CONCAT_3(_, __CLOPT, index, name):(CLOptionInfo *)name {\
     [name setType:@#type]; \
     metamacro_foreach_cxt(_CL_ATTRS,,name,nonnull,##__VA_ARGS__) \
 } \
@@ -84,7 +95,7 @@ int main(int argc, const char * argv[]) { \
 #pragma mark - Argument
 
 #define _CL_ARGUMENT(index, type, name, ...) \
-(void)_CL_CONCAT_3(_, __CLARG, index, name):(CLArgumentInfo *)name { \
++ (void)_CL_CONCAT_3(_, __CLARG, index, name):(CLArgumentInfo *)name { \
     [name setType:@#type]; \
     metamacro_foreach_cxt(_CL_ATTRS,,name,self,##__VA_ARGS__) \
 } \
@@ -100,7 +111,7 @@ int main(int argc, const char * argv[]) { \
 #define _CL_ARRAY_MAP(array, statement) NSArrayWithMap((array), ^id(id obj) { return (statement); })
 
 #define _CL_ARRAY(index, type, name, ...) \
-(void)_CL_CONCAT_3(_, __CLARY, index, name):(CLArgumentInfo *)name { \
++ (void)_CL_CONCAT_3(_, __CLARY, index, name):(CLArgumentInfo *)name { \
     [name setType:@#type]; \
     metamacro_foreach_cxt(_CL_ATTRS,,name,self,##__VA_ARGS__) \
 } \
@@ -117,22 +128,14 @@ int main(int argc, const char * argv[]) { \
 
 #define _CL_EACH_SUBCMD(INDEX, CTX, VAR) [VAR class],
 #define command_subcommands(...) \
-(void)This_command_should_contain_one_of_subcmd_or_main_function {} \
++ (void)This_command_should_contain_one_of_subcmd_or_main_function {} \
 + (NSArray<Class> *)subcommands {\
     return @[metamacro_foreach_cxt(_CL_EACH_SUBCMD,,,##__VA_ARGS__)]; \
 }
 
 #define command_main() \
-(void)This_command_should_contain_one_of_subcmd_or_main_function {} \
++ (void)This_command_should_contain_one_of_subcmd_or_main_function {} \
 - (int)main
 
 #define command_configuration() \
-(void)__configuration:(CLCommandConfiguration *)configuration
-
-/*
- 
- command_option(Other, name)      key-value
- command_option(CLBool, name)     key
- command_arguments(Other, name)   [value]
- input_value(Other, name)       value
- */
++ (void)__configuration:(CLCommandConfiguration *)configuration

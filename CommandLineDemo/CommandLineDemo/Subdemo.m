@@ -10,7 +10,7 @@
 
 @implementation ABSubdemo
 
-+ command_arguments(CLString, list)
+command_arguments(CLString, list)
 
 - (int)main {
     return 0;
