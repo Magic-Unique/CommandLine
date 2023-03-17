@@ -72,17 +72,28 @@ it's meaning:
 you can execute the code before parse.
 
 ```objc
-CLCommand *pod = [CLCommand main];
-CLCommand *spec = [pod defineSubcommand:@"spec"];
-spec.explain = @"Spec commands"; {
-    CLCommand *create = [spec defineSubcommand:@"create"];
-    create.explain = @"Create a pod spec";
-    [create handleProcess:^int(CLCommand *command, CLProcess *process) {
-        // do something to create a cocoapods spec.
+@interface MyCommand_Spec : CLCommand @end 
+@implementation MyCommand_Spec
 
-        // return an int to main()
-        return EXIT_SUCCESS;
-    }];
+command_configuration() {
+  configuration.note = @"Create a pod spec";
+}
+
+command_main() {
+  // do something to create a cocoapods spec.
+
+  // return an int to main()
+  return 0;
+}
+@end
+
+@interface MyCommand_Pod : CLCommand @end
+@implementation MyCommand_Pod
+command_subcommands(MyCommand_Spec);
+@end
+  
+int main(int argc, char **argv) {
+  return [MyCommand_Pod main];
 }
 ```
 
@@ -107,17 +118,7 @@ It's meaning:
 You can execute the code before parse.
 
 ```objc
-CLCommand *pod = [CLCommand main];
-CLCommand *repo = [pod defineSubcommand:@"repo"];
-repo.explain = @"Repo operator"; {
-    CLCommand * list = [spec defineForwardingSubcommand:@"list"];
-    list = @"List all local repo";
-    [create handleProcess:^int(CLCommand *command, CLProcess *process) {
-        // do something to list out local repo
-
-        return 0;
-    }];
-}
+// Will support in feature.
 ```
 
 ### Queries
@@ -139,28 +140,32 @@ It's meaning:
 you can execute the code before parse.
 
 ```objective-c
-CLCommand *codesign = [CLCommand main]; // get main command (without any command or subcommands)
-codesign.setQuery(@"entitlement")
-    .setAbbr('e')
-    .optional()
-    .setExplain("Entitlement.plist file path."); // define a optional query
-codesign.setQuery(@"cert")
-    .setAbbr('c')
-    .require()
-    .setExplain("Cert name"); // define a require query
-[codesign handleProcess:^CLResponse *(CLCommand *command, CLProcess *process) {
-    NSString *cert = process.queries[@"cert"]; // get value with key.
-    NSString *entitlement = process.queries[@"entitlement"]; // nonable
-    //    to code sign
 
-    return EXIT_SUCCESS;
-}];
+@interface MyCommand_Codesign : CLCommand @end
+@implementation MyCommand_Codesign
+
+command_option(CLString, entitlement, shortName='e', nullable, note=@"Entitlement.plist path")
+command_option(CLString, cert, shortName='c', nonnull, note=@"Cert name")
+  
+command_main() {
+  // You can use getter or static variable to get argument
+  NSString *_cert = [self cert]; // get value with getter.
+  NSString *_entitlement = entitlement; // get value with variable
+  // to code sign
+  return EXIT_SUCCESS;
+}
+
+@end
+
+int main(int argc, char **argv) {
+  return [MyCommand_Codesign main];
+}
 ```
 
 If you want to get a array value like:
 
 ```shell
-$ demo --input /path/to/input1 --input /path/to/input2
+$ demo /path/to/input1 /path/to/input2
 ```
 
 It's meaning:

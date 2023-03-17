@@ -104,7 +104,7 @@ static CLCommand *current = nil;
                     NSAssert(NO, @"The required argument (%@) in command (%@) must be defined before optional arguments", name, [self __name]);
                     exit(1);
                 }
-                arguments[name] = info;
+                arguments[info.name] = info;
                 properties[@(index).stringValue] = info;
             }
             else if ([_type isEqualToString:@"CLARY"]) {
@@ -112,14 +112,14 @@ static CLCommand *current = nil;
                 info.index = arguments.count;
                 info.isArray = YES;
                 [cls performSelector:selector withObject:info];
-                arguments[name] = info;
+                arguments[info.name] = info;
                 properties[@(index).stringValue] = info;
                 hasAddArrayArgument = YES;
             }
             else if ([_type isEqualToString:@"CLOPT"]) {
                 CLOptionInfo *info = [[CLOptionInfo alloc] initWithName:name];
                 [cls performSelector:selector withObject:info];
-                options[name] = info;
+                options[info.name] = info;
                 properties[@(index).stringValue] = info;
             }
             else {
@@ -202,7 +202,12 @@ static CLCommand *current = nil;
     }
     CLCommand *cmd = [[self alloc] initWithRunner:runner];
     current = cmd;
-    return [cmd main];
+    if ([cmd respondsToSelector:@selector(main)]) {
+        return [cmd main];
+    } else {
+        [CLHelpBanner printHelpBannerForPrecommands:precommand commandInfo:info error:runner.error];
+        return EXIT_SUCCESS;
+    }
 }
 
 - (instancetype)initWithRunner:(CLRunner *)runner {
@@ -238,7 +243,7 @@ static CLCommand *current = nil;
 + (NSString *)__name { return [self __configuration].name; }
 + (NSString *)__note { return [self __configuration].note; }
 
-+ (NSArray<Class> *)subcommands { return nil; }
++ (NSArray<Class> *)subcommands { return [self __configuration].subcommands; }
 
 + (BOOL)__validity {
     BOOL containsSubcmds = ([self subcommands].count > 0);
@@ -253,23 +258,23 @@ static CLCommand *current = nil;
 @implementation CLCommand (Predefine)
 
 - (BOOL)verbose {
-    CLBool _bool = self.runner.options[CLOptionInfo.verboseOption.name];
-    return _bool.isYES;
+    NSString *_bool = self.runner.options[CLOptionInfo.verboseOption.name];
+    return _bool ? YES : NO;
 }
 
 - (BOOL)help {
-    CLBool _bool = self.runner.options[CLOptionInfo.helpOption.name];
-    return _bool.isYES;
+    NSString *_bool = self.runner.options[CLOptionInfo.helpOption.name];
+    return _bool ? YES : NO;
 }
 
 - (BOOL)silent {
-    CLBool _bool = self.runner.options[CLOptionInfo.silentOption.name];
-    return _bool.isYES;
+    NSString *_bool = self.runner.options[CLOptionInfo.silentOption.name];
+    return _bool ? YES : NO;
 }
 
 - (BOOL)noANSI {
-    CLBool _bool = self.runner.options[CLOptionInfo.plainOption.name];
-    return _bool.isYES;
+    NSString *_bool = self.runner.options[CLOptionInfo.plainOption.name];
+    return _bool ? YES : NO;
 }
 
 @end

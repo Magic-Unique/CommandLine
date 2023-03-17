@@ -10,7 +10,8 @@
 
 @interface CLBaseInfo : NSObject
 
-@property (readonly) NSString *name;
+@property (readonly) NSString *key;
+@property NSString *name;
 
 @property NSString *type;
 

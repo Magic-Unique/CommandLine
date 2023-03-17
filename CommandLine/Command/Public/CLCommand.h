@@ -42,6 +42,8 @@ NS_INLINE NSArray *NSArrayWithMap(NSArray *array, id(^mapBlock)(id obj)) {
 
 @property (nonatomic, strong) NSString *version;
 
+@property (nonatomic, strong) NSArray *subcommands;
+
 @end
 
 
@@ -71,6 +73,14 @@ int main(int argc, const char * argv[]) { \
     int ret = 0; @autoreleasepool { ret = [cmd main]; } return ret; \
 }
 
+#define CLCommandEntry(command) \
+@interface Main : CLCommand @end \
+void CLCommandLineMakeMain(CLCommandConfiguration *command); \
+int main(int argc, const char * argv[]) { return [Main main]; } \
+@implementation Main \
+command_configuration(cmd) { CLCommandLineMakeMain(cmd); } \
+@end \
+void CLCommandLineMakeMain(CLCommandConfiguration *command) \
 
 
 #define _CL_CONCAT_4(sep, A, B, C, D)    A##sep##B##sep##C##sep##D
@@ -88,7 +98,7 @@ int main(int argc, const char * argv[]) { \
 - (type)name { return CLConvert_##type([self.runner __valueForTag:index]); } \
 - (void)_CL_CONCAT_3(_, __Init, index, name):(CLRunner *)runner { \
     name = CLConvert_##type([runner __valueForTag:index]); \
-} type name;
+} static type name;
 
 #define command_option(type, name, ...) _CL_OPTION(__COUNTER__, type, name, ##__VA_ARGS__)
 
@@ -102,7 +112,7 @@ int main(int argc, const char * argv[]) { \
 - (type)name { return CLConvert_##type([self.runner __valueForTag:index]); } \
 - (void)_CL_CONCAT_3(_, __Init, index, name):(CLRunner *)runner { \
     name = CLConvert_##type([runner __valueForTag:index]); \
-} type name;
+} static type name;
 
 #define command_argument(type, name, ...) _CL_ARGUMENT(__COUNTER__, type, name, ##__VA_ARGS__)
 
@@ -120,7 +130,7 @@ int main(int argc, const char * argv[]) { \
 } \
 - (void)_CL_CONCAT_3(_, __Init, index, name):(CLRunner *)runner { \
     name = _CL_ARRAY_MAP([runner __valueForTag:index], CLConvert_##type(obj)); \
-} NSArray<type> *name; + (void)_This_command_should_not_contains_two_array_input {};
+} static NSArray<type> *name; + (void)_This_command_should_not_contains_two_array_input {};
 
 #define command_arguments(type, name, ...) _CL_ARRAY(__COUNTER__, type, name, ##__VA_ARGS__)
 
@@ -137,5 +147,5 @@ int main(int argc, const char * argv[]) { \
 + (void)This_command_should_contain_one_of_subcmd_or_main_function {} \
 - (int)main
 
-#define command_configuration() \
-+ (void)__configuration:(CLCommandConfiguration *)configuration
+#define command_configuration(command) \
++ (void)__configuration:(CLCommandConfiguration *)command

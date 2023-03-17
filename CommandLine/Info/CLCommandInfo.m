@@ -13,6 +13,7 @@
 - (instancetype)initWithName:(NSString *)name {
     self = [super init];
     if (self) {
+        _key = name;
         _name = name;
         _isRequired = YES;
     }
@@ -25,14 +26,14 @@
 @end
 
 @implementation CLOptionInfo
-- (BOOL)isBOOL { return [self.type isEqualToString:@"CLBool"]; }
+- (BOOL)isBOOL { return [@[@"BOOL", @"_BOOL"] containsObject:self.type.uppercaseString]; }
 
 + (instancetype)verboseOption {
     static CLOptionInfo *option = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         option = [[CLOptionInfo alloc] initWithName:@"verbose"];
-        option.type = @"CLBool";
+        option.type = @"BOOL";
         option.note = @"Show more debugging information";
     });
     return option;
@@ -43,7 +44,7 @@
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         option = [[CLOptionInfo alloc] initWithName:@"help"];
-        option.type = @"CLBool";
+        option.type = @"BOOL";
         option.note = @"Show help banner of specified command";
     });
     return option;
@@ -54,7 +55,7 @@
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         option = [[CLOptionInfo alloc] initWithName:@"silent"];
-        option.type = @"CLBool";
+        option.type = @"BOOL";
         option.note = @"Show nothing";
     });
     return option;
@@ -65,7 +66,7 @@
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         option = [[CLOptionInfo alloc] initWithName:@"no-ansi"];
-        option.type = @"CLBool";
+        option.type = @"BOOL";
         option.note = @"Show output without ANSI codes";
     });
     return option;

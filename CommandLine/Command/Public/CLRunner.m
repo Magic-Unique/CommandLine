@@ -65,7 +65,9 @@
             if (info.isArray) {
                 continue;
             }
-            valueRequireCount++;
+            if (info.isRequired) {
+                valueRequireCount++;
+            }
         }
         if (values.count < valueRequireCount) {
             error = [NSError errorWithDomain:@"" code:3 userInfo:@{NSLocalizedDescriptionKey: @"缺失参数"}];
@@ -77,7 +79,8 @@
         if (!option.isBOOL && option.isRequired) {
             NSString *name = option.name;
             if (options[name] == nil) {
-                error = [NSError errorWithDomain:@"" code:4 userInfo:@{NSLocalizedDescriptionKey: @"缺失必要参数"}];
+                NSString *msg = [NSString stringWithFormat:@"Lost required option: %@", name];
+                error = [NSError errorWithDomain:@"" code:4 userInfo:@{NSLocalizedDescriptionKey: msg}];
                 break;
             }
         }
@@ -105,10 +108,13 @@
         return self.options[option.name];
     }
     else if ([info isKindOfClass:[CLArgumentInfo class]]) {
-        // TODO: Array
         CLArgumentInfo *argument = (CLArgumentInfo *)info;
         if (argument.index < self.arguments.count) {
-            return self.arguments[argument.index];
+            if (argument.isArray) {
+                return [self.arguments subarrayWithRange:NSMakeRange(argument.index, self.arguments.count - argument.index)];
+            } else {
+                return self.arguments[argument.index];
+            }
         } else {
             return nil;
         }
