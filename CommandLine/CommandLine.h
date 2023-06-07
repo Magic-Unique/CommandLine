@@ -17,6 +17,16 @@
 #import "CLCommand.h"
 #endif
 
+#if __has_include(<CommandLine/CLHelpBanner.h>)
+#import <CommandLine/CLHelpBannerProvider.h>
+#import <CommandLine/CLHelpBanner.h>
+#import <CommandLine/CLDefaultHelpBannerProvider.h>
+#elif __has_include("CLHelpBanner.h")
+#import "CLHelpBannerProvider.h"
+#import "CLHelpBanner.h"
+#import "CLDefaultHelpBannerProvider.h"
+#endif
+
 #if __has_include(<CommandLine/Tools.h>)
 #import <CommandLine/Tools.h>
 #elif __has_include("Tools.h")

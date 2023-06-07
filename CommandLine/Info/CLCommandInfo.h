@@ -21,7 +21,9 @@
 @property (readonly) BOOL nullable;
 @property (readonly) BOOL nonnull;
 
-- (instancetype)initWithName:(NSString *)name;
+@property (nonatomic, assign, readonly) NSInteger defineIndex;
+
+- (instancetype)initWithName:(NSString *)name defineIndex:(NSInteger)defineIndex;
 
 @end
 

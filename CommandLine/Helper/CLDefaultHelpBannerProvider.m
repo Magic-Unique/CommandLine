@@ -114,16 +114,13 @@
 
 @implementation CLDefaultHelpBannerProvider
 
-- (NSArray<CLArgumentInfo *> *)sortedArguments:(NSMutableDictionary<NSString *, CLArgumentInfo *> *)map {
-    return [map.allValues
-            sortedArrayUsingComparator:^NSComparisonResult(CLArgumentInfo *obj1, CLArgumentInfo *obj2) {
-        if (obj1.isArray) {
-            return NSOrderedDescending;
-        } else if (obj2.isArray) {
-            return NSOrderedAscending;
-        }
-        return obj1.index > obj2.index;
-    }];
++ (instancetype)sharedProvider {
+    static CLDefaultHelpBannerProvider *provider = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        provider = [[self alloc] init];
+    });
+    return provider;
 }
 
 - (NSString *)helpBannerForPrecommands:(NSArray *)precommands commandInfo:(CLCommandInfo *)commandInfo error:(NSError *)error {
@@ -195,7 +192,15 @@
     CLDefaultHelpSection *section = [[CLDefaultHelpSection alloc] init];
     section.kind = @"Commands";
     NSMutableArray *rows = [NSMutableArray arrayWithCapacity:commandInfo.subcommands.count];
-    for (CLCommandInfo *item in commandInfo.subcommands.allValues) {
+    NSArray<CLCommandInfo *> *infos =
+    [commandInfo.subcommands.allValues sortedArrayUsingComparator:^NSComparisonResult(CLCommandInfo *obj1, CLCommandInfo *obj2) {
+        if (self.sortMethod == CLDefaultHelpBannerSortMethodIndex) {
+            return obj1.defineIndex > obj2.defineIndex;
+        } else {
+            return [obj1.name compare:obj2.name];
+        }
+    }];
+    for (CLCommandInfo *item in infos) {
         CLDefaultHelpRow *row = [[CLDefaultHelpRow alloc] init];
         row.title = [NSString stringWithFormat:@"+ %@", item.name];
         row.note = item.note;
@@ -262,7 +267,11 @@
     
     __auto_type SortArray = ^(NSMutableArray<CLOptionInfo *> *options) {
         [options sortUsingComparator:^NSComparisonResult(CLOptionInfo * obj1, CLOptionInfo *obj2) {
-            return [obj1.name compare:obj2.name];
+            if (self.sortMethod == CLDefaultHelpBannerSortMethodIndex) {
+                return obj1.defineIndex > obj2.defineIndex;
+            } else {
+                return [obj1.name compare:obj2.name];
+            }
         }];
     };
     SortArray(required);
@@ -326,6 +335,18 @@
     }];
     section.tableRows = rows;
     [sections addObject:section];
+}
+
+- (NSArray<CLArgumentInfo *> *)sortedArguments:(NSMutableDictionary<NSString *, CLArgumentInfo *> *)map {
+    return [map.allValues
+            sortedArrayUsingComparator:^NSComparisonResult(CLArgumentInfo *obj1, CLArgumentInfo *obj2) {
+        if (obj1.isArray) {
+            return NSOrderedDescending;
+        } else if (obj2.isArray) {
+            return NSOrderedAscending;
+        }
+        return obj1.index > obj2.index;
+    }];
 }
 
 @end

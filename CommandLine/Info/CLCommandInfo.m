@@ -10,12 +10,13 @@
 
 @implementation CLBaseInfo
 
-- (instancetype)initWithName:(NSString *)name {
+- (instancetype)initWithName:(NSString *)name defineIndex:(NSInteger)defineIndex {
     self = [super init];
     if (self) {
         _key = name;
         _name = name;
         _isRequired = YES;
+        _defineIndex = defineIndex;
     }
     return self;
 }
@@ -32,7 +33,7 @@
     static CLOptionInfo *option = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        option = [[CLOptionInfo alloc] initWithName:@"verbose"];
+        option = [[CLOptionInfo alloc] initWithName:@"verbose" defineIndex:1000];
         option.type = @"BOOL";
         option.note = @"Show more debugging information";
     });
@@ -43,7 +44,7 @@
     static CLOptionInfo *option = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        option = [[CLOptionInfo alloc] initWithName:@"help"];
+        option = [[CLOptionInfo alloc] initWithName:@"help" defineIndex:1001];
         option.type = @"BOOL";
         option.note = @"Show help banner of specified command";
     });
@@ -54,7 +55,7 @@
     static CLOptionInfo *option = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        option = [[CLOptionInfo alloc] initWithName:@"silent"];
+        option = [[CLOptionInfo alloc] initWithName:@"silent" defineIndex:1002];
         option.type = @"BOOL";
         option.note = @"Show nothing";
     });
@@ -65,7 +66,7 @@
     static CLOptionInfo *option = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        option = [[CLOptionInfo alloc] initWithName:@"no-ansi"];
+        option = [[CLOptionInfo alloc] initWithName:@"no-ansi" defineIndex:1003];
         option.type = @"BOOL";
         option.note = @"Show output without ANSI codes";
     });

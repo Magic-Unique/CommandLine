@@ -18,7 +18,7 @@ static id<CLHelpBannerProvider> provider = nil;
 
 + (id<CLHelpBannerProvider>)helpBannerProvider {
     if (!provider) {
-        provider = [[CLDefaultHelpBannerProvider alloc] init];
+        provider = [CLDefaultHelpBannerProvider sharedProvider];
     }
     return provider;
 }

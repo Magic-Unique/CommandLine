@@ -97,7 +97,7 @@ static CLCommand *current = nil;
                     NSAssert(NO, @"The argument (%@) in command (%@) must be defined before `command_arguments`", name, [self __name]);
                     exit(1);
                 }
-                CLArgumentInfo *info = [[CLArgumentInfo alloc] initWithName:name];
+                CLArgumentInfo *info = [[CLArgumentInfo alloc] initWithName:name defineIndex:index];
                 info.index = arguments.count;
                 [cls performSelector:selector withObject:info];
                 if (info.isRequired && hasAddOptionalOption) {
@@ -108,7 +108,7 @@ static CLCommand *current = nil;
                 properties[@(index).stringValue] = info;
             }
             else if ([_type isEqualToString:@"CLARY"]) {
-                CLArgumentInfo *info = [[CLArgumentInfo alloc] initWithName:name];
+                CLArgumentInfo *info = [[CLArgumentInfo alloc] initWithName:name defineIndex:index];
                 info.index = arguments.count;
                 info.isArray = YES;
                 [cls performSelector:selector withObject:info];
@@ -117,7 +117,7 @@ static CLCommand *current = nil;
                 hasAddArrayArgument = YES;
             }
             else if ([_type isEqualToString:@"CLOPT"]) {
-                CLOptionInfo *info = [[CLOptionInfo alloc] initWithName:name];
+                CLOptionInfo *info = [[CLOptionInfo alloc] initWithName:name defineIndex:index];
                 [cls performSelector:selector withObject:info];
                 options[info.name] = info;
                 properties[@(index).stringValue] = info;
@@ -128,15 +128,16 @@ static CLCommand *current = nil;
 #pragma clang diagnostic pop
         }
     }];
-    CLCommandInfo *command = [[CLCommandInfo alloc] initWithName:[self __name]];
+    CLCommandInfo *command = [[CLCommandInfo alloc] initWithName:[self __name] defineIndex:0];
     command.note = [self __note];
     command.properties = properties;
     command.options = options;
     command.arguments = arguments;
     command.subcommands = ({
         NSMutableDictionary *subcommands = [NSMutableDictionary dictionary];
+        NSInteger defineIndex = 0;
         for (Class subclass in [self subcommands]) {
-            CLCommandInfo *commandInfo = [[CLCommandInfo alloc] initWithName:[subclass __name]];
+            CLCommandInfo *commandInfo = [[CLCommandInfo alloc] initWithName:[subclass __name] defineIndex:defineIndex++];
             commandInfo.note = [subclass __note];
             subcommands[commandInfo.name] = commandInfo;
         }
@@ -202,6 +203,10 @@ static CLCommand *current = nil;
     }
     CLCommand *cmd = [[self alloc] initWithRunner:runner];
     current = cmd;
+    if (cmd.help) {
+        [CLHelpBanner printHelpBannerForPrecommands:precommand commandInfo:info error:runner.error];
+        return EXIT_SUCCESS;
+    }
     if ([cmd respondsToSelector:@selector(main)]) {
         return [cmd main];
     } else {

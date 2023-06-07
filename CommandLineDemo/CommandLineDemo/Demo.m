@@ -11,7 +11,7 @@
 
 @implementation Demo
 
-command_configuration() {
+command_configuration(configuration) {
     configuration.name = @"aaa";
     configuration.note = @"This is a demo command";
 }
@@ -20,7 +20,7 @@ command_configuration() {
 
 command_option(CLPath, input, shortName='i', nonnull, note=@"Input path.")
 command_option(CLString, output, shortName='o', nullable, note=@"Output path.")
-command_option(CLBool, replace, shortName='R', note=@"Replace current file.")
+command_option(BOOL, replace, shortName='R', note=@"Replace current file.")
 command_option(int, zipLevel, shortName='z', nonnull, note=@"0-9 level for zip.")
 command_option(NSUInteger, deep, nonnull, placeholder=@"THE_DEEP", note=@"0-9 level for zip.")
 
@@ -34,8 +34,8 @@ command_main() {
     NSLog(@"self.input = %@", self.input);
     NSLog(@"_output = %@", output);
     NSLog(@"self.output = %@", self.output);
-    NSLog(@"_replace = %d", replace.isTrue);
-    NSLog(@"self.replace = %d", self.replace.isTrue);
+    NSLog(@"_replace = %d", replace);
+    NSLog(@"self.replace = %d", self.replace);
     return 0;
 }
 

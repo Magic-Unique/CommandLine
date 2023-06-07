@@ -8,6 +8,15 @@
 #import <Foundation/Foundation.h>
 #import "CLHelpBannerProvider.h"
 
+typedef NS_ENUM(NSUInteger, CLDefaultHelpBannerSortMethod) {
+    CLDefaultHelpBannerSortMethodIndex,
+    CLDefaultHelpBannerSortMethodName,
+};
+
 @interface CLDefaultHelpBannerProvider : NSObject <CLHelpBannerProvider>
+
+@property (nonatomic, assign) CLDefaultHelpBannerSortMethod sortMethod;
+
++ (instancetype)sharedProvider;
 
 @end
