@@ -95,9 +95,11 @@ void CLCommandLineMakeMain(CLCommandConfiguration *command) \
     [name setType:@#type]; \
     metamacro_foreach_cxt(_CL_ATTRS,,name,nonnull,##__VA_ARGS__) \
 } \
-- (type)name { return CLConvert_##type([self.runner __valueForTag:index]); } \
+- (type)name { return name; } \
 - (void)_CL_CONCAT_3(_, __Init, index, name):(CLRunner *)runner { \
-    name = CLConvert_##type([runner __valueForTag:index]); \
+    id value = [runner __valueForTag:index]; \
+    if (!value) return; \
+    name = CLConvert_##type(value); \
 } static type name;
 
 #define command_option(type, name, ...) _CL_OPTION(__COUNTER__, type, name, ##__VA_ARGS__)
@@ -109,9 +111,11 @@ void CLCommandLineMakeMain(CLCommandConfiguration *command) \
     [name setType:@#type]; \
     metamacro_foreach_cxt(_CL_ATTRS,,name,self,##__VA_ARGS__) \
 } \
-- (type)name { return CLConvert_##type([self.runner __valueForTag:index]); } \
+- (type)name { return name; } \
 - (void)_CL_CONCAT_3(_, __Init, index, name):(CLRunner *)runner { \
-    name = CLConvert_##type([runner __valueForTag:index]); \
+    id value = [runner __valueForTag:index]; \
+    if (!value) return; \
+    name = CLConvert_##type(value); \
 } static type name;
 
 #define command_argument(type, name, ...) _CL_ARGUMENT(__COUNTER__, type, name, ##__VA_ARGS__)
@@ -125,11 +129,11 @@ void CLCommandLineMakeMain(CLCommandConfiguration *command) \
     [name setType:@#type]; \
     metamacro_foreach_cxt(_CL_ATTRS,,name,self,##__VA_ARGS__) \
 } \
-- (NSArray<type> *)name { \
-    return _CL_ARRAY_MAP([self.runner __valueForTag:index], CLConvert_##type(obj)); \
-} \
+- (NSArray<type> *)name { return name; } \
 - (void)_CL_CONCAT_3(_, __Init, index, name):(CLRunner *)runner { \
-    name = _CL_ARRAY_MAP([runner __valueForTag:index], CLConvert_##type(obj)); \
+    NSArray *array = [runner __valueForTag:index]; \
+    if (!array) return; \
+    name = _CL_ARRAY_MAP(array, CLConvert_##type(obj)); \
 } static NSArray<type> *name; + (void)_This_command_should_not_contains_two_array_input {};
 
 #define command_arguments(type, name, ...) _CL_ARRAY(__COUNTER__, type, name, ##__VA_ARGS__)
