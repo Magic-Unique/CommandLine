@@ -99,7 +99,9 @@ void CLCommandLineMakeMain(CLCommandConfiguration *command) \
 - (void)_CL_CONCAT_3(_, __Init, index, name):(CLRunner *)runner { \
     id value = [runner __valueForTag:index]; \
     if (!value) return; \
-    name = CLConvert_##type(value); \
+    NSError *error = nil; \
+    name = CLConvert_##type(value, &error); \
+    if (error) [runner __failure:error]; \
 } static type name;
 
 #define command_option(type, name, ...) _CL_OPTION(__COUNTER__, type, name, ##__VA_ARGS__)
@@ -115,14 +117,21 @@ void CLCommandLineMakeMain(CLCommandConfiguration *command) \
 - (void)_CL_CONCAT_3(_, __Init, index, name):(CLRunner *)runner { \
     id value = [runner __valueForTag:index]; \
     if (!value) return; \
-    name = CLConvert_##type(value); \
+    NSError *error = nil; \
+    name = CLConvert_##type(value, &error); \
+    if (error) [runner __failure:error]; \
 } static type name;
 
 #define command_argument(type, name, ...) _CL_ARGUMENT(__COUNTER__, type, name, ##__VA_ARGS__)
 
 #pragma mark - Array
 
-#define _CL_ARRAY_MAP(array, statement) NSArrayWithMap((array), ^id(id obj) { return (statement); })
+#define _CL_ARRAY_MAP(array, statement) NSArrayWithMap((array), ^id(id obj) { \
+    NSError *error = nil; \
+    id result = (statement); \
+    if (error) [runner __failure:error]; \
+    return result; \
+})
 
 #define _CL_ARRAY(index, type, name, ...) \
 + (void)_CL_CONCAT_3(_, __CLARY, index, name):(CLArgumentInfo *)name { \
@@ -133,7 +142,7 @@ void CLCommandLineMakeMain(CLCommandConfiguration *command) \
 - (void)_CL_CONCAT_3(_, __Init, index, name):(CLRunner *)runner { \
     NSArray *array = [runner __valueForTag:index]; \
     if (!array) return; \
-    name = _CL_ARRAY_MAP(array, CLConvert_##type(obj)); \
+    name = _CL_ARRAY_MAP(array, CLConvert_##type(obj, &error)); \
 } static NSArray<type> *name; + (void)_This_command_should_not_contains_two_array_input {};
 
 #define command_arguments(type, name, ...) _CL_ARRAY(__COUNTER__, type, name, ##__VA_ARGS__)

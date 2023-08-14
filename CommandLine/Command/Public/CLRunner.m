@@ -125,4 +125,8 @@
     return nil;
 }
 
+- (void)__failure:(NSError *)error {
+    _error = error;
+}
+
 @end

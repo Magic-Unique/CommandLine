@@ -24,5 +24,7 @@
 
 + (instancetype)runnerWithCommandInfo:(CLCommandInfo *)commandInfo arguments:(NSMutableArray<NSString *> *)arguments;
 
+- (void)__failure:(NSError *)error;
+
 @end
 

@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-#define CLConvertType(type) NS_INLINE type CLConvert_##type(NSString *string)
+#define CLConvertType(type) NS_INLINE type CLConvert_##type(NSString *string, NSError **error)
 #define CLConvertClass(class, type) typedef class *type; CLConvertType(type)
 
 CLConvertClass(NSString, CLString) { return string; }

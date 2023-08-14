@@ -10,6 +10,7 @@
 #import <objc/runtime.h>
 #import <CommandLine/CLHelpBanner.h>
 #import "CLCommand+Private.h"
+#import "CLIO.h"
 
 static NSString *GenName(NSString *nsClassName) {
     int lastIndex = -1;
@@ -43,16 +44,20 @@ static NSString *GenName(NSString *nsClassName) {
 
 static CLCommand *current = nil;
 
-- (void)enumerateInstanceMethodUsingBlock:(void (^)(CLCommand *self, SEL selector, NSString *name))block {
+- (void)enumerateInstanceMethodUsingBlock:(void (^)(CLCommand *self, SEL selector, NSString *name, BOOL *stop))block {
     Class cls = [self class];
     if (cls) {
         unsigned count = 0;
         Method *methodList = class_copyMethodList(cls, &count);
+        BOOL stop = NO;
         for (unsigned i = 0; i < count; i++) {
             Method method = methodList[i];
             SEL sel = method_getName(method);
             NSString *name = NSStringFromSelector(sel);
-            block(self, sel, name);
+            block(self, sel, name, &stop);
+            if (stop) {
+                break;
+            }
         }
     }
 }
@@ -202,6 +207,10 @@ static CLCommand *current = nil;
         return (int)runner.error.code;
     }
     CLCommand *cmd = [[self alloc] initWithRunner:runner];
+    if (runner.error) {
+        CLError(runner.error.localizedDescription);
+        return (int)runner.error.code;
+    }
     current = cmd;
     if (cmd.help) {
         [CLHelpBanner printHelpBannerForPrecommands:precommand commandInfo:info error:runner.error];
@@ -219,12 +228,15 @@ static CLCommand *current = nil;
     self = [super init];
     if (self) {
         _runner = runner;
-        [self enumerateInstanceMethodUsingBlock:^(CLCommand *self, SEL selector, NSString *name) {
+        [self enumerateInstanceMethodUsingBlock:^(CLCommand *self, SEL selector, NSString *name, BOOL *stop) {
             if ([name hasPrefix:@"__Init"]) {
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
                 [self performSelector:selector withObject:runner];
 #pragma clang diagnostic pop
+                if (runner.error) {
+                    *stop = YES;
+                }
             }
         }];
     }
