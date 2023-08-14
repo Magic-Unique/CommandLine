@@ -94,6 +94,7 @@ static CLCommand *current = nil;
             NSString *_type = list[0];
             int index = [list[1] intValue];
             NSString *name = list[2];
+            NSString *displayName = GenName(name);
             
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
@@ -102,7 +103,7 @@ static CLCommand *current = nil;
                     NSAssert(NO, @"The argument (%@) in command (%@) must be defined before `command_arguments`", name, [self __name]);
                     exit(1);
                 }
-                CLArgumentInfo *info = [[CLArgumentInfo alloc] initWithName:name defineIndex:index];
+                CLArgumentInfo *info = [[CLArgumentInfo alloc] initWithName:displayName defineIndex:index];
                 info.index = arguments.count;
                 [cls performSelector:selector withObject:info];
                 if (info.isRequired && hasAddOptionalOption) {
@@ -113,7 +114,7 @@ static CLCommand *current = nil;
                 properties[@(index).stringValue] = info;
             }
             else if ([_type isEqualToString:@"CLARY"]) {
-                CLArgumentInfo *info = [[CLArgumentInfo alloc] initWithName:name defineIndex:index];
+                CLArgumentInfo *info = [[CLArgumentInfo alloc] initWithName:displayName defineIndex:index];
                 info.index = arguments.count;
                 info.isArray = YES;
                 [cls performSelector:selector withObject:info];
@@ -122,7 +123,7 @@ static CLCommand *current = nil;
                 hasAddArrayArgument = YES;
             }
             else if ([_type isEqualToString:@"CLOPT"]) {
-                CLOptionInfo *info = [[CLOptionInfo alloc] initWithName:name defineIndex:index];
+                CLOptionInfo *info = [[CLOptionInfo alloc] initWithName:displayName defineIndex:index];
                 [cls performSelector:selector withObject:info];
                 options[info.name] = info;
                 properties[@(index).stringValue] = info;
