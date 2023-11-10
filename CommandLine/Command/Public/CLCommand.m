@@ -209,7 +209,7 @@ static CLCommand *current = nil;
     }
     CLCommand *cmd = [[self alloc] initWithRunner:runner];
     if (runner.error) {
-        CLError(runner.error.localizedDescription);
+        CLError(@"%@", runner.error.localizedDescription);
         return (int)runner.error.code;
     }
     current = cmd;

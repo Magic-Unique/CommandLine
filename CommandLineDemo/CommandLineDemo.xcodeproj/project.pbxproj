@@ -327,6 +327,7 @@
 			baseConfigurationReference = B6C4FEEA3E340995EBC27F4B /* Pods-CommandLineDemo.debug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -336,6 +337,7 @@
 			baseConfigurationReference = 96C5FE76C915CD83CCFC3DF3 /* Pods-CommandLineDemo.release.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;

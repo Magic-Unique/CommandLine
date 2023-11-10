@@ -7,6 +7,16 @@
 
 #import <Foundation/Foundation.h>
 #import "ANSI.h"
+#import "CLDebugger.h"
+#import <os/log.h>
+
+#define _CL_LOG_LEVEL(os_level, cl_func, ...) \
+if (CLProcessInXcodeSupportOSLog()) { \
+    NSString *content = [NSString stringWithFormat:__VA_ARGS__]; \
+    os_log_with_type(OS_LOG_DEFAULT, os_level, "%{public}@", content); \
+} else {\
+    cl_func(__VA_ARGS__); \
+}
 
 /**
  Print text without any style
@@ -50,7 +60,9 @@ FOUNDATION_EXTERN void CLVerbose(NSString * _Nonnull format, ...);
  @param format NSString
  @param ... Args
  */
-FOUNDATION_EXTERN void CLInfo(NSString * _Nonnull format, ...);
+FOUNDATION_EXTERN void _CLInfo(NSString * _Nonnull format, ...);
+
+#define CLInfo(...) _CL_LOG_LEVEL(OS_LOG_TYPE_INFO, _CLInfo, __VA_ARGS__)
 
 /**
  Print green text
@@ -58,7 +70,9 @@ FOUNDATION_EXTERN void CLInfo(NSString * _Nonnull format, ...);
  @param format NSString
  @param ... Args
  */
-FOUNDATION_EXTERN void CLSuccess(NSString * _Nonnull format, ...);
+FOUNDATION_EXTERN void _CLSuccess(NSString * _Nonnull format, ...);
+
+#define CLSuccess(...) _CL_LOG_LEVEL(OS_LOG_TYPE_DEFAULT, _CLSuccess, __VA_ARGS__)
 
 /**
  Print yellow text
@@ -66,7 +80,9 @@ FOUNDATION_EXTERN void CLSuccess(NSString * _Nonnull format, ...);
  @param format NSString
  @param ... Args
  */
-FOUNDATION_EXTERN void CLWarning(NSString * _Nonnull format, ...);
+FOUNDATION_EXTERN void _CLWarning(NSString * _Nonnull format, ...);
+
+#define CLWarning(...) _CL_LOG_LEVEL(OS_LOG_TYPE_ERROR, _CLWarning, __VA_ARGS__)
 
 /**
  Print red text
@@ -74,7 +90,9 @@ FOUNDATION_EXTERN void CLWarning(NSString * _Nonnull format, ...);
  @param format NSString
  @param ... Args
  */
-FOUNDATION_EXTERN void CLError(NSString * _Nonnull format, ...);
+FOUNDATION_EXTERN void _CLError(NSString * _Nonnull format, ...);
+
+#define CLError(...) _CL_LOG_LEVEL(OS_LOG_TYPE_FAULT, _CLError, __VA_ARGS__)
 
 /**
  Print in DEBUG mode
@@ -82,7 +100,9 @@ FOUNDATION_EXTERN void CLError(NSString * _Nonnull format, ...);
  @param format NSString
  @param ... Args
  */
-FOUNDATION_EXTERN void CLLog(NSString * _Nonnull format, ...);
+FOUNDATION_EXTERN void _CLLog(NSString * _Nonnull format, ...);
+
+#define CLLog(...) _CL_LOG_LEVEL(OS_LOG_TYPE_DEBUG, _CLLog, __VA_ARGS__)
 
 #ifdef DEBUG
 /**

@@ -32,6 +32,34 @@ BOOL CLProcessInXcodeConsole(void) {
     return NO;
 }
 
+BOOL CLProcessInXcodeSupportOSLog(void) {
+    static BOOL support = NO;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        if (!CLProcessInXcodeConsole()) {
+            return;
+        }
+        NSString *PATH = CLEnvironment[@"PATH"];
+        NSArray *PATHs = [PATH componentsSeparatedByString:@":"];
+        NSString *XcodePath = nil;
+        for (NSString *path in PATHs) {
+            if ([path hasSuffix:@".app/Contents/Developer/usr/bin"]) {
+                NSRange range;
+                range.location = 0;
+                range.length = path.length - @"/Contents/Developer/usr/bin".length;
+                XcodePath = [path substringWithRange:range];
+                break;
+            }
+        }
+        XcodePath = [XcodePath stringByAppendingPathComponent:@"Contents/Info.plist"];
+        NSDictionary *InfoPlist = [NSDictionary dictionaryWithContentsOfFile:XcodePath];
+        NSString *CFBundleShortVersionString = InfoPlist[@"CFBundleShortVersionString"];
+        NSArray<NSString *> *versions = [CFBundleShortVersionString componentsSeparatedByString:@"."];
+        support = versions.firstObject.integerValue >= 15;
+    });
+    return support;
+}
+
 @implementation _CLEnvironment
 
 + (instancetype _Nonnull)environment {

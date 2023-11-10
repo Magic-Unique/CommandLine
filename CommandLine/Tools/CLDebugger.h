@@ -18,6 +18,9 @@ FOUNDATION_EXTERN BOOL CLProcessIsAttached(void);
 /// 判断当前进程是否在 Xcode 控制台
 FOUNDATION_EXTERN BOOL CLProcessInXcodeConsole(void);
 
+/// 判断当前进程是否在支持 OSLog 的 Xcode 控制台
+FOUNDATION_EXTERN BOOL CLProcessInXcodeSupportOSLog(void);
+
 
 /**
  Use CLEnvironment to change CLLaunch environment.

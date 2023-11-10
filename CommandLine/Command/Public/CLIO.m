@@ -80,7 +80,7 @@ void CLVerbose(NSString * _Nonnull format, ...) {
     }
 }
 
-void CLInfo(NSString * _Nonnull format, ...) {
+void _CLInfo(NSString * _Nonnull format, ...) {
     if (CLProcessFlag(silent)) {
         return;
     }
@@ -95,7 +95,7 @@ void CLInfo(NSString * _Nonnull format, ...) {
     CCPrintf(style, @"%@%@\n", _CLGetCurrentIndent(), str);
 }
 
-void CLSuccess(NSString * _Nonnull format, ...) {
+void _CLSuccess(NSString * _Nonnull format, ...) {
     if (CLProcessFlag(silent)) {
         return;
     }
@@ -110,7 +110,7 @@ void CLSuccess(NSString * _Nonnull format, ...) {
     CCPrintf(style, @"%@%@\n", _CLGetCurrentIndent(), str);
 }
 
-void CLWarning(NSString * _Nonnull format, ...) {
+void _CLWarning(NSString * _Nonnull format, ...) {
     if (CLProcessFlag(silent)) {
         return;
     }
@@ -125,7 +125,7 @@ void CLWarning(NSString * _Nonnull format, ...) {
     CCPrintf(style, @"%@%@\n", _CLGetCurrentIndent(), str);
 }
 
-void CLError(NSString * _Nonnull format, ...) {
+void _CLError(NSString * _Nonnull format, ...) {
     if (CLProcessFlag(silent)) {
         return;
     }
@@ -140,7 +140,7 @@ void CLError(NSString * _Nonnull format, ...) {
     CCPrintf(style, @"%@%@\n", _CLGetCurrentIndent(), str);
 }
 
-void CLLog(NSString * _Nonnull format, ...) {
+void _CLLog(NSString * _Nonnull format, ...) {
 #if DEBUG == 1
     va_list args;
     va_start(args, format);
@@ -156,10 +156,13 @@ void _CL_DEBUG(NSArray * _Nonnull objects) {
     if (objects.count == 0) {
         return;
     }
-    CCPrintf(CCStyleNone, @"%@", _CLGetCurrentIndent());
+    NSMutableString *output = [NSMutableString string];
+//    CCPrintf(CCStyleNone, @"%@", _CLGetCurrentIndent());
     [objects enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        CCPrintf(CCStyleNone, @"%@%@", idx?@", ":@"", obj);
+//        CCPrintf(CCStyleNone, @"%@%@", idx?@", ":@"", obj);
+        [output appendFormat:@"%@%@", idx?@", ":@"", obj];
     }];
-    CCPrintf(CCStyleNone, @"\n");
+//    CCPrintf(CCStyleNone, @"\n");
+    CLLog(@"%@", output);
 }
 #endif
