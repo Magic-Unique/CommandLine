@@ -23,6 +23,8 @@
 
 - (BOOL)nonnull { _isRequired = YES; return _isRequired; }
 - (BOOL)nullable { _isRequired = NO; return _isRequired; }
+- (BOOL)require { _isRequired = YES; return _isRequired; }
+- (BOOL)optional { _isRequired = NO; return _isRequired; }
 
 @end
 

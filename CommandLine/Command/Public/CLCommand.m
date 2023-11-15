@@ -128,6 +128,13 @@ static CLCommand *current = nil;
                 options[info.name] = info;
                 properties[@(index).stringValue] = info;
             }
+            else if ([_type isEqualToString:@"CLOPTS"]) {
+                CLOptionInfo *info = [[CLOptionInfo alloc] initWithName:displayName defineIndex:index];
+                info.isArray = YES;
+                [cls performSelector:selector withObject:info];
+                options[info.name] = info;
+                properties[@(index).stringValue] = info;
+            }
             else {
                 NSAssert(NO, @"The method is invalide.");
             }

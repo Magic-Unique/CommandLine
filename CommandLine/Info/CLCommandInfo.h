@@ -19,7 +19,9 @@
 
 @property (readonly) BOOL isRequired; // private
 @property (readonly) BOOL nullable;
-@property (readonly) BOOL nonnull;
+@property (readonly) BOOL nonnull;  // Default
+@property (readonly) BOOL optional; // Same to nullable
+@property (readonly) BOOL require;  // Same to nonnull
 
 @property (nonatomic, assign, readonly) NSInteger defineIndex;
 
@@ -35,6 +37,7 @@
 
 @property NSString *placeholder;
 
+@property BOOL isArray; // private
 @property (readonly) BOOL isBOOL; // private
 
 + (instancetype)verboseOption;

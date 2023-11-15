@@ -21,8 +21,14 @@
             if (option.isBOOL) {
                 options[option.name] = @"true";
             } else if (arguments.count) {
-                options[option.name] = arguments.firstObject;
-                [arguments removeObjectAtIndex:0];
+                NSString *firstArg = arguments.firstObject; [arguments removeObjectAtIndex:0];
+                if (option.isArray) {
+                    NSMutableArray *list = options[option.name];
+                    if (!list) { list = [NSMutableArray array]; options[option.name] = list; }
+                    [list addObject:firstArg];
+                } else {
+                    options[option.name] = firstArg;
+                }
             } else {
                 return [NSError errorWithDomain:@"" code:1 userInfo:@{NSLocalizedDescriptionKey: @"缺失参数"}];
             }

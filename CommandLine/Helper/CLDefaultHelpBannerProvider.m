@@ -293,6 +293,9 @@
                 [title appendFormat:@"--%@", item.name];
                 if (!item.isBOOL) {
                     [title appendFormat:@" <%@>", item.placeholder ?: item.name];
+                    if (item.isArray) {
+                        [title appendString:@", ..."];
+                    }
                 }
                 title;
             });

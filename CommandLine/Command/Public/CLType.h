@@ -20,3 +20,4 @@ CLConvertType(float) { return string.floatValue; }
 CLConvertType(char) { return string.length ? 0 : string.UTF8String[0]; }
 CLConvertType(BOOL) { return string ? YES : NO; }
 CLConvertType(_Bool) { return string ? YES : NO; }
+CLConvertType(bool) { return string ? true : false; }

@@ -133,6 +133,20 @@ void CLCommandLineMakeMain(CLCommandConfiguration *command) \
     return result; \
 })
 
+#define _CL_OPTIONS(index, type, name, ...) \
++ (void)_CL_CONCAT_3(_, __CLOPTS, index, name):(CLOptionInfo *)name {\
+    [name setType:@#type]; \
+    metamacro_foreach_cxt(_CL_ATTRS,,name,nonnull,##__VA_ARGS__) \
+} \
+- (NSArray<type> *)name { return name; } \
+- (void)_CL_CONCAT_3(_, __Init, index, name):(CLRunner *)runner { \
+    NSArray *array = [runner __valueForTag:index]; \
+    if (!array) return; \
+    name = _CL_ARRAY_MAP(array, CLConvert_##type(obj, &error)); \
+} static NSArray<type> *name;
+
+#define command_options(type, name, ...) _CL_OPTIONS(__COUNTER__, type, name, ##__VA_ARGS__)
+
 #define _CL_ARRAY(index, type, name, ...) \
 + (void)_CL_CONCAT_3(_, __CLARY, index, name):(CLArgumentInfo *)name { \
     [name setType:@#type]; \
