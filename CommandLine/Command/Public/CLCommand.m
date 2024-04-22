@@ -37,6 +37,11 @@ static NSString *GenName(NSString *nsClassName) {
     if ([name hasPrefix:@"-"]) {
         [name deleteCharactersInRange:NSMakeRange(0, 1)];
     }
+    if ([name hasSuffix:@"-command"] || [name hasSuffix:@"-cmd"]) {
+        NSRange range = [name rangeOfString:@"-" options:NSBackwardsSearch];
+        range.length = name.length - range.location;
+        [name deleteCharactersInRange:range];
+    }
     return name;
 }
 
