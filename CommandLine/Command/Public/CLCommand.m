@@ -87,6 +87,7 @@ static CLCommand *current = nil;
     NSMutableDictionary *properties = [NSMutableDictionary dictionary];
     NSMutableDictionary *options = [NSMutableDictionary dictionary];
     NSMutableDictionary *arguments = [NSMutableDictionary dictionary];
+    NSMutableDictionary *enviroments = [NSMutableDictionary dictionary];
     __block BOOL hasAddOptionalOption = NO;
     __block BOOL hasAddArrayArgument = NO;
     [self enumerateClassMethodUsingBlock:^(__unsafe_unretained Class cls, SEL selector, NSString *name) {
@@ -94,12 +95,20 @@ static CLCommand *current = nil;
             NSString *origin = name;
             origin = [origin stringByReplacingOccurrencesOfString:@"__" withString:@""];
             origin = [origin stringByReplacingOccurrencesOfString:@":" withString:@""];
-            NSArray *list = [origin componentsSeparatedByString:@"_"];
+            NSArray *list = [origin componentsSeparatedByString:@"$"];
             NSAssert(list.count == 3, @"The method is invalide.");
             NSString *_type = list[0];
             int index = [list[1] intValue];
             NSString *name = list[2];
-            NSString *displayName = GenName(name);
+            NSString *displayName = ({
+                NSString *displayName = nil;
+                if ([_type isEqualToString:@"CLENV"]) {
+                    displayName = name;
+                } else {
+                    displayName = GenName(name);
+                }
+                displayName;
+            });
             
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
@@ -140,6 +149,12 @@ static CLCommand *current = nil;
                 options[info.name] = info;
                 properties[@(index).stringValue] = info;
             }
+            else if ([_type isEqualToString:@"CLENV"]) {
+                CLEnviromentInfo *info = [[CLEnviromentInfo alloc] initWithName:displayName defineIndex:index];
+                [cls performSelector:selector withObject:info];
+                enviroments[info.name] = info;
+                properties[@(index).stringValue] = info;
+            }
             else {
                 NSAssert(NO, @"The method is invalide.");
             }
@@ -151,6 +166,7 @@ static CLCommand *current = nil;
     command.properties = properties;
     command.options = options;
     command.arguments = arguments;
+    command.enviroments = enviroments;
     command.subcommands = ({
         NSMutableDictionary *subcommands = [NSMutableDictionary dictionary];
         NSInteger defineIndex = 0;

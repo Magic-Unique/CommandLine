@@ -93,12 +93,12 @@ void CLCommandLineMakeMain(CLCommandConfiguration *command) \
 #pragma mark - Option
 
 #define _CL_OPTION(index, type, name, ...) \
-+ (void)_CL_CONCAT_3(_, __CLOPT, index, name):(CLOptionInfo *)name {\
++ (void)_CL_CONCAT_3($, __CLOPT, index, name):(CLOptionInfo *)name {\
     [name setType:@#type]; \
     metamacro_foreach_cxt(_CL_ATTRS,,name,nonnull,##__VA_ARGS__) \
 } \
 - (type)name { return name; } \
-- (void)_CL_CONCAT_3(_, __Init, index, name):(CLRunner *)runner { \
+- (void)_CL_CONCAT_3($, __Init, index, name):(CLRunner *)runner { \
     id value = [runner __valueForTag:index]; \
     if (!value) return; \
     NSError *error = nil; \
@@ -111,12 +111,12 @@ void CLCommandLineMakeMain(CLCommandConfiguration *command) \
 #pragma mark - Argument
 
 #define _CL_ARGUMENT(index, type, name, ...) \
-+ (void)_CL_CONCAT_3(_, __CLARG, index, name):(CLArgumentInfo *)name { \
++ (void)_CL_CONCAT_3($, __CLARG, index, name):(CLArgumentInfo *)name { \
     [name setType:@#type]; \
     metamacro_foreach_cxt(_CL_ATTRS,,name,self,##__VA_ARGS__) \
 } \
 - (type)name { return name; } \
-- (void)_CL_CONCAT_3(_, __Init, index, name):(CLRunner *)runner { \
+- (void)_CL_CONCAT_3($, __Init, index, name):(CLRunner *)runner { \
     id value = [runner __valueForTag:index]; \
     if (!value) return; \
     NSError *error = nil; \
@@ -136,12 +136,12 @@ void CLCommandLineMakeMain(CLCommandConfiguration *command) \
 })
 
 #define _CL_OPTIONS(index, type, name, ...) \
-+ (void)_CL_CONCAT_3(_, __CLOPTS, index, name):(CLOptionInfo *)name {\
++ (void)_CL_CONCAT_3($, __CLOPTS, index, name):(CLOptionInfo *)name {\
     [name setType:@#type]; \
     metamacro_foreach_cxt(_CL_ATTRS,,name,nonnull,##__VA_ARGS__) \
 } \
 - (NSArray<type> *)name { return name; } \
-- (void)_CL_CONCAT_3(_, __Init, index, name):(CLRunner *)runner { \
+- (void)_CL_CONCAT_3($, __Init, index, name):(CLRunner *)runner { \
     NSArray *array = [runner __valueForTag:index]; \
     if (!array) return; \
     name = _CL_ARRAY_MAP(array, CLConvert_##type(obj, &error)); \
@@ -150,18 +150,37 @@ void CLCommandLineMakeMain(CLCommandConfiguration *command) \
 #define command_options(type, name, ...) _CL_OPTIONS(__COUNTER__, type, name, ##__VA_ARGS__)
 
 #define _CL_ARRAY(index, type, name, ...) \
-+ (void)_CL_CONCAT_3(_, __CLARY, index, name):(CLArgumentInfo *)name { \
++ (void)_CL_CONCAT_3($, __CLARY, index, name):(CLArgumentInfo *)name { \
     [name setType:@#type]; \
     metamacro_foreach_cxt(_CL_ATTRS,,name,self,##__VA_ARGS__) \
 } \
 - (NSArray<type> *)name { return name; } \
-- (void)_CL_CONCAT_3(_, __Init, index, name):(CLRunner *)runner { \
+- (void)_CL_CONCAT_3($, __Init, index, name):(CLRunner *)runner { \
     NSArray *array = [runner __valueForTag:index]; \
     if (!array) return; \
     name = _CL_ARRAY_MAP(array, CLConvert_##type(obj, &error)); \
 } static NSArray<type> *name; + (void)_This_command_should_not_contains_two_array_input {};
 
 #define command_arguments(type, name, ...) _CL_ARRAY(__COUNTER__, type, name, ##__VA_ARGS__)
+
+#pragma mark - Enviroment
+
+#define _CL_ENVIROMENT(index, type, name, ...) \
++ (void)_CL_CONCAT_3($, __CLENV, index, name):(CLEnviromentInfo *)name {\
+    [name setType:@#type]; \
+    metamacro_foreach_cxt(_CL_ATTRS,,name,nonnull,##__VA_ARGS__) \
+} \
+- (type)name { return name; } \
+- (void)_CL_CONCAT_3($, __Init, index, name):(CLRunner *)runner { \
+    NSString *value = NSProcessInfo.processInfo.environment[@#name]; \
+    if (!value) return; \
+    NSError *error = nil; \
+    name = CLConvert_##type(value, &error); \
+    if (error) [runner __failure:error]; \
+} static type name;
+
+#define command_enviroment(type, name, ...) _CL_ENVIROMENT(__COUNTER__, type, name, ##__VA_ARGS__)
+
 
 #pragma mark - Command
 

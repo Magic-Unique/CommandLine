@@ -29,6 +29,13 @@
 
 @end
 
+@interface CLEnviromentInfo : CLBaseInfo
+
+@property NSString *placeholder;
+
+@property (readonly) BOOL isBOOL; // private
+
+@end
 
 
 @interface CLOptionInfo : CLBaseInfo
@@ -67,6 +74,7 @@
 @property (nonatomic, strong) NSMutableDictionary<NSString *, CLBaseInfo *> *properties;
 @property (nonatomic, strong) NSMutableDictionary<NSString *, CLOptionInfo *> *options;
 @property (nonatomic, strong) NSMutableDictionary<NSString *, CLArgumentInfo *> *arguments;
+@property (nonatomic, strong) NSMutableDictionary<NSString *, CLEnviromentInfo *> *enviroments;
 
 @property (nonatomic, strong) NSMutableDictionary<NSString *, CLCommandInfo *> *subcommands;
 

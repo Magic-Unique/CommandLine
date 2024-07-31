@@ -129,6 +129,7 @@
     [self __genSubcommands:sections precommands:precommands commandInfo:commandInfo];
     [self __genArguments:sections precommands:precommands commandInfo:commandInfo];
     [self __genOptions:sections precommands:precommands commandInfo:commandInfo];
+    [self __genEnviroment:sections precommands:precommands commandInfo:commandInfo];
     [self __genDefaultOptions:sections precommands:precommands commandInfo:commandInfo];
     CLDefaultHelpTable *table = [[CLDefaultHelpTable alloc] init];
     table.sections = sections;
@@ -325,9 +326,35 @@
     }
 }
 
+- (void)__genEnviroment:(NSMutableArray *)sections precommands:(NSArray *)precommands commandInfo:(CLCommandInfo *)commandInfo {
+    if (!commandInfo.arguments.count) {
+        return;
+    }
+    
+    NSArray<CLEnviromentInfo *> *enviroments = [commandInfo.enviroments.allValues
+                                                sortedArrayUsingComparator:
+                                                    ^NSComparisonResult(CLEnviromentInfo *obj1, CLEnviromentInfo *obj2) {
+        return obj1.defineIndex > obj2.defineIndex;
+    }];
+    CLDefaultHelpSection *section = [[CLDefaultHelpSection alloc] init];
+    section.kind = @"Enviroments";
+    NSMutableArray *rows = [NSMutableArray array];
+    for (CLEnviromentInfo *enviroment in enviroments) {
+        CLDefaultHelpRow *row = [[CLDefaultHelpRow alloc] init];
+        row.title = enviroment.name;
+        row.leftStyle = CCStyleForegroundColorPurple;
+        row.note = enviroment.note;
+        [rows addObject:row];
+    }
+    section.tableRows = rows;
+    [sections addObject:section];
+    
+}
+
 - (void)__genDefaultOptions:(NSMutableArray *)sections precommands:(NSArray *)precommands commandInfo:(CLCommandInfo *)commandInfo {
     
     CLDefaultHelpSection *section = [[CLDefaultHelpSection alloc] init];
+    section.kind = @"Others";
     NSMutableArray<CLDefaultHelpRow *> *rows = [NSMutableArray array];
     [[CLOptionInfo defaultOptions] enumerateObjectsUsingBlock:^(CLOptionInfo * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         CLDefaultHelpRow *row = [[CLDefaultHelpRow alloc] init];

@@ -28,6 +28,10 @@
 
 @end
 
+@implementation CLEnviromentInfo
+- (BOOL)isBOOL { return [@[@"BOOL", @"_BOOL"] containsObject:self.type.uppercaseString]; }
+@end
+
 @implementation CLOptionInfo
 - (BOOL)isBOOL { return [@[@"BOOL", @"_BOOL"] containsObject:self.type.uppercaseString]; }
 
