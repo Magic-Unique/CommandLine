@@ -39,6 +39,8 @@ NS_INLINE NSArray *NSArrayWithMap(NSArray *array, id(^mapBlock)(id obj)) {
 @property (nonatomic, strong) NSString *name;
 
 @property (nonatomic, strong) NSString *note;
+@property (nonatomic, strong) NSString *summary;
+@property (nonatomic, strong) NSString *detail;
 
 @property (nonatomic, strong) NSString *version;
 

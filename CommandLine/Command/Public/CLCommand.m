@@ -147,7 +147,7 @@ static CLCommand *current = nil;
         }
     }];
     CLCommandInfo *command = [[CLCommandInfo alloc] initWithName:[self __name] defineIndex:0];
-    command.note = [self __note];
+    command.note = [self __detail];
     command.properties = properties;
     command.options = options;
     command.arguments = arguments;
@@ -156,7 +156,7 @@ static CLCommand *current = nil;
         NSInteger defineIndex = 0;
         for (Class subclass in [self subcommands]) {
             CLCommandInfo *commandInfo = [[CLCommandInfo alloc] initWithName:[subclass __name] defineIndex:defineIndex++];
-            commandInfo.note = [subclass __note];
+            commandInfo.note = [subclass __summary];
             subcommands[commandInfo.name] = commandInfo;
         }
         subcommands;
@@ -271,7 +271,8 @@ static CLCommand *current = nil;
 }
 
 + (NSString *)__name { return [self __configuration].name; }
-+ (NSString *)__note { return [self __configuration].note; }
++ (NSString *)__summary { return [self __configuration].summary ?: [self __configuration].note; }
++ (NSString *)__detail { return [self __configuration].detail ?: [self __configuration].note; }
 
 + (NSArray<Class> *)subcommands { return [self __configuration].subcommands; }
 
