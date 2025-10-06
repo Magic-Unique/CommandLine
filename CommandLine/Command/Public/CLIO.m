@@ -76,7 +76,8 @@ void CLVerbose(NSString * _Nonnull format, ...) {
         if (CLProcessFlag(noANSI)) {
             style = CCStyleNone;
         }
-        CCPrintf(style, @"%@%@\n", _CLGetCurrentIndent(), str);
+        CCPrintf(style, @"%@%@", _CLGetCurrentIndent(), str);
+        CCPrintf(CCStyleNone, @"\n");
     }
 }
 
@@ -92,7 +93,8 @@ void _CLInfo(NSString * _Nonnull format, ...) {
     if (CLProcessFlag(noANSI)) {
         style = CCStyleNone;
     }
-    CCPrintf(style, @"%@%@\n", _CLGetCurrentIndent(), str);
+    CCPrintf(style, @"%@%@", _CLGetCurrentIndent(), str);
+    CCPrintf(CCStyleNone, @"\n");
 }
 
 void _CLSuccess(NSString * _Nonnull format, ...) {
@@ -107,7 +109,8 @@ void _CLSuccess(NSString * _Nonnull format, ...) {
     if (CLProcessFlag(noANSI)) {
         style = CCStyleNone;
     }
-    CCPrintf(style, @"%@%@\n", _CLGetCurrentIndent(), str);
+    CCPrintf(style, @"%@%@", _CLGetCurrentIndent(), str);
+    CCPrintf(CCStyleNone, @"\n");
 }
 
 void _CLWarning(NSString * _Nonnull format, ...) {
@@ -122,7 +125,8 @@ void _CLWarning(NSString * _Nonnull format, ...) {
     if (CLProcessFlag(noANSI)) {
         style = CCStyleNone;
     }
-    CCPrintf(style, @"%@%@\n", _CLGetCurrentIndent(), str);
+    CCPrintf(style, @"%@%@", _CLGetCurrentIndent(), str);
+    CCPrintf(CCStyleNone, @"\n");
 }
 
 void _CLError(NSString * _Nonnull format, ...) {
@@ -137,7 +141,8 @@ void _CLError(NSString * _Nonnull format, ...) {
     if (CLProcessFlag(noANSI)) {
         style = CCStyleNone;
     }
-    CCPrintf(style, @"%@%@\n", _CLGetCurrentIndent(), str);
+    CCPrintf(style, @"%@%@", _CLGetCurrentIndent(), str);
+    CCPrintf(CCStyleNone, @"\n");
 }
 
 void _CLLog(NSString * _Nonnull format, ...) {
@@ -146,7 +151,8 @@ void _CLLog(NSString * _Nonnull format, ...) {
     va_start(args, format);
     NSString *str = [[NSString alloc] initWithFormat:format arguments:args];
     va_end(args);
-    CCPrintf(CCStyleNone, @"%@%@\n", _CLGetCurrentIndent(), str);
+    CCPrintf(CCStyleNone, @"%@%@", _CLGetCurrentIndent(), str);
+    CCPrintf(CCStyleNone, @"\n");
 #endif
 }
 
