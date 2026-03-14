@@ -64,7 +64,6 @@ NS_INLINE NSArray *NSArrayWithMap(NSArray *array, id(^mapBlock)(id obj)) {
 @interface CLCommand (Predefine)
 
 @property (nonatomic, assign, readonly) BOOL verbose;
-@property (nonatomic, assign, readonly) BOOL help;
 @property (nonatomic, assign, readonly) BOOL silent;
 @property (nonatomic, assign, readonly) BOOL noANSI;
 
@@ -107,6 +106,7 @@ void CLCommandLineMakeMain(CLCommandConfiguration *command) \
 } static type name;
 
 #define command_option(type, name, ...) _CL_OPTION(__COUNTER__, type, name, ##__VA_ARGS__)
+//#define command_option_ext(type, name, ...) _CL_OPTION(__COUNTER__, type, name, ##__VA_ARGS__) + (void)_CL_CONCAT_3($, __EXT, index, name):(CLOptionInfo *)name
 
 #pragma mark - Argument
 
@@ -172,7 +172,7 @@ void CLCommandLineMakeMain(CLCommandConfiguration *command) \
 } \
 - (type)name { return name; } \
 - (void)_CL_CONCAT_3($, __Init, index, name):(CLRunner *)runner { \
-    NSString *value = NSProcessInfo.processInfo.environment[@#name]; \
+    id value = [runner __valueForTag:index]; \
     if (!value) return; \
     NSError *error = nil; \
     name = CLConvert_##type(value, &error); \

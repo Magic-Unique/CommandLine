@@ -143,24 +143,38 @@
     if (commandInfo.runnable) {
         CLDefaultHelpSection *section = [[CLDefaultHelpSection alloc] init];
         section.title = ({
-            NSMutableString *title = [NSMutableString string];
-            [title appendString:@"$ "];
-            [title appendString:[precommands componentsJoinedByString:@" "].ansi.green.ansiText];
-            if (commandInfo.options.count) {
-                [title appendString:@" [Options]".ansi.yellow.ansiText];
+            NSMutableArray *titles = [NSMutableArray array];
+            [titles addObject:@"$"];
+            [titles addObject:[precommands componentsJoinedByString:@" "].ansi.green.ansiText];
+            // 拼接 options
+            NSArray<CLOptionInfo *> *options = nil;
+            options = [commandInfo optionsWithFilter:^BOOL(CLOptionInfo *item) { return item.isShowInUsage || item.isRequired; }];
+            if (options.count) {
+                [options enumerateObjectsUsingBlock:^(CLOptionInfo * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                    if (obj.isBOOL) {
+                        [titles addObject:[NSString stringWithFormat:@"[--%@]", obj.name].ansi.yellow.ansiText];
+                    } else {
+                        [titles addObject:[NSString stringWithFormat:@"[--%@ <%@>]", obj.name, obj.placeholder].ansi.yellow.ansiText];
+                    }
+                }];
+            }
+            options = [commandInfo optionsWithFilter:^BOOL(CLOptionInfo *item) { return !item.isShowInUsage; }];
+            if (options.count) {
+                [titles addObject:@"[Options]".ansi.yellow.ansiText];
             }
             if (commandInfo.arguments.count) {
                 NSArray *arguments = [self sortedArguments:commandInfo.arguments];
                 for (CLArgumentInfo *info in arguments) {
+                    NSString *pre = info.placeholder ?: info.name;
                     NSString *suf = info.isArray ? @" ..." : @"";
                     if (info.isRequired) {
-                        [title appendString:CCText(CCStyleForegroundColorPurple, @" <%@%@>", info.name, suf)];
+                        [titles addObject:CCText(CCStyleForegroundColorPurple, @"<%@%@>", pre, suf)];
                     } else {
-                        [title appendString:CCText(CCStyleForegroundColorYellow, @" [%@%@]", info.name, suf)];
+                        [titles addObject:CCText(CCStyleForegroundColorYellow, @"[%@%@]", pre, suf)];
                     }
                 }
             }
-            title;
+            [titles componentsJoinedByString:@" "];
         });
         if (commandInfo.note) {
             section.note = [NSString stringWithFormat:@"  %@", commandInfo.note];
@@ -247,15 +261,11 @@
     
     NSMutableArray<CLOptionInfo *> *required = [NSMutableArray array];
     NSMutableArray<CLOptionInfo *> *optional = [NSMutableArray array];
-    NSMutableArray<CLOptionInfo *> *flagbool = [NSMutableArray array];
     
     BOOL shortName = NO;
     
     for (CLOptionInfo *item in commandInfo.options.allValues) {
-        if (item.isBOOL) {
-            [flagbool addObject:item];
-        }
-        else if (item.isRequired) {
+        if (item.isRequired) {
             [required addObject:item];
         }
         else {
@@ -277,10 +287,10 @@
     };
     SortArray(required);
     SortArray(optional);
-    SortArray(flagbool);
     
     __auto_type GenerateLines = ^(NSArray<CLOptionInfo *> *options, BOOL shortName, NSMutableArray<CLDefaultHelpRow *> *rows) {
         for (CLOptionInfo *item in options) {
+            NSArray<NSString *> *noteLines = [item.note componentsSeparatedByString:@"\n"];
             CLDefaultHelpRow *row = [[CLDefaultHelpRow alloc] init];
             if (shortName) {
                 if (item.shortName) {
@@ -301,8 +311,18 @@
                 title;
             });
             row.leftStyle = CCStyleForegroundColorBlue;
-            row.note = item.note ?: @"";
+            row.note = noteLines.firstObject ?: @"";
             [rows addObject:row];
+            
+            if (noteLines.count > 1) {
+                for (NSUInteger i = 1; i < noteLines.count; i++) {
+                    CLDefaultHelpRow *row = [[CLDefaultHelpRow alloc] init];
+                    row.title = @"";
+                    row.leftStyle = CCStyleForegroundColorBlue;
+                    row.note = noteLines[i];
+                    [rows addObject:row];
+                }
+            }
         }
     };
     
@@ -315,19 +335,18 @@
         [sections addObject:requiresSection];
     }
     
-    if (optional.count + flagbool.count) {
+    if (optional.count) {
         CLDefaultHelpSection *optionsSection = [[CLDefaultHelpSection alloc] init];
         optionsSection.kind = @"Options";
         NSMutableArray *rows = [NSMutableArray array];
         GenerateLines(optional, shortName, rows);
-        GenerateLines(flagbool, shortName, rows);
         optionsSection.tableRows = rows;
         [sections addObject:optionsSection];
     }
 }
 
 - (void)__genEnviroment:(NSMutableArray *)sections precommands:(NSArray *)precommands commandInfo:(CLCommandInfo *)commandInfo {
-    if (!commandInfo.arguments.count) {
+    if (!commandInfo.enviroments.count) {
         return;
     }
     
@@ -342,7 +361,7 @@
     for (CLEnviromentInfo *enviroment in enviroments) {
         CLDefaultHelpRow *row = [[CLDefaultHelpRow alloc] init];
         row.title = enviroment.name;
-        row.leftStyle = CCStyleForegroundColorPurple;
+        row.leftStyle = CCStyleForegroundColorYellow;
         row.note = enviroment.note;
         [rows addObject:row];
     }

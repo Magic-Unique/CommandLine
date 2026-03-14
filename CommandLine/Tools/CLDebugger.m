@@ -29,6 +29,10 @@ BOOL CLProcessInXcodeConsole(void) {
     if ([str.lowercaseString containsString:@"xcode"]) {
         return YES;
     }
+    str = CLEnvironment[@"__XCODE_BUILT_PRODUCTS_DIR_PATHS"];
+    if (str.length) {
+        return YES;
+    }
     return NO;
 }
 

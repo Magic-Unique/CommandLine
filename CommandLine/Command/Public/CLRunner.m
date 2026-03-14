@@ -125,6 +125,10 @@
             return nil;
         }
     }
+    else if ([info isKindOfClass:[CLEnviromentInfo class]]) {
+        CLEnviromentInfo *env = (CLEnviromentInfo *)info;
+        return [NSProcessInfo processInfo].environment[env.name];
+    }
     else {
         return nil;
     }

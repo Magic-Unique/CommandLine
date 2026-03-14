@@ -29,11 +29,15 @@
 @end
 
 @implementation CLEnviromentInfo
+- (BOOL)isRequired { return !self.isBOOL && [super isRequired];}
 - (BOOL)isBOOL { return [@[@"BOOL", @"_BOOL"] containsObject:self.type.uppercaseString]; }
 @end
 
 @implementation CLOptionInfo
+- (BOOL)isRequired { return !self.isBOOL && [super isRequired];}
 - (BOOL)isBOOL { return [@[@"BOOL", @"_BOOL"] containsObject:self.type.uppercaseString]; }
+
+- (BOOL)showInUsage { _isShowInUsage = YES; return _isShowInUsage; }
 
 + (instancetype)verboseOption {
     static CLOptionInfo *option = nil;
@@ -79,11 +83,22 @@
     return option;
 }
 
++ (instancetype)versionOption {
+    static CLOptionInfo *option = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        option = [[CLOptionInfo alloc] initWithName:@"version" defineIndex:1003];
+        option.type = @"BOOL";
+        option.note = @"Show the version of the tool";
+    });
+    return option;
+}
+
 + (NSArray<CLOptionInfo *> *)defaultOptions {
     static NSArray<CLOptionInfo *> *options = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        options = @[[self silentOption], [self verboseOption], [self plainOption], [self helpOption]];
+        options = @[[self silentOption], [self verboseOption], [self plainOption], [self helpOption], [self versionOption]];
     });
     return options;
 }
@@ -117,6 +132,33 @@
         }
     }
     return nil;
+}
+
+- (NSArray<CLOptionInfo *> *)optionsWithFilter:(BOOL (^)(CLOptionInfo *item))block {
+    NSMutableArray<CLOptionInfo *> *result = [NSMutableArray array];
+    NSArray<CLOptionInfo *> *options = self.options.allValues;
+    for (CLOptionInfo *item in options) {
+        if (block(item)) {
+            [result addObject:item];
+        }
+    }
+    [result sortUsingComparator:^NSComparisonResult(CLOptionInfo *obj1, CLOptionInfo *obj2) {
+        return obj1.defineIndex > obj2.defineIndex;
+    }];
+    return result;
+}
+
+- (NSArray<CLArgumentInfo *> *)argumentsWithFilter:(BOOL (^)(CLArgumentInfo *item))block {
+    NSMutableArray<CLArgumentInfo *> *result = [NSMutableArray array];
+    NSArray<CLArgumentInfo *> *arguments = self.arguments.allValues;
+    for (CLArgumentInfo *item in arguments) {
+        if (block(item)) {
+            [result addObject:item];
+        }
+    }
+    [result sortUsingSelector:@selector(defineIndex)];
+    return result;
+    
 }
 
 @end

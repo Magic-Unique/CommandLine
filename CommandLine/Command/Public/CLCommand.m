@@ -162,6 +162,7 @@ static CLCommand *current = nil;
         }
     }];
     CLCommandInfo *command = [[CLCommandInfo alloc] initWithName:[self __name] defineIndex:0];
+    command.version = [self __version];
     command.note = [self __detail];
     command.properties = properties;
     command.options = options;
@@ -231,26 +232,25 @@ static CLCommand *current = nil;
     CLCommandInfo *info = [self generateCommandInfo];
     NSAssert([self __validity], @"The command %@ must contains +command_subcommand list or -main function", self);
     CLRunner *runner = [CLRunner runnerWithCommandInfo:info arguments:sufarguments];
-    if (runner.error) {
+    if (runner.options[@"help"]) {
+        [CLHelpBanner printHelpBannerForPrecommands:precommand commandInfo:info error:runner.error];
+        return EXIT_SUCCESS;
+    }
+    if (runner.options[@"version"]) {
+        CLInfo(@"%@", info.version);
+        return EXIT_SUCCESS;
+    }
+    if ([self instancesRespondToSelector:@selector(main)] || runner.error) {
         [CLHelpBanner printHelpBannerForPrecommands:precommand commandInfo:info error:runner.error];
         return (int)runner.error.code;
     }
     CLCommand *cmd = [[self alloc] initWithRunner:runner];
+    current = cmd;
     if (runner.error) {
         CLError(@"%@", runner.error.localizedDescription);
         return (int)runner.error.code;
     }
-    current = cmd;
-    if (cmd.help) {
-        [CLHelpBanner printHelpBannerForPrecommands:precommand commandInfo:info error:runner.error];
-        return EXIT_SUCCESS;
-    }
-    if ([cmd respondsToSelector:@selector(main)]) {
-        return [cmd main];
-    } else {
-        [CLHelpBanner printHelpBannerForPrecommands:precommand commandInfo:info error:runner.error];
-        return EXIT_SUCCESS;
-    }
+    return [cmd main];
 }
 
 - (instancetype)initWithRunner:(CLRunner *)runner {
@@ -289,6 +289,7 @@ static CLCommand *current = nil;
 + (NSString *)__name { return [self __configuration].name; }
 + (NSString *)__summary { return [self __configuration].summary ?: [self __configuration].note; }
 + (NSString *)__detail { return [self __configuration].detail ?: [self __configuration].note; }
++ (NSString *)__version { return [self __configuration].version; }
 
 + (NSArray<Class> *)subcommands { return [self __configuration].subcommands; }
 
@@ -306,11 +307,6 @@ static CLCommand *current = nil;
 
 - (BOOL)verbose {
     NSString *_bool = self.runner.options[CLOptionInfo.verboseOption.name];
-    return _bool ? YES : NO;
-}
-
-- (BOOL)help {
-    NSString *_bool = self.runner.options[CLOptionInfo.helpOption.name];
     return _bool ? YES : NO;
 }
 

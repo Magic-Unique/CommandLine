@@ -47,10 +47,14 @@
 @property BOOL isArray; // private
 @property (readonly) BOOL isBOOL; // private
 
+@property (readonly) BOOL isShowInUsage;
+@property (readonly) BOOL showInUsage;
+
 + (instancetype)verboseOption;
 + (instancetype)helpOption;
 + (instancetype)silentOption;
 + (instancetype)plainOption;
++ (instancetype)versionOption;
 
 + (NSArray<CLOptionInfo *> *)defaultOptions;
 
@@ -71,6 +75,8 @@
 
 @interface CLCommandInfo : CLBaseInfo
 
+@property (nonatomic, strong) NSString *version;
+
 @property (nonatomic, strong) NSMutableDictionary<NSString *, CLBaseInfo *> *properties;
 @property (nonatomic, strong) NSMutableDictionary<NSString *, CLOptionInfo *> *options;
 @property (nonatomic, strong) NSMutableDictionary<NSString *, CLArgumentInfo *> *arguments;
@@ -82,5 +88,8 @@
 
 - (CLOptionInfo *)optionInfoForName:(NSString *)name;
 - (CLOptionInfo *)optionInfoForShortName:(char)shortName;
+
+- (NSArray<CLOptionInfo *> *)optionsWithFilter:(BOOL (^)(CLOptionInfo *item))block;
+- (NSArray<CLArgumentInfo *> *)argumentsWithFilter:(BOOL (^)(CLArgumentInfo *item))block;
 
 @end
