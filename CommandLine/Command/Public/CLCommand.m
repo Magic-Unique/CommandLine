@@ -240,7 +240,7 @@ static CLCommand *current = nil;
         CLInfo(@"%@", info.version);
         return EXIT_SUCCESS;
     }
-    if ([self instancesRespondToSelector:@selector(main)] || runner.error) {
+    if (![self instancesRespondToSelector:@selector(main)] || runner.error) {
         [CLHelpBanner printHelpBannerForPrecommands:precommand commandInfo:info error:runner.error];
         return (int)runner.error.code;
     }
