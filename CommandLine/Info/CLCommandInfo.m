@@ -7,6 +7,7 @@
 //
 
 #import "CLCommandInfo.h"
+#import "CLCommandInfo+Private.h"
 
 @implementation CLBaseInfo
 
@@ -38,6 +39,8 @@
 - (BOOL)isBOOL { return [@[@"BOOL", @"_BOOL"] containsObject:self.type.uppercaseString]; }
 
 - (BOOL)showInUsage { _isShowInUsage = YES; return _isShowInUsage; }
+
+- (NSString *)placeholder { return _placeholder ?: self.name; }
 
 + (instancetype)verboseOption {
     static CLOptionInfo *option = nil;

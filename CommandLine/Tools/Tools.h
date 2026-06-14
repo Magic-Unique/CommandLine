@@ -10,5 +10,6 @@
 
 #import "CLDebugger.h"
 #import "CLWorkDirectory.h"
+#import "NSArray+CommandLine.h"
 
 #endif /* Tools_h */

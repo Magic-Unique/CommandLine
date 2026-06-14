@@ -8,6 +8,8 @@
 #import "CLDefaultHelpBannerProvider.h"
 #import <CommandLine/ANSI.h>
 #import "CLCommandInfo.h"
+#import "CLCommandInfo+Private.h"
+#import "Tools.h"
 
 #define CL_TAB @"    "
 
@@ -147,18 +149,23 @@
             [titles addObject:@"$"];
             [titles addObject:[precommands componentsJoinedByString:@" "].ansi.green.ansiText];
             // 拼接 options
-            NSArray<CLOptionInfo *> *options = nil;
-            options = [commandInfo optionsWithFilter:^BOOL(CLOptionInfo *item) { return item.isShowInUsage || item.isRequired; }];
-            if (options.count) {
-                [options enumerateObjectsUsingBlock:^(CLOptionInfo * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            NSMutableArray<CLOptionInfo *> *options = [commandInfo.options.allValues sortedArrayUsingComparator:^NSComparisonResult(CLOptionInfo *obj1, CLOptionInfo *obj2) {
+                return obj1.defineIndex < obj2.defineIndex;
+            }].mutableCopy;
+            NSArray<CLOptionInfo *> *displayOptions = [options cl_takeWithFilter:^BOOL(CLOptionInfo *item) { return item.isShowInUsage || item.isRequired; }];
+            if (displayOptions.count) {
+                [displayOptions enumerateObjectsUsingBlock:^(CLOptionInfo * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
                     if (obj.isBOOL) {
                         [titles addObject:[NSString stringWithFormat:@"[--%@]", obj.name].ansi.yellow.ansiText];
-                    } else {
+                    }
+                    else if (obj.isRequired) {
+                        [titles addObject:[NSString stringWithFormat:@"--%@ <%@>", obj.name, obj.placeholder].ansi.purple.ansiText];
+                    }
+                    else {
                         [titles addObject:[NSString stringWithFormat:@"[--%@ <%@>]", obj.name, obj.placeholder].ansi.yellow.ansiText];
                     }
                 }];
             }
-            options = [commandInfo optionsWithFilter:^BOOL(CLOptionInfo *item) { return !item.isShowInUsage; }];
             if (options.count) {
                 [titles addObject:@"[Options]".ansi.yellow.ansiText];
             }

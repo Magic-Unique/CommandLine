@@ -10,6 +10,7 @@
 #import <objc/runtime.h>
 #import <CommandLine/CLHelpBanner.h>
 #import "CLCommand+Private.h"
+#import "CLCommandInfo+Private.h"
 #import "CLIO.h"
 
 static NSString *GenName(NSString *nsClassName) {

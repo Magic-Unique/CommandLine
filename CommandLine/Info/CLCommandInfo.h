@@ -17,7 +17,6 @@
 
 @property NSString *note;
 
-@property (readonly) BOOL isRequired; // private
 @property (readonly) BOOL nullable;
 @property (readonly) BOOL nonnull;  // Default
 @property (readonly) BOOL optional; // Same to nullable
@@ -31,23 +30,17 @@
 
 @interface CLEnviromentInfo : CLBaseInfo
 
-@property NSString *placeholder;
-
-@property (readonly) BOOL isBOOL; // private
+@property (nonatomic) NSString *placeholder;
 
 @end
 
 
 @interface CLOptionInfo : CLBaseInfo
 
-@property char shortName;
+@property (nonatomic) char shortName;
 
-@property NSString *placeholder;
+@property (nonatomic) NSString *placeholder;
 
-@property BOOL isArray; // private
-@property (readonly) BOOL isBOOL; // private
-
-@property (readonly) BOOL isShowInUsage;
 @property (readonly) BOOL showInUsage;
 
 + (instancetype)verboseOption;
@@ -62,9 +55,6 @@
 
 
 @interface CLArgumentInfo : CLBaseInfo
-
-@property BOOL isArray; // private
-@property NSUInteger index; // private
 
 @property NSString *placeholder;
 

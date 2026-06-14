@@ -7,7 +7,7 @@
 //
 
 #import "CLRunner.h"
-#import "CLCommandInfo.h"
+#import "CLCommandInfo+Private.h"
 
 @implementation CLRunner
 
