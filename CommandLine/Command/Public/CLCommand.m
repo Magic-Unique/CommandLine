@@ -245,32 +245,28 @@ static CLCommand *current = nil;
         [CLHelpBanner printHelpBannerForPrecommands:precommand commandInfo:info error:runner.error];
         return (int)runner.error.code;
     }
-    CLCommand *cmd = [[self alloc] initWithRunner:runner];
-    current = cmd;
+    current = [[self alloc] init];
+    [current __handleRunner:runner];
     if (runner.error) {
         CLError(@"%@", runner.error.localizedDescription);
         return (int)runner.error.code;
     }
-    return [cmd main];
+    return [current main];
 }
 
-- (instancetype)initWithRunner:(CLRunner *)runner {
-    self = [super init];
-    if (self) {
-        _runner = runner;
-        [self enumerateInstanceMethodUsingBlock:^(CLCommand *self, SEL selector, NSString *name, BOOL *stop) {
-            if ([name hasPrefix:@"__Init"]) {
+- (void)__handleRunner:(CLRunner *)runner {
+    _runner = runner;
+    [self enumerateInstanceMethodUsingBlock:^(CLCommand *self, SEL selector, NSString *name, BOOL *stop) {
+        if ([name hasPrefix:@"__Init"]) {
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-                [self performSelector:selector withObject:runner];
+            [self performSelector:selector withObject:runner];
 #pragma clang diagnostic pop
-                if (runner.error) {
-                    *stop = YES;
-                }
+            if (runner.error) {
+                *stop = YES;
             }
-        }];
-    }
-    return self;
+        }
+    }];
 }
 
 #pragma mark - Private

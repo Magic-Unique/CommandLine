@@ -8,7 +8,11 @@
 
 #import "CLCommand.h"
 
+@class CLRunner;
+
 @interface CLCommand (Private)
+
+- (void)__handleRunner:(CLRunner *)runner;
 
 + (NSString *)__name;
 
